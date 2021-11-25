@@ -81,10 +81,8 @@ namespace Player
                 _rb.gravityScale = 0;
                 _isWallJump = true;
 
-
                 // •ÇƒWƒƒƒ“ƒv
                 WallJump();
-
 
                 // •Ç’£‚è•t‚«‚Ì“ü—Íˆ—
                 if (transform.localScale.x == 1)
@@ -129,8 +127,8 @@ namespace Player
                 _rb.AddForce(vec.normalized * _playerStatus._WallJumpPower);
 
                 _playerStatus._InputFlgX = false;
-                _isWallJump = false;
-                _isWall = false;
+                _isWallJump  = false;
+                _isWall      = false;
                 _isInputJump = false;
 
                 _playerState._StateEnum = PlayerState.PlayerStateEnum.WALLSTICK;

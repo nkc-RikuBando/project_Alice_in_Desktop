@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
+using Connector.StageObject;
 
 
 namespace Player
@@ -11,25 +12,24 @@ namespace Player
         // Player‚ÌˆÚ“®ˆ—
 
         private IInputReceivable _inputReceivable;
-        private PlayerStatus     _playerStatus;
-        private PlayerState      _playerState;
-        private Rigidbody2D      _rb;
-
+        private PlayerStatus _playerStatus;
+        private PlayerState _playerState;
+        private Rigidbody2D _rb;
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus    = GetComponent<PlayerStatus>();
-            _playerState     = GetComponent<PlayerState>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _playerStatus = GetComponent<PlayerStatus>();
+            _playerState = GetComponent<PlayerState>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void FixedUpdate()
         {
-            if(_playerStatus._InputFlgX) HorizontalMove();
+            if (_playerStatus._InputFlgX) HorizontalMove();
         }
 
-        
+
         // ˆÚ“®ˆ—
         private void HorizontalMove()
         {
@@ -45,6 +45,7 @@ namespace Player
                 _playerState._StateEnum = PlayerState.PlayerStateEnum.STAY;
             }
         }
+
     }
 
 }
