@@ -24,10 +24,10 @@ namespace Player
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus = GetComponent<PlayerStatus>();
-            _playerState = GetComponent<PlayerState>();
-            _groundChecker = GetComponent<GroundChecker>();
-            _rb = GetComponent<Rigidbody2D>();
+            _playerStatus    = GetComponent<PlayerStatus>();
+            _playerState     = GetComponent<PlayerState>();
+            _groundChecker   = GetComponent<GroundChecker>();
+            _rb              = GetComponent<Rigidbody2D>();
             _capCol = GetComponent<CapsuleCollider2D>();
         }
 
@@ -49,7 +49,9 @@ namespace Player
 
             if (_inputReceivable.JumpKey_W() && _groundChecker.CheckIsGround(_capCol) || _inputReceivable.JumpKey_Space() && _groundChecker.CheckIsGround(_capCol))
             {
+                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_PREVIOUS;
                 _jumpFlg = true;
+
             }
         }
 
@@ -60,7 +62,6 @@ namespace Player
 
             if (_jumpFlg)
             {
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_PREVIOUS;
                 _frame++;
 
                 // 小ジャンプ
@@ -85,7 +86,7 @@ namespace Player
             // Playerステート変更
             if (_rb.velocity.y > 1)
             {
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
+                //_playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
             }
             else if (_rb.velocity.y < -1)
             {
@@ -99,10 +100,12 @@ namespace Player
 
                 if (_isLanding)
                 {
-                    _playerState._StateEnum = PlayerState.PlayerStateEnum.LANDING;
+                    //_playerState._StateEnum = PlayerState.PlayerStateEnum.LANDING;
+                    Debug.Log("着地");
                     _isLanding = false;
                 }
             }
+
 
         }
     }

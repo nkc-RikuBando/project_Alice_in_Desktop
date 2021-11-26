@@ -81,8 +81,12 @@ namespace Player
                 _rb.gravityScale = 0;
                 _isWallJump = true;
 
+                _playerState._StateEnum = PlayerState.PlayerStateEnum.WALLSTICK;
+
                 // •ÇƒWƒƒƒ“ƒv
                 WallJump();
+
+                
 
                 // •Ç’£‚è•t‚«‚Ì“ü—Íˆ—
                 if (transform.localScale.x == 1)
@@ -131,7 +135,7 @@ namespace Player
                 _isWall      = false;
                 _isInputJump = false;
 
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.WALLSTICK;
+                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
             }
         }
     }

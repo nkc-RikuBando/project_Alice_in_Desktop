@@ -16,6 +16,7 @@ namespace Player
         private PlayerState _playerState;
         private Rigidbody2D _rb;
 
+
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
@@ -38,7 +39,7 @@ namespace Player
             if (_inputReceivable.MoveH() != 0)
             {
                 transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.WALK;
+                _playerState._StateEnum = PlayerState.PlayerStateEnum.DASH;
             }
             else if (_inputReceivable.MoveH() == 0 && _rb.velocity.y == 0)
             {
