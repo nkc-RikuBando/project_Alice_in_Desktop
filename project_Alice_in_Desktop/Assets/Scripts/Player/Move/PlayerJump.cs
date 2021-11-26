@@ -86,7 +86,7 @@ namespace Player
             // Playerステート変更
             if (_rb.velocity.y > 1)
             {
-                //_playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
+                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
             }
             else if (_rb.velocity.y < -1)
             {
@@ -100,8 +100,7 @@ namespace Player
 
                 if (_isLanding)
                 {
-                    //_playerState._StateEnum = PlayerState.PlayerStateEnum.LANDING;
-                    Debug.Log("着地");
+                    _playerState._StateEnum = PlayerState.PlayerStateEnum.LANDING;
                     _isLanding = false;
                 }
             }
