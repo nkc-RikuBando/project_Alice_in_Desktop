@@ -22,5 +22,7 @@ namespace Player
 
 
         public PlayerStateEnum _StateEnum { get; set; } = PlayerStateEnum.STAY;
+
+        public bool _IsAnim { get; set; } = false;
     }
 }

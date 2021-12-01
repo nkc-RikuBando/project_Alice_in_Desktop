@@ -15,7 +15,7 @@ namespace Player
         private WallChecker _wallChecker;
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
-        private PlayerState _playerState;
+        private PlayerAnimation _playerAnimation;
         private CapsuleCollider2D _capCol;
         private Rigidbody2D _rb;
 
@@ -23,25 +23,26 @@ namespace Player
         private bool _isWall;
         private bool _isWallJump;
         private bool _isInputJump;
+        private float _timeCount;
+
 
         private const float VERTICAL_ANGLE = 90;
 
 
         private void Start()
         {
-            _wallChecker     = GetComponent<WallChecker>();
+            _wallChecker = GetComponent<WallChecker>();
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus    = GetComponent<PlayerStatus>();
-            _playerState     = GetComponent<PlayerState>();
-            _rb              = GetComponent<Rigidbody2D>();
-            _capCol          = GetComponent<CapsuleCollider2D>();
+            _playerStatus = GetComponent<PlayerStatus>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
+            _rb = GetComponent<Rigidbody2D>();
+            _capCol = GetComponent<CapsuleCollider2D>();
         }
 
         private void Update()
         {
             JumpInput();
         }
-
         private void FixedUpdate()
         {
             WallSticking();
@@ -66,6 +67,22 @@ namespace Player
                 {
                     _isInputJump = true;
                 }
+
+                if (_rb.velocity.y < 0)
+                {
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+                }
+
+            }
+            else
+            {
+                if (_rb.velocity.y < 0)
+                {
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+                }
+
             }
 
         }
@@ -80,13 +97,21 @@ namespace Player
                 _rb.velocity = Vector2.zero;
                 _rb.gravityScale = 0;
                 _isWallJump = true;
+                _playerStatus._InputFlgY = false;
 
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.WALLSTICK;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
+
+                _timeCount += Time.deltaTime;
+                if (_timeCount > 0.2f)
+                {
+                    _playerStatus._InputFlgY = true;
+                }
+
 
                 // 壁ジャンプ
                 WallJump();
 
-                
+
 
                 // 壁張り付き時の入力処理
                 if (transform.localScale.x == 1)
@@ -122,21 +147,28 @@ namespace Player
         // 壁ジャンプ
         private void WallJump()
         {
-            if (_isInputJump && _isWallJump || _isInputJump && _isWallJump)
+            if (_isInputJump && _isWallJump && _playerStatus._InputFlgY || _isInputJump && _isWallJump && _playerStatus._InputFlgY)
             {
                 float angle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x)) * Mathf.Deg2Rad;
                 vec = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+
+                transform.localScale = new Vector2(-transform.localScale.x, 1f);
 
                 _rb.velocity = Vector2.zero;
                 _rb.AddForce(vec.normalized * _playerStatus._WallJumpPower);
 
                 _playerStatus._InputFlgX = false;
-                _isWallJump  = false;
-                _isWall      = false;
+                _isWallJump = false;
+                _isWall = false;
                 _isInputJump = false;
+                _timeCount = 0f;
 
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.JUMP_UP;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+                _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
+
+
             }
+
         }
     }
 }

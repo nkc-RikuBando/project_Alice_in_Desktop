@@ -9,70 +9,29 @@ namespace Player
     {
         // PlayerÇÃAnimationèàóù
 
-        private PlayerState _playerState;
-        private Animator    _animator;
-
-        private readonly int DashFlg = Animator.StringToHash("Dash");
-        private readonly int JumpFlg = Animator.StringToHash("Jump");
-        private readonly int FallFlg = Animator.StringToHash("Fall");
-        private readonly int StickFlg = Animator.StringToHash("Stick");
+        private Animator _animator;
 
         private void Start()
         {
-            _playerState = GetComponent<PlayerState>();
             _animator    = GetComponent<Animator>();
         }
 
-        private void Update()
+
+        // AnimationÇÃïœçXèàóù(boolå^)
+        public void AnimationBoolenChange(int _anim, bool flg)
         {
-            AnimationChange();
+            _animator.SetBool(_anim, flg);
         }
 
-
-        // AnimationÇÃïœçXèàóù
-        private void AnimationChange()
+        // AnimationÇÃïœçXèàóù(Triggerå^)
+        public void AnimationTriggerChange(int _anim)
         {
-            Debug.Log(_playerState._StateEnum);
-
-            switch (_playerState._StateEnum)
-            {
-                case PlayerState.PlayerStateEnum.STAY:
-                    _animator.SetBool(DashFlg, false);
-                    break;
-                case PlayerState.PlayerStateEnum.DASH:
-                    _animator.SetBool(DashFlg,true);
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_UP:
-                    //_animator.SetTrigger(JumpFlg);
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_PREVIOUS:
-                    //_animator.SetTrigger(JumpFlg);
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_DOWN:
-                    //_animator.SetBool(FallFlg, true);
-                    break;
-                case PlayerState.PlayerStateEnum.LANDING:
-                    //_animator.SetBool(FallFlg, false);
-                    break;
-                case PlayerState.PlayerStateEnum.WALLSTICK:
-                    //_animator.SetBool(StickFlg,true);
-                    break;
-                default:
-                    break;
-            }
-
+            _animator.SetTrigger(_anim);
         }
 
-
-        // AnimationÇèâä˙âª
-        private void AniamtionReset()
-        {
-            _animator.SetBool(DashFlg, true);
-            _animator.SetTrigger(JumpFlg);
-            _animator.SetBool(FallFlg, true);
-            _animator.SetBool(StickFlg, true);
-        }
 
     }
 
+
 }
+

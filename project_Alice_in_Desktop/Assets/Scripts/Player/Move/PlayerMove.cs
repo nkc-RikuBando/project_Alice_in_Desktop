@@ -13,16 +13,16 @@ namespace Player
 
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
-        private PlayerState _playerState;
+        private PlayerAnimation _playerAnimation;
         private Rigidbody2D _rb;
 
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus = GetComponent<PlayerStatus>();
-            _playerState = GetComponent<PlayerState>();
-            _rb = GetComponent<Rigidbody2D>();
+            _playerStatus    = GetComponent<PlayerStatus>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
+            _rb              = GetComponent<Rigidbody2D>();
         }
 
         private void FixedUpdate()
@@ -39,11 +39,11 @@ namespace Player
             if (_inputReceivable.MoveH() != 0)
             {
                 transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.DASH;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
             }
             else if (_inputReceivable.MoveH() == 0 && _rb.velocity.y == 0)
             {
-                _playerState._StateEnum = PlayerState.PlayerStateEnum.STAY;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
             }
         }
 

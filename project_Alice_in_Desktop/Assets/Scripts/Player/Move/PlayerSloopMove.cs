@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
-using Connector.StageObject;
+using MyUtility;
 
 namespace Player
 {
@@ -12,48 +12,41 @@ namespace Player
 
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
+        private SloopChecker _sloopChecker;
         private Rigidbody2D _rb;
+        private CapsuleCollider2D _capCol;
 
-        private Vector2 vec;
-        private const float VERTICAL_ANGLE = 90;
-
+        private float _angle = 45;
+        private float _angle2;
+        private Vector3 _vec;
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
             _playerStatus = GetComponent<PlayerStatus>();
+            _sloopChecker = GetComponent<SloopChecker>();
             _rb = GetComponent<Rigidbody2D>();
+            _capCol = GetComponent<CapsuleCollider2D>();
         }
 
-
-        // ç‚à⁄ìÆ
-        private void SloopMove(float angle)
+        private void Update()
         {
-            float _angle = (VERTICAL_ANGLE + (angle * transform.localScale.x)) * Mathf.Deg2Rad;
-            vec = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle));
-            Debug.Log(_angle);
-
-            _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y) * vec.normalized;
+            SloopMove();
+            //if (_sloopChecker.CheckIsGround(_capCol))
+            //{
+            //    Debug.Log("ç‚ÇæÇÊÅI");
+            //    SloopMove();
+            //}
         }
 
-        private void PlayerStop()
+        private void SloopMove()
         {
-            _rb.sharedMaterial.friction = 100;
+            _angle2 = _angle * Mathf.Deg2Rad;
+
+            _vec = new Vector2(Mathf.Cos(_angle2), Mathf.Sin(_angle2)).normalized;
+
+            _rb.velocity = new Vector2(_vec.x * _inputReceivable.MoveH() * 5f, _vec.y);
         }
 
-        private void PlayerMove()
-        {
-            _rb.sharedMaterial.friction = 0;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            var _sloop = gameObject.GetComponent<ISloopAngleSetable>();
-
-            if(_sloop != null)
-            {
-                PlayerStop();
-            }
-        }
     }
 }
