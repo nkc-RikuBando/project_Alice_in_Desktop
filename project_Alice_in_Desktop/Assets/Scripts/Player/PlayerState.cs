@@ -12,9 +12,7 @@ namespace Player
         public enum PlayerStateEnum
         {
             STAY,
-            WALK_START,
-            WALK,
-            WALK_END,
+            DASH,
             JUMP_PREVIOUS,
             JUMP_UP,
             JUMP_DOWN,
@@ -24,5 +22,7 @@ namespace Player
 
 
         public PlayerStateEnum _StateEnum { get; set; } = PlayerStateEnum.STAY;
+
+        public bool _IsAnim { get; set; } = false;
     }
 }
