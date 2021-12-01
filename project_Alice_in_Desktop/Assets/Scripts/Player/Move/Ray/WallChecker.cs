@@ -11,7 +11,7 @@ namespace MyUtility
 
         // 壁判定処理
 
-        [SerializeField, Tooltip("レイの長さ")]     private float raylength = 1f;
+        [SerializeField, Tooltip("レイの長さ")]     　　private float raylength = 1f;
         [SerializeField, Tooltip("地面(壁)のレイヤー")] private LayerMask groundLayer;
 
 
@@ -19,11 +19,12 @@ namespace MyUtility
         public bool CheckIsGround(CapsuleCollider2D col)
         {
             bool hit;                                               // 当たった時の判定変数
-            const int MAX_LOOP = 3;                                 // ループの回数（レイの本数）
-            Vector3 checkPos = transform.position;                  // プレイヤーの座標
             float colHalfHeight  = col.size.y / 2.5f;               // RayのY座標初期位置
             float colHalfHeight2 = col.size.y / 6.5f;               // RayのY座標間隔
             Vector3 lineLength = transform.right * raylength;       // レイを飛ばす方向と長さ
+            Vector3 checkPos = transform.position;                  // プレイヤーの座標
+
+            const int MAX_LOOP = 3;                                 // ループの回数（レイの本数）
 
 
             // checkPosの初期位置

@@ -11,44 +11,24 @@ namespace Player
         [SerializeField] private string _objName;
 
 
-
+        // 親オブジェクト切り替え処理
+        // 触れたら
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.name == _objName)
             {
                 Debug.Log("あたった");
-                transform.SetParent(collision.transform);//親オブジェクト切り替え
+                transform.SetParent(collision.transform);
             }
-
         }
-
-        private void OnTriggerExit2D(Collider2D collision)//離れたら
+        // 離れたら
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.name == _objName)
             {
-                transform.SetParent(null);//親オブジェクト切り替え
+                transform.SetParent(null);
             } 
         }
-
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject.name == _objName)
-        //    {
-        //        Debug.Log("あたった");
-        //        transform.SetParent(collision.transform);//親オブジェクト切り替え
-        //    }
-
-        //}
-
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject.name == _objName)
-        //    {
-        //        transform.SetParent(null);//親オブジェクト切り替え
-        //    }
-
-        //}
     }
 
 }

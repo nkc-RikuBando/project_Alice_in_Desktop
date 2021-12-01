@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
-using Connector.StageObject;
 
 
 namespace Player
@@ -12,9 +11,9 @@ namespace Player
         // Player‚ÌˆÚ“®ˆ—
 
         private IInputReceivable _inputReceivable;
-        private PlayerStatus _playerStatus;
-        private PlayerAnimation _playerAnimation;
-        private Rigidbody2D _rb;
+        private PlayerStatus     _playerStatus;
+        private PlayerAnimation  _playerAnimation;
+        private Rigidbody2D      _rb;
 
 
         private void Start()
@@ -31,11 +30,14 @@ namespace Player
         }
 
 
-        // ˆÚ“®ˆ—
+
+        // --------- ˆÚ“®ˆ— ---------
         private void HorizontalMove()
         {
+            // ˆÚ“®‚Ì•¨—ˆ—
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
 
+            // Player‚ÌŒü‚«
             if (_inputReceivable.MoveH() != 0)
             {
                 transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
