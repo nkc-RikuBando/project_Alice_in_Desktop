@@ -5,7 +5,8 @@ using UnityEngine;
 public class RabbitMoveMock : MonoBehaviour
 {
     [SerializeField] RabbitMovePointMock pointMock;
-    [SerializeField] PlayerCoreMock player; //Mockなので組み込む際は変更必須
+    //[SerializeField] PlayerCoreMock player; //Mockなので組み込む際は変更必須
+    [SerializeField] PlayerPositionGet player;//Mockなので組み込む際は変更必須
     [SerializeField] AnimationCurve animationCurve;
 
     Vector3 playerPos;
