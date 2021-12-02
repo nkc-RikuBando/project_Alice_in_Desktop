@@ -10,11 +10,11 @@ namespace Player
     {
         // Player‚ÌƒWƒƒƒ“ƒvˆ—
 
-        private IInputReceivable _inputReceivable;
-        private PlayerStatus _playerStatus;
-        private GroundChecker _groundChecker;
-        private PlayerAnimation _playerAnimation;
-        private Rigidbody2D _rb;
+        private IInputReceivable  _inputReceivable;
+        private PlayerStatus      _playerStatus;
+        private GroundChecker     _groundChecker;
+        private PlayerAnimation   _playerAnimation;
+        private Rigidbody2D       _rb;
         private CapsuleCollider2D _capCol;
 
         private bool  _jumpFlg;
@@ -126,9 +126,6 @@ namespace Player
                     _isLanding = false;
                 }
             }
-
-
-
         }
     }
 

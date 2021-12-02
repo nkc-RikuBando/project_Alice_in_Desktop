@@ -113,6 +113,7 @@ namespace Player
                 _playerStatus._InputFlgY = false;
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
 
 
                 // ­‚µ‚ÌŠÔ“ü—Í‚Å‚«‚È‚¢
