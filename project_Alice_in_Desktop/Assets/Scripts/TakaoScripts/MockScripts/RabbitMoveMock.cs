@@ -9,6 +9,7 @@ public class RabbitMoveMock : MonoBehaviour
     [SerializeField] PlayerPositionGet player;//Mockなので組み込む際は変更必須
     [SerializeField] AnimationCurve animationCurve;
 
+    private Animator animator;
     Vector3 playerPos;
     Vector3 nextTransform; //次の場所
     Vector3 nextPosLength; //次の座標と今の座標の差を保存するためのVector
@@ -17,7 +18,7 @@ public class RabbitMoveMock : MonoBehaviour
     const float DIVISION_NUM = 50f; //分割数
     float[] jumpTrajectory; //アニメーションカーブのジャンプの軌跡を配列にしたもの
     float toPlayerDistance; //プレイヤーとの距離
-    float alertRange = 5f; //警戒範囲
+    float alertRange = 10f; //警戒範囲
     float jumpPower = 30f;
 
     bool startFlg = false; //移動開始するかどうか
@@ -25,6 +26,7 @@ public class RabbitMoveMock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         //アニメーションカーブの設定,登録
         TrajectoryCal();
     }
@@ -34,6 +36,7 @@ public class RabbitMoveMock : MonoBehaviour
     {
         playerPos = player.GetPlayerPosition(); //プレイヤーの距離を受け取る
 
+        RabbitDirection();
         if (!(startFlg != true)) return;
         toPlayerDistance = Vector3.Distance(this.gameObject.transform.position, playerPos); //自分とプレイヤーの距離を測る
         if (toPlayerDistance < alertRange) //警戒範囲にいたら
@@ -41,6 +44,7 @@ public class RabbitMoveMock : MonoBehaviour
             pointMock = pointMock.GetRabbitMovePointPos(); //次の点を受け取る
             nextTransform = pointMock.GetMyPosition(); //次の点のPositionを受け取る
             nextPosLength = nextTransform - transform.position; //座標の差
+            animator.SetTrigger("Jump");
             startFlg = true;
         }
     }
@@ -49,6 +53,18 @@ public class RabbitMoveMock : MonoBehaviour
     {
         if (!(startFlg == true)) return;
         Move();
+    }
+
+    private void RabbitDirection()
+    {
+        if(nextPosLength.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     private void Move()
