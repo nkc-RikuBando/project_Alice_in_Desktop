@@ -14,6 +14,7 @@ namespace Gimmicks
 
         //private AudioSource se;
         //public AudioClip seClip;
+        //[SerializeField] private string seName;
 
         void Awake()
         {
@@ -31,7 +32,7 @@ namespace Gimmicks
 
             if (collision.gameObject == player)
             {
-                //AudioManager.Instance.SeAction("「ハウッ！」");
+                //AudioManager.Instance.SeAction(seName);
                 //se.PlayOneShot(seClip);
                 iGetter.GetKey(gameObject);
             }
