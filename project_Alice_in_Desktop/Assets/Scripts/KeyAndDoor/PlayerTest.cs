@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameSystem;
 
 public class PlayerTest : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class PlayerTest : MonoBehaviour
     {
         if(collision.gameObject.name == "ClearFlg")
         {
-            if(clear.clearFlg == true)
+            //if(clear.clearFlg == true)
             {
                 FadeManager.Instance.LoadScene("SampleScene", 2f);
             }
