@@ -19,8 +19,8 @@ namespace MyUtility
         public bool CheckIsGround(CapsuleCollider2D col)
         {
             bool hit;                                               // 当たった時の判定変数
-            float colHalfHeight  = col.size.y / 2.5f;               // RayのY座標初期位置
-            float colHalfHeight2 = col.size.y / 6.5f;               // RayのY座標間隔
+            float colHalfHeight  = col.size.y / 1.2f;               // RayのY座標初期位置
+            float colHalfHeight2 = col.size.y / 3f;               // RayのY座標間隔
             Vector3 lineLength = transform.right * raylength;       // レイを飛ばす方向と長さ
             Vector3 checkPos = transform.position;                  // プレイヤーの座標
 
@@ -32,15 +32,16 @@ namespace MyUtility
 
 
             // レイを飛ばす
+            hit = true;
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
                 Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.red);// デバッグでレイを表示
-                hit = Physics2D.Linecast(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, groundLayer);
-                if (hit) return true;
+                hit &= Physics2D.Linecast(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, groundLayer);
+                //if (hit) return true;
                 checkPos.y -= colHalfHeight2;// 座標を--していく
             }
 
-            return false;
+            return hit;
         }
 
     }

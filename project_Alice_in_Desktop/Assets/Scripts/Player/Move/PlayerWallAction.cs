@@ -58,7 +58,7 @@ namespace Player
         private void JumpInput()
         {
             // 壁は張り付き入力
-            if (_rb.velocity.y != 0)
+            if (_rb.velocity.y != 0 && _playerStatus._WallJudge)
             {
                 if (_inputReceivable.MoveH() == transform.localScale.x)
                 {
@@ -70,6 +70,8 @@ namespace Player
             // 壁に張り付いている場合
             if (_isWall)
             {
+                _playerStatus._GroundJudge = false;
+
                 // 壁ジャンプ状態に変更
                 if (_inputReceivable.JumpKey_W() || _inputReceivable.JumpKey_Space())
                 {
@@ -92,6 +94,8 @@ namespace Player
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
                     _boxCol.enabled = false;
                 }
+
+                _playerStatus._GroundJudge = true;
             }
         }
 

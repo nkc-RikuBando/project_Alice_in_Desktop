@@ -21,6 +21,9 @@ namespace Player
         public bool _InputFlgX { get; set; }  = true;
         public bool _InputFlgY { get; set; }  = true;
 
+        // ”»’èƒtƒ‰ƒO
+        public bool _GroundJudge { get; set; } = true;
+        public bool _WallJudge { get; set; } = true;
 
         public float _Speed
         {

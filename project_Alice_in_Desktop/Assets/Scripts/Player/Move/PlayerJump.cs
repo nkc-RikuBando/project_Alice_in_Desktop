@@ -10,16 +10,17 @@ namespace Player
     {
         // Playerのジャンプ処理
 
-        private IInputReceivable  _inputReceivable;
-        private PlayerStatus      _playerStatus;
-        private GroundChecker     _groundChecker;
-        private PlayerAnimation   _playerAnimation;
-        private Rigidbody2D       _rb;
+        private IInputReceivable _inputReceivable;
+        private PlayerStatus _playerStatus;
+        private GroundChecker _groundChecker;
+        private PlayerAnimation _playerAnimation;
+        private Rigidbody2D _rb;
         private CapsuleCollider2D _capCol;
 
-        private bool  _jumpFlg;
-        private bool  _isLanding;
+        private bool _jumpFlg;
+        private bool _isLanding;
         private float _jumpCount;
+        private bool _flg;
 
         // ジャンプ可能カウント変数
         //private const float JUMP_FEASIBLE_COUNT = 0.2f;
@@ -56,12 +57,13 @@ namespace Player
 
 
             // 地面判定処理呼び出し
-            _groundChecker.CheckIsGround(_capCol);
+            if (_playerStatus._GroundJudge) _flg = _groundChecker.CheckIsGround(_capCol);
+            else _flg = false;
 
 
             // 入力の分岐処理
-            _isJumpInputKey_W     = _inputReceivable.JumpKey_W() && _groundChecker.CheckIsGround(_capCol);
-            _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && _groundChecker.CheckIsGround(_capCol);
+            _isJumpInputKey_W     = _inputReceivable.JumpKey_W() && _flg;
+            _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && _flg;
 
 
             // ジャンプ状態にする
@@ -107,7 +109,7 @@ namespace Player
 
 
             // 着地状態
-            if (_groundChecker.CheckIsGround(_capCol) && _rb.velocity.y < 0)
+            if (_flg && _rb.velocity.y < 0)
             {
                 _isLanding = true;
             }
