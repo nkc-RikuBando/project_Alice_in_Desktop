@@ -14,6 +14,7 @@ public class WindowManager : MonoBehaviour
         DOWN,
         LEFT_DOWN,
         LEFT,
+        CENTER,
         COUNT
     }
 
@@ -29,38 +30,51 @@ public class WindowManager : MonoBehaviour
     private SpriteRenderer frameSR; // 枠のSpriteRenderer
     private float frameSizeX, frameSizeY, framePosX, framePosY; // 枠の大きさ・位置
 
-    private int moveObjType; // 動かすオブジェクトの種類(点・辺・面)
+    private int moveObjType,moveObjNum; // 動かすオブジェクトの種類(点・辺・面)
     private GameObject moveObj, diagonalObj; // 動かすオブジェクトと対角のオブジェクト
     private bool moveFlg;
-    private Vector3 mousePos, beforeMousePos, movement, moveAxis; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
+    private Vector3 mousePos, beforeMousePos, inputMovement, moveAxis, movement; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
 
-    [SerializeField] private List<GameObject> objList;
-    [SerializeField] private GameObject window;
+    [Header("枠のリスト(左上から時計回り)")]
+    [SerializeField] private List<GameObject> colObjList;
+    private List<BoxCollider2D> colList = new List<BoxCollider2D> { };
+
+    [Header("中心(描画部分)")]
+    [SerializeField] private GameObject centerColObj;
 
     [SerializeField] private float moveSpeed = 5f; // 角・辺・面の移動速度
 
     private void Start()
     {
         frameSR = frame.GetComponent<SpriteRenderer>();
+
+        for(int i=0;i<colObjList.Count;++i)
+        {
+            colList.Add(colObjList[i].GetComponent<BoxCollider2D>());
+        }
     }
 
     private void FixedUpdate()
     {
         if (!moveFlg || moveObj == null) return;
 
+        // 所持しているオブジェクトの移動
         Move();
 
+        // 枠の移動
         FrameFollow();
 
+        // 枠に付随するコライダーの移動
         ColSet();
     }
 
     private void Move()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        movement = mousePos - beforeMousePos;
-        movement = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
-        moveObj.transform.position += Vector3.Scale(movement, moveAxis).normalized * moveSpeed * Time.deltaTime;
+        inputMovement = mousePos - beforeMousePos;
+        inputMovement = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
+        movement = Vector3.Scale(inputMovement, moveAxis).normalized * moveSpeed * Time.deltaTime;
+        moveObj.transform.position += movement;
         beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
@@ -68,8 +82,8 @@ public class WindowManager : MonoBehaviour
     {
         if (moveObjType == (int)ObjType.CORNER) // 角を動かしているとき
         {
-            frameSizeX = Mathf.Abs(moveObj.transform.position.x - diagonalObj.transform.position.x) + 1;
-            frameSizeY = Mathf.Abs(moveObj.transform.position.y - diagonalObj.transform.position.y) + 1;
+            frameSizeX = Mathf.Abs(moveObj.transform.position.x - diagonalObj.transform.position.x)-1;
+            frameSizeY = Mathf.Abs(moveObj.transform.position.y - diagonalObj.transform.position.y)-1;
 
             framePosX = (moveObj.transform.position.x + diagonalObj.transform.position.x) / 2;
             framePosY = (moveObj.transform.position.y + diagonalObj.transform.position.y) / 2;
@@ -78,19 +92,19 @@ public class WindowManager : MonoBehaviour
         }
         else if (moveObjType == (int)ObjType.EDGE) // 辺を動かしているとき
         {
-            frameSizeX = Mathf.Abs(objList[3].transform.position.x - objList[7].transform.position.x) + 1;
-            frameSizeY = Mathf.Abs(objList[1].transform.position.y - objList[5].transform.position.y) + 1;
+            frameSizeX = Mathf.Abs(colObjList[3].transform.position.x - colObjList[7].transform.position.x)-1;
+            frameSizeY = Mathf.Abs(colObjList[1].transform.position.y - colObjList[5].transform.position.y)-1;
 
-            framePosX = (objList[3].transform.position.x + objList[7].transform.position.x) / 2;
-            framePosY = (objList[1].transform.position.y + objList[5].transform.position.y) / 2;
+            framePosX = (colObjList[3].transform.position.x + colObjList[7].transform.position.x) / 2;
+            framePosY = (colObjList[1].transform.position.y + colObjList[5].transform.position.y) / 2;
         }
         else if (moveObjType == (int)ObjType.WINDOW) // ウィンドウの位置を移動させているとき
         {
             frameSizeX = frameSR.size.x;
             frameSizeY = frameSR.size.y;
 
-            framePosX = window.transform.position.x;
-            framePosY = window.transform.position.y;
+            framePosX = centerColObj.transform.position.x;
+            framePosY = centerColObj.transform.position.y;
         }
 
         frameSR.size = new Vector2(frameSizeX, frameSizeY);
@@ -100,10 +114,10 @@ public class WindowManager : MonoBehaviour
     void ColSet()
     {
         float colPosX=0, colPosY=0, edgeColSize=0;
-        float helfSizeX= frameSizeX / 2-0.5f;
-        float helfSizeY= frameSizeY / 2-0.5f;
+        float helfSizeX= frameSizeX / 2+0.5f;
+        float helfSizeY= frameSizeY / 2+0.5f;
 
-        for (int i = 0; i < objList.Count; ++i)
+        for (int i = 0; i < colObjList.Count; ++i)
         {
             switch (i)
             {
@@ -152,37 +166,39 @@ public class WindowManager : MonoBehaviour
                     break;
             }
 
-            objList[i].transform.position = new Vector3(colPosX, colPosY, 0);
-
+            colObjList[i].transform.position = new Vector3(colPosX, colPosY, 0);
             if(i%2!=0)
             {
-                objList[i].transform.localScale = new Vector2(edgeColSize-2, 1);
+                colList[i].size = new Vector2(edgeColSize, colList[i].size.y);
             }
         }
 
-        window.transform.position = new Vector2(framePosX,framePosY);
-        window.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX - 2, frameSizeY - 2);
+        centerColObj.transform.position = new Vector2(framePosX,framePosY);
+        centerColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX , frameSizeY);
 
     }
 
     public void SetMoveFlg(GameObject holdingObj, bool flg)
     {
         moveObj = holdingObj;
-        if (holdingObj == window)
+        if (holdingObj == centerColObj)
         {
-            moveObj = window;
+            moveObj = centerColObj;
             moveObjType = (int)ObjType.WINDOW;
             moveAxis = moveAxis = new Vector3(1, 1, 0);
             Debug.Log("win");
+
+            moveObjNum = (int)PositionList.CENTER;
+
         }
         else
         {
-            for (int i = 0; i < objList.Count; ++i)
+            for (int i = 0; i < colObjList.Count; ++i)
             {
-                if (holdingObj == objList[i])
+                if (holdingObj == colObjList[i])
                 {
-                    moveObj = objList[i];
-                    diagonalObj = objList[(i + 4) % (int)PositionList.COUNT];
+                    moveObj = colObjList[i];
+                    diagonalObj = colObjList[(i + 4) % (int)PositionList.COUNT];
 
                     switch (i)
                     {
@@ -203,6 +219,7 @@ public class WindowManager : MonoBehaviour
                             moveObjType = (int)ObjType.CORNER;
                             break;
                     }
+                    moveObjNum = i;
                     break;
                 }
             }
@@ -214,6 +231,23 @@ public class WindowManager : MonoBehaviour
         {
             ColSet();
         }
+    }
+
+    public Vector3 GetMovement()
+    {
+        if (moveFlg)
+        {
+            return movement;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
+
+    public int GetObjNum()
+    {
+        return moveObjNum;
     }
 
 }
