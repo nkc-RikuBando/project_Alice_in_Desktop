@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RabbitMovePointMock : MonoBehaviour
 {
-    [SerializeField] PlayerCoreMock player; //Mockなので組み込む際は変更必須
+    [SerializeField] PlayerPositionGet player; //Mockなので組み込む際は変更必須
     [SerializeField] RabbitMovePointMock[] rabbitMovePoint;
     Vector3 playerPos;
     Vector3 myPos;
