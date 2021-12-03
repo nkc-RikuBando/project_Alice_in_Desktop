@@ -17,6 +17,6 @@ public class MaskSizeChange : MonoBehaviour
         wakuX = waku_sr.size.x;
         wakuY = waku_sr.size.y;
 
-        transform.localScale = new Vector3(wakuX-1, wakuY-1, 1);
+        transform.localScale = new Vector3(wakuX, wakuY, 1);
     }
 }
