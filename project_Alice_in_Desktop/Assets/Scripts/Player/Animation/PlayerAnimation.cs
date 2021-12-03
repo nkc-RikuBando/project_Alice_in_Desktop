@@ -9,50 +9,29 @@ namespace Player
     {
         // Player‚ÌAnimationˆ—
 
-        private PlayerState _playerState;
+        private Animator _animator;
 
         private void Start()
         {
-            _playerState = GetComponent<PlayerState>();
+            _animator    = GetComponent<Animator>();
         }
 
-        private void Update()
+
+        // Animation‚Ì•ÏXˆ—(boolŒ^)
+        public void AnimationBoolenChange(int _anim, bool flg)
         {
+            _animator.SetBool(_anim, flg);
         }
 
-
-        // Animation‚Ì•ÏXˆ—
-        private void AnimationChange()
+        // Animation‚Ì•ÏXˆ—(TriggerŒ^)
+        public void AnimationTriggerChange(int _anim)
         {
-            switch (_playerState._StateEnum)
-            {
-                case PlayerState.PlayerStateEnum.STAY:
-                    break;
-                case PlayerState.PlayerStateEnum.WALK:
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_UP:
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_PREVIOUS:
-                    break;
-                case PlayerState.PlayerStateEnum.JUMP_DOWN:
-                    break;
-                case PlayerState.PlayerStateEnum.LANDING:
-                    break;
-                case PlayerState.PlayerStateEnum.WALLSTICK:
-                    break;
-                default:
-                    break;
-            }
-
+            _animator.SetTrigger(_anim);
         }
 
-
-        // Animation‚ğ‰Šú‰»
-        private void AniamtionReset()
-        {
-
-        }
 
     }
 
+
 }
+
