@@ -2,27 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GimmickTest : MonoBehaviour, IHitSwitch
+namespace Gimmicks
 {
-    private bool switchFlg = false;
-
-    void Update()
+    public class GimmickTest : MonoBehaviour, IHitSwitch
     {
-        //Debug.Log("ギミック " + switchFlg);
-    }
+        private bool switchFlg = false;
 
-    public void Switch(bool switchOn)
-    {
-        switchFlg = switchOn;
-        if (switchFlg == true)
+        public void Switch(bool switchOn)
         {
-            transform.position = new Vector3(4, -3, 0);
-            Debug.Log("スイッチON");
-        }
-        else
-        {
-            transform.position = new Vector3(10, 0, 0);
-            Debug.Log("スイッチOFF");
+            switchFlg = switchOn;
+            if (switchFlg == true)
+            {
+                gameObject.SetActive(false);
+                Debug.Log("スイッチON");
+            }
+            else
+            {
+                gameObject.SetActive(true);
+                Debug.Log("スイッチOFF");
+            }
         }
     }
 }
