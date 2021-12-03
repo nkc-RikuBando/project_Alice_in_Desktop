@@ -31,7 +31,6 @@ namespace Gimmicks
 
         void Update()
         {
-            Debug.Log(inputTime);
             if(StayInput())
             {
                 inputTime += 1f * Time.deltaTime;
