@@ -49,7 +49,7 @@ namespace MyUtility
             // レイを引く
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
-                Debug.DrawLine(checkPos + transform.up * 0.1f, checkPos - lineLength, Color.red);// デバッグでレイを表示
+                //Debug.DrawLine(checkPos + transform.up * 0.1f, checkPos - lineLength, Color.red);// デバッグでレイを表示
                 hit = Physics2D.Linecast(checkPos + transform.up * 0.1f, checkPos - lineLength, groundLayer);
                 if (hit) return true;
                 checkPos.x += colHalfWidth;// 座標を++していく
