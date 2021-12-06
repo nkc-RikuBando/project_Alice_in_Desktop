@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 26372988}
   - component: {fileID: 26372987}
   - component: {fileID: 26372986}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 802721914}
   - component: {fileID: 802721913}
   - component: {fileID: 802721912}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 882871079}
   - component: {fileID: 882871078}
   - component: {fileID: 882871077}
-  m_Layer: 3
+  m_Layer: 31
   m_Name: Ground (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882871076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.81, y: -2.03, z: -0.29}
+  m_LocalPosition: {x: -6.81, y: -2.03, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 1077246764}
   - component: {fileID: 1077246763}
   - component: {fileID: 1077246762}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,8 +697,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077246760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.04, y: -1.46, z: -0.29}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.0400014, y: -1.46, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -783,9 +783,6 @@ GameObject:
   - component: {fileID: 1282815570}
   - component: {fileID: 1282815575}
   - component: {fileID: 1282815573}
-  - component: {fileID: 3101080790473739938}
-  - component: {fileID: 1282815577}
-  - component: {fileID: 1282815574}
   m_Layer: 0
   m_Name: Player_ver3
   m_TagString: Untagged
@@ -967,7 +964,7 @@ MonoBehaviour:
   raylength: 0.3
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
 --- !u!114 &1282815573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -980,21 +977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d63a63133ca2a41a0bb671935d4c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1282815574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282815563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd64d9f2ca917844c9742db7b4e47bc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objName:
-  - Ground (5)
-  - Ground (6)
 --- !u!114 &1282815575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1023,23 +1005,7 @@ MonoBehaviour:
   raylength: 0.6
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
---- !u!114 &1282815577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282815563}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb740ce3dabb6d141a791577596237e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  raylength: 1
-  sloopLayer:
-    serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 64
 --- !u!61 &1282815579
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1077,7 +1043,7 @@ GameObject:
   - component: {fileID: 1507005188}
   - component: {fileID: 1507005187}
   - component: {fileID: 1507005189}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1279,7 +1245,7 @@ GameObject:
   - component: {fileID: 2095936860}
   - component: {fileID: 2095936859}
   - component: {fileID: 2095936858}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3093,18 +3059,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3101080790473739938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282815563}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9588bb91fad98c64cafb37a7b53d4be8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &6851845553962345968
 Animator:
   serializedVersion: 3

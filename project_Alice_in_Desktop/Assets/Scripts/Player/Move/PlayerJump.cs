@@ -101,7 +101,7 @@ namespace Player
                 // å„Ç≈í«â¡Ç∑ÇÈ
             }
             // â∫ç~èÛë‘
-            else if (_rb.velocity.y < 0)
+            else if (_rb.velocity.y < -0.2f)
             {
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
                 _playerStatus._InputFlgX = true;

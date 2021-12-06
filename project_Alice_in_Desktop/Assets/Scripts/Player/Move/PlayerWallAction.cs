@@ -79,7 +79,7 @@ namespace Player
                 }
 
                 // ç~â∫èÛë‘
-                if (_rb.velocity.y < 0)
+                if (_rb.velocity.y < -0.2f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
