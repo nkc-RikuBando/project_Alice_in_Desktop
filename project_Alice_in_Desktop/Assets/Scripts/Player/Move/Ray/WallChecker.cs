@@ -35,7 +35,7 @@ namespace MyUtility
             hit = true;
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
-                //Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.red);// デバッグでレイを表示
+                Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.red);// デバッグでレイを表示
                 hit &= Physics2D.Linecast(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, groundLayer);
                 //if (hit) return true;
                 checkPos.y -= colHalfHeight2;// 座標を--していく

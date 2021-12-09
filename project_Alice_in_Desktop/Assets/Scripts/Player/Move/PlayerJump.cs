@@ -20,7 +20,6 @@ namespace Player
         private bool _jumpFlg;
         private bool _isLanding;
         private float _jumpCount;
-        private bool _flg;
 
         // ジャンプ可能カウント変数
         //private const float JUMP_FEASIBLE_COUNT = 0.2f;
@@ -40,6 +39,7 @@ namespace Player
         private void Update()
         {
             JumpActionInput();
+            Debug.Log(_playerStatus._StateEnum);
         }
         private void FixedUpdate()
         {
@@ -57,13 +57,16 @@ namespace Player
 
 
             // 地面判定処理呼び出し
-            if (_playerStatus._GroundJudge) _flg = _groundChecker.CheckIsGround(_capCol);
-            else _flg = false;
+            if (_playerStatus._GroundJudge)
+            {
+                _playerStatus._GroundChecker = _groundChecker.CheckIsGround(_capCol);
+            } 
+            else _playerStatus._GroundChecker = false;
 
 
             // 入力の分岐処理
-            _isJumpInputKey_W     = _inputReceivable.JumpKey_W() && _flg;
-            _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && _flg;
+            _isJumpInputKey_W = _inputReceivable.JumpKey_W() && _playerStatus._GroundChecker;
+            _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && _playerStatus._GroundChecker;
 
 
             // ジャンプ状態にする
@@ -72,8 +75,8 @@ namespace Player
                 if (_isJumpInputKey_W || _isJumpInputKey_Space)
                 {
                     _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
-                    _jumpCount = 0f;
                     _jumpFlg = true;
+                    _jumpCount = 0f;
                 }
             }
         }
@@ -87,37 +90,43 @@ namespace Player
             if (_jumpFlg)
             {
                 _rb.velocity = Vector2.zero;
-                _rb.AddForce(Vector2.up * _playerStatus._BigJumpPower);
+                _rb.AddForce(Vector2.up * _playerStatus._JumpPower);
+
+                _playerStatus._StateEnum = PlayerStateEnum.JUMP_UP; 
 
                 _jumpFlg = false;
                 _playerStatus._InputFlgY = false;
             }
 
-
-            // Playerステート変更
-            // 上昇状態
-            if (_rb.velocity.y > 0)
-            {
-                // 後で追加する
-            }
-            // 下降状態
-            else if (_rb.velocity.y < -0.2f)
-            {
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
-                _playerStatus._InputFlgX = true;
-            }
-
-
             // 着地状態
-            if (_flg && _rb.velocity.y < 0)
+            if (_playerStatus._GroundChecker && _rb.velocity.y < 0f)
             {
                 _isLanding = true;
+            }
+
+            // Playerステート変更
+            if (!_isLanding)
+            {
+                // 上昇状態
+                if (_rb.velocity.y > 0)
+                {
+                    // 後で追加する
+                }
+                // 下降状態
+                else if (_rb.velocity.y < 0f)
+                {
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+                    _playerStatus._StateEnum = PlayerStateEnum.JUMP_DOWN;
+                    _playerStatus._InputFlgX = true;
+                }
             }
 
             if (_isLanding)
             {
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+
+                _playerStatus._StateEnum = PlayerStateEnum.LANDING;
 
                 // 少しの間入力できない
                 _jumpCount += Time.deltaTime;

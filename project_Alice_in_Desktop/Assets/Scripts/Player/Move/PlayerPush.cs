@@ -12,6 +12,7 @@ namespace Player
 
         private PushObjChecker _objChecker;
         private PlayerAnimation _playerAnimation;
+        private PlayerStatus _playerStatus;
         private IInputReceivable _inputReceivable;
         private CapsuleCollider2D _capCol;
         private Rigidbody2D _rb;
@@ -21,11 +22,12 @@ namespace Player
 
         void Start()
         {
-            _objChecker = GetComponent<PushObjChecker>();
+            _objChecker      = GetComponent<PushObjChecker>();
             _playerAnimation = GetComponent<PlayerAnimation>();
+            _playerStatus    = GetComponent<PlayerStatus>();
             _inputReceivable = GetComponent<IInputReceivable>();
-            _capCol = GetComponent<CapsuleCollider2D>();
-            _rb = GetComponent<Rigidbody2D>();
+            _capCol          = GetComponent<CapsuleCollider2D>();
+            _rb              = GetComponent<Rigidbody2D>();
         }
 
 
@@ -52,15 +54,13 @@ namespace Player
 
             if (_isOnPushObj)
             {
-                _rb.gravityScale = 0;
+                _rb.velocity = Vector2.zero;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
             }
             else
             {
-                _rb.gravityScale = 1;
+                _rb.gravityScale = _playerStatus._Gravity;
             }
-
-            Debug.Log(_isPushObj);
-            Debug.Log(_isOnPushObj);
         }
     }
 
