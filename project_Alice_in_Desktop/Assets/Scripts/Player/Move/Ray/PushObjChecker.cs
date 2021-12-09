@@ -11,7 +11,8 @@ namespace MyUtility
 
         // 壁判定処理
 
-        [SerializeField, Tooltip("レイの長さ")] private float raylength = 1f;
+        [SerializeField, Tooltip("レイの長さ(下)")] private float raylength_Under = 1f;
+        [SerializeField, Tooltip("レイの長さ(横)")] private float raylength_Width = 1f;
         [SerializeField, Tooltip("地面(壁)のレイヤー")] private LayerMask groundLayer;
 
         private Rigidbody2D rb2d;
@@ -22,13 +23,13 @@ namespace MyUtility
             rb2d = GetComponent<Rigidbody2D>();
         }
 
-        // 着地判定メソッド(レイの処理)
+        // 押すオブジェクト判定メソッド(レイの処理)
         public bool PushObjWidthChecker(CapsuleCollider2D col)
         {
             bool hit;                                                 // 当たった時の判定変数
             float colHalfHeight = col.size.y / 3f;                    // RayのY座標初期位置
             float colHalfHeight2 = col.size.y / 15f;                  // RayのY座標間隔
-            Vector3 lineLength = transform.right * raylength;         // レイを飛ばす方向と長さ
+            Vector3 lineLength = transform.right * raylength_Width;   // レイを飛ばす方向と長さ
             Vector3 checkPos = transform.position;                    // プレイヤーの座標
 
             const int MAX_LOOP = 3;                                   // ループの回数（レイの本数）
@@ -42,7 +43,7 @@ namespace MyUtility
             hit = true;
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
-                Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.green);// デバッグでレイを表示
+                //Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.green);// デバッグでレイを表示
                 hit &= Physics2D.Linecast(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, groundLayer);
                 //if (hit) return true;
                 checkPos.y -= colHalfHeight2;// 座標を--していく
@@ -55,13 +56,13 @@ namespace MyUtility
         // 着地判定メソッド(レイの処理)
         public bool PushObjOnChecker(CapsuleCollider2D col)
         {
-            bool hit;                                       // 当たった時の判定変数
-            float colHalfWidth = col.size.x / 3.5f;         // X軸のRayの位置
-            Vector3 checkPos = transform.position;          // プレイヤーの座標
-            Vector3 lineLength = transform.up * raylength;  // レイの長さ(要調節)
+            bool hit;                                               // 当たった時の判定変数
+            float colHalfWidth = col.size.x / 3.5f;                 // X軸のRayの位置
+            Vector3 checkPos = transform.position;                  // プレイヤーの座標
+            Vector3 lineLength = transform.up * raylength_Under;    // レイの長さ(要調節)
 
-            const float JUMPUP_CHECK_SPEED = 1f;            // 上昇状態変数
-            const int MAX_LOOP = 3;                         // ループの回数（レイの本数）
+            const float JUMPUP_CHECK_SPEED = 1f;                    // 上昇状態変数
+            const int MAX_LOOP = 3;                                 // ループの回数（レイの本数）
 
 
             // 上昇中は何もしない
@@ -78,7 +79,7 @@ namespace MyUtility
             // レイを引く
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
-                Debug.DrawLine(checkPos + transform.up * 0.1f, checkPos - lineLength, Color.green);// デバッグでレイを表示
+                //Debug.DrawLine(checkPos + transform.up * 0.1f, checkPos - lineLength, Color.green);// デバッグでレイを表示
                 hit = Physics2D.Linecast(checkPos + transform.up * 0.1f, checkPos - lineLength, groundLayer);
                 if (hit) return true;
                 checkPos.x += colHalfWidth;// 座標を++していく
