@@ -7,14 +7,13 @@ namespace Gimmicks
 {
     public class WarpHole : MonoBehaviour
     {
-        private GameObject player;                     // プレイヤーオブジェクトを保存
+        [SerializeField] private GameObject player; // プレイヤーオブジェクトを取得
         private ITestKey _ITestKey;
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを保存
         private bool stayFlg = false;                  // 滞在しているかフラグ
 
         void Start()
         {
-            player = GameObject.Find("PlayerTest"); // プレイヤーオブジェクトを取得
             _ITestKey = GetComponent<ITestKey>();
         }
 
