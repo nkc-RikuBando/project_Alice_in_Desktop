@@ -9,17 +9,26 @@ namespace Player
         // Playerの動きを止める処理
 
         private PlayerStatus _playerStatus;
-        private Rigidbody2D _rb;
-        private Animator _anim;
+        private Rigidbody2D  _rb;
+        private Animator     _anim;
+        private CapsuleCollider2D _capCol;
+
 
         void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>();
-            _rb = GetComponent<Rigidbody2D>();
-            _anim = GetComponent<Animator>();
+            _rb           = GetComponent<Rigidbody2D>();
+            _anim         = GetComponent<Animator>();
+            _capCol       = GetComponent<CapsuleCollider2D>();
+        }
+        void Update()
+        {
+            Stop();
         }
 
-        void Update()
+
+        // Playerの挙動変更メソッド
+        private void Stop()
         {
             if (Input.GetMouseButton(0))
             {
@@ -33,7 +42,12 @@ namespace Player
 
                 // Animationを停止
                 _anim.enabled = false;
+
+                // コライダーを消す
+                _capCol.enabled = false;
             }
+
+
             if (Input.GetMouseButtonUp(0))
             {
                 // 入力可能
@@ -45,7 +59,11 @@ namespace Player
 
                 // Animation可能
                 _anim.enabled = true;
+
+                // コライダーをActive化
+                _capCol.enabled = true;
             }
+
         }
     }
 
