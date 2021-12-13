@@ -23,7 +23,6 @@ namespace Player
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb              = GetComponent<Rigidbody2D>();
         }
-
         private void FixedUpdate()
         {
             if (_playerStatus._InputFlgX) HorizontalMove();

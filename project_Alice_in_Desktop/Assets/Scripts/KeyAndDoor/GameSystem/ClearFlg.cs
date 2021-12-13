@@ -12,6 +12,7 @@ namespace GameSystem
 
         //[System.NonSerialized] public bool clearFlg; 
         private GameObject player;
+        [SerializeField] private string playerName; // プレイヤーの名前を取得
 
         private bool clearFlg;
         [SerializeField] private string sceneName;        // シーン移動先の名前
@@ -19,7 +20,7 @@ namespace GameSystem
 
         void Start()
         {
-            player = GameObject.Find("PlayerTest"); // プレイヤーオブジェクトを取得
+            player = GameObject.Find(playerName); // プレイヤーオブジェクトを取得
             clearFlg = false;
             if (keyList.Count <= 0) Clear();
         }

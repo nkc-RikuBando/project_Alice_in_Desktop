@@ -10,12 +10,12 @@ namespace Player
     {
         // Playerがオブジェクトを押す処理
 
-        private PushObjChecker _objChecker;
-        private PlayerAnimation _playerAnimation;
-        private PlayerStatus _playerStatus;
-        private IInputReceivable _inputReceivable;
+        private PushObjChecker    _objChecker;
+        private PlayerAnimation   _playerAnimation;
+        private PlayerStatus      _playerStatus;
+        private IInputReceivable  _inputReceivable;
         private CapsuleCollider2D _capCol;
-        private Rigidbody2D _rb;
+        private Rigidbody2D       _rb;
 
         private bool _isPushObj;
         private bool _isOnPushObj;

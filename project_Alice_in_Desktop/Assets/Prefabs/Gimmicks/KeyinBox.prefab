@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5247843605334322989}
   - component: {fileID: 5247843605334322990}
   - component: {fileID: 5247843605334322988}
-  - component: {fileID: 8815580098530922906}
+  - component: {fileID: 1827526594}
   m_Layer: 6
   m_Name: KeyinBox
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5247843605334322986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.54, y: 0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 8605218511253451005}
   m_Father: {fileID: 0}
@@ -129,12 +129,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 20
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!114 &5247843605334322990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a56cfff182509c4796dbed8ee2c9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hideKey: {fileID: 8605218511253451001}
+  waitTimeUI: {fileID: 8230960617847718071, guid: 255b49295beda47499d2578f50f243ea, type: 3}
 --- !u!114 &5247843605334322988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6940b43913539434eb53d8c8f78ddd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8815580098530922906
+--- !u!114 &1827526594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,6 +225,14 @@ PrefabInstance:
     - target: {fileID: 1569790828551395299, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569790828551395302, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
+      propertyPath: playerName
+      value: Player_ver3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569790828551395302, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
+      propertyPath: clearFlgName
+      value: ClearFlg
       objectReference: {fileID: 0}
     - target: {fileID: 1569790828551395303, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
       propertyPath: m_Name
