@@ -6,17 +6,16 @@ using Connector.Inputer;
 namespace Gimmicks
 {
     public class InputKeySwitch : MonoBehaviour
-    {   
+    {
+        [SerializeField] private GameObject player; // プレイヤーを取得
+        private ITestKey _ITestKey;
         [SerializeField] private GameObject gimmick;
         private bool addSwitch = false;
-        private GameObject player;
-        private ITestKey _ITestKey;
 
         private bool stayFlg;
 
         void Start()
         {
-            player = GameObject.Find("PlayerTest"); // プレイヤーオブジェクトを取得
             _ITestKey = GetComponent<ITestKey>();
             stayFlg = false;
         }
@@ -25,7 +24,6 @@ namespace Gimmicks
         {
             if(StayInput())
             {
-                Debug.Log("W");
                 IHitSwitch hitGimmick = gimmick.GetComponent<IHitSwitch>();
                 if (hitGimmick != null)
                 {

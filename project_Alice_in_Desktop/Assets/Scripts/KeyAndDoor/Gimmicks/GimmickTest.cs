@@ -14,12 +14,12 @@ namespace Gimmicks
             if (switchFlg == true)
             {
                 gameObject.SetActive(false);
-                Debug.Log("スイッチON");
+                //Debug.Log("スイッチON");
             }
             else
             {
                 gameObject.SetActive(true);
-                Debug.Log("スイッチOFF");
+                //Debug.Log("スイッチOFF");
             }
         }
     }

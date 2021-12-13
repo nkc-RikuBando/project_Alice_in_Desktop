@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class RabbitMovePointMock : MonoBehaviour
+public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 {
     [SerializeField] PlayerPositionGet player; //Mock‚È‚Ì‚Å‘g‚İ‚ŞÛ‚Í•ÏX•K{
     [SerializeField] RabbitMovePointMock[] rabbitMovePoint;
     Vector3 playerPos;
     Vector3 myPos;
     float distanceValue; //•]‰¿’l
+    public bool insideFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,18 +39,30 @@ public class RabbitMovePointMock : MonoBehaviour
     public RabbitMovePointMock GetRabbitMovePointPos() //Ÿ‚Ì“_‚ğ“n‚·
     {
         RabbitMovePointMock tempMock = null;
-        for (int i = 0; i < rabbitMovePoint.Length; i++)
-        {
-            if(tempMock == null)
-            {
-                tempMock = rabbitMovePoint[i]; //‚Æ‚è‚ ‚¦‚¸null‚ğ“n‚·
-            }
 
-            if(rabbitMovePoint[i].GetDisValue() > tempMock.GetDisValue()) //¡‚Ì•]‰¿’l‚ÆŒq‚ª‚Á‚Ä‚¢‚é•]‰¿’l‚ğ”ä‚×‚é
-            {
-                tempMock = rabbitMovePoint[i]; //¡‚Ì•]‰¿’l‚æ‚èA”ä‚×‚½•]‰¿’l‚Ì•û‚ª‚‚©‚Á‚½‚ç“n‚·
-            }
-        }
+        var insideDisValueLinq = rabbitMovePoint
+            .Where(x => x.GetOutsideFlg() == true) //foreach‚Ì’†‚Åif (x.GetOutsideFlg() == true)‚ğ‚·‚é‚Ì‚Æˆê
+            .OrderByDescending(x => x.GetDisValue()); //x‚Ì~‡(æ“ª‚ªˆê”Ô‚‚¢”’l)
+        tempMock = insideDisValueLinq.First();
+
+        //for (int i = 0; i < rabbitMovePoint.Length; i++)
+        //{
+        //    Debug.Log(rabbitMovePoint[i].GetOutsideFlg());
+        //    if (rabbitMovePoint[i].GetOutsideFlg() == false)
+        //    {
+        //        Debug.Log(i);
+        //        continue;
+        //    }
+        //    else
+        //    {
+        //        tempMock = rabbitMovePoint[i];
+        //    }
+
+        //    if(rabbitMovePoint[i].GetDisValue() > tempMock.GetDisValue()) //¡‚Ì•]‰¿’l‚ÆŒq‚ª‚Á‚Ä‚¢‚é•]‰¿’l‚ğ”ä‚×‚é
+        //    {
+        //        tempMock = rabbitMovePoint[i]; //¡‚Ì•]‰¿’l‚æ‚èA”ä‚×‚½•]‰¿’l‚Ì•û‚ª‚‚©‚Á‚½‚ç“n‚·
+        //    }
+        //}
         return tempMock; //“_‚ğ“n‚·
     }
 
@@ -60,5 +74,15 @@ public class RabbitMovePointMock : MonoBehaviour
     public Vector3 GetMyPosition()
     {
         return myPos;
+    }
+
+    public bool GetOutsideFlg()
+    {
+        return insideFlg;
+    }
+
+    public void SetRenderingFlg(bool val)
+    {
+        insideFlg = val;
     }
 }
