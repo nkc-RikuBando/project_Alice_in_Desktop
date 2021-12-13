@@ -34,12 +34,9 @@ namespace Player
             _rb              = GetComponent<Rigidbody2D>();
             _capCol          = GetComponent<CapsuleCollider2D>();
         }
-
-
         private void Update()
         {
             JumpActionInput();
-            Debug.Log(_playerStatus._StateEnum);
         }
         private void FixedUpdate()
         {
@@ -127,6 +124,7 @@ namespace Player
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
 
                 _playerStatus._StateEnum = PlayerStateEnum.LANDING;
+                _playerStatus._InputFlgX = true;
 
                 // è≠ÇµÇÃä‘ì¸óÕÇ≈Ç´Ç»Ç¢
                 _jumpCount += Time.deltaTime;
