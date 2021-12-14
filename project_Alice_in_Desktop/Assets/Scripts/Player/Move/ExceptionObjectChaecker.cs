@@ -19,8 +19,8 @@ namespace Player
 
         void Start()
         {
-            _parentObj = transform.parent.gameObject;
-            _capCol = _parentObj.GetComponent<CapsuleCollider2D>();
+            _parentObj   = transform.parent.gameObject;
+            _capCol 　　 = _parentObj.GetComponent<CapsuleCollider2D>();
             _sceneChange = GameObject.Find("SceneManager").GetComponent<ISceneChange>();
         }
         void Update()
@@ -31,6 +31,7 @@ namespace Player
 
         private void ExceptionDead()
         {
+            // デバッグ用
             if (_debugFlg)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -44,6 +45,7 @@ namespace Player
                     Debug.Log(_colFlg);
                 }
             }
+
 
             if (_colFlg)
             {
@@ -67,7 +69,7 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _colFlg = true;
+            _colFlg = false;
         }
     }
 
