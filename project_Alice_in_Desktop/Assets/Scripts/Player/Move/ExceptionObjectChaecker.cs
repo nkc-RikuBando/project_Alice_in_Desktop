@@ -9,14 +9,18 @@ namespace Player
     {
         // 例外オブジェクト処理
 
-        [SerializeField,Tooltip("Debug用Flg")] private bool _debugFlg;
+        [SerializeField, Tooltip("Debug用Flg")] private bool _debugFlg;
 
         private ISceneChange _sceneChange;
+        private CapsuleCollider2D _capCol;
+        private GameObject _parentObj;
         private bool _colFlg;
 
 
         void Start()
         {
+            _parentObj   = transform.parent.gameObject;
+            _capCol 　　 = _parentObj.GetComponent<CapsuleCollider2D>();
             _sceneChange = GameObject.Find("SceneManager").GetComponent<ISceneChange>();
         }
         void Update()
@@ -27,6 +31,7 @@ namespace Player
 
         private void ExceptionDead()
         {
+            // デバッグ用
             if (_debugFlg)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -41,15 +46,19 @@ namespace Player
                 }
             }
 
-            if (Input.GetMouseButtonUp(0))
+
+            if (_colFlg)
             {
-                if (_colFlg)
+                _capCol.enabled = false;
+
+                if (Input.GetMouseButtonUp(0))
                 {
                     Debug.Log("死んだ！");
                     _sceneChange.ReloadScene();
                     _colFlg = true;
                 }
             }
+            else _capCol.enabled = true;
         }
 
 
@@ -60,7 +69,7 @@ namespace Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _colFlg = true;
+            _colFlg = false;
         }
     }
 
