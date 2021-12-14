@@ -14,8 +14,9 @@ public class WindowManager : MonoBehaviour
         DOWN,
         LEFT_DOWN,
         LEFT,
-        CENTER,
-        COUNT
+        COUNT, 
+        CENTER
+
     }
 
     enum ObjType
@@ -30,7 +31,7 @@ public class WindowManager : MonoBehaviour
     private SpriteRenderer frameSR; // 枠のSpriteRenderer
     private float frameSizeX, frameSizeY, framePosX, framePosY; // 枠の大きさ・位置
 
-    private int moveObjType,moveObjNum; // 動かすオブジェクトの種類(点・辺・面)
+    private int moveObjType=4,moveObjNum=9; // 動かすオブジェクトの種類(点・辺・面)
     private GameObject moveObj, diagonalObj; // 動かすオブジェクトと対角のオブジェクト
     private bool moveFlg;
     private Vector3 mousePos, beforeMousePos, inputMovement, moveAxis, movement; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
@@ -52,6 +53,13 @@ public class WindowManager : MonoBehaviour
         {
             colList.Add(colObjList[i].GetComponent<BoxCollider2D>());
         }
+
+        framePosX = frameSR.transform.position.x;
+        framePosY = frameSR.transform.position.y;
+        frameSizeX = frameSR.size.x;
+        frameSizeY = frameSR.size.y;
+
+        ColSet();
     }
 
     private void FixedUpdate()
@@ -66,6 +74,7 @@ public class WindowManager : MonoBehaviour
 
         // 枠に付随するコライダーの移動
         ColSet();
+
     }
 
     private void Move()
@@ -163,6 +172,8 @@ public class WindowManager : MonoBehaviour
                     colPosX = framePosX - helfSizeX;
                     colPosY = framePosY;
                     edgeColSize = frameSR.size.y;
+                    break;
+                default:
                     break;
             }
 

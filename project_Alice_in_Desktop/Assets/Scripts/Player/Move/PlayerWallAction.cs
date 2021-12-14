@@ -10,8 +10,6 @@ namespace Player
     {
         // Playerの壁アクション
 
-        [SerializeField, Tooltip("壁から落ちる時の重力")] private float _fallGrabity = 1;
-
         private WallChecker 　　  _wallChecker;
         private IInputReceivable  _inputReceivable;
         private PlayerStatus      _playerStatus;
@@ -25,9 +23,6 @@ namespace Player
         private bool    _isWallJump;
         private bool    _isInputJump;
         private float   _jumpCount;
-
-        // ジャンプ可能カウント変数
-        //private const float JUMP_FEASIBLE_COUNT = 0.2f;
 
         // 壁ジャンプ用の垂直な角度
         private const float VERTICAL_ANGLE = 90;
@@ -58,7 +53,7 @@ namespace Player
         private void JumpInput()
         {
             // 壁は張り付き入力
-            if (_rb.velocity.y != 0 && _playerStatus._WallJudge)
+            if (_rb.velocity.y != 0 && _playerStatus._WallJudge && !_playerStatus._GroundChecker)
             {
                 if (_inputReceivable.MoveH() == transform.localScale.x)
                 {
@@ -79,7 +74,7 @@ namespace Player
                 }
 
                 // 降下状態
-                if (_rb.velocity.y < 0)
+                if (_rb.velocity.y < 0f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
@@ -88,13 +83,13 @@ namespace Player
             // 張り付いていない場合
             else
             {
-                if (_rb.velocity.y < 0)
+                if (_rb.velocity.y < 0f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
-                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
                     _boxCol.enabled = false;
                 }
 
+                // 地面判定できるようにする
                 _playerStatus._GroundJudge = true;
             }
         }
@@ -109,6 +104,7 @@ namespace Player
                 // Playerを静止状態にする
                 _rb.velocity = Vector2.zero;
 
+                // 子オブジェクト用のコライダーをActive化
                 _boxCol.enabled = true;
 
                 // 動けなくなる
@@ -119,6 +115,7 @@ namespace Player
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
 
+                _playerStatus._StateEnum = PlayerStateEnum.WALLSTICK;
 
                 // 少しの間入力できない
                 _jumpCount += Time.deltaTime;
@@ -147,7 +144,7 @@ namespace Player
             else
             {
                 // 壁に張り付いていない場合
-                _rb.gravityScale = _fallGrabity;
+                _rb.gravityScale = _playerStatus._Gravity;
             }
 
         }
@@ -183,7 +180,7 @@ namespace Player
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
                 _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
-
+                _playerStatus._StateEnum = PlayerStateEnum.JUMP_UP;
             }
 
         }

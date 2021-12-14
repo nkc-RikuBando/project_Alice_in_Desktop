@@ -6,14 +6,13 @@ namespace Gimmicks
 {
     public class HunderuSwitch : MonoBehaviour
     {
-        private GameObject player;
+        [SerializeField] private GameObject player; // プレイヤーを取得
         [SerializeField] private GameObject gimmick; // ギミックを取得
         private bool addSwitch; // スイッチのON、OFF
         private bool stayFlg;   // 滞在しているかいないか
 
         void Start()
         {
-            player = GameObject.Find("PlayerTest"); // プレイヤーオブジェクトを取得
             addSwitch = false;
             stayFlg = false;
         }
