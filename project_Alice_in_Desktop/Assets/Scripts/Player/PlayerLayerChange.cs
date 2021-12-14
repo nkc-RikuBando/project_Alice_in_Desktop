@@ -6,13 +6,14 @@ public class PlayerLayerChange : MonoBehaviour,IRenderingFlgSettable
 {
     // Player‚ÌLayer‚ğ•ÏX‚·‚éˆ—ˆ—
 
-    [SerializeField] LayerMask _insideLayer;
-    [SerializeField] LayerMask _outsideLayer;
+    [SerializeField] int _insideLayerNum;
+    [SerializeField] int _outsideLayerNum;
 
 
     void IRenderingFlgSettable.SetRenderingFlg(bool val)
     {
-        if (val) gameObject.layer = _insideLayer;
-        else     gameObject.layer = _outsideLayer;
+        Debug.Log(val);
+        if (val) gameObject.layer = _insideLayerNum;
+        else     gameObject.layer = _outsideLayerNum;
     }
 }
