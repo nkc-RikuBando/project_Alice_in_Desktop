@@ -29,8 +29,10 @@ namespace Gimmicks
 
         void Update()
         {
+            Debug.Log(stayFlg);
             if (StayInput())
             {
+                Debug.Log("Q");
                 //inputTime += 1f * Time.deltaTime;
                 if (/*inputTime >= 0.8f*/WaitTimeUI.gaugeMaxFlg == true)
                 {

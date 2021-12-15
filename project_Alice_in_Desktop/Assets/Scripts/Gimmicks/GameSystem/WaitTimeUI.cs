@@ -33,6 +33,7 @@ namespace GameSystem
         {
             if (_ITestKey.EventNagaoshiKey()) // キーを長押し
                 waitTime.fillAmount += UP_DOWN_NUM; // ゲージが増える
+                
             else // キーを離す
                 waitTime.fillAmount -= UP_DOWN_NUM; // ゲージが減る
 
