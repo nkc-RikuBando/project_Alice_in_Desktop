@@ -10,6 +10,7 @@ public class CursorRayCast : MonoBehaviour
     [SerializeField] private Texture2D defaultTex;
     [SerializeField] private Vector2 hotSpot;
     private Texture2D cursorTex;
+    private Texture2D currentTex;
     private Collider2D col;
 
     void Update()
@@ -28,11 +29,13 @@ public class CursorRayCast : MonoBehaviour
             {
                 cursorTex = hit2d.collider.GetComponent<CursorChange>().GetTexture();
                 Cursor.SetCursor(cursorTex, hotSpot, CursorMode.Auto);
+                currentTex = cursorTex;
             }
         }
-        else if(hit2d.collider == null)
+        else if(hit2d.collider == null && currentTex!=defaultTex )
         {
             Cursor.SetCursor(defaultTex,hotSpot, CursorMode.Auto);
+            currentTex = defaultTex;
         }
     }
 }

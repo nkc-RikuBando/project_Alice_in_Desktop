@@ -15,6 +15,7 @@ public class Test : MonoBehaviour,IRenderingFlgSettable
 
     void IRenderingFlgSettable.SetRenderingFlg(bool val)
     {
+        Debug.Log(val);
         renderingFlg = val;
     }
 
