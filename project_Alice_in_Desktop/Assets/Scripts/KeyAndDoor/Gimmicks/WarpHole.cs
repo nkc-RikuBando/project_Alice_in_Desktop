@@ -4,17 +4,26 @@ using UnityEngine;
 using Connector.Inputer;
 
 namespace Gimmicks
+
+    // 頑張っててえらい！！！！！！
 {
     public class WarpHole : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーオブジェクトを取得
         private ITestKey _ITestKey;
-        [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを保存
+        [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
         private bool stayFlg = false;                  // 滞在しているかフラグ
+
+        private GameObject camObj;
+        private Camera cam;
+        private bool cameraZoomFlg;
 
         void Start()
         {
             _ITestKey = GetComponent<ITestKey>();
+            cameraZoomFlg = false;
+            camObj= GameObject.Find("Main Camera");
+            cam = camObj.GetComponent<Camera>();
         }
 
         void Update()
@@ -22,7 +31,25 @@ namespace Gimmicks
             if (StayInput())
             {
                 Warp();
+                cameraZoomFlg = true;
             }
+        }
+
+        void FixedUpdate()
+        {
+            //if (cameraZoomFlg == true)
+            //{
+            //    cam.orthographicSize -= 5 * Time.deltaTime;
+            //    if (cam.orthographicSize <= 0)
+            //    {
+            //        cam.orthographicSize += 5 * Time.deltaTime;
+            //    }
+            //    else if (cam.orthographicSize >= 7)
+            //    {
+            //        cam.orthographicSize = 7;
+            //        cameraZoomFlg = false;
+            //    }
+            //}
         }
 
         void OnTriggerEnter2D(Collider2D collision)
@@ -53,5 +80,20 @@ namespace Gimmicks
         {
             player.transform.position = warpPoint.transform.position;
         }
+
+        //IEnumerator Damage()
+        //{
+        //    // while文を10回ループ
+        //    int count = 10;
+        //    while (count > 0)
+        //    {
+        //        // 0.05秒待つ
+        //        yield return new WaitForSeconds(0.05f);
+                
+        //        // 0.05秒待つ
+        //        yield return new WaitForSeconds(0.05f);
+        //        count--;
+        //    }
+        //}
     }
 }

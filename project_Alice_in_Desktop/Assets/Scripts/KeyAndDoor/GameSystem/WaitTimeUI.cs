@@ -26,7 +26,7 @@ namespace GameSystem
             waitTime = GetComponent<Image>();      // UIの取得
             gaugeMaxFlg = false;
             waitTime.fillAmount = default;         // ゲージの初期値０
-            _parent = transform.parent.gameObject; //一つ上の親オブジェクトを取得
+            _parent = transform.parent.gameObject; // 一つ上の親オブジェクトを取得
         }
 
         void Update()

@@ -8,15 +8,15 @@ namespace Gimmicks
     public class InputKeySwitch : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーを取得
-        private ITestKey _ITestKey;
+        private ITestKey _ITestKey; // 入力インターフェースを保存
         [SerializeField] private GameObject gimmick;
-        private bool addSwitch = false;
-
-        private bool stayFlg;
+        private bool addSwitch; // 
+        private bool stayFlg;   // 
 
         void Start()
         {
-            _ITestKey = GetComponent<ITestKey>();
+            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            addSwitch = false;
             stayFlg = false;
         }
 
@@ -35,11 +35,13 @@ namespace Gimmicks
 
         void OnTriggerEnter2D(Collider2D collision)
         {
+            // プレイヤーが入って来たら
             if (collision.gameObject == player) stayFlg = true;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            // プレイヤーが出て行ったら
             if (collision.gameObject == player) stayFlg = false;
         }
 
