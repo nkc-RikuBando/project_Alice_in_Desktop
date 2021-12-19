@@ -23,6 +23,7 @@ namespace MyUtility
             rb2d = GetComponent<Rigidbody2D>();
         }
 
+
         // 押すオブジェクト判定メソッド(レイの処理)
         public bool PushObjWidthChecker(CapsuleCollider2D col)
         {

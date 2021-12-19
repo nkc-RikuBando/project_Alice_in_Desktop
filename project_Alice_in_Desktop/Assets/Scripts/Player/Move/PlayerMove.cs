@@ -11,9 +11,9 @@ namespace Player
         // Playerの移動処理
 
         private IInputReceivable _inputReceivable;
-        private PlayerStatus     _playerStatus;
-        private PlayerAnimation  _playerAnimation;
-        private Rigidbody2D      _rb;
+        private PlayerStatus _playerStatus;
+        private PlayerAnimation _playerAnimation;
+        private Rigidbody2D _rb;
 
 
         private void Start()
@@ -25,29 +25,42 @@ namespace Player
         }
         private void FixedUpdate()
         {
-            if (_playerStatus._InputFlgX) HorizontalMove();
+            if (_playerStatus._InputFlgX)
+            {
+                HorizontalMove();
+                PlayerDirection();
+            }
         }
 
 
 
-        // --------- 移動処理 ---------
+        // Playerの移動メソッド
         private void HorizontalMove()
         {
             // 移動の物理処理
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
+        }
 
-            // Playerの向き
-            if (_inputReceivable.MoveH() != 0)
+        // Playerの向きメソッド
+        private void PlayerDirection()
+        {
+            bool _playerDic = _inputReceivable.MoveH() == 0;
+
+            // 移動状態
+            if (!_playerDic)
             {
                 transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
+
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
-                _playerStatus._StateEnum = PlayerStateEnum.DASH;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
             }
-            else if (_inputReceivable.MoveH() == 0 && _playerStatus._GroundChecker)
+            // 静止状態
+            else if (_playerDic && _playerStatus._GroundChecker)
             {
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
-                _playerStatus._StateEnum = PlayerStateEnum.STAY;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
             }
+
         }
 
     }
