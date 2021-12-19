@@ -17,9 +17,6 @@ namespace Player
         private CapsuleCollider2D _capCol;
         private Rigidbody2D       _rb;
 
-        private bool _isPushObj;
-        private bool _isOnPushObj;
-
 
         void Start()
         {
@@ -41,26 +38,23 @@ namespace Player
         // 押してる状態メソッド
         private void Push()
         {
+            bool _isPushObj;
+
             // 押してる状態判定
             _isPushObj = _objChecker.PushObjWidthChecker(_capCol);
 
             if (_isPushObj)
             {
-                if (_inputReceivable.MoveH() != 0)
-                {
-                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), true);
-                }
-            }
-            else
-            {
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
+                if (_inputReceivable.MoveH() != 0) _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), true);
+                else _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
             }
         }
-
 
         // 押せるオブジェクトの上にいるメソッド
         private void OnPushObj()
         {
+            bool _isOnPushObj;
+
             // 押せるオブジェクトの上にいるか判定
             _isOnPushObj = _objChecker.PushObjOnChecker(_capCol);
 

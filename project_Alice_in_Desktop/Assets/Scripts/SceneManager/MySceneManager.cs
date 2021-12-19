@@ -22,6 +22,7 @@ namespace MySceneManager
         void ISceneChange.SceneChange(string name)
         {
             FadeManager.Instance.LoadScene(name, 0.5f);
+            Debug.Log("ƒV[ƒ“‘JˆÚ");
         }
     }
 

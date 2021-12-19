@@ -14,7 +14,7 @@ namespace Player
         private ISceneChange _sceneChange;
         private CapsuleCollider2D _capCol;
         private GameObject _parentObj;
-        private bool _colFlg;
+        private bool _colHitFlg;
 
 
         void Start()
@@ -36,40 +36,42 @@ namespace Player
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    _colFlg = true;
-                    Debug.Log(_colFlg);
+                    _colHitFlg = true;
+                    Debug.Log(_colHitFlg);
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    _colFlg = false;
-                    Debug.Log(_colFlg);
+                    _colHitFlg = false;
+                    Debug.Log(_colHitFlg);
                 }
             }
 
 
-            if (_colFlg)
+            // エラーオブジェクトに当たっている場合
+            if (_colHitFlg)
             {
-                _capCol.enabled = false;
+                // これいるっけ？
+                //_capCol.enabled = false;
 
                 if (Input.GetMouseButtonUp(0))
                 {
                     Debug.Log("死んだ！");
                     _sceneChange.ReloadScene();
-                    _colFlg = true;
+                    _colHitFlg = true;
                 }
             }
-            else _capCol.enabled = true;
+            //else _capCol.enabled = true;
         }
 
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            _colFlg = true;
+            _colHitFlg = true;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _colFlg = false;
+            _colHitFlg = false;
         }
     }
 
