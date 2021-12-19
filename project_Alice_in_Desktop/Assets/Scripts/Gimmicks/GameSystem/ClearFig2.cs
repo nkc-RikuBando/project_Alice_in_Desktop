@@ -2,44 +2,109 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Connector.Inputer;
 
 namespace GameSystem
 {
     public class ClearFig2 : MonoBehaviour, IHitSwitch
     {
-        private bool switchFlg = false;
         [SerializeField] private GameObject player;
-        //[SerializeField] private GameObject nanika;
+        private ITestKey _ITestKey;                 // 入力インターフェースを保存
+        private Animator animator;                  // アニメーターを保存
 
-        [SerializeField] private string sceneName;        // シーン移動先の名前
+        private bool switchFlg;
+        private bool stayFlg;
+        [SerializeField] private string sceneName;   // シーン移動先の名前
         [SerializeField] private float fadeTime;     // フェードする時間
+
+        public enum AnimeType
+        {
+            DOOR_ROCK_NOW, DOOR_ROCK_KAIJO, DOOR_ROOK_ACTION
+        }
+        AnimeType animeType;
 
         void Start()
         {
-            //nanika.SetActive(false);
+            animator = GetComponent<Animator>();  // アニメーターを取得
+            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            switchFlg = false;
+            stayFlg = false;
+        }
+
+        void Update()
+        {
+            AnimeSwitch();
+            AnimePlay();
+            
+            //animator.SetBool("Locked", true);          // 鍵がかかっているアニメ
+            //if(IsSceceMove())
+            //{
+            //    if (switchFlg == true) 　　　　　　　　// スイッチオン
+            //        animator.SetBool("Locked", false); // 鍵解除アニメ
+            //    else                   　　　　　　　　// スイッチオフ
+            //        animator.SetTrigger("Action");　　 // 鍵がかかっているアクション
+            //}
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject == player) stayFlg = true;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject == player) stayFlg = false;
         }
 
         public void Switch(bool switchOn)
         {
             switchFlg = switchOn;
+        }
+
+        /// <summary>
+        /// アニメーターの種類
+        /// </summary>
+        void AnimeSwitch()
+        {
+            switch (animeType)
             {
-                //if (switchFlg == true)
-                //    nanika.SetActive(true);
-                //else
-                //    nanika.SetActive(false);
+                case AnimeType.DOOR_ROCK_KAIJO:
+                    animator.SetBool("Locked", false);
+                    break;
+                case AnimeType.DOOR_ROCK_NOW:
+                    animator.SetBool("Locked", true);
+                    break;
+                case AnimeType.DOOR_ROOK_ACTION:
+                    animator.SetTrigger("Action");
+                    break;
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        /// <summary>
+        /// アニメーターの実行
+        /// </summary>
+        void AnimePlay()
         {
-            if(collision.gameObject == player)
+            if (switchFlg == true)
             {
-                if(switchFlg == true)
-                {
-                    // クリアシーンに移動
-                    FadeManager.Instance.LoadScene(sceneName, fadeTime);
-                }
+                animeType = AnimeType.DOOR_ROCK_KAIJO;
             }
+            else animeType = AnimeType.DOOR_ROCK_NOW;
+
+            if (IsSceceMove())
+            {
+                animeType = AnimeType.DOOR_ROOK_ACTION;
+                if(switchFlg == true) FadeManager.Instance.LoadScene(sceneName, fadeTime);
+            }
+        }
+
+        /// <summary>
+        /// キー入力する＆プレイヤーが滞在
+        /// </summary>
+        /// <returns></returns>
+        bool IsSceceMove()
+        {
+            return _ITestKey.EventKey() && stayFlg == true;
         }
     }
 }
