@@ -10,7 +10,7 @@ namespace Gimmicks
     public class Box : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーを保存
-        private ITestKey _ITestKey; // 入力インターフェースを取得
+        private ITestKey _ITestKey;                 // 入力インターフェースを取得
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         //private float inputTime = default;
@@ -29,10 +29,8 @@ namespace Gimmicks
 
         void Update()
         {
-            Debug.Log(stayFlg);
             if (StayInput())
             {
-                Debug.Log("Q");
                 //inputTime += 1f * Time.deltaTime;
                 if (/*inputTime >= 0.8f*/WaitTimeUI.gaugeMaxFlg == true)
                 {
