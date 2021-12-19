@@ -5,10 +5,14 @@ using UnityEngine;
 public class KeyListUI : MonoBehaviour, IGetKey
 {
     [SerializeField] private List<GameObject> keyList = new List<GameObject>();
+    [SerializeField] private GameObject waitTimeUI; // 生成するUI
+    private GameObject obj;
+    private GameObject canvas; // キャンバスの保存
 
     void Start()
     {
         Debug.Log(keyList.Count);
+        canvas = GameObject.Find("Canvas");   // キャンバスの取得
     }
 
     public void AddKey(GameObject set)
