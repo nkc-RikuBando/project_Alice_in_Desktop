@@ -113,9 +113,10 @@ namespace Player
             if (_isLanding)
             {
                 _playerStatus._InputFlgX = true;
-                
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),  false);
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),   false);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"),  false);
 
                 JumpCount();
             }
@@ -144,7 +145,7 @@ namespace Player
                 // è„è∏èÛë‘
                 if (_rb.velocity.y > 0)
                 {
-                    // å„Ç≈í«â¡Ç∑ÇÈ
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
                 }
                 // â∫ç~èÛë‘
                 else if (_rb.velocity.y < 0f)

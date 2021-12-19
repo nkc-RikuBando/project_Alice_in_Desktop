@@ -137,6 +137,7 @@ namespace Player
                 _jumpCount  = 0f;
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
                 _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
             }
         }
@@ -148,7 +149,7 @@ namespace Player
             if (_isWall) 
             {
                 // ç~â∫èÛë‘
-                if (_rb.velocity.y < 0f)
+                if (_rb.velocity.y < -1f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),   true);
@@ -179,7 +180,6 @@ namespace Player
 
                 // ï«Ç…í£ÇËïtÇ¢ÇƒÇ¢Ç»Ç¢èÍçá
                 _rb.gravityScale = _playerStatus._Gravity;
-
             }
         }
 
