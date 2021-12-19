@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a56cfff182509c4796dbed8ee2c9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7486503217970848594, guid: fd6991ab8ad2dfe44a8e54104e2ad6f4, type: 3}
+  player: {fileID: 0}
   hideKey: {fileID: 8605218511253451001}
 --- !u!114 &5247843605334322988
 MonoBehaviour:
@@ -236,6 +236,10 @@ PrefabInstance:
     - target: {fileID: 1569790828551395303, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
       propertyPath: m_Name
       value: Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569790828551395303, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
