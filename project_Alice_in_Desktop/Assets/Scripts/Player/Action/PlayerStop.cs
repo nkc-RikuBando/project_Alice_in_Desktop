@@ -14,7 +14,9 @@ namespace Player
         private CapsuleCollider2D _capCol;
         private BoxCollider2D     _boxCol;
 
+        // Œ»İ‚Ìvelocity‚ğ•Û‘¶‚·‚é•Ï”
         private Vector2 _currentVec;
+
 
         void Start()
         {
@@ -63,8 +65,8 @@ namespace Player
             if (Input.GetMouseButtonUp(0))
             {
                 // “ü—Í‰Â”\
-                _playerStatus._InputFlgX = true;
-                _playerStatus._InputFlgY = true;
+                _playerStatus._InputFlgX      = _rb.velocity.y < 0f ? true : false;
+                _playerStatus._InputFlgY      = true;
                 _playerStatus._InputFlgAction = true;
 
                 // •¨—”»’è‰Â”\
