@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class FollowSetting : MonoBehaviour
 {
-    [SerializeField] private WindowManager windowManager;
+    private WindowManager windowManager;
 
     [SerializeField] private bool followUpWall = false;
     [SerializeField] private bool followRightWall = false;
@@ -21,6 +21,8 @@ public class FollowSetting : MonoBehaviour
 
     private void Start()
     {
+        windowManager = GameObject.Find("WindowManager").GetComponent<WindowManager>();
+
         if (GetComponent<SpriteRenderer>() != null)
         {
             sr = GetComponent<SpriteRenderer>();
@@ -31,8 +33,6 @@ public class FollowSetting : MonoBehaviour
         {
             tilemap = GetComponent<Tilemap>();
         }
-
-        Debug.Log(windowManager.GetObjNum());
 
     }
 
