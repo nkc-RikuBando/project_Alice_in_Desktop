@@ -66,8 +66,18 @@ namespace Player
 
                 if (Input.GetMouseButtonUp(0))
                 {
-                    StartCoroutine("PlayerDead");
-                    _colHitFlg = true;
+                    // “ü—Í’âŽ~
+                    _playerStatus._InputFlgX = false;
+                    _playerStatus._InputFlgY = false;
+                    _playerStatus._InputFlgAction = false;
+
+                    // “®‚«‚ð’âŽ~
+                    _rb.velocity = Vector2.zero;
+                    _rb.bodyType = RigidbodyType2D.Kinematic;
+
+                    _fadeEffect.StartCrushingEffect();
+
+                    //_colHitFlg = true;
                 }
             }
             //else _capCol.enabled = true;
