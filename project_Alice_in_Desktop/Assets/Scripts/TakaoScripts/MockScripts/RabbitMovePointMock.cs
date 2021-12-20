@@ -6,11 +6,14 @@ using System.Linq;
 public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 {
     [SerializeField] PlayerPositionGet player; //Mockなので組み込む際は変更必須
+    [SerializeField] GameObject rabbit;
     [SerializeField] RabbitMovePointMock[] rabbitMovePoint;
+    [SerializeField] RabbitMovePointMock[] rabbitMovePointsAll;
     Vector3 playerPos;
+    Vector3 rabbitPos;
     Vector3 myPos;
     float distanceValue; //評価値
-    public bool insideFlg = false;
+    bool insideFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         UpdatePos(); //今のポジションを受け取る
         UpdateDisValue(); //評価値を受け取る
         playerPos = player.GetPlayerPosition(); //プレイヤーの座標を受け取る
+
     }
 
     private void UpdatePos()
@@ -39,7 +43,6 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     public RabbitMovePointMock GetRabbitMovePointPos() //次の点を渡す
     {
         RabbitMovePointMock tempMock = null;
-
         var insideDisValueLinq = rabbitMovePoint
             .Where(x => x.GetOutsideFlg() == true) //foreachの中でif (x.GetOutsideFlg() == true)をするのと一緒
             .OrderByDescending(x => x.GetDisValue()); //xの降順(先頭が一番高い数値)
@@ -66,6 +69,15 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         return tempMock; //点を渡す
     }
 
+    public RabbitMovePointMock GetRabbitMovePointPosFromAll()
+    {
+        RabbitMovePointMock tempMock = null;
+        var insideDisValueFromAllLinq = rabbitMovePointsAll
+            .Where(x => x.GetOutsideFlg() == true);
+        tempMock = insideDisValueFromAllLinq.First();
+        return tempMock;
+    }
+
     public float GetDisValue()
     {
         return distanceValue;
@@ -78,6 +90,8 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 
     public bool GetOutsideFlg()
     {
+        Debug.Log("insideFlg  = " + insideFlg);
+        //insideFlg = true;
         return insideFlg;
     }
 
