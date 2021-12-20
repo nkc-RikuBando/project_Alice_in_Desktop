@@ -10,6 +10,7 @@ namespace Gimmicks
         [SerializeField] private GameObject player; // プレイヤーを保存
         [SerializeField] private GameObject goal;   // ゴールを取得
         private IGetKey iGetter;
+        private Animator animator;
 
         //private AudioSource se;
         //public AudioClip seClip;
@@ -19,7 +20,11 @@ namespace Gimmicks
         {
             iGetter = goal.GetComponent<IGetKey>();
             iGetter.AddKey(gameObject);
+        }
 
+        void Start()
+        {
+            animator = GetComponent<Animator>();
             //se = GetComponent<AudioSource>();
         }
 
@@ -29,6 +34,7 @@ namespace Gimmicks
             {
                 //AudioManager.Instance.SeAction(seName);
                 //se.PlayOneShot(seClip);
+                animator.SetTrigger("Get");
                 iGetter.GetKey(gameObject);
             }
         }

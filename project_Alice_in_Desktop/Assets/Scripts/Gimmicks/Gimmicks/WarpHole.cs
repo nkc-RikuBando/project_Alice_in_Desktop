@@ -21,9 +21,9 @@ namespace Gimmicks
         void Start()
         {
             _ITestKey = GetComponent<ITestKey>();
-            cameraZoomFlg = false;
-            camObj= GameObject.Find("Main Camera");
-            cam = camObj.GetComponent<Camera>();
+            //cameraZoomFlg = false;
+            //camObj = GameObject.Find("Main Camera");
+            //cam = camObj.GetComponent<Camera>();
         }
 
         void Update()
@@ -31,7 +31,7 @@ namespace Gimmicks
             if (StayInput())
             {
                 Warp();
-                cameraZoomFlg = true;
+                //cameraZoomFlg = true;
             }
         }
 

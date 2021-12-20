@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Connector.Inputer;
+using Animation;
 
 namespace GameSystem
 {
@@ -11,11 +12,12 @@ namespace GameSystem
         [SerializeField] private GameObject player;
         private ITestKey _ITestKey;                 // 入力インターフェースを保存
         private Animator animator;                  // アニメーターを保存
+        private ClearEffect clearEffect;            // クリアエフェクトを保存
 
         private bool switchFlg;
         private bool stayFlg;
-        [SerializeField] private string sceneName;   // シーン移動先の名前
-        [SerializeField] private float fadeTime;     // フェードする時間
+        //[SerializeField] private string sceneName;   // シーン移動先の名前
+        //[SerializeField] private float fadeTime;     // フェードする時間
 
         public enum AnimeType
         {
@@ -25,8 +27,9 @@ namespace GameSystem
 
         void Start()
         {
-            animator = GetComponent<Animator>();  // アニメーターを取得
             _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            animator = GetComponent<Animator>();  // アニメーターを取得
+            clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             switchFlg = false;
             stayFlg = false;
         }
@@ -35,7 +38,8 @@ namespace GameSystem
         {
             AnimeSwitch();
             AnimePlay();
-            
+            Debug.Log("switchは" + switchFlg);
+
             //animator.SetBool("Locked", true);          // 鍵がかかっているアニメ
             //if(IsSceceMove())
             //{
@@ -85,16 +89,20 @@ namespace GameSystem
         /// </summary>
         void AnimePlay()
         {
+            animeType = AnimeType.DOOR_ROCK_NOW;
             if (switchFlg == true)
             {
                 animeType = AnimeType.DOOR_ROCK_KAIJO;
             }
-            else animeType = AnimeType.DOOR_ROCK_NOW;
 
             if (IsSceceMove())
             {
                 animeType = AnimeType.DOOR_ROOK_ACTION;
-                if(switchFlg == true) FadeManager.Instance.LoadScene(sceneName, fadeTime);
+                if(switchFlg == true)
+                {
+                    clearEffect.StartClearEffect();
+                    // FadeManager.Instance.LoadScene(sceneName, fadeTime);
+                }
             }
         }
 

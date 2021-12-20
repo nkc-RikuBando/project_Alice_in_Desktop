@@ -2,45 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoldObj : MonoBehaviour
+namespace Window
 {
-    private GameObject catchObj;
-    private WindowManager windowManager;
-    [SerializeField] private LayerMask mouseTouchableLayer;
-
-    private void Start()
+    public class HoldObj : MonoBehaviour
     {
-        windowManager = GetComponent<WindowManager>();
-    }
+        private GameObject catchObj;
+        private WindowManager windowManager;
+        [SerializeField] private LayerMask mouseTouchableLayer;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private void Start()
         {
-            // クリックしたとき
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, mouseTouchableLayer);
+            windowManager = GetComponent<WindowManager>();
+        }
 
-            if (hit2d)
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                catchObj = hit2d.collider.gameObject;
-                windowManager.SetMoveFlg(catchObj, true);
+                // クリックしたとき
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, mouseTouchableLayer);
 
-
+                if (hit2d)
+                {
+                    catchObj = hit2d.collider.gameObject;
+                    windowManager.SetMoveFlg(catchObj, true);
+                }
             }
-        }
 
-        if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
+            {
+                // クリック離した時
+                windowManager.SetMoveFlg(catchObj, false);
+                catchObj = null;
+            }
+
+        }
+        public GameObject GetCatchObj()
         {
-            // クリック離した時
-            windowManager.SetMoveFlg(catchObj, false);
-            catchObj = null;
+            return catchObj;
         }
-
-        
-    }
-    public GameObject GetCatchObj()
-    {
-        return catchObj;
     }
 }

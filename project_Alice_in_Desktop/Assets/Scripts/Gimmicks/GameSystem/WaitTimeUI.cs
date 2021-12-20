@@ -6,13 +6,14 @@ using Connector.Inputer;
 
 namespace GameSystem
 {
-    public class WaitTimeUI : MonoBehaviour
+    public class WaitTimeUI : MonoBehaviour, IHitPlayer
     {
         private ITestKey _ITestKey; // 入力インターフェースの保存
         private Image waitTime; // UIの保存
         public static bool gaugeMaxFlg;
         private GameObject _parent; // 親オブジェクトの保存
         private const float UP_DOWN_NUM = 0.01f; // ゲージの増減量
+        private bool hitFlg;
 
         //public bool GaugeMaxFlg
         //{
@@ -27,6 +28,7 @@ namespace GameSystem
             gaugeMaxFlg = false;
             waitTime.fillAmount = default;         // ゲージの初期値０
             _parent = transform.parent.gameObject; // 一つ上の親オブジェクトを取得
+            hitFlg = false;
         }
 
         void Update()
@@ -42,6 +44,14 @@ namespace GameSystem
                 gaugeMaxFlg = true;
                 Destroy(_parent);        // 一つ上の親オブジェクトの削除
             }
+
+            Debug.Log("Hit = " + hitFlg);
+        }
+
+        public void IsHitPlayer(bool isHitting)
+        {
+            hitFlg = isHitting;
+            if (hitFlg == true) waitTime.fillAmount = 0;
         }
     }
 }
