@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.MySceneManager;
+using Gimmicks;
 
 namespace Player
 {
@@ -67,6 +68,7 @@ namespace Player
         // “–‚½‚Á‚½‚ç
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            
             _colHitFlg = true;
         }
 

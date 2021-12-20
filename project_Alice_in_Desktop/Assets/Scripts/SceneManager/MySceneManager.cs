@@ -10,7 +10,6 @@ namespace MySceneManager
     {
         // シーンを管理する処理
 
-
         // 同じシーンを再度呼び出し
         void ISceneChange.ReloadScene()
         {

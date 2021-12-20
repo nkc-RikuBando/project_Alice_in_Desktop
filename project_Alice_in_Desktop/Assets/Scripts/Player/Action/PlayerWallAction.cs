@@ -23,6 +23,7 @@ namespace Player
         private bool  _isWallJump;
         private float _jumpCount;
 
+
         // 壁ジャンプ用の垂直な角度
         private const float VERTICAL_ANGLE = 90;
 
@@ -92,10 +93,10 @@ namespace Player
             if (_isWall)
             {
                 // Playerを静止状態にする
-                _rb.velocity 　　= Vector2.zero;
+                _rb.velocity = Vector2.zero;
                 _rb.gravityScale = 0;
 
-                _playerStatus._InputFlgY 　= false;
+                _playerStatus._InputFlgY = false;
                 _playerStatus._GroundJudge = false;
                 _boxCol.enabled = true;
 
@@ -119,7 +120,7 @@ namespace Player
         private void WallJump()
         {
             // 入力フラグ
-            bool _isJumpInputKey_W     = _isWallJump && _playerStatus._InputFlgY;
+            bool _isJumpInputKey_W = _isWallJump && _playerStatus._InputFlgY;
             bool _isJumpInputKey_Space = _isWallJump && _playerStatus._InputFlgY;
 
             if (_isJumpInputKey_W || _isJumpInputKey_Space)
@@ -130,12 +131,12 @@ namespace Player
 
                 transform.localScale = new Vector2(-transform.localScale.x, 1f);
 
-
                 // フラグをfalseにする
-                _playerStatus._InputFlgX = false;
+                _jumpCount  = 0f;
                 _isWall     = false;
                 _isWallJump = false;
-                _jumpCount  = 0f;
+                _playerStatus._InputFlgX = false;
+                
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
@@ -144,26 +145,26 @@ namespace Player
         }
 
         // 壁判定関係のPlayer状態メソッド
-        private void WallState() 
+        private void WallState()
         {
             // 張り付いている場合
-            if (_isWall) 
+            if (_isWall)
             {
                 // 降下状態
                 if (_rb.velocity.y < -1f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
-                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),   true);
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
                 }
 
                 // 壁張り付き状態で逆方向に入力した場合
                 if (transform.localScale.x == 1)
                 {
-                    if(_inputReceivable.MoveH() != 1)  _isWall = false;
+                    if (_inputReceivable.MoveH() != 1) _isWall = false;
                 }
                 else if (transform.localScale.x == -1)
                 {
-                    if(_inputReceivable.MoveH() != -1) _isWall = false;
+                    if (_inputReceivable.MoveH() != -1) _isWall = false;
                 }
             }
             // 張り付いていない場合
@@ -191,5 +192,6 @@ namespace Player
 
             return new Vector2(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle));
         }
+
     }
 }
