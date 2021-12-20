@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyListUI : MonoBehaviour, IGetKey
 {
     [SerializeField] private List<GameObject> keyList = new List<GameObject>();
-    [SerializeField] private GameObject waitTimeUI; // ¶¬‚·‚éUI
+    [SerializeField] private GameObject keyUI; // ¶¬‚·‚éUI
     private GameObject obj;
     private GameObject canvas; // ƒLƒƒƒ“ƒoƒX‚Ì•Û‘¶
 
