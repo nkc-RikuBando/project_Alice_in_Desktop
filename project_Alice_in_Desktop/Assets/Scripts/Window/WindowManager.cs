@@ -14,8 +14,8 @@ public class WindowManager : MonoBehaviour
         DOWN,
         LEFT_DOWN,
         LEFT,
-        COUNT, 
-        CENTER
+        COUNT,
+        CENTER,
 
     }
 
@@ -31,7 +31,7 @@ public class WindowManager : MonoBehaviour
     private SpriteRenderer frameSR; // 枠のSpriteRenderer
     private float frameSizeX, frameSizeY, framePosX, framePosY; // 枠の大きさ・位置
 
-    private int moveObjType=4,moveObjNum=9; // 動かすオブジェクトの種類(点・辺・面)
+    private int moveObjType=4,moveObjNum=8; // 動かすオブジェクトの種類(点・辺・面)
     private GameObject moveObj, diagonalObj; // 動かすオブジェクトと対角のオブジェクト
     private bool moveFlg;
     private Vector3 mousePos, beforeMousePos, inputMovement, moveAxis, movement; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
@@ -197,7 +197,6 @@ public class WindowManager : MonoBehaviour
             moveObj = centerColObj;
             moveObjType = (int)ObjType.WINDOW;
             moveAxis = moveAxis = new Vector3(1, 1, 0);
-            Debug.Log("win");
 
             moveObjNum = (int)PositionList.CENTER;
 
@@ -237,9 +236,10 @@ public class WindowManager : MonoBehaviour
         }
         moveFlg = flg;
         beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         if (flg == false)
         {
+            moveObjNum = (int)PositionList.COUNT;
+            movement = Vector3.zero;
             ColSet();
         }
     }
