@@ -36,6 +36,7 @@ namespace Animation
         public void StartClearEffect()
         {
             // door.GetComponent<Animator>().SetTrigger("Action");
+            StartCoroutine("PlayEffect");
         }
 
         IEnumerator PlayEffect()
@@ -49,7 +50,7 @@ namespace Animation
             yield return new WaitForSeconds(2);
 
             //‚±‚±‚ÉÄŠJŒã‚Ìˆ—‚ğ‘‚­
-            windowFade.WindowFadeOut("SampleScene");
+            windowFade.WindowFadeOut("BandoScene_NEO");
         }
     }
 }
