@@ -21,7 +21,6 @@ public class SwitchRenderingFlg : MonoBehaviour
         if (_renderingFlgSettable != null)
         {
             _renderingFlgSettable.SetRenderingFlg(false);
-            Debug.Log(col.gameObject.name);
         }
 
     }
