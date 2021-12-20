@@ -9,7 +9,7 @@ namespace Animation
     public class ClearEffect : MonoBehaviour
     {
         [SerializeField] private GameObject player;
-        [SerializeField] private GameObject door;
+        // [SerializeField] private GameObject door;
 
         private Animator fadeAnimator;
         private RectTransform unMaskRect;
@@ -26,8 +26,7 @@ namespace Animation
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Return)) StartClearEffect();
-
+            //if (Input.GetKeyDown(KeyCode.Return)) StartClearEffect();
         }
 
         // ステージクリア時に呼び出す
@@ -36,7 +35,7 @@ namespace Animation
             unMaskRect.position = new Vector2(player.transform.position.x, player.transform.position.y + SHIFT_Y);
             fadeAnimator.SetTrigger("StageClear");
             player.GetComponent<Animator>().SetTrigger("StageClear");
-            door.GetComponent<Animator>().SetTrigger("Action");
+            // door.GetComponent<Animator>().SetTrigger("Action");
         }
     }
 }
