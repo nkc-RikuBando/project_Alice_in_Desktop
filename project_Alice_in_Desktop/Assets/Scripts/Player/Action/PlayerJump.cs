@@ -112,7 +112,7 @@ namespace Player
             // ’…’n‚µ‚Ä‚¢‚éó‘Ô
             if (_isLanding)
             {
-                _playerStatus._InputFlgX = true;
+                //_playerStatus._InputFlgX = true;
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),   false);
