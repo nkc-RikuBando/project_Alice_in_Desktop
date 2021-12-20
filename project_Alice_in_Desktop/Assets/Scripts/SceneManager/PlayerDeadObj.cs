@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.MySceneManager;
 using Player;
 
 public class PlayerDeadObj : MonoBehaviour
@@ -9,20 +8,17 @@ public class PlayerDeadObj : MonoBehaviour
     // ‰æ–ÊŠO‚És‚­‚ÆPlayer‚ª€–S‚·‚éˆ—
 
     [SerializeField] private GameObject _fadeObj;  
-
-    private ISceneChange _sceneChange;
     private FadeEffect _fadeEffect;
-    private GameObject _sceneChangeObj;
 
     private void Start()
     {
-        _sceneChangeObj = GameObject.Find("SceneManager");
-        _sceneChange = _sceneChangeObj.GetComponent<ISceneChange>();
         _fadeEffect = _fadeObj.GetComponent<FadeEffect>();
     }
 
+    // “–‚½‚Á‚½‚ç
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Player‚ğæ“¾
         var playerCheck = collision.gameObject.GetComponent<PlayerStatus>();
 
         // “–‚½‚Á‚½‚Ì‚ªPlayer‚Ìê‡

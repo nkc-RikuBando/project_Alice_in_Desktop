@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.MySceneManager;
 using Gimmicks;
 
 namespace Player
@@ -14,7 +13,6 @@ namespace Player
 
         [SerializeField] private GameObject _fadeObj;
 
-        private ISceneChange _sceneChange;
         private FadeEffect _fadeEffect;
         private PlayerStatus _playerStatus;
         private Rigidbody2D _rb;
@@ -26,12 +24,11 @@ namespace Player
 
         void Start()
         {
-            _fadeEffect = _fadeObj.GetComponent<FadeEffect>();
+            _fadeEffect 　= _fadeObj.GetComponent<FadeEffect>();
             _parentObj    = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
             _capCol       = _parentObj.GetComponent<CapsuleCollider2D>();
             _rb           = _parentObj.GetComponent<Rigidbody2D>();
-            _sceneChange  = GameObject.Find("SceneManager").GetComponent<ISceneChange>();
         }
         void Update()
         {
@@ -83,26 +80,6 @@ namespace Player
             //else _capCol.enabled = true;
         }
 
-        // Playerが死ぬコルーチン
-        IEnumerator PlayerDead()
-        {
-            // 死ぬアニメーション再生
-
-            Debug.Log("死にそう！");
-
-            // 入力停止
-            _playerStatus._InputFlgX = false;
-            _playerStatus._InputFlgY = false;
-            _playerStatus._InputFlgAction = false;
-
-            // 動きを停止
-            _rb.velocity = Vector2.zero;
-            _rb.bodyType = RigidbodyType2D.Kinematic;
-
-            yield return new WaitForSeconds(2);
-
-            _fadeEffect.StartCrushingEffect();
-        }
 
         // 当たったら
         private void OnTriggerEnter2D(Collider2D collision)
