@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5080619296554510251}
   - component: {fileID: 5080619296554510252}
   - component: {fileID: 5080619296554510249}
+  - component: {fileID: 1034471201}
   m_Layer: 0
   m_Name: WindowManager
   m_TagString: Untagged
@@ -56,7 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   centerColObj: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 10
 --- !u!114 &5080619296554510252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,3 +85,20 @@ MonoBehaviour:
   mouseTouchableLayer:
     serializedVersion: 2
     m_Bits: 384
+--- !u!114 &1034471201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5080619296554510253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03225fe474483a244a3d6f7c6e261e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseTouchableLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  defaultTex: {fileID: 2800000, guid: 58ed94c246a0c0541b2f41b30996d727, type: 3}
+  hotSpot: {x: 50, y: 50}
