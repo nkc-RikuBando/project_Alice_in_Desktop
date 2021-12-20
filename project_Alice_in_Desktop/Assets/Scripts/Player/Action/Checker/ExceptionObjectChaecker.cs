@@ -64,11 +64,13 @@ namespace Player
         }
 
 
+        // “–‚½‚Á‚½‚ç
         private void OnTriggerEnter2D(Collider2D collision)
         {
             _colHitFlg = true;
         }
 
+        // —£‚ê‚½‚ç
         private void OnTriggerExit2D(Collider2D collision)
         {
             _colHitFlg = false;
