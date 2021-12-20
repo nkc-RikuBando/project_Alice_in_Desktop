@@ -12,7 +12,10 @@ namespace Player
 
         [SerializeField, Tooltip("DebugópFlg")] private bool _debugFlg;
 
+        [SerializeField] private GameObject _fadeObj;
+
         private ISceneChange _sceneChange;
+        private FadeEffect _fadeEffect;
         private PlayerStatus _playerStatus;
         private Rigidbody2D _rb;
         private CapsuleCollider2D _capCol;
@@ -23,6 +26,7 @@ namespace Player
 
         void Start()
         {
+            _fadeEffect = _fadeObj.GetComponent<FadeEffect>();
             _parentObj    = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
             _capCol       = _parentObj.GetComponent<CapsuleCollider2D>();
@@ -87,9 +91,7 @@ namespace Player
 
             yield return new WaitForSeconds(2);
 
-            Debug.Log("éÄÇÒÇæÅI");
-
-            _sceneChange.ReloadScene();
+            _fadeEffect.StartCrushingEffect();
         }
 
         // ìñÇΩÇ¡ÇΩÇÁ
