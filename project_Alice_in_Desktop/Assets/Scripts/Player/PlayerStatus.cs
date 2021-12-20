@@ -20,6 +20,7 @@ namespace Player
         // 入力フラグ
         public bool _InputFlgX { get; set; }  = true;
         public bool _InputFlgY { get; set; }  = true;
+        public bool _InputFlgAction { get; set; } = false;
 
         // 判定フラグ
         public bool _GroundJudge { get; set; } = true;

@@ -30,6 +30,7 @@ namespace Gimmicks
                 //AudioManager.Instance.SeAction(seName);
                 //se.PlayOneShot(seClip);
                 iGetter.GetKey(gameObject);
+                
             }
         }
     }

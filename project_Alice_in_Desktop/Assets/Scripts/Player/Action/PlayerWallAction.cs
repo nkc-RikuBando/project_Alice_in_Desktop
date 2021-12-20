@@ -101,6 +101,7 @@ namespace Player
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
 
                 // è≠ÇµÇÃä‘ì¸óÕÇ≈Ç´Ç»Ç¢
                 _jumpCount += Time.deltaTime;

@@ -14,6 +14,7 @@ namespace Player
         private CapsuleCollider2D _capCol;
         private BoxCollider2D     _boxCol;
 
+        private Vector2 _currentVec;
 
         void Start()
         {
@@ -34,13 +35,15 @@ namespace Player
         private void Stop()
         {
             // ’â~
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 // “ü—Í’â~
                 _playerStatus._InputFlgX = false;
                 _playerStatus._InputFlgY = false;
+                _playerStatus._InputFlgAction = false;
 
                 // “®‚«‚ğ’â~
+                _currentVec = _rb.velocity;
                 _rb.velocity = Vector2.zero;
                 _rb.bodyType = RigidbodyType2D.Kinematic;
 
@@ -62,10 +65,12 @@ namespace Player
                 // “ü—Í‰Â”\
                 _playerStatus._InputFlgX = true;
                 _playerStatus._InputFlgY = true;
+                _playerStatus._InputFlgAction = true;
 
                 // •¨—”»’è‰Â”\
                 _rb.bodyType = RigidbodyType2D.Dynamic;
-
+                _rb.velocity = _currentVec;
+                
                 // Animation‰Â”\
                 _anim.enabled = true;
 

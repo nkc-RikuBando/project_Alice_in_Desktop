@@ -28,6 +28,7 @@ namespace Inputer
             return Input.GetKeyDown(KeyCode.Space);
         }
 
+
         // アクション入力(押したとき)
         public bool ActionKey_Down()
         {
@@ -43,7 +44,7 @@ namespace Inputer
         //  アクション入力(離したとき)
         public bool ActionKeyUp()
         {
-            return Input.GetKeyDown(KeyCode.Q);
+            return Input.GetKeyUp(KeyCode.Q);
         }
     }
 }
