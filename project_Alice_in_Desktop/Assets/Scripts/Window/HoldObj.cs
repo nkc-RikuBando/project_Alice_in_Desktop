@@ -20,12 +20,13 @@ namespace Window
             if (Input.GetMouseButtonDown(0))
             {
                 // ƒNƒŠƒbƒN‚µ‚½‚Æ‚«
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, mouseTouchableLayer);
+                RaycastHit2D hit2d= Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),new Vector3(0,0,1),10f, mouseTouchableLayer);
 
-                if (hit2d)
+                if (hit2d.collider != null)
                 {
+                    Debug.Log(hit2d.collider.gameObject.layer);
                     catchObj = hit2d.collider.gameObject;
+                    Debug.Log(catchObj);
                     windowManager.SetMoveFlg(catchObj, true);
                 }
             }

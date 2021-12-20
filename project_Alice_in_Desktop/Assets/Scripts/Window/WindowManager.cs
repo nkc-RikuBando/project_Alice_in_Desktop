@@ -17,6 +17,7 @@ namespace Window
             LEFT_DOWN,
             LEFT,
             COUNT,
+            HANDLE_BAR,
             CENTER,
 
         }
@@ -44,6 +45,9 @@ namespace Window
 
         [Header("中心(描画部分)")]
         [SerializeField] private GameObject centerColObj;
+
+        [Header("上側の持つとこ(なんていうの？)")]
+        [SerializeField] private GameObject handleBarColObj;
 
         [SerializeField] private float moveSpeed = 5f; // 角・辺・面の移動速度
 
@@ -87,8 +91,8 @@ namespace Window
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             inputMovement = mousePos - beforeMousePos;
-            //inputMovement = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
-            //movement = Vector3.Scale(inputMovement, moveAxis).normalized * moveSpeed * Time.deltaTime;
+            // inputMovement = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
+            // movement = Vector3.Scale(inputMovement, moveAxis).normalized * moveSpeed * Time.deltaTime;
             movement = Vector3.Scale(inputMovement, moveAxis);
             moveObj.transform.position += movement;
             beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -119,8 +123,8 @@ namespace Window
                 frameSizeX = frameSR.size.x;
                 frameSizeY = frameSR.size.y;
 
-                framePosX = centerColObj.transform.position.x;
-                framePosY = centerColObj.transform.position.y;
+                framePosX = handleBarColObj.transform.position.x;
+                framePosY = (handleBarColObj.transform.position.y-0.5f) - (frameSR.size.y/2);
             }
 
             frameSR.size = new Vector2(frameSizeX, frameSizeY);
@@ -180,7 +184,9 @@ namespace Window
                         colPosY = framePosY;
                         edgeColSize = frameSR.size.y;
                         break;
+
                     default:
+
                         break;
                 }
 
@@ -191,6 +197,9 @@ namespace Window
                 }
             }
 
+            handleBarColObj.transform.position = new Vector3(framePosX, framePosY + helfSizeY);
+            handleBarColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX, 1);
+
             centerColObj.transform.position = new Vector2(framePosX, framePosY);
             centerColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX, frameSizeY);
 
@@ -198,15 +207,22 @@ namespace Window
 
         public void SetMoveFlg(GameObject holdingObj, bool flg)
         {
-            moveObj = holdingObj;
-            if (holdingObj == centerColObj)
+            //if (holdingObj == centerColObj)
+            //{
+            //    moveObj = centerColObj;
+            //    moveObjType = (int)ObjType.WINDOW;
+            //    moveAxis = moveAxis = new Vector3(0, 0, 0);
+
+            //    moveObjNum = (int)PositionList.CENTER;
+
+            //}
+            if(holdingObj == handleBarColObj)
             {
-                moveObj = centerColObj;
+                moveObj = handleBarColObj;
                 moveObjType = (int)ObjType.WINDOW;
                 moveAxis = moveAxis = new Vector3(1, 1, 0);
 
-                moveObjNum = (int)PositionList.CENTER;
-
+                moveObjNum = (int)PositionList.HANDLE_BAR;
             }
             else
             {
@@ -240,12 +256,19 @@ namespace Window
                         break;
                     }
                 }
+
+                if(moveObjNum==(int)PositionList.COUNT)
+                {
+                    moveAxis = new Vector3(0, 0, 0);
+                }
             }
+
             moveFlg = flg;
             beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (flg == false)
             {
                 moveObjNum = (int)PositionList.COUNT;
+                moveObj = null;
                 movement = Vector3.zero;
                 ColSet();
 
@@ -257,6 +280,7 @@ namespace Window
             }
             else
             {
+                Debug.Log(moveObj);
                 // インターフェースを呼び出す
                 for (int i = 0; i < stoppableObj.Count; ++i)
                 {

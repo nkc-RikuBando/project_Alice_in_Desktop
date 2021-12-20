@@ -12,7 +12,7 @@ public class PlayerLayerChange : MonoBehaviour,IRenderingFlgSettable
 
     void IRenderingFlgSettable.SetRenderingFlg(bool val)
     {
-        Debug.Log(val);
+        //Debug.Log(val);
         if (val) gameObject.layer = _insideLayerNum;
         else     gameObject.layer = _outsideLayerNum;
     }
