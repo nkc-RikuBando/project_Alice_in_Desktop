@@ -223,7 +223,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -273,7 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 1
   followDownWall: 1
@@ -501,7 +500,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -551,7 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 1
   followRightWall: 0
   followDownWall: 0
@@ -779,7 +777,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -829,7 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 1
   followRightWall: 1
   followDownWall: 0
@@ -855,7 +852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &833762234
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,7 +1144,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -1197,7 +1194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
@@ -1795,26 +1791,26 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 868106027}
     m_ColliderPaths:
-    - - X: 380000000
-        Y: -100000000
-      - X: -380000000
-        Y: -100000000
-      - X: -380000000
-        Y: -119999900
+    - - X: -380000000
+        Y: -120000000
       - X: 380000000
-        Y: -119999900
+        Y: -120000000
+      - X: 380000000
+        Y: -100000000
+      - X: -380000000
+        Y: -100000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 37.999973, y: -11.99999}
+    - - {x: 37.999973, y: -12}
       - {x: 37.999973, y: -10}
       - {x: -38, y: -10.00003}
-      - {x: -37.999973, y: -11.99999}
+      - {x: -37.999973, y: -12}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &868106027
@@ -1845,7 +1841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
@@ -10423,7 +10418,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths: []
@@ -10459,7 +10454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 1
   followRightWall: 1
   followDownWall: 1
@@ -10787,7 +10781,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -10837,7 +10831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 1
   followDownWall: 0
@@ -11065,7 +11058,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -11115,7 +11108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
@@ -11172,7 +11164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
@@ -11770,34 +11761,26 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 773998145}
     m_ColliderPaths:
-    - - X: 379999900
-        Y: 79999959
-      - X: 379999900
-        Y: 100000041
-      - X: 379999959
-        Y: 100000100
-      - X: -380000041
-        Y: 100000100
-      - X: -380000100
-        Y: 100000041
-      - X: -380000100
-        Y: 79999959
-      - X: -380000041
-        Y: 79999900
-      - X: 379999959
-        Y: 79999900
+    - - X: -380000000
+        Y: 80000000
+      - X: 380000000
+        Y: 80000000
+      - X: 380000000
+        Y: 100000000
+      - X: -380000000
+        Y: 100000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 37.99997, y: 7.9999905}
-      - {x: 37.99997, y: 10.00001}
-      - {x: -38.00001, y: 9.999974}
-      - {x: -37.999973, y: 7.9999905}
+    - - {x: 37.999973, y: 8}
+      - {x: 37.999973, y: 10}
+      - {x: -38, y: 9.99997}
+      - {x: -37.999973, y: 8}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!19719996 &773998145
@@ -11828,7 +11811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windowManager: {fileID: 0}
   followUpWall: 1
   followRightWall: 0
   followDownWall: 0
