@@ -28,5 +28,22 @@ namespace Inputer
             return Input.GetKeyDown(KeyCode.Space);
         }
 
+        // アクション入力(押したとき)
+        public bool ActionKey_Down()
+        {
+            return Input.GetKeyDown(KeyCode.Q);
+        }
+
+        // アクション入力(押している間)
+        public bool ActionKey()
+        {
+            return Input.GetKey(KeyCode.Q);
+        }
+
+        //  アクション入力(離したとき)
+        public bool ActionKeyUp()
+        {
+            return Input.GetKeyDown(KeyCode.Q);
+        }
     }
 }
