@@ -10,7 +10,8 @@ namespace Gimmicks
     public class Box : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーを保存
-        private ITestKey _ITestKey;                 // 入力インターフェースを取得
+        private ITestKey _ITestKey;                 // 入力インターフェースを保存
+        private IHitPlayer _IHitPlayer;             // 当たり判定インターフェースを保存
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         private Animator animator;
@@ -25,6 +26,7 @@ namespace Gimmicks
         void Start()
         {
             _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            _IHitPlayer = GetComponent<IHitPlayer>(); // 当たり判定インターフェースを取得
             hideKey.SetActive(false); // 鍵を非表示
             animator = hideKey.GetComponent<Animator>();
             uiGauge.SetActive(false);
@@ -51,6 +53,7 @@ namespace Gimmicks
             {
                 stayFlg = true; // 滞在中
                 uiGauge.SetActive(true);
+                _IHitPlayer.IsHitPlayer(stayFlg);
             }   
         }
 
@@ -61,6 +64,7 @@ namespace Gimmicks
             {
                 stayFlg = false; // 滞在してない
                 uiGauge.SetActive(false);
+                _IHitPlayer.IsHitPlayer(stayFlg);
             }   
         }
 
