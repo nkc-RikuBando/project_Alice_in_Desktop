@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CursorChange : MonoBehaviour
+namespace Window
 {
-    [SerializeField] private Texture2D cursolTexture;
-
-    public Texture2D GetTexture()
+    public class CursorChange : MonoBehaviour
     {
-        return cursolTexture;
-    }
+        [SerializeField] private Texture2D cursolTexture;
 
+        public Texture2D GetTexture()
+        {
+            return cursolTexture;
+        }
+    }
 }
