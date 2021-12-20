@@ -22,22 +22,21 @@ namespace Animation
         void Start()
         {
             fadeAnimator = GameObject.Find("FadeMask").GetComponent<Animator>();
-            unMaskRect = GameObject.Find("UnMask").GetComponent<RectTransform>();
+            unMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
             windowFade = GameObject.Find("Camera").GetComponent<WindowFade>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.Return)) StartClearEffect();
         }
 
         // ステージクリア時に呼び出す
         public void StartClearEffect()
         {
-            // door.GetComponent<Animator>().SetTrigger("Action");
             StartCoroutine("PlayEffect");
         }
+
 
         IEnumerator PlayEffect()
         {

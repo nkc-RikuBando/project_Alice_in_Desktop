@@ -44,6 +44,9 @@ namespace Player
                 _playerStatus._InputFlgY = false;
                 _playerStatus._InputFlgAction = false;
 
+                // ’n–Ê”»’è’âŽ~
+                //_playerStatus._GroundJudge = false;
+
                 // “®‚«‚ð’âŽ~
                 _currentVec = _rb.velocity;
                 _rb.velocity = Vector2.zero;
@@ -68,6 +71,9 @@ namespace Player
                 _playerStatus._InputFlgX      = _rb.velocity.y < 0f ? true : false;
                 _playerStatus._InputFlgY      = true;
                 _playerStatus._InputFlgAction = true;
+
+                // ’n–Ê”»’è’âŽ~
+                _playerStatus._GroundJudge = true;
 
                 // •¨—”»’è‰Â”\
                 _rb.bodyType = RigidbodyType2D.Dynamic;
