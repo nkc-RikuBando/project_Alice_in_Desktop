@@ -87,7 +87,7 @@ namespace GameSystem
             keyList.Remove(get); // リストから鍵を消す
             if (keyList.Count <= 0) Clear(); // クリアメソッドを呼ぶ
 
-            Destroy(get); // リストから消えたら鍵自身を消す
+            //Destroy(get); // リストから消えたら鍵自身を消す
         }
 
         public void Clear()

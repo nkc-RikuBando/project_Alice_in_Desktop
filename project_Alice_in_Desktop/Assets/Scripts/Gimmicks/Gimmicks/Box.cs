@@ -13,7 +13,8 @@ namespace Gimmicks
         private ITestKey _ITestKey;                 // 入力インターフェースを取得
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
-        //private float inputTime = default;
+        private Animator animator;
+        [SerializeField] private GameObject uiGauge;
 
         public bool PlHitFlg
         {
@@ -25,14 +26,15 @@ namespace Gimmicks
         {
             _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
             hideKey.SetActive(false); // 鍵を非表示
+            animator = hideKey.GetComponent<Animator>();
+            uiGauge.SetActive(false);
         }
 
         void Update()
         {
             if (StayInput())
             {
-                //inputTime += 1f * Time.deltaTime;
-                if (/*inputTime >= 0.8f*/WaitTimeUI.gaugeMaxFlg == true)
+                if (WaitTimeUI.gaugeMaxFlg == true)
                 {
                     WaitTimeUI.gaugeMaxFlg = false;
                     KeyApp();
@@ -40,22 +42,26 @@ namespace Gimmicks
                     Destroy(gameObject);
                 }
             }
-            //else
-            //    inputTime = default; // キー入力時間を０にする
         }
-    
-        private void OnCollisionEnter2D(Collision2D collision)
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
             if (collision.gameObject == player)
+            {
                 stayFlg = true; // 滞在中
+                uiGauge.SetActive(true);
+            }   
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        private void OnTriggerExit2D(Collider2D collision)
         {
             // プレイヤーが出て行ったら
             if (collision.gameObject == player)
+            {
                 stayFlg = false; // 滞在してない
+                uiGauge.SetActive(false);
+            }   
         }
 
         /// <summary>
@@ -73,6 +79,7 @@ namespace Gimmicks
         public void KeyApp()
         {
             hideKey.SetActive(true); //壊れたら鍵が出現
+            animator.SetTrigger("Spawn");
         }
     }
 }
