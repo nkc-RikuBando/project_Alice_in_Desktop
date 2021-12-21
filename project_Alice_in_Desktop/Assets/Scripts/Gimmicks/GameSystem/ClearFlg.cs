@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Connector.Inputer;
+using Connector.Player;
 using Animation;
 
 namespace GameSystem
@@ -14,8 +14,9 @@ namespace GameSystem
 
         //[System.NonSerialized] public bool clearFlg; 
         [SerializeField] private GameObject player;
+        [SerializeField] private GameObject inputUI;
         //[SerializeField] private string playerName; // プレイヤーの名前を取得
-        private ITestKey _ITestKey;                 // 入力インターフェースを保存
+        private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private Animator animator;                  // アニメーターの保存
         private ClearEffect clearEffect;            // クリアエフェクトの保存
 
@@ -34,10 +35,11 @@ namespace GameSystem
         void Start()
         {
             //player = GameObject.Find(playerName); // プレイヤーオブジェクトを取得
-            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             clearFlg = false;
+            inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
 
             //canvas = GameObject.Find("Canvas");   // キャンバスの取得
@@ -50,6 +52,8 @@ namespace GameSystem
 
         void Update()
         {
+            Debug.Log(IsSceceMove());
+
             animator.SetBool("Locked", true);
             if (IsSceceMove())
             {
@@ -68,12 +72,20 @@ namespace GameSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player) stayFlg = true;
+            if (collision.gameObject == player)
+            {
+                stayFlg = true;
+                inputUI.SetActive(true);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject == player) stayFlg = false;
+            if (collision.gameObject == player)
+            {
+                stayFlg = false;
+                inputUI.SetActive(false);
+            }
         }
 
         public void AddKey(GameObject set)
@@ -100,8 +112,8 @@ namespace GameSystem
         /// </summary>
         /// <returns></returns>
         bool IsSceceMove()
-        {
-            return _ITestKey.EventKey() && stayFlg == true;
+        {//_IActionKey.ActionKey_Down()
+            return Input.GetKeyDown(KeyCode.Q) && stayFlg == true;
         }
     }
 }

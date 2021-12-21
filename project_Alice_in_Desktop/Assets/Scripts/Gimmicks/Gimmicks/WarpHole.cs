@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.Inputer;
+using Connector.Player;
 
 namespace Gimmicks
 
@@ -10,7 +10,7 @@ namespace Gimmicks
     public class WarpHole : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーオブジェクトを取得
-        private ITestKey _ITestKey;
+        private IPlayerAction _ActionKey;
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
         private bool stayFlg = false;                  // 滞在しているかフラグ
 
@@ -20,7 +20,7 @@ namespace Gimmicks
 
         void Start()
         {
-            _ITestKey = GetComponent<ITestKey>();
+            _ActionKey = player.GetComponent<IPlayerAction>();
             //cameraZoomFlg = false;
             //camObj = GameObject.Find("Main Camera");
             //cam = camObj.GetComponent<Camera>();
@@ -70,7 +70,7 @@ namespace Gimmicks
         /// <returns></returns>
         bool StayInput()
         {
-            return stayFlg == true && _ITestKey.EventKey();
+            return stayFlg == true && _ActionKey.ActionKey_Down();
         }
 
         /// <summary>
