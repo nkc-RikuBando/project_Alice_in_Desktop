@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Connector.Inputer;
+using Connector.Player;
 using GameSystem;
 
 namespace Gimmicks
@@ -10,12 +10,15 @@ namespace Gimmicks
     public class Box : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーを保存
-        private ITestKey _ITestKey;                 // 入力インターフェースを保存
+        private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private IHitPlayer _IHitPlayer;             // 当たり判定インターフェースを保存
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
-        private Animator animator;
+        private Animator myAnimator;
+        private Animator keyAnimator;
+
         [SerializeField] private GameObject uiGauge;
+        [SerializeField] private float time;
 
         public bool PlHitFlg
         {
@@ -25,11 +28,13 @@ namespace Gimmicks
 
         void Start()
         {
-            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
-            _IHitPlayer = GetComponent<IHitPlayer>(); // 当たり判定インターフェースを取得
+            _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
+            _IHitPlayer = uiGauge.GetComponentInChildren<IHitPlayer>(); // 当たり判定インターフェースを取得
             hideKey.SetActive(false); // 鍵を非表示
-            animator = hideKey.GetComponent<Animator>();
+            myAnimator = GetComponent<Animator>();
+            keyAnimator = hideKey.GetComponent<Animator>();
             uiGauge.SetActive(false);
+            Debug.Log(_IHitPlayer);
         }
 
         void Update()
@@ -38,10 +43,17 @@ namespace Gimmicks
             {
                 if (WaitTimeUI.gaugeMaxFlg == true)
                 {
+                    //WaitTimeUI.gaugeMaxFlg = false;
+                    //myAnimator.SetTrigger("Destroy");
+                    //KeyApp();
+                    //Destroy(gameObject);
+
+
                     WaitTimeUI.gaugeMaxFlg = false;
-                    KeyApp();
+                    myAnimator.SetTrigger("Destroy");
                     hideKey.transform.parent = null; // 鍵を子オブジェクトから外す
-                    Destroy(gameObject);
+                    Destroy(uiGauge);
+                    this.StartCoroutine(KeyAppTime());
                 }
             }
         }
@@ -53,7 +65,7 @@ namespace Gimmicks
             {
                 stayFlg = true; // 滞在中
                 uiGauge.SetActive(true);
-                _IHitPlayer.IsHitPlayer(stayFlg);
+                //_IHitPlayer.IsHitPlayer();
             }   
         }
 
@@ -63,8 +75,8 @@ namespace Gimmicks
             if (collision.gameObject == player)
             {
                 stayFlg = false; // 滞在してない
-                uiGauge.SetActive(false);
-                _IHitPlayer.IsHitPlayer(stayFlg);
+                //uiGauge.SetActive(false);
+                _IHitPlayer.NonHitPlayer();
             }   
         }
 
@@ -74,7 +86,7 @@ namespace Gimmicks
         /// <returns></returns>
         bool StayInput()
         {
-            return stayFlg == true && _ITestKey.EventNagaoshiKey();
+            return stayFlg == true && _IActionKey.ActionKey();
         }
 
         /// <summary>
@@ -83,7 +95,15 @@ namespace Gimmicks
         public void KeyApp()
         {
             hideKey.SetActive(true); //壊れたら鍵が出現
-            animator.SetTrigger("Spawn");
+            hideKey.transform.parent = null; // 鍵を子オブジェクトから外す
+            keyAnimator.SetTrigger("Spawn");
+        }
+
+        IEnumerator KeyAppTime()
+        {
+            yield return new WaitForSeconds(time);
+            hideKey.SetActive(true); //壊れたら鍵が出現
+            keyAnimator.SetTrigger("Spawn");
         }
     }
 }

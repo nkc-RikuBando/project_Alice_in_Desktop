@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.Inputer;
+using Connector.Player;
 
 namespace Gimmicks
 {
     public class InputKeySwitch : MonoBehaviour
     {
         [SerializeField] private GameObject player; // プレイヤーを取得
-        private ITestKey _ITestKey; // 入力インターフェースを保存
+        private IPlayerAction _IActionKey; // 入力インターフェースを保存
         [SerializeField] private GameObject gimmick;
         private bool addSwitch; // 
         private bool stayFlg;   // 
 
         void Start()
         {
-            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             addSwitch = false;
             stayFlg = false;
         }
@@ -51,7 +51,7 @@ namespace Gimmicks
         /// <returns></returns>
         bool StayInput()
         {
-            return stayFlg == true && _ITestKey.EventKey();
+            return stayFlg == true && _IActionKey.ActionKey_Down();
         }
     }
 }
