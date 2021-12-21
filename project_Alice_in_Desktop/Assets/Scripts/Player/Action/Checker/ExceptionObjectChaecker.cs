@@ -30,7 +30,7 @@ namespace Player
         }
         void Update()
         {
-            ExceptionDead();
+            //ExceptionDead();
         }
 
 
