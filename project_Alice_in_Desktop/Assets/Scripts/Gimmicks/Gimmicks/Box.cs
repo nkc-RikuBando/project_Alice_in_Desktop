@@ -64,8 +64,8 @@ namespace Gimmicks
             if (collision.gameObject == player)
             {
                 stayFlg = true; // ëÿç›íÜ
-                uiGauge.SetActive(true);
-                //_IHitPlayer.IsHitPlayer();
+                //uiGauge.SetActive(true);
+                _IHitPlayer.IsHitPlayer();
             }   
         }
 
