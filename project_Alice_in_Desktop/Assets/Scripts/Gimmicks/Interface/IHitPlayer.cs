@@ -1,4 +1,5 @@
 interface IHitPlayer
 {
-    public void IsHitPlayer(bool isHitting);
+    public void IsHitPlayer();
+    public void NonHitPlayer();
 }

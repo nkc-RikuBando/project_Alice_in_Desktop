@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Connector.Inputer;
+using Connector.Player;
 using Animation;
 
 namespace GameSystem
@@ -10,7 +10,7 @@ namespace GameSystem
     public class ClearFig2 : MonoBehaviour, IHitSwitch
     {
         [SerializeField] private GameObject player;
-        private ITestKey _ITestKey;                 // 入力インターフェースを保存
+        private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private Animator animator;                  // アニメーターを保存
         private ClearEffect clearEffect;            // クリアエフェクトを保存
 
@@ -27,7 +27,7 @@ namespace GameSystem
 
         void Start()
         {
-            _ITestKey = GetComponent<ITestKey>(); // 入力インターフェースを取得
+            _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             switchFlg = false;
@@ -112,7 +112,7 @@ namespace GameSystem
         /// <returns></returns>
         bool IsSceceMove()
         {
-            return _ITestKey.EventKey() && stayFlg == true;
+            return _IActionKey.ActionKey_Down() && stayFlg == true;
         }
     }
 }
