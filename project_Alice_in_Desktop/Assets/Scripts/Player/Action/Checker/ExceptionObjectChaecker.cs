@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.MySceneManager;
 using Gimmicks;
 
 namespace Player
@@ -12,7 +11,9 @@ namespace Player
 
         [SerializeField, Tooltip("Debug用Flg")] private bool _debugFlg;
 
-        private ISceneChange _sceneChange;
+        [SerializeField] private GameObject _fadeObj;
+
+        private FadeEffect _fadeEffect;
         private PlayerStatus _playerStatus;
         private Rigidbody2D _rb;
         private CapsuleCollider2D _capCol;
@@ -23,11 +24,11 @@ namespace Player
 
         void Start()
         {
+            _fadeEffect 　= _fadeObj.GetComponent<FadeEffect>();
             _parentObj    = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
             _capCol       = _parentObj.GetComponent<CapsuleCollider2D>();
             _rb           = _parentObj.GetComponent<Rigidbody2D>();
-            _sceneChange  = GameObject.Find("SceneManager").GetComponent<ISceneChange>();
         }
         void Update()
         {
@@ -62,35 +63,23 @@ namespace Player
 
                 if (Input.GetMouseButtonUp(0))
                 {
-                    StartCoroutine("PlayerDead");
-                    _colHitFlg = true;
+                    // 入力停止
+                    _playerStatus._InputFlgX = false;
+                    _playerStatus._InputFlgY = false;
+                    _playerStatus._InputFlgAction = false;
+
+                    // 動きを停止
+                    _rb.velocity = Vector2.zero;
+                    _rb.bodyType = RigidbodyType2D.Kinematic;
+
+                    _fadeEffect.StartCrushingEffect();
+
+                    //_colHitFlg = true;
                 }
             }
             //else _capCol.enabled = true;
         }
 
-        // Playerが死ぬコルーチン
-        IEnumerator PlayerDead()
-        {
-            // 死ぬアニメーション再生
-
-            Debug.Log("死にそう！");
-
-            // 入力停止
-            _playerStatus._InputFlgX = false;
-            _playerStatus._InputFlgY = false;
-            _playerStatus._InputFlgAction = false;
-
-            // 動きを停止
-            _rb.velocity = Vector2.zero;
-            _rb.bodyType = RigidbodyType2D.Kinematic;
-
-            yield return new WaitForSeconds(2);
-
-            Debug.Log("死んだ！");
-
-            _sceneChange.ReloadScene();
-        }
 
         // 当たったら
         private void OnTriggerEnter2D(Collider2D collision)

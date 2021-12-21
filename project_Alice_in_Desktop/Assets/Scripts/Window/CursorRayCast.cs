@@ -18,15 +18,13 @@ namespace Window
         {
             if (Input.GetMouseButton(0)) return;
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, mouseTouchableLayer);
-            Debug.DrawRay((Vector2)ray.origin, (Vector2)ray.direction, Color.red, mouseTouchableLayer);
+            RaycastHit2D hit2d = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(0, 0, 1), 10f, mouseTouchableLayer);
 
-            if (hit2d.collider != col)
+            if (hit2d)
             {
                 col = hit2d.collider;
 
-                if (col != null)
+                if (col != null && hit2d.collider.GetComponent<CursorChange>().GetTexture()!=null)
                 {
                     cursorTex = hit2d.collider.GetComponent<CursorChange>().GetTexture();
                     Cursor.SetCursor(cursorTex, hotSpot, CursorMode.Auto);
@@ -38,6 +36,7 @@ namespace Window
                 Cursor.SetCursor(defaultTex, hotSpot, CursorMode.Auto);
                 currentTex = defaultTex;
             }
+            
         }
     }
 }
