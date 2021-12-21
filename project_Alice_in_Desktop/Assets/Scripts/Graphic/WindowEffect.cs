@@ -7,6 +7,8 @@ public class WindowEffect : MonoBehaviour
 {
     private PostProcessVolume processVolume;
     private SpriteRenderer cautionRenderer;
+
+    private bool flg;
     
     // Start is called before the first frame update
     void Start()
@@ -25,16 +27,18 @@ public class WindowEffect : MonoBehaviour
     public void StartWindowEffect()
     {
         processVolume.weight = 1;
+        flg = true;
     }
 
     public void EndWindowEffect()
     {
         processVolume.weight = 0;
+        flg = false;
     }
 
     public void DeadCaution(bool isDead)
     {
         cautionRenderer.enabled = isDead;
-        processVolume.weight = isDead ? 0 : 1;
+        processVolume.weight = isDead | !flg ? 0 : 1;
     }
 }

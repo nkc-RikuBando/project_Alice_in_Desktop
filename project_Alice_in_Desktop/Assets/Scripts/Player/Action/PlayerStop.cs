@@ -38,12 +38,12 @@ namespace Player
 
         private void Update()
         {
+            _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
 
         // Player‚Ì‹““®’â~ƒƒ\ƒbƒh
         void IWindowTouch.WindowTouchAction()
         {
-            _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
 
             // “ü—Í’â~
             _playerStatus._InputFlgX = false;
@@ -65,7 +65,7 @@ namespace Player
             _capCol.enabled = false;
             _boxCol.enabled = false;
 
-            _windowEffect.StartWindowEffect(); 
+            _windowEffect.StartWindowEffect();
         }
 
 
