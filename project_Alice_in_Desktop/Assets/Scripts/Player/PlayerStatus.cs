@@ -26,7 +26,7 @@ namespace Player
         public bool _GroundJudge { get; set; } = true;
         public bool _WallJudge { get; set; } = true;
         public bool _GroundChecker { get; set; } = false;
-
+        public bool _DeadColFlg { get; set; } = false;
 
         // ステータスプロパティ
         public float _Gravity
