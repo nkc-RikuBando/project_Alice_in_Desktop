@@ -20,6 +20,7 @@ namespace Window
         private SpriteRenderer sr;
         private Tilemap tilemap;
         private bool srFlg = false;
+        private bool tileFlg = false;
         private Color32 defaultColor;
 
         private void Start()
@@ -37,6 +38,7 @@ namespace Window
             {
                 tilemap = GetComponent<Tilemap>();
                 defaultColor = tilemap.color;
+                tileFlg = true;
             }
 
         }
@@ -104,7 +106,7 @@ namespace Window
             {
                 sr.color = new Color32(80, 80, 80, 255);
             }
-            else
+            else if(tileFlg)
             {
                 tilemap.color = new Color32(80, 80, 80, 255);
             }
@@ -116,7 +118,7 @@ namespace Window
             {
                 sr.color = defaultColor;
             }
-            else
+            else if(tileFlg)
             {
                 tilemap.color = defaultColor;
             }
