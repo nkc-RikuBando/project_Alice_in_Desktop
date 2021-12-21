@@ -1526,6 +1526,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5f015f6eecf7e94280b80ea2f445e9f, type: 3}
+--- !u!1 &370811308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7486708955965676959, guid: 4bd75500ab944244fad33494b14d00ff, type: 3}
+  m_PrefabInstance: {fileID: 1028202768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &376843246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2918,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1827179059}
     - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
+      propertyPath: handleBarColObj
+      value: 
+      objectReference: {fileID: 1005760403}
+    - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
+      propertyPath: stoppableObj.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
       propertyPath: colObjList.Array.data[0]
       value: 
       objectReference: {fileID: 1827179067}
@@ -2944,6 +2957,10 @@ PrefabInstance:
       propertyPath: colObjList.Array.data[7]
       value: 
       objectReference: {fileID: 1827179060}
+    - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
+      propertyPath: stoppableObj.Array.data[0]
+      value: 
+      objectReference: {fileID: 370811308}
     - target: {fileID: 5080619296554510253, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
       propertyPath: m_Name
       value: WindowManager
@@ -11695,6 +11712,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1005760403 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 15016488, guid: a46db09a89dfebb478791c0a7d9f6b27, type: 3}
+  m_PrefabInstance: {fileID: 1827179058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1028202768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11702,6 +11724,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7486708955965676942, guid: 4bd75500ab944244fad33494b14d00ff, type: 3}
+      propertyPath: _fadeObj
+      value: 
+      objectReference: {fileID: 833143728}
     - target: {fileID: 7486708955965676953, guid: 4bd75500ab944244fad33494b14d00ff, type: 3}
       propertyPath: m_RootOrder
       value: 14
