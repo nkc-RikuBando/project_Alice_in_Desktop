@@ -5,19 +5,21 @@ using Window;
 
 namespace Player
 {
-    public class PlayerStop : MonoBehaviour,IWindowTouch,IWindowLeave
+    public class PlayerStop : MonoBehaviour, IWindowTouch, IWindowLeave
     {
         // Playerの動きを止める処理
 
 
         [SerializeField] private GameObject _fadeObj;
+        [SerializeField] private GameObject _postObj;
 
         private FadeEffect _fadeEffect;
-        private PlayerStatus      _playerStatus;
-        private Rigidbody2D       _rb;
-        private Animator          _anim;
+        private WindowEffect _windowEffect;
+        private PlayerStatus _playerStatus;
+        private Rigidbody2D _rb;
+        private Animator _anim;
         private CapsuleCollider2D _capCol;
-        private BoxCollider2D     _boxCol;
+        private BoxCollider2D _boxCol;
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
@@ -26,17 +28,23 @@ namespace Player
         void Start()
         {
             _fadeEffect = _fadeObj.GetComponent<FadeEffect>();
+            _windowEffect = _postObj.GetComponent<WindowEffect>();
             _playerStatus = GetComponent<PlayerStatus>();
-            _rb         　= GetComponent<Rigidbody2D>();
-            _anim         = GetComponent<Animator>();
-            _capCol       = GetComponent<CapsuleCollider2D>();
-            _boxCol       = GetComponent<BoxCollider2D>();
+            _rb = GetComponent<Rigidbody2D>();
+            _anim = GetComponent<Animator>();
+            _capCol = GetComponent<CapsuleCollider2D>();
+            _boxCol = GetComponent<BoxCollider2D>();
         }
 
+        private void Update()
+        {
+        }
 
         // Playerの挙動停止メソッド
         void IWindowTouch.WindowTouchAction()
         {
+            _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
+
             // 入力停止
             _playerStatus._InputFlgX = false;
             _playerStatus._InputFlgY = false;
@@ -56,6 +64,8 @@ namespace Player
             // コライダーを消す
             _capCol.enabled = false;
             _boxCol.enabled = false;
+
+            _windowEffect.StartWindowEffect(); 
         }
 
 
@@ -81,7 +91,9 @@ namespace Player
             _capCol.enabled = true;
             _boxCol.enabled = true;
 
-            if (_playerStatus._DeadColFlg) 
+            _windowEffect.EndWindowEffect();
+
+            if (_playerStatus._DeadColFlg)
             {
                 // 入力停止
                 _playerStatus._InputFlgX = false;
