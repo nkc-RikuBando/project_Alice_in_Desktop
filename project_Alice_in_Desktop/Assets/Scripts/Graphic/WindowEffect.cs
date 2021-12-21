@@ -6,10 +6,12 @@ using UnityEngine.Rendering.PostProcessing;
 public class WindowEffect : MonoBehaviour
 {
     private PostProcessVolume processVolume;
+    private SpriteRenderer cautionRenderer;
     
     // Start is called before the first frame update
     void Start()
     {
+        cautionRenderer = GameObject.Find("Caution").GetComponent<SpriteRenderer>();
         processVolume = GetComponent<PostProcessVolume>();
     }
 
@@ -28,5 +30,11 @@ public class WindowEffect : MonoBehaviour
     public void EndWindowEffect()
     {
         processVolume.weight = 0;
+    }
+
+    public void DeadCaution(bool isDead)
+    {
+        cautionRenderer.enabled = isDead;
+        processVolume.weight = isDead ? 0 : 1;
     }
 }
