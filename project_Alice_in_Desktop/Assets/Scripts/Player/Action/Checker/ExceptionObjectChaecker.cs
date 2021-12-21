@@ -16,7 +16,6 @@ namespace Player
         private FadeEffect _fadeEffect;
         private PlayerStatus _playerStatus;
         private Rigidbody2D _rb;
-        private CapsuleCollider2D _capCol;
         private GameObject _parentObj;
 
         private bool _colHitFlg;
@@ -27,12 +26,11 @@ namespace Player
             _fadeEffect 　= _fadeObj.GetComponent<FadeEffect>();
             _parentObj    = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
-            _capCol       = _parentObj.GetComponent<CapsuleCollider2D>();
             _rb           = _parentObj.GetComponent<Rigidbody2D>();
         }
         void Update()
         {
-            ExceptionDead();
+            //ExceptionDead();
         }
 
 
@@ -56,11 +54,8 @@ namespace Player
 
 
             // エラーオブジェクトに当たっている場合
-            if (_colHitFlg)
+            if (_playerStatus._DeadColFlg)
             {
-                // これいるっけ？
-                //_capCol.enabled = false;
-
                 if (Input.GetMouseButtonUp(0))
                 {
                     // 入力停止
@@ -73,11 +68,8 @@ namespace Player
                     _rb.bodyType = RigidbodyType2D.Kinematic;
 
                     _fadeEffect.StartCrushingEffect();
-
-                    //_colHitFlg = true;
                 }
             }
-            //else _capCol.enabled = true;
         }
 
 
@@ -90,7 +82,7 @@ namespace Player
 
                 if (!box.isTrigger)
                 {
-                    _colHitFlg = true;
+                    _playerStatus._DeadColFlg = true;
                 }
             }
             else if (collision.GetComponent<CompositeCollider2D>())
@@ -99,7 +91,7 @@ namespace Player
 
                 if (!tile.isTrigger)
                 {
-                    _colHitFlg = true;
+                    _playerStatus._DeadColFlg = true;
                 }
             }
         }
@@ -113,7 +105,7 @@ namespace Player
 
                 if (!box.isTrigger)
                 {
-                    _colHitFlg = false;
+                    _playerStatus._DeadColFlg = false;
                 }
             }
             else if (collision.GetComponent<CompositeCollider2D>())
@@ -122,7 +114,7 @@ namespace Player
 
                 if (!tile.isTrigger)
                 {
-                    _colHitFlg = false;
+                    _playerStatus._DeadColFlg = false;
                 }
             }
         }
