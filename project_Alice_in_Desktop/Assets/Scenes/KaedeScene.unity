@@ -843,6 +843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7134399257898743407, guid: a57a8318335513344816c3211285c0fb, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a57a8318335513344816c3211285c0fb, type: 3}
 --- !u!1 &661801870
@@ -3690,8 +3694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6304a4a6647f3ad4f8d83b195158f6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  goal: {fileID: 0}
+  player: {fileID: 2739930077659329596}
+  goal: {fileID: 1140715619}
 --- !u!61 &1935103492151325962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4192,6 +4196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugFlg: 0
+  _fadeObj: {fileID: 0}
 --- !u!61 &2739930078856379981
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4354,7 +4359,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
