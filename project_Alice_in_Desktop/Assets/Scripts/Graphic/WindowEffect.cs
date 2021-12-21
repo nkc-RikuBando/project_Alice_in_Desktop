@@ -12,14 +12,14 @@ public class WindowEffect : MonoBehaviour
     void Start()
     {
         cautionRenderer = GameObject.Find("Caution").GetComponent<SpriteRenderer>();
-        processVolume = GetComponent<PostProcessVolume>();
+        processVolume = GameObject.Find("Post_Window").GetComponent<PostProcessVolume>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) StartWindowEffect();
-        if (Input.GetMouseButtonUp(0)) EndWindowEffect();
+        //if (Input.GetMouseButtonDown(0)) StartWindowEffect();
+        //if (Input.GetMouseButtonUp(0)) EndWindowEffect();
     }
 
     public void StartWindowEffect()
