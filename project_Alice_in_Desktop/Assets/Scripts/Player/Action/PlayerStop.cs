@@ -44,6 +44,7 @@ namespace Player
         // Playerの挙動停止メソッド
         void IWindowTouch.WindowTouchAction()
         {
+            Debug.Log("とまる");
 
             // 入力停止
             _playerStatus._InputFlgX = false;
@@ -72,8 +73,9 @@ namespace Player
         // Playerの挙動再生メソッド
         void IWindowLeave.WindowLeaveAction()
         {
+            Debug.Log("動く");
             // 入力可能
-            _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;
+            _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;// ここが悪さしてる
             _playerStatus._InputFlgY = true;
             _playerStatus._InputFlgAction = true;
 
