@@ -267,20 +267,22 @@ namespace Window
             beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (flg == false)
             {
-                moveObjNum = (int)PositionList.COUNT;
-                moveObj = null;
-                movement = Vector3.zero;
-                ColSet();
-
-                // インターフェースを呼び出す
-                for (int i = 0; i < stoppableObj.Count; ++i)
+                if (moveObj != null)
                 {
-                    stoppableObj[i].GetComponent<IWindowLeave>().WindowLeaveAction();
+                    moveObjNum = (int)PositionList.COUNT;
+                    moveObj = null;
+                    movement = Vector3.zero;
+                    ColSet();
+
+                    // インターフェースを呼び出す
+                    for (int i = 0; i < stoppableObj.Count; ++i)
+                    {
+                        stoppableObj[i].GetComponent<IWindowLeave>().WindowLeaveAction();
+                    }
                 }
             }
             else
             {
-                Debug.Log(moveObj);
                 // インターフェースを呼び出す
                 for (int i = 0; i < stoppableObj.Count; ++i)
                 {
