@@ -52,7 +52,7 @@ namespace Player
         private bool GroundChecker()
         {
             if (_playerStatus._GroundJudge) _playerStatus._GroundChecker = _groundChecker.CheckIsGround(_capCol);
-            else _playerStatus._GroundChecker = false;
+            else                            _playerStatus._GroundChecker = false;
 
             return _playerStatus._GroundChecker;
         }
