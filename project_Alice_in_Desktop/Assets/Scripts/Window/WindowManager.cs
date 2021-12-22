@@ -283,7 +283,6 @@ namespace Window
             }
             else
             {
-                Debug.Log(moveObj);
                 // インターフェースを呼び出す
                 for (int i = 0; i < stoppableObj.Count; ++i)
                 {
