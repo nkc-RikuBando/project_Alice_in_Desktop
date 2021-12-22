@@ -9,67 +9,14 @@ namespace Player
     {
         // 例外オブジェクト処理
 
-        [SerializeField, Tooltip("Debug用Flg")] private bool _debugFlg;
-
-        [SerializeField] private GameObject _fadeObj;
-
-        private FadeEffect _fadeEffect;
         private PlayerStatus _playerStatus;
-        private Rigidbody2D _rb;
         private GameObject _parentObj;
-
-        private bool _colHitFlg;
 
 
         void Start()
         {
-            _fadeEffect 　= _fadeObj.GetComponent<FadeEffect>();
             _parentObj    = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
-            _rb           = _parentObj.GetComponent<Rigidbody2D>();
-        }
-        void Update()
-        {
-            //ExceptionDead();
-        }
-
-
-        // オブジェクトに重なった時メソッド
-        private void ExceptionDead()
-        {
-            // デバッグ用
-            if (_debugFlg)
-            {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    _colHitFlg = true;
-                    Debug.Log(_colHitFlg);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    _colHitFlg = false;
-                    Debug.Log(_colHitFlg);
-                }
-            }
-
-
-            // エラーオブジェクトに当たっている場合
-            if (_playerStatus._DeadColFlg)
-            {
-                if (Input.GetMouseButtonUp(0))
-                {
-                    // 入力停止
-                    _playerStatus._InputFlgX = false;
-                    _playerStatus._InputFlgY = false;
-                    _playerStatus._InputFlgAction = false;
-
-                    // 動きを停止
-                    _rb.velocity = Vector2.zero;
-                    _rb.bodyType = RigidbodyType2D.Kinematic;
-
-                    _fadeEffect.StartCrushingEffect();
-                }
-            }
         }
 
 
