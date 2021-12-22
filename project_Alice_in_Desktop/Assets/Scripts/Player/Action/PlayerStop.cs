@@ -10,16 +10,16 @@ namespace Player
         // Playerの動きを止める処理
 
 
-        [SerializeField, Tooltip("シーン遷移オブジェクト")]     private GameObject _fadeObj;
-        [SerializeField, Tooltip("PostProcessingオブジェクト")] private GameObject _postObj;
+        [SerializeField] private GameObject _fadeObj;
+        [SerializeField] private GameObject _postObj;
 
-        private FadeEffect        _fadeEffect;
-        private WindowEffect      _windowEffect;
-        private PlayerStatus      _playerStatus;
-        private Rigidbody2D       _rb;
-        private Animator          _anim;
+        private FadeEffect _fadeEffect;
+        private WindowEffect _windowEffect;
+        private PlayerStatus _playerStatus;
+        private Rigidbody2D _rb;
+        private Animator _anim;
         private CapsuleCollider2D _capCol;
-        private BoxCollider2D     _boxCol;
+        private BoxCollider2D _boxCol;
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
@@ -38,13 +38,14 @@ namespace Player
 
         private void Update()
         {
-            // windowを赤くする
             _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
 
         // Playerの挙動停止メソッド
         void IWindowTouch.WindowTouchAction()
         {
+            Debug.Log("とまる");
+
             // 入力停止
             _playerStatus._InputFlgX = false;
             _playerStatus._InputFlgY = false;
@@ -65,7 +66,6 @@ namespace Player
             _capCol.enabled = false;
             _boxCol.enabled = false;
 
-            // Windowを青くする
             _windowEffect.StartWindowEffect();
         }
 
@@ -73,8 +73,9 @@ namespace Player
         // Playerの挙動再生メソッド
         void IWindowLeave.WindowLeaveAction()
         {
+            Debug.Log("動く");
             // 入力可能
-            _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;
+            _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;// ここが悪さしてる
             _playerStatus._InputFlgY = true;
             _playerStatus._InputFlgAction = true;
 
@@ -92,10 +93,8 @@ namespace Player
             _capCol.enabled = true;
             _boxCol.enabled = true;
 
-            // Windowを白くする
             _windowEffect.EndWindowEffect();
 
-            // Player死亡判定
             if (_playerStatus._DeadColFlg)
             {
                 // 入力停止
@@ -107,7 +106,6 @@ namespace Player
                 _rb.velocity = Vector2.zero;
                 _rb.bodyType = RigidbodyType2D.Kinematic;
 
-                // シーン遷移
                 _fadeEffect.StartCrushingEffect();
             }
         }

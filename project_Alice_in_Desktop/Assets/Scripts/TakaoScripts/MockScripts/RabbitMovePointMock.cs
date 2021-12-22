@@ -27,7 +27,8 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         UpdatePos(); //¡‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğó‚¯æ‚é
         UpdateDisValue(); //•]‰¿’l‚ğó‚¯æ‚é
         playerPos = player.GetPlayerPosition(); //ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğó‚¯æ‚é
-
+        rabbitPos = rabbit.transform.position;
+        Debug.Log(rabbitPos);
     }
 
     private void UpdatePos()
@@ -48,34 +49,17 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
             .OrderByDescending(x => x.GetDisValue()); //x‚Ì~‡(æ“ª‚ªˆê”Ô‚‚¢”’l)
         tempMock = insideDisValueLinq.First();
 
-        //for (int i = 0; i < rabbitMovePoint.Length; i++)
-        //{
-        //    Debug.Log(rabbitMovePoint[i].GetOutsideFlg());
-        //    if (rabbitMovePoint[i].GetOutsideFlg() == false)
-        //    {
-        //        Debug.Log(i);
-        //        continue;
-        //    }
-        //    else
-        //    {
-        //        tempMock = rabbitMovePoint[i];
-        //    }
-
-        //    if(rabbitMovePoint[i].GetDisValue() > tempMock.GetDisValue()) //¡‚Ì•]‰¿’l‚ÆŒq‚ª‚Á‚Ä‚¢‚é•]‰¿’l‚ğ”ä‚×‚é
-        //    {
-        //        tempMock = rabbitMovePoint[i]; //¡‚Ì•]‰¿’l‚æ‚èA”ä‚×‚½•]‰¿’l‚Ì•û‚ª‚‚©‚Á‚½‚ç“n‚·
-        //    }
-        //}
         return tempMock; //“_‚ğ“n‚·
     }
 
     public RabbitMovePointMock GetRabbitMovePointPosFromAll()
     {
-        RabbitMovePointMock tempMock = null;
+        RabbitMovePointMock nearRabbitTemp = null;
         var insideDisValueFromAllLinq = rabbitMovePointsAll
-            .Where(x => x.GetOutsideFlg() == true);
-        tempMock = insideDisValueFromAllLinq.First();
-        return tempMock;
+            .Where(x => x.GetOutsideFlg() == true)
+            .OrderBy(x => x.GetRabbitPos());
+        nearRabbitTemp = insideDisValueFromAllLinq.First();
+        return nearRabbitTemp;
     }
 
     public float GetDisValue()
@@ -86,6 +70,11 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     public Vector3 GetMyPosition()
     {
         return myPos;
+    }
+
+    public Vector3 GetRabbitPos()
+    {
+        return rabbitPos;
     }
 
     public bool GetOutsideFlg()

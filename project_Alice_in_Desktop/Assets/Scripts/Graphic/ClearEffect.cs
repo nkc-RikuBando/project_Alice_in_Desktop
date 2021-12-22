@@ -18,6 +18,8 @@ namespace Animation
 
         private WindowFade windowFade;
 
+        [SerializeField] private string nextSceneName;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -49,7 +51,7 @@ namespace Animation
             yield return new WaitForSeconds(2);
 
             //‚±‚±‚ÉÄŠJŒã‚Ìˆ—‚ğ‘‚­
-            windowFade.WindowFadeOut("BandoScene_NEO");
+            windowFade.WindowFadeOut(nextSceneName);
         }
     }
 }
