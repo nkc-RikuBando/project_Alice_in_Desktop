@@ -15,11 +15,10 @@ namespace GameSystem
         private GameObject _parent; // 親オブジェクトの保存
         private const float UP_DOWN_NUM = 0.01f; // ゲージの増減量
 
-        //public bool GaugeMaxFlg
-        //{
-        //    get { return gaugeMaxFlg; }
-        //    set { gaugeMaxFlg = value; }
-        //}
+        void Awake()
+        {
+            //player = GetGameObject.playerObject;
+        }
 
         void Start()
         {
