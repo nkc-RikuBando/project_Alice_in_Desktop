@@ -44,8 +44,6 @@ namespace Player
         // Playerの挙動停止メソッド
         void IWindowTouch.WindowTouchAction()
         {
-            Debug.Log("とまる");
-
             // 入力停止
             _playerStatus._InputFlgX = false;
             _playerStatus._InputFlgY = false;
@@ -66,6 +64,7 @@ namespace Player
             _capCol.enabled = false;
             _boxCol.enabled = false;
 
+            // PostProcessingを有効
             _windowEffect.StartWindowEffect();
         }
 
@@ -73,7 +72,6 @@ namespace Player
         // Playerの挙動再生メソッド
         void IWindowLeave.WindowLeaveAction()
         {
-            Debug.Log("動く");
             // 入力可能
             _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;// ここが悪さしてる
             _playerStatus._InputFlgY = true;
@@ -93,8 +91,11 @@ namespace Player
             _capCol.enabled = true;
             _boxCol.enabled = true;
 
+            // PostProcessingを無効
             _windowEffect.EndWindowEffect();
 
+
+            // Player死亡判定
             if (_playerStatus._DeadColFlg)
             {
                 // 入力停止

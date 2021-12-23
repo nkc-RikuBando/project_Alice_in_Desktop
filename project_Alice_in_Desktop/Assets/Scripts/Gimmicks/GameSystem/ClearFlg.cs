@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Connector.Player;
 using Animation;
 
@@ -11,19 +10,15 @@ namespace GameSystem
     {// 鍵を知っている。
 
         [SerializeField] private List<GameObject> keyList = new List<GameObject>();
-
-        //[System.NonSerialized] public bool clearFlg; 
-        [SerializeField] private GameObject player;
+ 
+        private GameObject player;
         [SerializeField] private GameObject inputUI;
-        //[SerializeField] private string playerName; // プレイヤーの名前を取得
         private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private Animator animator;                  // アニメーターの保存
-        private ClearEffect clearEffect;            // クリアエフェクトの保存
 
+        private ClearEffect clearEffect;            // クリアエフェクトの保存
         private bool clearFlg;
         private bool stayFlg;
-        //[SerializeField] private string sceneName;   // シーン移動先の名前
-        //[SerializeField] private float fadeTime;     // フェードする時間
 
         //private GameObject canvas; // キャンバスの保存
         //public float high;
@@ -32,9 +27,14 @@ namespace GameSystem
         //private Vector3 pos;
         //public GameObject cube;
 
+        void Awake()
+        {
+
+        }
+
         void Start()
         {
-            //player = GameObject.Find(playerName); // プレイヤーオブジェクトを取得
+            player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
@@ -52,8 +52,6 @@ namespace GameSystem
 
         void Update()
         {
-            Debug.Log(IsSceceMove());
-
             animator.SetBool("Locked", true);
             if (IsSceceMove())
             {
@@ -61,8 +59,7 @@ namespace GameSystem
                 {
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
-                }   
-                //FadeManager.Instance.LoadScene(sceneName, fadeTime);
+                }
                 else
                     animator.SetTrigger("Action");
             }
@@ -112,8 +109,8 @@ namespace GameSystem
         /// </summary>
         /// <returns></returns>
         bool IsSceceMove()
-        {//_IActionKey.ActionKey_Down()
-            return Input.GetKeyDown(KeyCode.Q) && stayFlg == true;
+        {
+            return _IActionKey.ActionKey_Down() && stayFlg == true;
         }
     }
 }
