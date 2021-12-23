@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameSystem;
 
 namespace Window
 {
@@ -30,7 +31,7 @@ namespace Window
             COUNT
         }
 
-        [SerializeField] private GameObject frame; // 枠
+        private GameObject frame; // 枠
         private SpriteRenderer frameSR; // 枠のSpriteRenderer
         private float frameSizeX, frameSizeY, framePosX, framePosY; // 枠の大きさ・位置
 
@@ -39,7 +40,7 @@ namespace Window
         private bool moveFlg;
         private Vector3 mousePos, beforeMousePos, inputMovement, moveAxis, movement; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
 
-        [SerializeField] private GameObject windowColObj;
+        private GameObject windowColObj;
         private List<GameObject> colObjList = new List<GameObject>();
         private List<BoxCollider2D> colList = new List<BoxCollider2D> { };
 
@@ -51,10 +52,11 @@ namespace Window
         // 停止するオブジェクトのリスト
         [SerializeField] private List<GameObject> stoppableObj;
 
-
-        private void Awake()
+        private void Start()
         {
-            frame = GameObject.Find("frame");
+            windowColObj = GetGameObject.WindowColObject;
+
+            frame = GetGameObject.FrameObject;
             frameSR = frame.GetComponent<SpriteRenderer>();
 
             for (int i = 0; i < (int)PositionList.FRAME_COUNT; ++i)
