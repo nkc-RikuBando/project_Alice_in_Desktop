@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameSystem;
 
 namespace Window
 {
@@ -16,7 +17,7 @@ namespace Window
             DOWN,
             LEFT_DOWN,
             LEFT,
-            COUNT,
+            FRAME_COUNT,
             HANDLE_BAR,
             CENTER,
 
@@ -30,39 +31,42 @@ namespace Window
             COUNT
         }
 
-        [SerializeField] private GameObject frame; // 枠
+        private GameObject frame; // 枠
         private SpriteRenderer frameSR; // 枠のSpriteRenderer
         private float frameSizeX, frameSizeY, framePosX, framePosY; // 枠の大きさ・位置
 
-        private int moveObjType = (int)ObjType.COUNT, moveObjNum = (int)PositionList.COUNT; // 動かすオブジェクトの種類(点・辺・面)
+        private int moveObjType = (int)ObjType.COUNT, moveObjNum = (int)PositionList.FRAME_COUNT; // 動かすオブジェクトの種類(点・辺・面)
         private GameObject moveObj, diagonalObj; // 動かすオブジェクトと対角のオブジェクト
         private bool moveFlg;
         private Vector3 mousePos, beforeMousePos, inputMovement, moveAxis, movement; // マウス位置・前フレームのマウス位置・マウスの移動・移動軸
 
-        [Header("枠のリスト(左上から時計回り)")]
-        [SerializeField] private List<GameObject> colObjList;
+        private GameObject windowColObj;
+        private List<GameObject> colObjList = new List<GameObject>();
         private List<BoxCollider2D> colList = new List<BoxCollider2D> { };
 
-        [Header("中心(描画部分)")]
-        [SerializeField] private GameObject centerColObj;
-
-        [Header("上側の持つとこ(なんていうの？)")]
-        [SerializeField] private GameObject handleBarColObj;
+        private GameObject centerColObj;
+        private GameObject handleBarColObj;
 
         [SerializeField] private float moveSpeed = 5f; // 角・辺・面の移動速度
 
         // 停止するオブジェクトのリスト
         [SerializeField] private List<GameObject> stoppableObj;
 
-
         private void Start()
         {
+            windowColObj = GetGameObject.WindowColObject;
+
+            frame = GetGameObject.FrameObject;
             frameSR = frame.GetComponent<SpriteRenderer>();
 
-            for (int i = 0; i < colObjList.Count; ++i)
+            for (int i = 0; i < (int)PositionList.FRAME_COUNT; ++i)
             {
+                colObjList.Add(windowColObj.transform.GetChild(i).gameObject);
                 colList.Add(colObjList[i].GetComponent<BoxCollider2D>());
             }
+
+            centerColObj = windowColObj.transform.GetChild(8).gameObject;
+            handleBarColObj = windowColObj.transform.GetChild(9).gameObject;
 
             framePosX = frameSR.transform.position.x;
             framePosY = frameSR.transform.position.y;
@@ -231,7 +235,7 @@ namespace Window
                     if (holdingObj == colObjList[i])
                     {
                         moveObj = colObjList[i];
-                        diagonalObj = colObjList[(i + 4) % (int)PositionList.COUNT];
+                        diagonalObj = colObjList[(i + 4) % (int)PositionList.FRAME_COUNT];
 
                         switch (i)
                         {
@@ -257,7 +261,7 @@ namespace Window
                     }
                 }
 
-                if(moveObjNum==(int)PositionList.COUNT)
+                if(moveObjNum==(int)PositionList.FRAME_COUNT)
                 {
                     moveAxis = new Vector3(0, 0, 0);
                 }
@@ -269,7 +273,7 @@ namespace Window
             {
                 if (moveObj != null)
                 {
-                    moveObjNum = (int)PositionList.COUNT;
+                    moveObjNum = (int)PositionList.FRAME_COUNT;
                     moveObj = null;
                     movement = Vector3.zero;
                     ColSet();
@@ -283,7 +287,6 @@ namespace Window
             }
             else
             {
-                Debug.Log(moveObj);
                 // インターフェースを呼び出す
                 for (int i = 0; i < stoppableObj.Count; ++i)
                 {

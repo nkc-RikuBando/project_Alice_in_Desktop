@@ -9,7 +9,7 @@ namespace Gimmicks
 {
     public class Box : MonoBehaviour
     {
-        [SerializeField] private GameObject player; // プレイヤーを保存
+        private GameObject player; // プレイヤーを保存
         private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private IHitPlayer _IHitPlayer;             // 当たり判定インターフェースを保存
         [SerializeField] private GameObject hideKey; // 鍵を取得
@@ -26,15 +26,20 @@ namespace Gimmicks
             set { stayFlg = value; }
         }
 
+        private void Awake()
+        {
+            
+        }
+
         void Start()
         {
+            player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             _IHitPlayer = uiGauge.GetComponentInChildren<IHitPlayer>(); // 当たり判定インターフェースを取得
             hideKey.SetActive(false); // 鍵を非表示
             myAnimator = GetComponent<Animator>();
             keyAnimator = hideKey.GetComponent<Animator>();
             uiGauge.SetActive(false);
-            Debug.Log(_IHitPlayer);
         }
 
         void Update()
@@ -43,12 +48,6 @@ namespace Gimmicks
             {
                 if (WaitTimeUI.gaugeMaxFlg == true)
                 {
-                    //WaitTimeUI.gaugeMaxFlg = false;
-                    //myAnimator.SetTrigger("Destroy");
-                    //KeyApp();
-                    //Destroy(gameObject);
-
-
                     WaitTimeUI.gaugeMaxFlg = false;
                     myAnimator.SetTrigger("Destroy");
                     hideKey.transform.parent = null; // 鍵を子オブジェクトから外す
@@ -63,6 +62,7 @@ namespace Gimmicks
             // プレイヤーが入って来たら
             if (collision.gameObject == player)
             {
+                Debug.Log("qqq");
                 stayFlg = true; // 滞在中
                 //uiGauge.SetActive(true);
                 _IHitPlayer.IsHitPlayer();
