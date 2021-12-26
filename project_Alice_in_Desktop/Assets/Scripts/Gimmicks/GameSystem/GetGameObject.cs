@@ -7,8 +7,10 @@ namespace GameSystem
 {
     public static class GetGameObject 
     {
-        private static GameObject playerObj = null;
+        private static GameObject playerObj = null; // プレイヤーを保存
+        private static GameObject clearDoor = null; // プレイヤーを保存
 
+        // プレイヤーを取得
         public static GameObject playerObject
         {
             get => playerObj;

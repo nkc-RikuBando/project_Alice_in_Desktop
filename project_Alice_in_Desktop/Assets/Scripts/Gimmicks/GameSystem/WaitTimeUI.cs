@@ -8,20 +8,16 @@ namespace GameSystem
 {
     public class WaitTimeUI : MonoBehaviour, IHitPlayer
     {
-        [SerializeField] private GameObject player;
+        private GameObject player;
         private IPlayerAction _ActionKey; // 入力インターフェースの保存
         private Image waitTime; // UIの保存
         public static bool gaugeMaxFlg;
         private GameObject _parent; // 親オブジェクトの保存
         private const float UP_DOWN_NUM = 0.01f; // ゲージの増減量
 
-        void Awake()
-        {
-            //player = GetGameObject.playerObject;
-        }
-
         void Start()
         {
+            player = GetGameObject.playerObject;
             _ActionKey = player.GetComponent<IPlayerAction>();  // 入力インターフェースの取得
             waitTime = GetComponent<Image>();      // UIの取得
             gaugeMaxFlg = false;
