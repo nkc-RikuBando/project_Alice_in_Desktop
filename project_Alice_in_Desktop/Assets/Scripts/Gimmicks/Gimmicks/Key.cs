@@ -8,9 +8,7 @@ namespace Gimmicks
     public class Key : MonoBehaviour
     {
         private GameObject player;
-
-        //[SerializeField] private GameObject player; // プレイヤーを保存
-        [SerializeField] private GameObject goal;   // ゴールを取得
+        private GameObject goal;   // ゴールを取得
         private IGetKey iGetter;
         private Animator animator;
 
@@ -20,6 +18,7 @@ namespace Gimmicks
 
         void Awake()
         {
+            goal = GameObject.Find("Door_Complete");
             iGetter = goal.GetComponent<IGetKey>();
             iGetter.AddKey(gameObject);
         }
@@ -27,6 +26,7 @@ namespace Gimmicks
         void Start()
         {
             player = GetGameObject.playerObject;
+            
             animator = GetComponent<Animator>();
             //se = GetComponent<AudioSource>();
         }

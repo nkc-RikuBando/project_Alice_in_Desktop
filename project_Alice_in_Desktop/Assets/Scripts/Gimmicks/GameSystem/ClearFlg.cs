@@ -27,11 +27,6 @@ namespace GameSystem
         //private Vector3 pos;
         //public GameObject cube;
 
-        void Awake()
-        {
-
-        }
-
         void Start()
         {
             player = GetGameObject.playerObject;
