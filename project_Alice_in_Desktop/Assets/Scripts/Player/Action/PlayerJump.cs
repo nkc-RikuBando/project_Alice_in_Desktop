@@ -103,8 +103,9 @@ namespace Player
         // 着地状態メソッド
         private void Landing()
         {
+            // このif文の中身のせいでアニメーションバグが起きている
             // 着地した瞬間
-            if (_playerStatus._GroundChecker && _rb.velocity.y < 0f)
+            if (_playerStatus._GroundChecker && _rb.velocity.y < 0.1f)
             {
                 _isLanding = true;
             }
@@ -112,8 +113,6 @@ namespace Player
             // 着地している状態
             if (_isLanding)
             {
-                //_playerStatus._InputFlgX = true;
-
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"),   false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"),  false);

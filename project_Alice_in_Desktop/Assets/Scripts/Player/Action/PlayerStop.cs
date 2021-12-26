@@ -23,23 +23,28 @@ namespace Player
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
+        private bool _isWindowTouching;
+
+        // 下降状態判定変数
+        private const float _DOWNSTATENUM = 0.1f;
 
 
         void Start()
         {
-            _fadeEffect = _fadeObj.GetComponent<FadeEffect>();
+            _fadeEffect   = _fadeObj.GetComponent<FadeEffect>();
             _windowEffect = _postObj.GetComponent<WindowEffect>();
-            _playerStatus = GetComponent<PlayerStatus>();
-            _rb = GetComponent<Rigidbody2D>();
-            _anim = GetComponent<Animator>();
-            _capCol = GetComponent<CapsuleCollider2D>();
-            _boxCol = GetComponent<BoxCollider2D>();
-        }
 
+            _playerStatus = GetComponent<PlayerStatus>();
+            _rb           = GetComponent<Rigidbody2D>();
+            _anim         = GetComponent<Animator>();
+            _capCol       = GetComponent<CapsuleCollider2D>();
+            _boxCol       = GetComponent<BoxCollider2D>();
+        }
         private void Update()
         {
-            _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
+            if (_isWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
+
 
         // Playerの挙動停止メソッド
         void IWindowTouch.WindowTouchAction()
@@ -64,25 +69,29 @@ namespace Player
             _capCol.enabled = false;
             _boxCol.enabled = false;
 
+            // ウィンドウ操作Flg
+            _isWindowTouching = true;
+
             // PostProcessingを有効
             _windowEffect.StartWindowEffect();
+
         }
 
 
         // Playerの挙動再生メソッド
         void IWindowLeave.WindowLeaveAction()
         {
-            // 入力可能
-            _playerStatus._InputFlgX = _rb.velocity.y < 0f ? true : false;// ここが悪さしてる
-            _playerStatus._InputFlgY = true;
-            _playerStatus._InputFlgAction = true;
-
             // 地面判定停止
             _playerStatus._GroundJudge = true;
 
             // 物理判定可能
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.velocity = _currentVec;
+            
+            // 入力可能
+            _playerStatus._InputFlgX = _rb.velocity.y <= 0.1f ? true : false;
+            _playerStatus._InputFlgY = true;
+            _playerStatus._InputFlgAction = true;
 
             // Animation可能
             _anim.enabled = true;
@@ -93,6 +102,9 @@ namespace Player
 
             // PostProcessingを無効
             _windowEffect.EndWindowEffect();
+
+            // ウィンドウ操作Flg
+            _isWindowTouching = false;
 
 
             // Player死亡判定

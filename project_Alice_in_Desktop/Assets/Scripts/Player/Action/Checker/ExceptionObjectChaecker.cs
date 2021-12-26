@@ -23,6 +23,7 @@ namespace Player
         // 当たったら
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            // isTriggerではないオブジェクトだけ判定する
             if (collision.GetComponent<BoxCollider2D>())
             {
                 var box = collision.GetComponent<BoxCollider2D>();
@@ -46,6 +47,7 @@ namespace Player
         // 離れたら
         private void OnTriggerExit2D(Collider2D collision)
         {
+            // isTriggerではないオブジェクトだけ判定する
             if (collision.GetComponent<BoxCollider2D>())
             {
                 var box = collision.GetComponent<BoxCollider2D>();
