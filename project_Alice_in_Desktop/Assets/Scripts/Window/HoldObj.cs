@@ -24,9 +24,7 @@ namespace Window
 
                 if (hit2d.collider != null)
                 {
-                    Debug.Log(hit2d.collider.gameObject.layer);
                     catchObj = hit2d.collider.gameObject;
-                    Debug.Log(catchObj);
                     windowManager.SetMoveFlg(catchObj, true);
                 }
             }

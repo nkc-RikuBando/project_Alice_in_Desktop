@@ -7,10 +7,10 @@ namespace GameSystem
 {
     public static class GetGameObject 
     {
-        private static GameObject playerObj = null; // プレイヤーを保存
-        private static GameObject clearDoor = null; // プレイヤーを保存
+        private static GameObject playerObj = null;
+        private static GameObject frame = null;
+        private static GameObject windowCol = null;
 
-        // プレイヤーを取得
         public static GameObject playerObject
         {
             get => playerObj;
@@ -20,5 +20,24 @@ namespace GameSystem
                 //else Debug.Log("すでにPlayerは存在します");
             }
         }
+
+        public static GameObject FrameObject
+        {
+            get => frame;
+            set
+            {
+                if (frame == null) frame = value;
+            }
+        }
+
+        public static GameObject WindowColObject
+        {
+            get => windowCol;
+            set
+            {
+                if (windowCol == null) windowCol = value;
+            }
+        }
+
     }
 }
