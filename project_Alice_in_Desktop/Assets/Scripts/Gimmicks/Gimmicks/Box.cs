@@ -26,11 +26,6 @@ namespace Gimmicks
             set { stayFlg = value; }
         }
 
-        private void Awake()
-        {
-            
-        }
-
         void Start()
         {
             player = GetGameObject.playerObject;
@@ -62,7 +57,6 @@ namespace Gimmicks
             // ƒvƒŒƒCƒ„[‚ª“ü‚Á‚Ä—ˆ‚½‚ç
             if (collision.gameObject == player)
             {
-                Debug.Log("qqq");
                 stayFlg = true; // ‘Øİ’†
                 //uiGauge.SetActive(true);
                 _IHitPlayer.IsHitPlayer();
