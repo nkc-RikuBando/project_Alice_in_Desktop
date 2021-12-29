@@ -10,39 +10,42 @@ namespace GameSystem
     {// 鍵を知っている。
 
         [SerializeField] private List<GameObject> keyList = new List<GameObject>();
- 
+
         private GameObject player;
         [SerializeField] private GameObject inputUI;
         private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
+        //private IKeyCount iKeyCount;
         private Animator animator;                  // アニメーターの保存
 
         private ClearEffect clearEffect;            // クリアエフェクトの保存
         private bool clearFlg;
         private bool stayFlg;
 
-        //private GameObject canvas; // キャンバスの保存
-        //public float high;
-        //public float width;
-        //public int horizontal;
-        //private Vector3 pos;
-        //public GameObject cube;
+        [SerializeField] private float width; //オブジェクト間の幅
+        [SerializeField] private GameObject geneKeyUI; // 生成するUI
+        private Vector3 uiPos; // UIの生成位置を保存
+        private GameObject frame;
+        //private int geneKeyNum;
+
+        private void Awake()
+        {
+            //iKeyCount = gameObject.GetComponent<IKeyCount>();
+            //iKeyCount.keyCount(keyList.Count);
+        }
 
         void Start()
         {
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
+            
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             clearFlg = false;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
 
-            //canvas = GameObject.Find("Canvas");   // キャンバスの取得
-            //for (int i = 0; i < keyList.Count; i++)
-            //{
-            //    GameObject ui = Instantiate(cube, canvas.transform);
-            //    ui.transform.position = new Vector3(pos.x + keyList.Count * width / 2 - i * width - width / 2, 0, 0);
-            //}
+            frame = GetGameObject.FrameObject;
+            //KeyCountUI();
         }
 
         void Update()
@@ -58,7 +61,7 @@ namespace GameSystem
                 else
                     animator.SetTrigger("Action");
             }
-            if(clearFlg == true)
+            if (clearFlg == true)
                 animator.SetBool("Locked", false);
         }
 
@@ -97,6 +100,21 @@ namespace GameSystem
         public void Clear()
         {
             clearFlg = true; // クリアフラグをtrueにする
+        }
+
+        void KeyCountUI()
+        {
+            // このスクリプトを入れたオブジェクトの位置
+            uiPos = transform.position;
+
+            //X軸にhorizontalの数だけ並べる
+            for (int i = 0; i < keyList.Count; i++)
+            {
+                Vector3 genePos = new Vector3(-33+(uiPos.x + keyList.Count * width / 2 - i * width - width / 2), 7);
+                //PrefabのCubeを生成する
+                GameObject copy = Instantiate(geneKeyUI, genePos, Quaternion.identity);
+                copy.transform.SetParent(frame.transform);
+            }
         }
 
         /// <summary>
