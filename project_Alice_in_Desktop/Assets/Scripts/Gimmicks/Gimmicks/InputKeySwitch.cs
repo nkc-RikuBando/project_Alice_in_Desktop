@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Player;
+using GameSystem;
 
 namespace Gimmicks
 {
     public class InputKeySwitch : MonoBehaviour
     {
-        [SerializeField] private GameObject player; // プレイヤーを取得
+        private GameObject player; // プレイヤーを取得
         private IPlayerAction _IActionKey; // 入力インターフェースを保存
-        [SerializeField] private GameObject gimmick;
+        private GameObject gimmick;
         private bool addSwitch; // 
         private bool stayFlg;   // 
 
         void Start()
         {
+            player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
+            gimmick = GetGameObject.GimmickObj;
             addSwitch = false;
             stayFlg = false;
         }

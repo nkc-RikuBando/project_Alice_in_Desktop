@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8251376730181402920}
   - component: {fileID: 8251376730181402921}
   - component: {fileID: 8251376730181402922}
-  - component: {fileID: 8251376730181402934}
   m_Layer: 0
   m_Name: InputSwitchDaze
   m_TagString: Untagged
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8251376730181402923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.24, y: -6.26, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.30245635, g: 0.89383405, b: 0.9056604, a: 1}
+  m_Color: {r: 0.08173726, g: 0.38679248, b: 0.12530412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,19 +120,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bdf9349e2583cc49ad3b2de5111de76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  gimmick: {fileID: 0}
---- !u!114 &8251376730181402934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8251376730181402923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6940b43913539434eb53d8c8f78ddd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

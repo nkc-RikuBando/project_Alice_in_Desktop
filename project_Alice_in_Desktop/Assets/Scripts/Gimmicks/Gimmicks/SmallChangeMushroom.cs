@@ -3,42 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameSystem;
 using Connector.Player;
-using Player;
 
 namespace Gimmicks
 {
-    public class SizeChangeMushroom : MonoBehaviour
+    public class SmallChangeMushroom : MonoBehaviour
     {
         private GameObject player;
-        [SerializeField] private GameObject playerFront;
         private IPlayerAction iPlayeraction;
         private Vector3 playerSize;
-        private bool stayFlg;
-
-        //[Header("è¨Ç≥Ç≠Ç»ÇÈ")]
-        //[SerializeField] private bool scaleFlg = false;
+        private bool stayFlg = false;
 
         void Start()
         {
             player = GetGameObject.playerObject;
-            player.GetComponent<PlayerMove>();
             iPlayeraction = player.GetComponent<IPlayerAction>();
-            //playerSize = player.transform.localScale;
-            //playerSize = playerFront.transform.localScale;
-            //playerSize = new Vector3(1, 1, 1);
-            stayFlg = false;
+            playerSize = player.transform.localScale;
         }
 
         void Update()
         {
-            if(IsEventKey())
+            if (IsEventKey())
             {
-                Debug.Log("asdf");
-                //playerSize = new Vector3(3 * (-1), 3, 1);
-                
+                playerSize = new Vector3(0.5f, 0.5f, 1);
             }
-            //player.transform.localScale=playerSize;
-            //playerFront.transform.localScale = playerSize;
+            player.transform.localScale = playerSize;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

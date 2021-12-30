@@ -10,6 +10,7 @@ namespace GameSystem
         private static GameObject playerObj = null;
         private static GameObject frame = null;
         private static GameObject windowCol = null;
+        private static GameObject gimmick = null;
 
         public static GameObject playerObject
         {
@@ -39,5 +40,13 @@ namespace GameSystem
             }
         }
 
+        public static GameObject GimmickObj
+        {
+            get => gimmick;
+            set
+            {
+                if (gimmick == null) gimmick = value;
+            }
+        }
     }
 }
