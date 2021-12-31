@@ -2,18 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLayerChange : MonoBehaviour,IRenderingFlgSettable
+namespace Player
 {
-    // Player‚ÌLayer‚ğ•ÏX‚·‚éˆ—ˆ—
-
-    [SerializeField] int _insideLayerNum;
-    [SerializeField] int _outsideLayerNum;
-
-
-    void IRenderingFlgSettable.SetRenderingFlg(bool val)
+    public class PlayerLayerChange : MonoBehaviour, IRenderingFlgSettable
     {
-        //Debug.Log(val);
-        if (val) gameObject.layer = _insideLayerNum;
-        else     gameObject.layer = _outsideLayerNum;
+        // Player‚ÌLayer‚ğ•ÏX‚·‚éˆ—ˆ—
+
+        [SerializeField] private int _insideLayerNum;
+        [SerializeField] private int _outsideLayerNum;
+
+        private PlayerStatus _playerStatus;
+
+
+        private void Start()
+        {
+            _playerStatus = GetComponent<PlayerStatus>();
+        }
+
+
+        void IRenderingFlgSettable.SetRenderingFlg(bool val)
+        {
+            // Window‚Ì’†
+            if (val)
+            {
+                gameObject.layer = _insideLayerNum;
+
+                _playerStatus._GroundJudge = true;
+                _playerStatus._WallJudge   = true;
+                _playerStatus._insideFlg   = true;
+            }
+            // Window‚ÌŠO
+            else
+            {
+                gameObject.layer = _outsideLayerNum;
+
+                _playerStatus._GroundJudge = false;
+                _playerStatus._WallJudge   = false;
+                _playerStatus._insideFlg   = false;
+            }
+        }
     }
+
 }
+

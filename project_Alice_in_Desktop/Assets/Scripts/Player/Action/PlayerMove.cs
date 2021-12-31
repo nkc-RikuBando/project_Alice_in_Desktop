@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
 
-
 namespace Player
 {
     public class PlayerMove : MonoBehaviour
@@ -19,9 +18,9 @@ namespace Player
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus    = GetComponent<PlayerStatus>();
+            _playerStatus = GetComponent<PlayerStatus>();
             _playerAnimation = GetComponent<PlayerAnimation>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
         private void FixedUpdate()
         {
@@ -60,6 +59,13 @@ namespace Player
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
             }
+            //else if(_playerDic) 
+            //{
+            //    transform.localScale = new Vector3(1*5,1*5,1);
+
+            //    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
+            //    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
+            //}
 
         }
 
