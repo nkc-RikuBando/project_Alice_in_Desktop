@@ -132,7 +132,6 @@ namespace Player
                 _playerStatus._InputFlgY = true;
                 _isLanding = false;
             }
-
         }
 
         // ジャンプ状態管理メソッド

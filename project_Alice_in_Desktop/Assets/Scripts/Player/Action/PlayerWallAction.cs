@@ -178,7 +178,7 @@ namespace Player
                 }
 
                 // ’n–Ê”»’è‚Å‚«‚é‚æ‚¤‚É‚·‚é
-                _playerStatus._GroundJudge = true;
+                if(_playerStatus._insideFlg) _playerStatus._GroundJudge = true;
 
                 // •Ç‚É’£‚è•t‚¢‚Ä‚¢‚È‚¢ê‡
                 _rb.gravityScale = _playerStatus._Gravity;
