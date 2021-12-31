@@ -13,25 +13,12 @@ namespace GameSystem
 
         private GameObject player;
         [SerializeField] private GameObject inputUI;
-        private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
-        //private IKeyCount iKeyCount;
+        private IPlayerAction _IActionKey;        // 入力インターフェースを保存
         private Animator animator;                  // アニメーターの保存
 
         private ClearEffect clearEffect;            // クリアエフェクトの保存
         private bool clearFlg;
         private bool stayFlg;
-
-        [SerializeField] private float width; //オブジェクト間の幅
-        [SerializeField] private GameObject geneKeyUI; // 生成するUI
-        private Vector3 uiPos; // UIの生成位置を保存
-        private GameObject frame;
-        //private int geneKeyNum;
-
-        private void Awake()
-        {
-            //iKeyCount = gameObject.GetComponent<IKeyCount>();
-            //iKeyCount.keyCount(keyList.Count);
-        }
 
         void Start()
         {
@@ -43,26 +30,11 @@ namespace GameSystem
             clearFlg = false;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
-
-            frame = GetGameObject.FrameObject;
-            //KeyCountUI();
         }
 
         void Update()
         {
-            animator.SetBool("Locked", true);
-            if (IsSceceMove())
-            {
-                if (clearFlg == true)
-                {
-                    animator.SetTrigger("Action");
-                    clearEffect.StartClearEffect();
-                }
-                else
-                    animator.SetTrigger("Action");
-            }
-            if (clearFlg == true)
-                animator.SetBool("Locked", false);
+            ClearAnime();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -102,19 +74,21 @@ namespace GameSystem
             clearFlg = true; // クリアフラグをtrueにする
         }
 
-        void KeyCountUI()
+        void ClearAnime()
         {
-            // このスクリプトを入れたオブジェクトの位置
-            uiPos = transform.position;
-
-            //X軸にhorizontalの数だけ並べる
-            for (int i = 0; i < keyList.Count; i++)
+            animator.SetBool("Locked", true);
+            if (IsSceceMove())
             {
-                Vector3 genePos = new Vector3(-33+(uiPos.x + keyList.Count * width / 2 - i * width - width / 2), 7);
-                //PrefabのCubeを生成する
-                GameObject copy = Instantiate(geneKeyUI, genePos, Quaternion.identity);
-                copy.transform.SetParent(frame.transform);
+                if (clearFlg == true)
+                {
+                    animator.SetTrigger("Action");
+                    clearEffect.StartClearEffect();
+                }
+                else
+                    animator.SetTrigger("Action");
             }
+            if (clearFlg == true)
+                animator.SetBool("Locked", false);
         }
 
         /// <summary>
