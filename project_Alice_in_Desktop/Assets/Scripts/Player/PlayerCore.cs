@@ -6,29 +6,7 @@ using Player;
 
 namespace PlayerState
 {
-    public class PlayerCore : MonoBehaviour, IPlayerStatusSentable
+    public class PlayerCore : MonoBehaviour 
     {
-        public int ScaleMagnification { get; set; }
-
-        private PlayerStatus _playerStatus;
-
-        private void Start()
-        {
-            _playerStatus = GetComponent<PlayerStatus>();
-        }
-
-        private void Update()
-        {
-        }
-
-
-        // 入力受付管理メソッド
-        public void PlayerIsInput(bool flg)
-        {
-            _playerStatus._InputFlgX = flg;
-            _playerStatus._InputFlgY = flg;
-            _playerStatus._InputFlgAction = flg;
-        }
     }
-
 }

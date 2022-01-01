@@ -124,10 +124,12 @@ namespace Player
         // ジャンプができるようになるまでの計測メソッド
         private void JumpCount()
         {
+            bool _jumpCountFlg = _jumpCount > _playerStatus.JumpFeasibleCount && _jumpCount < 0.2f;
+             
             // 少しの間入力できない
             _jumpCount += Time.deltaTime;
 
-            if (_jumpCount > _playerStatus.JumpFeasibleCount)
+            if (_jumpCountFlg)
             {
                 _playerStatus._InputFlgY = true;
                 _isLanding = false;

@@ -10,33 +10,46 @@ namespace Gimmicks
     {
         private GameObject player;
         private IPlayerAction iPlayeraction;
-        private Vector3 playerSize;
+        private IPlayerStatusSentable iStatusSentable;
         private bool stayFlg = false;
 
         void Start()
         {
             player = GetGameObject.playerObject;
             iPlayeraction = player.GetComponent<IPlayerAction>();
-            playerSize = player.transform.localScale;
+            iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
         }
 
         void Update()
         {
             if (IsEventKey())
             {
-                playerSize = new Vector3(0.5f, 0.5f, 1);
+                // Playerが小さい時に大きくなるキノコを食べた場合元のサイズに戻る
+                if (iStatusSentable.ScaleMagnification > 1) iStatusSentable.ScaleMagnification = 1;
+                else iStatusSentable.ScaleMagnification = 0.5f;
             }
-            player.transform.localScale = playerSize;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            stayFlg = true;
+            // collisionがPlayerの場合のみ
+            var player = collision.GetComponent<PlayerSet>();
+
+            if (player != null)
+            {
+                stayFlg = true;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            stayFlg = false;
+            // collisionがPlayerの場合のみ
+            var player = collision.GetComponent<PlayerSet>();
+
+            if (player != null)
+            {
+                stayFlg = false;
+            }
         }
 
         bool IsEventKey()
