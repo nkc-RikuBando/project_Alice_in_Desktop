@@ -9,10 +9,12 @@ namespace Player
     public class PlayerWallAction : MonoBehaviour
     {
         // Playerの壁アクション
+        // localScale周りを要調整
 
         private WallChecker       _wallChecker;
         private IInputReceivable  _inputReceivable;
         private PlayerStatus      _playerStatus;
+        private PlayerStatusManager _statusManager;
         private PlayerAnimation   _playerAnimation;
         private CapsuleCollider2D _capCol;
         private BoxCollider2D     _boxCol;
@@ -36,6 +38,7 @@ namespace Player
             _wallChecker     = GetComponent<WallChecker>();
             _inputReceivable = GetComponent<IInputReceivable>();
             _playerStatus    = GetComponent<PlayerStatus>();
+            _statusManager   = GetComponent<PlayerStatusManager>();
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb              = GetComponent<Rigidbody2D>();
             _capCol          = GetComponent<CapsuleCollider2D>();
@@ -74,7 +77,7 @@ namespace Player
         private void StickInput()
         {
             bool _isStick = _rb.velocity.y != 0 && _playerStatus._WallJudge && !_playerStatus._GroundChecker;
-            bool _stickInput = _inputReceivable.MoveH() == transform.localScale.x;
+            bool _stickInput = _inputReceivable.MoveH()* _statusManager.ScaleMagnification == transform.localScale.x;
 
             // 壁は張り付き入力
             if (_isStick)
@@ -129,7 +132,7 @@ namespace Player
                 _rb.velocity = Vector2.zero;
                 _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
-                transform.localScale = new Vector2(-transform.localScale.x, 1f);
+                transform.localScale = new Vector2(-transform.localScale.x, 1f * _statusManager.ScaleMagnification);
 
                 // フラグをfalseにする
                 _jumpCount  = 0f;
@@ -158,11 +161,11 @@ namespace Player
                 }
 
                 // 壁張り付き状態で逆方向に入力した場合
-                if (transform.localScale.x == 1)
+                if (transform.localScale.x == 1 * _statusManager.ScaleMagnification)
                 {
                     if (_inputReceivable.MoveH() != 1) _isWall = false;
                 }
-                else if (transform.localScale.x == -1)
+                else if (transform.localScale.x == -1 * _statusManager.ScaleMagnification)
                 {
                     if (_inputReceivable.MoveH() != -1) _isWall = false;
                 }
@@ -178,7 +181,7 @@ namespace Player
                 }
 
                 // 地面判定できるようにする
-                _playerStatus._GroundJudge = true;
+                if(_playerStatus._insideFlg) _playerStatus._GroundJudge = true;
 
                 // 壁に張り付いていない場合
                 _rb.gravityScale = _playerStatus._Gravity;
@@ -188,7 +191,7 @@ namespace Player
         // 壁ジャンプする角度からベクトルに変換するメソッド
         private Vector2 JumpAngle()
         {
-            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x)) * Mathf.Deg2Rad;
+            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x / _statusManager.ScaleMagnification)) * Mathf.Deg2Rad;
 
             return new Vector2(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle));
         }

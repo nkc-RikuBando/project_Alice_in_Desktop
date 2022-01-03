@@ -19,7 +19,7 @@ namespace MyUtility
         public bool CheckIsGround(CapsuleCollider2D col)
         {
             bool hit;                                               // 当たった時の判定変数
-            float colHalfHeight  = col.size.y / 1.2f;               // RayのY座標初期位置
+            float rayInitialPos  = col.size.y;                      // RayのY座標初期位置
             float colHalfHeight2 = col.size.y / 3.2f;               // RayのY座標間隔
             Vector3 lineLength = transform.right * raylength;       // レイを飛ばす方向と長さ
             Vector3 checkPos = transform.position;                  // プレイヤーの座標
@@ -28,7 +28,7 @@ namespace MyUtility
 
 
             // checkPosの初期位置
-            checkPos.y += colHalfHeight;
+            checkPos.y += rayInitialPos;
 
 
             // レイを飛ばす
