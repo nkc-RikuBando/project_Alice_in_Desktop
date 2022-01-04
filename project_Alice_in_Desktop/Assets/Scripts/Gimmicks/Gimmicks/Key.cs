@@ -9,26 +9,27 @@ namespace Gimmicks
     {
         private GameObject player;
         private GameObject goal;   // ÉSÅ[ÉãÇéÊìæ
-        private IGetKey iGetter;
+        private IGetKey iGetKey;
         private Animator animator;
+        // åÆÇÃUIÉäÉXÉg
+        //[SerializeField] private List<GameObject> keyCountUI = new List<GameObject>();
+        [SerializeField] private GameObject keyUIObj;
 
-        //private AudioSource se;
-        //public AudioClip seClip;
         //[SerializeField] private string seName;
 
         void Awake()
         {
             goal = GameObject.Find("Door_Complete");
-            iGetter = goal.GetComponent<IGetKey>();
-            iGetter.AddKey(gameObject);
+            iGetKey = goal.GetComponent<IGetKey>();
+            iGetKey.AddKey(gameObject);
         }
 
         void Start()
         {
             player = GetGameObject.playerObject;
-            
             animator = GetComponent<Animator>();
-            //se = GetComponent<AudioSource>();
+            //keyUIObj = GetGameObject.KeyUI;
+            //keyCountUI.Add(keyUIObj);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -36,9 +37,10 @@ namespace Gimmicks
             if (collision.gameObject == player)
             {
                 //AudioManager.Instance.SeAction(seName);
-                //se.PlayOneShot(seClip);
                 animator.SetTrigger("Get");
-                iGetter.GetKey(gameObject);
+                iGetKey.GetKey(gameObject);
+                //keyCountUI.Remove(keyUIObj);
+                Destroy(keyUIObj);
             }
         }
     }

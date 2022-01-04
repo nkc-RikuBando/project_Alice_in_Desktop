@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using GameSystem;
 
 public class FadeEffect : MonoBehaviour
 {
-    [SerializeField] private string playerObjectName = "Player";
-
     private GameObject player;  // プレイヤーオブジェクト
 
     private Animator fadeAnimator;
@@ -25,7 +23,7 @@ public class FadeEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find(playerObjectName);
+        player = GetGameObject.playerObject;
         fadeAnimator = gameObject.GetComponent<Animator>();
         clearMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
         crushingMaskRect = GameObject.Find("UnMask_Crushing").GetComponent<RectTransform>();
@@ -44,7 +42,6 @@ public class FadeEffect : MonoBehaviour
     {
         clearMaskRect.position = new Vector2(player.transform.position.x, player.transform.position.y);
         PlayAnimation("StageClear");
-        //nextSceneName = "BandoScene_NEO";
         waitTime = 2;
         StartCoroutine("Wait");
     }
@@ -76,6 +73,5 @@ public class FadeEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         windowFade.WindowFadeOut(nextSceneName);
-
     }
 }

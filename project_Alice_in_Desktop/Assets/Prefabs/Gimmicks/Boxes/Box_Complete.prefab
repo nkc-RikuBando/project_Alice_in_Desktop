@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456a2048d689ac64fa996160877fb980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &522727080198536754
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +221,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 30
+  m_SortingOrder: 80
   m_TargetDisplay: 0
 --- !u!114 &522727080689046426
 MonoBehaviour:
@@ -605,8 +604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a56cfff182509c4796dbed8ee2c9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  hideKey: {fileID: 522727081803748503}
   uiGauge: {fileID: 522727081249245288}
   time: 0.3
 --- !u!1 &1792649291340869869
@@ -1059,11 +1056,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
---- !u!1 &522727081803748503 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8485265449932193440, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
-  m_PrefabInstance: {fileID: 8250786359061113399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &522727081803748492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8485265449932193467, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}

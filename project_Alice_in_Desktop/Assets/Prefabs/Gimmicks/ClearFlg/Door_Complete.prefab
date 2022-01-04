@@ -425,9 +425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyList: []
-  inputUI: {fileID: 6430073366233832909}
-  width: 3
-  geneKeyUI: {fileID: 3170422077919599069, guid: ac975298db4887c46bb8b88ea04e74a7, type: 3}
 --- !u!114 &7182741906269893244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +439,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   nextSceneName: Stage02
+--- !u!114 &6464111235000027575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430073367269576380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72f8f408c00e1341b1a1a0cf32ea015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1776711672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -449,6 +458,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5335686422570536221}
     m_Modifications:
+    - target: {fileID: 6430073366839556416, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6430073366839556420, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
       propertyPath: m_Name
       value: OpenTextCanvas
@@ -539,13 +552,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
+--- !u!1 &6430073367269576380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6430073366839556420, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
+  m_PrefabInstance: {fileID: 1776711672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6430073367269576383 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6430073366839556423, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
-  m_PrefabInstance: {fileID: 1776711672}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6430073366233832909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6430073367742065205, guid: b90cc2fe35a5db546ade994e3fc4e56f, type: 3}
   m_PrefabInstance: {fileID: 1776711672}
   m_PrefabAsset: {fileID: 0}

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Player;
 using Animation;
+using Player;
 
 namespace GameSystem
 {
     public class ClearFlg : MonoBehaviour, IGetKey
     {// 鍵を知っている。
 
+        // 鍵のリスト
         [SerializeField] private List<GameObject> keyList = new List<GameObject>();
 
         private GameObject player;
-        [SerializeField] private GameObject inputUI;
+        private GameObject inputUI;
         private IPlayerAction _IActionKey;        // 入力インターフェースを保存
+        private PlayerStatusManager playerStatusManager;
         private Animator animator;                  // アニメーターの保存
 
         private ClearEffect clearEffect;            // クリアエフェクトの保存
@@ -24,10 +27,13 @@ namespace GameSystem
         {
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
-            
+            playerStatusManager = player.GetComponent<PlayerStatusManager>();
+            playerStatusManager.PlayerIsInput(true);
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             clearFlg = false;
+            stayFlg = false;
+            inputUI = GetUIObject.HirakuUI;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
         }
@@ -65,7 +71,6 @@ namespace GameSystem
         {
             keyList.Remove(get); // リストから鍵を消す
             if (keyList.Count <= 0) Clear(); // クリアメソッドを呼ぶ
-
             //Destroy(get); // リストから消えたら鍵自身を消す
         }
 
@@ -81,6 +86,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
+                    playerStatusManager.PlayerIsInput(false);
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
                 }

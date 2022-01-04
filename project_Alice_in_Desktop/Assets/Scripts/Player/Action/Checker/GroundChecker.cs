@@ -24,15 +24,15 @@ namespace MyUtility
 
 
         // 着地判定メソッド(レイの処理)
-        public bool CheckIsGround(CapsuleCollider2D col)
+        public bool CheckIsGround(BoxCollider2D col)
         {
-            bool hit;                                       // 当たった時の判定変数
-            float colHalfWidth = col.size.x / 2f;           // X軸のRayの位置
-            Vector3 checkPos = transform.position;          // プレイヤーの座標
-            Vector3 lineLength = transform.up * raylength;  // レイの長さ(要調節)
+            bool hit;                                                             // 当たった時の判定変数
+            float colHalfWidth = col.size.x / 2f;                                 // X軸のRayの位置
+            Vector3 checkPos = transform.position + (Vector3)col.offset;          // colの座標
+            Vector3 lineLength = transform.up * raylength;                        // レイの長さ(要調節)
 
-            const float JUMPUP_CHECK_SPEED = 1f;            // 上昇状態変数
-            const int MAX_LOOP = 3;                         // ループの回数（レイの本数）
+            const float JUMPUP_CHECK_SPEED = 1f;                                  // 上昇状態変数
+            const int MAX_LOOP = 3;                                               // ループの回数（レイの本数）
 
 
             // 上昇中は何もしない
@@ -45,17 +45,17 @@ namespace MyUtility
             // checkPosの位置を左端に移動
             checkPos.x -= colHalfWidth;
 
+            hit = true;
 
             // レイを引く
             for (int loop = 0; loop < MAX_LOOP; ++loop)
             {
                 Debug.DrawLine(checkPos + transform.up * 0.1f, checkPos - lineLength, Color.red);// デバッグでレイを表示
-                hit = Physics2D.Linecast(checkPos + transform.up * 0.1f, checkPos - lineLength, groundLayer);
-                if (hit) return true;
+                hit &= Physics2D.Linecast(checkPos + transform.up * 0.1f, checkPos - lineLength, groundLayer);
                 checkPos.x += colHalfWidth;// 座標を++していく
             }
 
-            return false;
+            return hit;
         }
 
     }
