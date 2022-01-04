@@ -10,14 +10,25 @@ namespace Player
         public float ScaleMagnification { get; set; } = 1;
 
         private PlayerStatus _playerStatus;
+        private Rigidbody2D  _rb;
 
         private void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.O)) 
+            {
+                _rb.velocity = Vector2.zero;
+                PlayerIsInput(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.P)) 
+            {
+                PlayerIsInput(true);
+            }
         }
 
 
