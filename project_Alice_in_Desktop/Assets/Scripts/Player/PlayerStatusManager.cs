@@ -12,7 +12,7 @@ namespace Player
         private PlayerStatus _playerStatus;
         private Rigidbody2D  _rb;
 
-        private void Start()
+        private void Awake()
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _rb = GetComponent<Rigidbody2D>();
