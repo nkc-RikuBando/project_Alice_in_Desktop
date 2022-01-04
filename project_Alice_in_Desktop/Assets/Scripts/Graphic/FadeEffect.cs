@@ -44,7 +44,6 @@ public class FadeEffect : MonoBehaviour
     {
         clearMaskRect.position = new Vector2(player.transform.position.x, player.transform.position.y);
         PlayAnimation("StageClear");
-        //nextSceneName = "BandoScene_NEO";
         waitTime = 2;
         StartCoroutine("Wait");
     }
@@ -76,6 +75,5 @@ public class FadeEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         windowFade.WindowFadeOut(nextSceneName);
-
     }
 }
