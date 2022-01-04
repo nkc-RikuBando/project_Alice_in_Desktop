@@ -10,29 +10,24 @@ namespace Gimmicks
         private GameObject player; // プレイヤーを保存
         private Animator animator; // アニメーターを保存
         private BoxCollider2D boxCol;
-        //private Vector3 localScale; // スケールを保存
-        //private Vector3 pos;        // 位置の保存
 
         private bool switchFlg;
+        private bool tranpuRed = true;
 
         void Start()
         {
             player = GetGameObject.playerObject; // プレイヤーを取得
             animator = GetComponent<Animator>(); // アニメーターを取得
             boxCol = GetComponent<BoxCollider2D>();
-            //localScale = transform.localScale;   // スケールを取得
-            //pos.x = transform.position.x;
-            //stayFlg = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player)
+            if (collision.gameObject == player && tranpuRed == true)
             {
                 animator.SetBool("Defend", true);
                 if (Direction())
                 {
-                    //localScale = new Vector3(-1, 1, 1);
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
                 else transform.localScale = new Vector3(1, 1, 1);
@@ -53,11 +48,13 @@ namespace Gimmicks
             if (switchFlg == true)
             {
                 boxCol.enabled = false;
+                tranpuRed = false;
                 animator.SetBool("Black", true);
             }
             else
             {
                 boxCol.enabled = true;
+                tranpuRed = true;
                 animator.SetBool("Black", false);
             }
         }

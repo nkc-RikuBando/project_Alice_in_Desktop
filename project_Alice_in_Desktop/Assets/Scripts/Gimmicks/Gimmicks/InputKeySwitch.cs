@@ -10,6 +10,7 @@ namespace Gimmicks
     {
         private GameObject player; // プレイヤーを取得
         private IPlayerAction _IActionKey; // 入力インターフェースを保存
+        private Animator animator;
         private GameObject gimmick;
         private GameObject switchUI;
         private bool addSwitch; // 
@@ -19,6 +20,7 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
+            animator = GetComponent<Animator>();
             gimmick = GetGameObject.GimmickObj;
             switchUI = GetUIObject.SwitchUI;
             switchUI.SetActive(false);
@@ -30,6 +32,7 @@ namespace Gimmicks
         {
             if(StayInput())
             {
+                animator.SetTrigger("Turn");
                 IHitSwitch hitGimmick = gimmick.GetComponent<IHitSwitch>();
                 if (hitGimmick != null)
                 {

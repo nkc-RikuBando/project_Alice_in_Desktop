@@ -14,7 +14,7 @@ namespace Player
         // 触れたら
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var moveFloor = collision.GetComponent<MoveFloor>();
+            var moveFloor = collision.GetComponent<MoveXFloor>();
 
             // 親オブジェクト切り替え処理
             if (moveFloor != null)
@@ -27,7 +27,7 @@ namespace Player
         // 離れたら
         private void OnTriggerExit2D(Collider2D collision)
         {
-            var moveFloor = collision.GetComponent<MoveFloor>();
+            var moveFloor = collision.GetComponent<MoveXFloor>();
 
             // 親オブジェクト切り替え処理
             if (moveFloor != null)
