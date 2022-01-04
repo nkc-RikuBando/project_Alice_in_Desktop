@@ -15,7 +15,7 @@ namespace Player
         private GroundChecker     _groundChecker;
         private PlayerAnimation   _playerAnimation;
         private Rigidbody2D       _rb;
-        private CapsuleCollider2D _capCol;
+        private BoxCollider2D _boxCol;
 
         private float _jumpCount;
         private bool  _jumpFlg;
@@ -32,7 +32,7 @@ namespace Player
             _groundChecker   = GetComponent<GroundChecker>();
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb              = GetComponent<Rigidbody2D>();
-            _capCol          = GetComponent<CapsuleCollider2D>();
+            _boxCol          = GetComponent<BoxCollider2D>();
         }
         private void Update()
         {
@@ -51,7 +51,7 @@ namespace Player
         // 地面判定メソッド
         private bool GroundChecker()
         {
-            if (_playerStatus._GroundJudge) _playerStatus._GroundChecker = _groundChecker.CheckIsGround(_capCol);
+            if (_playerStatus._GroundJudge) _playerStatus._GroundChecker = _groundChecker.CheckIsGround(_boxCol);
             else                            _playerStatus._GroundChecker = false;
 
             return _playerStatus._GroundChecker;

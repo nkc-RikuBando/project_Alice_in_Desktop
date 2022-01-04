@@ -34,17 +34,6 @@ namespace Player
                 HorizontalMove();
                 PlayerDirection();
             }
-
-            if (Input.GetKeyDown(KeyCode.C)) 
-            {
-                Debug.Log("ê√é~");
-                playerStatusManager.PlayerIsInput(false);
-            }
-            if (Input.GetKeyDown(KeyCode.K)) 
-            {
-                Debug.Log("çƒê∂");
-                playerStatusManager.PlayerIsInput(true);
-            }
         }
 
 

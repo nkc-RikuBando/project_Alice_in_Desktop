@@ -12,7 +12,7 @@ namespace PlayerState
         // Player‚ªŽÀ‘•‚·‚é‚ÌIH
         // Player‚ÌStartó‘Ôˆ—
 
-        public PlayerStateEnum StateType => PlayerStateEnum.STAY;
+        public PlayerStateEnum StateType => PlayerStateEnum.START;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)

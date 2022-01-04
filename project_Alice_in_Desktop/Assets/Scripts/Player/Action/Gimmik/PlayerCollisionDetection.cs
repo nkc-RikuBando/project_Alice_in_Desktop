@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
+using Gimmicks;
 
 namespace Player
 {
@@ -9,14 +10,14 @@ namespace Player
     {
         // Playerが移動するギミックに追従する処理
 
-        [SerializeField] private string[] _objName;
-
 
         // 触れたら
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            var moveFloor = collision.GetComponent<MoveFloor>();
+
             // 親オブジェクト切り替え処理
-            if (collision.gameObject.name == _objName[0])
+            if (moveFloor != null)
             {
                 transform.SetParent(collision.transform);
             }
@@ -26,7 +27,10 @@ namespace Player
         // 離れたら
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.name == _objName[0])
+            var moveFloor = collision.GetComponent<MoveFloor>();
+
+            // 親オブジェクト切り替え処理
+            if (moveFloor != null)
             {
                 transform.SetParent(null);
             }

@@ -18,13 +18,13 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private GroundChecker _groundChecker;
 
-        private CapsuleCollider2D _capCol;
+        private BoxCollider2D _boxCol;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
             _inputReceivable = GetComponent<IInputReceivable>();
             _groundChecker = GetComponent<GroundChecker>();
-            _capCol = GetComponent<CapsuleCollider2D>();
+            _boxCol = GetComponent<BoxCollider2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -43,7 +43,7 @@ namespace PlayerState
 
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_capCol))
+            if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_boxCol))
             {
                 ChangeStateEvent(PlayerStateEnum.DASH);
             }
