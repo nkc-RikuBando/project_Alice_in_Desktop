@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GameSystem;
 
 
 namespace Animation
 {
     public class ClearEffect : MonoBehaviour
     {
-        [SerializeField] private GameObject player;
+        private GameObject player;
         // [SerializeField] private GameObject door;
 
         private Animator fadeAnimator;
@@ -23,6 +24,7 @@ namespace Animation
         // Start is called before the first frame update
         void Start()
         {
+            player = GetGameObject.playerObject;
             fadeAnimator = GameObject.Find("FadeMask").GetComponent<Animator>();
             unMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
             windowFade = GameObject.Find("Camera").GetComponent<WindowFade>();
