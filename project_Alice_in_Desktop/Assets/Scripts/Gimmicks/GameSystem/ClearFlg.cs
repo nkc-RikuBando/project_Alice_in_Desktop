@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Player;
 using Animation;
+using Player;
 
 namespace GameSystem
 {
@@ -15,6 +16,7 @@ namespace GameSystem
         private GameObject player;
         private GameObject inputUI;
         private IPlayerAction _IActionKey;        // 入力インターフェースを保存
+        private PlayerStatusManager playerStatusManager;
         private Animator animator;                  // アニメーターの保存
 
         private ClearEffect clearEffect;            // クリアエフェクトの保存
@@ -25,10 +27,12 @@ namespace GameSystem
         {
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
-            
+            playerStatusManager = player.GetComponent<PlayerStatusManager>();
+            playerStatusManager.PlayerIsInput(true);
             animator = GetComponent<Animator>();  // アニメーターを取得
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             clearFlg = false;
+            stayFlg = false;
             inputUI = GetUIObject.HirakuUI;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
@@ -82,6 +86,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
+                    playerStatusManager.PlayerIsInput(false);
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
                 }
