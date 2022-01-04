@@ -30,10 +30,12 @@ namespace Gimmicks
             if (collision.gameObject == player)
             {
                 animator.SetBool("Defend", true);
-                //if (Direction())
-                //{
-                //    localScale = new Vector3(-1, 1, 1);
-                //}
+                if (Direction())
+                {
+                    //localScale = new Vector3(-1, 1, 1);
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else transform.localScale = new Vector3(1, 1, 1);
             }
         }
 

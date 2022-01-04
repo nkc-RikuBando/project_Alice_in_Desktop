@@ -11,6 +11,7 @@ namespace Gimmicks
         private GameObject player; // プレイヤーを取得
         private IPlayerAction _IActionKey; // 入力インターフェースを保存
         private GameObject gimmick;
+        private GameObject switchUI;
         private bool addSwitch; // 
         private bool stayFlg;   // 
 
@@ -19,6 +20,8 @@ namespace Gimmicks
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             gimmick = GetGameObject.GimmickObj;
+            switchUI = GetUIObject.SwitchUI;
+            switchUI.SetActive(false);
             addSwitch = false;
             stayFlg = false;
         }
@@ -39,13 +42,21 @@ namespace Gimmicks
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player) stayFlg = true;
+            if (collision.gameObject == player)
+            {
+                stayFlg = true;
+                switchUI.SetActive(true);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             // プレイヤーが出て行ったら
-            if (collision.gameObject == player) stayFlg = false;
+            if (collision.gameObject == player)
+            {
+                stayFlg = false;
+                switchUI.SetActive(false);
+            }
         }
 
         /// <summary>
