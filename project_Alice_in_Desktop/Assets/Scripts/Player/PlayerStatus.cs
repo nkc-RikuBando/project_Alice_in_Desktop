@@ -16,6 +16,8 @@ namespace Player
         [SerializeField, Tooltip("壁ジャンプ値")] 　　        private float _wallJumpPower     = 400f;
         [SerializeField, Tooltip("壁ジャンプ時の角度")]       private float _wallJumpAngle     = 45f;
         [SerializeField, Tooltip("ジャンプまでの時間")]       private float _jumpFeasibleCount = 0.2f;
+        [SerializeField, Tooltip("小さくなるサイズ倍率")]     private float _smallsizeMag      = 0.7f;
+        [SerializeField, Tooltip("大きくなるサイズ倍率")]     private float _bigsizeMag        = 1.5f;
 
         // 入力フラグ
         public bool _InputFlgX { get; set; }  = true;
@@ -102,5 +104,28 @@ namespace Player
             }
         }
 
+        public float SmallSizeMag 
+        {
+            get 
+            {
+                return _smallsizeMag;
+            }
+            set 
+            {
+                _smallsizeMag = value;
+            }
+        }
+
+        public float BigSizeMag
+        {
+            get 
+            {
+                return _bigsizeMag;
+            }
+            set 
+            {
+                _bigsizeMag = value;
+            }
+        }
     }
 }
