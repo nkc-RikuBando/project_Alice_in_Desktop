@@ -152,6 +152,7 @@ namespace Player
                 {
                     _playerStatus._InputFlgX = true;
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
                 }
             }
 

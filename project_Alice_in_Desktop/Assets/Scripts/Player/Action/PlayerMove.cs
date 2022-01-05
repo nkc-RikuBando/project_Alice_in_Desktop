@@ -11,19 +11,14 @@ namespace Player
 
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
-        private PlayerStatusManager playerStatusManager;
-        private PlayerStatusManager _statusManager;
         private PlayerAnimation _playerAnimation;
         private Rigidbody2D _rb;
 
 
         private void Start()
         {
-            playerStatusManager = GetComponent<PlayerStatusManager>();
-
             _inputReceivable = GetComponent<IInputReceivable>();
             _playerStatus = GetComponent<PlayerStatus>();
-            _statusManager = GetComponent<PlayerStatusManager>();
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb = GetComponent<Rigidbody2D>();
         }
@@ -48,30 +43,20 @@ namespace Player
         // PlayerÇÃå¸Ç´ÉÅÉ\ÉbÉh
         private void PlayerDirection()
         {
-            bool _playerDic = _inputReceivable.MoveH() == 0;
+            Vector3 playerScale = transform.localScale;
+            bool _isHorizontalInput = _inputReceivable.MoveH() != 0;
 
-            // ì¸óÕÇ≥ÇÍÇƒÇ¢Ç»Ç¢èÛë‘
-            if (_playerDic)
-            {
-                transform.localScale = new Vector3(1f * _statusManager.ScaleMagnification,
-                                                   1f * _statusManager.ScaleMagnification,
-                                                   1f);
 
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
-            }
             // à⁄ìÆèÛë‘
-            else if (!_playerDic)
+            if (_isHorizontalInput)
             {
-                transform.localScale = new Vector3(_inputReceivable.MoveH() * _statusManager.ScaleMagnification,
-                                                    1f * _statusManager.ScaleMagnification,
-                                                    1f);
+                transform.localScale = new Vector3(_inputReceivable.MoveH() * playerScale.y, playerScale.y, 1f);
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
             }
             // ê√é~èÛë‘
-            else if (_playerDic && _playerStatus._GroundChecker)
+            else if (!_isHorizontalInput && _playerStatus._GroundChecker)
             {
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
