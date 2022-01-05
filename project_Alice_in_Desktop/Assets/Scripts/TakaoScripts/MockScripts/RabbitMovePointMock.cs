@@ -12,7 +12,8 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     Vector3 playerPos;
     Vector3 rabbitPos;
     Vector3 myPos;
-    float distanceValue; //•]‰¿’l
+    float toPlayerDistanceValue; //•]‰¿’l
+    float toRabbitDistanceValue;
     bool insideFlg = false;
 
     // Start is called before the first frame update
@@ -28,7 +29,6 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         UpdateDisValue(); //•]‰¿’l‚ðŽó‚¯Žæ‚é
         playerPos = player.GetPlayerPosition(); //ƒvƒŒƒCƒ„[‚ÌÀ•W‚ðŽó‚¯Žæ‚é
         rabbitPos = rabbit.transform.position;
-        Debug.Log(rabbitPos);
     }
 
     private void UpdatePos()
@@ -38,7 +38,8 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 
     private void UpdateDisValue()
     {
-        distanceValue = Vector3.Distance(playerPos, myPos);
+        toPlayerDistanceValue = Vector3.Distance(playerPos, myPos);
+        toRabbitDistanceValue = Vector3.Distance(rabbitPos, myPos);
     }
 
     public RabbitMovePointMock GetRabbitMovePointPos() //ŽŸ‚Ì“_‚ð“n‚·
@@ -46,7 +47,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         RabbitMovePointMock tempMock = null;
         var insideDisValueLinq = rabbitMovePoint
             .Where(x => x.GetOutsideFlg() == true) //foreach‚Ì’†‚Åif (x.GetOutsideFlg() == true)‚ð‚·‚é‚Ì‚Æˆê
-            .OrderByDescending(x => x.GetDisValue()); //x‚Ì~‡(æ“ª‚ªˆê”Ô‚‚¢”’l)
+            .OrderByDescending(x => x.GetToPlayerDisValue()); //x‚Ì~‡(æ“ª‚ªˆê”Ô‚‚¢”’l)
         tempMock = insideDisValueLinq.First();
 
         return tempMock; //“_‚ð“n‚·
@@ -57,14 +58,19 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         RabbitMovePointMock nearRabbitTemp = null;
         var insideDisValueFromAllLinq = rabbitMovePointsAll
             .Where(x => x.GetOutsideFlg() == true)
-            .OrderBy(x => x.GetRabbitPos());
+            .OrderBy(x => x.GetToRabbitDistanceValue());
         nearRabbitTemp = insideDisValueFromAllLinq.First();
         return nearRabbitTemp;
     }
 
-    public float GetDisValue()
+    public float GetToPlayerDisValue()
     {
-        return distanceValue;
+        return toPlayerDistanceValue;
+    }
+
+    public float GetToRabbitDistanceValue()
+    {
+        return toRabbitDistanceValue;
     }
 
     public Vector3 GetMyPosition()
