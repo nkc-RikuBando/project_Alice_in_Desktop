@@ -36,7 +36,7 @@ namespace GameSystem
             if (waitTime.fillAmount >= 1) // ゲージが溜まったら
             {
                 gaugeMaxFlg = true;
-                //Destroy(_parent);        // 一つ上の親オブジェクトの削除
+                Destroy(_parent);        // 一つ上の親オブジェクトの削除
             }
         }
 

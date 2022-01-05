@@ -13,7 +13,8 @@ namespace Gimmicks
         private Animator animator;
         // 鍵のUIリスト
         //[SerializeField] private List<GameObject> keyCountUI = new List<GameObject>();
-        [SerializeField] private GameObject keyUIObj;
+        [Header("NotKeyImageをアタッチ")]
+        [SerializeField] private GameObject notKeyUI;
 
         //[SerializeField] private string seName;
 
@@ -40,7 +41,7 @@ namespace Gimmicks
                 animator.SetTrigger("Get");
                 iGetKey.GetKey(gameObject);
                 //keyCountUI.Remove(keyUIObj);
-                Destroy(keyUIObj);
+                Destroy(notKeyUI);
             }
         }
     }
