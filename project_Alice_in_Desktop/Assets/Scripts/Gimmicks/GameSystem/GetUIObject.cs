@@ -9,6 +9,7 @@ namespace GameSystem
         private static GameObject hirakuUI = null;
         private static GameObject switchUI = null;
 
+
         private static GameObject keyUI = null;
 
         public static GameObject HirakuUI
@@ -22,6 +23,7 @@ namespace GameSystem
             get => switchUI;
             set { if (switchUI == null) switchUI = value; }
         }
+
 
 
 
