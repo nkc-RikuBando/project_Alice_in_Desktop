@@ -5,7 +5,7 @@ using GameSystem;
 
 namespace Gimmicks
 {
-    public class SetGimmick : MonoBehaviour
+    public class SetToranpuSoldier : MonoBehaviour
     {
         public void Awake()
         {

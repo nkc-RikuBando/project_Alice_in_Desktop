@@ -25,8 +25,7 @@ namespace Gimmicks
             if(IsEventKey())
             {
                 // Playerが大きい時に小さくなるキノコを食べた場合元のサイズに戻る
-                if (iStatusSentable.ScaleMagnification < 1) iStatusSentable.ScaleMagnification = 1;
-                else iStatusSentable.ScaleMagnification = 2;
+                iStatusSentable.PlayerSizeChange_Big();
             }
         }
 

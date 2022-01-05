@@ -43,14 +43,12 @@ namespace GameSystem
         public void IsHitPlayer()
         {
             _parent.SetActive(true);
-            //gameObject.SetActive(true);
             waitTime.fillAmount = default; // ƒQ[ƒW‚Ì‰Šú’l‚O
         }
 
         public void NonHitPlayer()
         {
             _parent.SetActive(false);
-            //gameObject.SetActive(false);
         }
     }
 }

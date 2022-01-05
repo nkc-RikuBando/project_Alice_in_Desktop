@@ -4,7 +4,9 @@ namespace Connector
     {
         interface IPlayerStatusSentable 
         {
-            float ScaleMagnification { get; set; }
+            void PlayerSizeChange_Small();
+
+            void PlayerSizeChange_Big();
 
             void PlayerIsInput(bool flg);
         }
