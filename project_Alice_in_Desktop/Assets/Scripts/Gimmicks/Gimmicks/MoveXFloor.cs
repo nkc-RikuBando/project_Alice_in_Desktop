@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Gimmicks
 {
-    public class MoveFloor : MonoBehaviour
+    public class MoveXFloor : MonoBehaviour
     {
+        #region BlackHole
         //[SerializeField] private GameObject[] movePoint; // 移動経路
         //[SerializeField] private float moveSpeed;        // 速さ
 
@@ -15,28 +16,70 @@ namespace Gimmicks
 
         //private Vector2 oldPos = Vector2.zero;
         //private Vector2 myVelocity = Vector2.zero;
+        #endregion
 
-        [SerializeField] GameObject startPos;
-        [SerializeField] GameObject endPos;
-        private Vector3 rightDir = new Vector3(0, 1, 0);
-        private Vector3 leftDir = new Vector3(0, -1, 0);
+        private GameObject leftPos;                // 左に置くもの
+        private GameObject rightPos;               // 右に置くもの
+        private float PosY;                        // Y 座標の保存変数
+        private bool rightFlg = true;              // 右に動くフラグ
+        private Vector3 rightDir = Vector3.right;　// 右に動く
+        private Vector3 leftDir = Vector3.left;    // 左に動く
+        [SerializeField] private float moveSpeed = 3f; // 動く速度
 
         void Start()
         {
+            leftPos = GameObject.Find("LeftPos");
+            rightPos = GameObject.Find("RightPos");
+
+            // 自身の Y座標を取得
+            PosY = transform.position.y;
+            // 左の物体のY座標を自身のY座標と一緒にする 
+            leftPos.transform.position = new Vector3(leftPos.transform.position.x, PosY, 0);
+            // 右の物体のY座標を自身のY座標と一緒にする 
+            rightPos.transform.position = new Vector3(rightPos.transform.position.x, PosY, 0);
+
+            #region BlackHole
+            //startPos.transform.position.y = transform.position.y;
             //rigid = GetComponent<Rigidbody2D>();
             //if (movePoint != null && movePoint.Length > 0 && rigid != null)
             //{
             //    rigid.position = movePoint[0].transform.position;
             //}
+            #endregion
         }
 
         void FixedUpdate()
         {
             //Move();
-            if(transform.position.x <= endPos.transform.position.x)
-            {
-                //transform.position += new Vector3;
-            }
+            if(IsMoveRight())
+                transform.position += rightDir * Time.deltaTime * moveSpeed;
+
+            if(IsMoveLeft())
+                transform.position += leftDir * Time.deltaTime * moveSpeed;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject == leftPos) rightFlg = true;
+            if (collision.gameObject == rightPos) rightFlg = false;
+        }
+
+        /// <summary>
+        /// 右に動く条件
+        /// </summary>
+        /// <returns></returns>
+        bool IsMoveRight()
+        {
+            return transform.position.x <= rightPos.transform.position.x && rightFlg == true;
+        }
+
+        /// <summary>
+        /// 左に動く条件
+        /// </summary>
+        /// <returns></returns>
+        bool IsMoveLeft()
+        {
+            return transform.position.x >= leftPos.transform.position.x && rightFlg == false;
         }
 
         void Move()
