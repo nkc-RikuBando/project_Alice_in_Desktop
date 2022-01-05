@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Window;
 
-public class RabbitMoveMock : MonoBehaviour
+public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 {
     RabbitMovePointMock nowPoint;
     [SerializeField] RabbitMovePointMock pointMock;
@@ -48,16 +49,6 @@ public class RabbitMoveMock : MonoBehaviour
     void Update()
     {
         playerPos = player.GetPlayerPosition(); //プレイヤーの距離を受け取る
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            stopFlg = true;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            playFlg = true;
-        }
 
         RabbitDirection();
         if (!(startFlg != true)) return;
@@ -111,7 +102,6 @@ public class RabbitMoveMock : MonoBehaviour
             jumpCount = 0;
             startFlg = false;
         }
-
     }
 
     private void StopMove()
@@ -136,20 +126,19 @@ public class RabbitMoveMock : MonoBehaviour
             nextPosLength = new Vector3(0,0,0);
 
             //一つ前の場所へ瞬間移動
-            Debug.Log(nowTransform);
+            //Debug.Log(nowTransform);
             //this.transform.position = nowTransform;
             //pointMock = nowPoint;
 
             //次の場所へ瞬間移動
             //this.transform.position = nextTransform;
-            
-            //一番近い点に瞬間移動
-            this.transform.position = pointMock.transform.position;
-            pointMock = pointMock.GetRabbitMovePointPosFromAll();
 
+            //一番近い点に瞬間移動
+            pointMock = pointMock.GetRabbitMovePointPosFromAll();
+            this.transform.position = pointMock.transform.position;
+            
             playFlg = false;
         }
-        
     }
 
     private void TrajectoryCal() //要素数を求めて配列にアニメーションカーブのYのvelocityを入れる
@@ -174,5 +163,13 @@ public class RabbitMoveMock : MonoBehaviour
         }
     }
 
+    public void WindowTouchAction()
+    {
+        stopFlg = true;
+    }
 
+    public void WindowLeaveAction()
+    {
+        playFlg = true;
+    }
 }
