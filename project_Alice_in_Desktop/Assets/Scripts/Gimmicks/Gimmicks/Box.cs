@@ -12,7 +12,7 @@ namespace Gimmicks
         private GameObject player; // プレイヤーを保存
         private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
         private IHitPlayer _IHitPlayer;             // 当たり判定インターフェースを保存
-        private GameObject hideKey; // 鍵を取得
+        [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         private Animator myAnimator;
         private Animator keyAnimator;
@@ -31,7 +31,7 @@ namespace Gimmicks
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             _IHitPlayer = uiGauge.GetComponentInChildren<IHitPlayer>(); // 当たり判定インターフェースを取得
-            hideKey = GetGameObject.KeyObj;
+            //hideKey = GetGameObject.KeyObj;
             hideKey.SetActive(false); // 鍵を非表示
             myAnimator = GetComponent<Animator>();
             keyAnimator = hideKey.GetComponent<Animator>();
@@ -47,7 +47,7 @@ namespace Gimmicks
                     WaitTimeUI.gaugeMaxFlg = false;
                     myAnimator.SetTrigger("Destroy");
                     hideKey.transform.parent = null; // 鍵を子オブジェクトから外す
-                    Destroy(uiGauge);
+                    //Destroy(uiGauge);
                     this.StartCoroutine(KeyAppTime());
                 }
             }
