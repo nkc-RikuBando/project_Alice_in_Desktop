@@ -50,7 +50,7 @@ namespace Player
             // à⁄ìÆèÛë‘
             if (_isHorizontalInput)
             {
-                transform.localScale = new Vector3(_inputReceivable.MoveH() * playerScale.y, playerScale.y, 1f);
+                transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
