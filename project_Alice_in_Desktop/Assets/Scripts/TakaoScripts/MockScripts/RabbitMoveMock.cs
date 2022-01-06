@@ -122,6 +122,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
+            animator.SetTrigger("Teleport");
             rigd2D.bodyType = RigidbodyType2D.Dynamic;
             nextPosLength = new Vector3(0, 0, 0);
 
