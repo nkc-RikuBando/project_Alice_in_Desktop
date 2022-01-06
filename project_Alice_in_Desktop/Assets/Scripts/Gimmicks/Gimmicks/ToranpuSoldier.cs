@@ -18,6 +18,7 @@ namespace Gimmicks
 
         private bool switchFlg;
         private bool tranpuRed = true;
+        [Header("ÉgÉâÉìÉvÇ™çï")]
         [SerializeField] private bool blackOn;
 
         void Awake()
@@ -33,7 +34,6 @@ namespace Gimmicks
             iSetSoldier1 = inputSwitch[1].GetComponent<ISetToranpuSoldier>();
             iSetSoldier.AddSoldier(gameObject);
             iSetSoldier1.AddSoldier(gameObject);
-
         }
 
         void Start()
@@ -46,6 +46,7 @@ namespace Gimmicks
             {
                 animator.SetBool("Black", true);
             }
+            else animator.SetBool("Black", false);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -73,18 +74,30 @@ namespace Gimmicks
         {
             //switchFlg = switchOn;
             switchFlg = switchFlg ? false : true;
-            if (switchFlg == true)
+            if(blackOn == false)
             {
-                boxCol.enabled = false;
-                tranpuRed = false;
-                animator.SetBool("Black", true);
+                if (switchFlg == true) BlackMode();
+                else RedMode();
             }
             else
             {
-                boxCol.enabled = true;
-                tranpuRed = true;
-                animator.SetBool("Black", false);
+                if (switchFlg == true) RedMode();
+                else BlackMode();
             }
+        }
+
+        void BlackMode()
+        {
+            boxCol.enabled = false;
+            tranpuRed = false;
+            animator.SetBool("Black", true);
+        }
+
+        void RedMode()
+        {
+            boxCol.enabled = true;
+            tranpuRed = true;
+            animator.SetBool("Black", false);
         }
 
         bool Direction()
