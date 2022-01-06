@@ -122,21 +122,40 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
+            animator.SetTrigger("Teleport");
             rigd2D.bodyType = RigidbodyType2D.Dynamic;
-            nextPosLength = new Vector3(0,0,0);
+            nextPosLength = new Vector3(0, 0, 0);
 
-            //ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®
-            //Debug.Log(nowTransform);
-            //this.transform.position = nowTransform;
-            //pointMock = nowPoint;
+            //if(nowPoint.GetUseFlg() == true)
+            //{
+            //    //ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®
+            //    Debug.Log("ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®");
+            //    this.transform.position = nowTransform;
+            //    nowTransform = nextTransform;
+            //    pointMock = nowPoint;
+            //    nowPoint = pointMock.GetRabbitMovePointPos();
+            //}
 
-            //Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®
-            //this.transform.position = nextTransform;
-
-            //ˆê”Ô‹ß‚¢“_‚ÉuŠÔˆÚ“®
-            pointMock = pointMock.GetRabbitMovePointPosFromAll();
-            this.transform.position = pointMock.transform.position;
+            if(pointMock.GetUseFlg() == true)
+            {
+                transform.position = pointMock.transform.position;
+            }
             
+            //if(nowPoint.GetUseFlg() == false)
+            //{
+            //    //Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®
+            //    Debug.Log("Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®");
+            //    this.transform.position = nextTransform;
+            //}
+            
+            if(nowPoint.GetUseFlg() == false || pointMock.GetUseFlg() == false)
+            {
+                //ˆê”Ô‹ß‚¢“_‚ÉuŠÔˆÚ“®
+                Debug.Log("ˆê”Ô‹ß‚¢“_‚ÉuŠÔˆÚ“®");
+                pointMock = pointMock.GetRabbitMovePointPosFromAll();
+                this.transform.position = pointMock.transform.position;
+            }
+
             playFlg = false;
         }
     }
