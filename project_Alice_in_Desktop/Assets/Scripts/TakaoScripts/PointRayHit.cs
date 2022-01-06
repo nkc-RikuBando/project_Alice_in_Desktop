@@ -29,7 +29,7 @@ public class PointRayHit : MonoBehaviour
     {
         bool hit = false;
         Vector3 checkPos = transform.position;          // プレイヤーの座標
-        float colHalfWidth = col.size.y / 0.5f;         // プレイヤーの半分のコライダーの大きさ(要調節)
+        float colHalfWidth = col.size.x / 0.5f;         // プレイヤーの半分のコライダーの大きさ(要調節)
         Vector3 lineLength = transform.up * raylength;  // レイの長さ(要調節)
 
         // checkPosの位置を左端に移動
