@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FadeOut : MonoBehaviour
 {
@@ -22,5 +23,10 @@ public class FadeOut : MonoBehaviour
     public void Fade()
     {
         windowFade.WindowFadeOut("SelectScene");
+    }
+
+    public void Reload()
+    {
+        windowFade.WindowFadeOut(SceneManager.GetActiveScene().name);
     }
 }
