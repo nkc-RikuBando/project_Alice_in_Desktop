@@ -106,6 +106,7 @@ namespace Player
             // ウィンドウ操作Flg
             _isWindowTouching = false;
 
+            _playerStatus._IsWall = false; 
 
             // Player死亡判定
             if (_playerStatus._DeadColFlg)
