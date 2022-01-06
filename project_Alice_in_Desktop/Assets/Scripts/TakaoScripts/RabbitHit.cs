@@ -29,9 +29,17 @@ public class RabbitHit : MonoBehaviour
         {
             animator.SetTrigger("Capture");
             Debug.Log("“–‚½‚Á‚½");
-            keyItem.SetActive(true);
-            keyAnimator = keyItem.GetComponent<Animator>();
-            keyAnimator.SetTrigger("Spawn");
+            StartCoroutine("AppearKey");
         }
+        
+    }
+
+    IEnumerator AppearKey()
+    {
+        yield return new WaitForSeconds(0.6f);
+        keyItem.SetActive(true);
+        keyItem.transform.parent = null;
+        keyAnimator = keyItem.GetComponent<Animator>();
+        keyAnimator.SetTrigger("Spawn");
     }
 }

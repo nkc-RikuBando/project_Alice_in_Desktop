@@ -122,9 +122,10 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
-            animator.SetTrigger("Teleport");
             rigd2D.bodyType = RigidbodyType2D.Dynamic;
             nextPosLength = new Vector3(0, 0, 0);
+
+            StartCoroutine("TeleportRabbit");
 
             //if(nowPoint.GetUseFlg() == true)
             //{
@@ -148,13 +149,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             //    this.transform.position = nextTransform;
             //}
             
-            if(nowPoint.GetUseFlg() == false || pointMock.GetUseFlg() == false)
-            {
-                //àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ
-                Debug.Log("àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ");
-                pointMock = pointMock.GetRabbitMovePointPosFromAll();
-                this.transform.position = pointMock.transform.position;
-            }
+            
 
             playFlg = false;
         }
@@ -190,5 +185,18 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     public void WindowLeaveAction()
     {
         playFlg = true;
+    }
+
+    IEnumerator TeleportRabbit()
+    {
+        yield return new WaitForSeconds(0.25f);
+        animator.SetTrigger("Teleport");
+        if (nowPoint.GetUseFlg() == false || pointMock.GetUseFlg() == false)
+        {
+            //àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ
+            Debug.Log("àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ");
+            pointMock = pointMock.GetRabbitMovePointPosFromAll();
+            this.transform.position = pointMock.transform.position;
+        }
     }
 }
