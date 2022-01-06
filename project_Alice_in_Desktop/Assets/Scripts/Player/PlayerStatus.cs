@@ -16,13 +16,13 @@ namespace Player
         [SerializeField, Tooltip("壁ジャンプ値")]         private float _wallJumpPower       = 400f;
         [SerializeField, Tooltip("壁ジャンプ時の角度")]   private float _wallJumpAngle       = 45f;
         [SerializeField, Tooltip("ジャンプまでの時間")]   private float _jumpFeasibleCount   = 0.2f;
-        [SerializeField, Tooltip("サイズ倍率")]           private float _sizeMag             = 2f;
+        [SerializeField, Tooltip("サイズ倍率")]           private float _sizeMag             = 1f;
         [SerializeField, Tooltip("大きい時の倍率")]       private float _bigSizeMag 　　　　 = 1.5f;
         [SerializeField, Tooltip("小さい時の倍率")]       private float _smallSizeMag        = 0.5f;
-        [SerializeField, Tooltip("大きい時のスピード")]   private float _bigStateSpeed       = 400f;
-        [SerializeField, Tooltip("大きい時のスピード")]   private float _smallStateSpeed     = 400f;
-        [SerializeField, Tooltip("大きい時のジャンプ値")] private float _bigStateJumpPower   = 400f;
-        [SerializeField, Tooltip("小さい時のジャンプ値")] private float _smallStateJumpPower = 400f;
+        [SerializeField, Tooltip("大きい時のスピード")]   private float _bigStateSpeed       = 5f;
+        [SerializeField, Tooltip("大きい時のスピード")]   private float _smallStateSpeed     = 5f;
+        [SerializeField, Tooltip("大きい時のジャンプ値")] private float _bigStateJumpPower   = 550f;
+        [SerializeField, Tooltip("小さい時のジャンプ値")] private float _smallStateJumpPower = 300f;
 
         // 入力フラグ
         public bool _InputFlgX { get; set; } = true;
