@@ -11,9 +11,14 @@ namespace Player
 
         private PlayerStatus _playerStatus;
 
+        private float _defaultSpeed;
+        private float _defaultJumpPower;
+
         private void Awake()
         {
             _playerStatus = GetComponent<PlayerStatus>();
+            _defaultSpeed = _playerStatus._Speed;
+            _defaultJumpPower = _playerStatus._JumpPower;
         }
 
 
@@ -38,8 +43,8 @@ namespace Player
             switch (mag) 
             {
                 case 1:   // 通常
-                    _playerStatus._Speed     = _playerStatus._Speed;
-                    _playerStatus._JumpPower = _playerStatus._JumpPower;
+                    _playerStatus._Speed     = _defaultSpeed;
+                    _playerStatus._JumpPower = _defaultJumpPower;
                     break;
                 case 0.5f:// 小さい時
                     _playerStatus._Speed     = _playerStatus._SmallStateSpeed;
@@ -55,7 +60,7 @@ namespace Player
 
             // サイズを変更
             _playerStatus._SizeMag = mag;
-            transform.localScale = new Vector3(mag, mag, 1f);
+            //transform.localScale = new Vector3(mag, mag, 1f);
         }
     }
 
