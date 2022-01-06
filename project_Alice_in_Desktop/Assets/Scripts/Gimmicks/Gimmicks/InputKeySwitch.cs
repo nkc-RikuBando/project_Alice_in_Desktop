@@ -6,23 +6,24 @@ using GameSystem;
 
 namespace Gimmicks
 {
-    public class InputKeySwitch : MonoBehaviour
+    public class InputKeySwitch : MonoBehaviour, ISetToranpuSoldier
     {
         private GameObject player; // プレイヤーを取得
         private IPlayerAction _IActionKey; // 入力インターフェースを保存
         private Animator animator;
-        private GameObject gimmick;
-        private GameObject switchUI;
-        private bool addSwitch; // 
-        private bool stayFlg;   // 
+        //private GameObject gimmick;
+        [SerializeField] private GameObject switchUI;
+        private bool addSwitch;
+        private bool stayFlg;
+
+        [SerializeField] private List<GameObject> toranpuSoldier = new List<GameObject>();
 
         void Start()
         {
             player = GetGameObject.playerObject;
             _IActionKey = player.GetComponent<IPlayerAction>(); // 入力インターフェースを取得
             animator = GetComponent<Animator>();
-            gimmick = GetGameObject.GimmickObj;
-            switchUI = GetUIObject.SwitchUI;
+            //gimmick = GetGameObject.GimmickObj;
             switchUI.SetActive(false);
             addSwitch = false;
             stayFlg = false;
@@ -33,12 +34,17 @@ namespace Gimmicks
             if(StayInput())
             {
                 animator.SetTrigger("Turn");
-                IHitSwitch hitGimmick = gimmick.GetComponent<IHitSwitch>();
-                if (hitGimmick != null)
+                addSwitch = addSwitch ? false : true;
+                for (int i = 0; i < toranpuSoldier.Count; i++)
                 {
-                    addSwitch = addSwitch ? false : true;
-                    hitGimmick.Switch(addSwitch);
+                    toranpuSoldier[i].GetComponent<IHitSwitch>().Switch();
                 }
+                //if (hitGimmick != null || hitGimmick1 != null)
+                    //{
+                    //    //addSwitch = addSwitch ? false : true;
+                    //    hitGimmick.Switch(addSwitch);
+                    //    hitGimmick1.Switch(addSwitch);
+                    //}
             }
         }
 
@@ -69,6 +75,11 @@ namespace Gimmicks
         bool StayInput()
         {
             return stayFlg == true && _IActionKey.ActionKey_Down();
+        }
+
+        public void AddSoldier(GameObject set)
+        {
+            toranpuSoldier.Add(set);
         }
     }
 }

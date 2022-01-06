@@ -8,13 +8,13 @@ namespace Gimmicks
     {
         [SerializeField] private GameObject player; // プレイヤーを取得
         [SerializeField] private GameObject gimmick; // ギミックを取得
-        private bool addSwitch; // スイッチのON、OFF
+        //private bool addSwitch; // スイッチのON、OFF
         //private bool stayFlg;   // 滞在しているかいないか
         [SerializeField] private bool clearPattern2Flg;
 
         void Start()
         {
-            addSwitch = false;
+            //addSwitch = false;
             //stayFlg = false;
         }
 
@@ -29,8 +29,8 @@ namespace Gimmicks
                     IHitSwitch hitGimmick = gimmick.GetComponent<IHitSwitch>();
                     if (hitGimmick != null)
                     {
-                        addSwitch = true; // スイッチON
-                        hitGimmick.Switch(addSwitch); // Switchメソッドにfalseを渡す
+                        //addSwitch = true; // スイッチON
+                        //hitGimmick.Switch(addSwitch); // Switchメソッドにfalseを渡す
                     }
                 }
             }
@@ -48,8 +48,8 @@ namespace Gimmicks
                     IHitSwitch hitGimmick = gimmick.GetComponent<IHitSwitch>();
                     if (hitGimmick != null)
                     {
-                        addSwitch = false; // スイッチOFF
-                        hitGimmick.Switch(addSwitch); // Switchメソッドにfalseを渡す
+                        //addSwitch = false; // スイッチOFF
+                        //hitGimmick.Switch(addSwitch); // Switchメソッドにfalseを渡す
                     }
                 }
             }
