@@ -17,7 +17,6 @@ public class WindowFade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightShift)) WindowFadeOut("BandoScene_NEO");
     }
 
     // シーン遷移時に呼び出す 引数に遷移先のシーン名

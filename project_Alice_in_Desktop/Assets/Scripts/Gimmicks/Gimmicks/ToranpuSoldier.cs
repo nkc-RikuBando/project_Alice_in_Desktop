@@ -9,7 +9,7 @@ namespace Gimmicks
     {
         private GameObject player; // プレイヤーを保存
         private Animator animator; // アニメーターを保存
-        private BoxCollider2D boxCol;
+        [SerializeField] private CapsuleCollider2D capsuleCol;
 
         [Header("CardSwitchをアタッチ")]
         [SerializeField] private List<GameObject> inputSwitch = new List<GameObject>();
@@ -34,11 +34,11 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject; // プレイヤーを取得
             animator = GetComponent<Animator>(); // アニメーターを取得
-            boxCol = GetComponent<BoxCollider2D>();
 
             if (blackOn == true)
             {
                 animator.SetBool("Black", true);
+                BlackMode();
             }
             else animator.SetBool("Black", false);
         }
@@ -82,14 +82,14 @@ namespace Gimmicks
 
         void BlackMode()
         {
-            boxCol.enabled = false;
+            capsuleCol.enabled = false;
             tranpuRed = false;
             animator.SetBool("Black", true);
         }
 
         void RedMode()
         {
-            boxCol.enabled = true;
+            capsuleCol.enabled = true;
             tranpuRed = true;
             animator.SetBool("Black", false);
         }

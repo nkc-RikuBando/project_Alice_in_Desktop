@@ -10,24 +10,30 @@ namespace Player
 
         [Header("Playerのステータス管理")]
 
-        [SerializeField, Tooltip("Playerの重力")]             private float _gravity = 1f;
-        [SerializeField, Tooltip("移動速度")] 　　            private float _speed   = 5f;
-        [SerializeField, Tooltip("大ジャンプ値")]             private float _jumpPower         = 400f;
-        [SerializeField, Tooltip("壁ジャンプ値")] 　　        private float _wallJumpPower     = 400f;
-        [SerializeField, Tooltip("壁ジャンプ時の角度")]       private float _wallJumpAngle     = 45f;
-        [SerializeField, Tooltip("ジャンプまでの時間")]       private float _jumpFeasibleCount = 0.2f;
-        [SerializeField, Tooltip("小さくなるサイズ倍率")]     private float _smallsizeMag      = 0.7f;
-        [SerializeField, Tooltip("大きくなるサイズ倍率")]     private float _bigsizeMag        = 1.5f;
+        [SerializeField, Tooltip("Playerの重力")]         private float _gravity             = 1f;
+        [SerializeField, Tooltip("移動速度")]             private float _speed               = 5f;
+        [SerializeField, Tooltip("大ジャンプ値")]         private float _jumpPower           = 400f;
+        [SerializeField, Tooltip("壁ジャンプ値")]         private float _wallJumpPower       = 400f;
+        [SerializeField, Tooltip("壁ジャンプ時の角度")]   private float _wallJumpAngle       = 45f;
+        [SerializeField, Tooltip("ジャンプまでの時間")]   private float _jumpFeasibleCount   = 0.2f;
+        [SerializeField, Tooltip("サイズ倍率")]           private float _sizeMag             = 1f;
+        [SerializeField, Tooltip("大きい時の倍率")]       private float _bigSizeMag 　　　　 = 1.5f;
+        [SerializeField, Tooltip("小さい時の倍率")]       private float _smallSizeMag        = 0.5f;
+        [SerializeField, Tooltip("大きい時のスピード")]   private float _bigStateSpeed       = 5f;
+        [SerializeField, Tooltip("大きい時のスピード")]   private float _smallStateSpeed     = 5f;
+        [SerializeField, Tooltip("大きい時のジャンプ値")] private float _bigStateJumpPower   = 550f;
+        [SerializeField, Tooltip("小さい時のジャンプ値")] private float _smallStateJumpPower = 300f;
 
         // 入力フラグ
-        public bool _InputFlgX { get; set; }  = true;
-        public bool _InputFlgY { get; set; }  = true;
+        public bool _InputFlgX { get; set; } = true;
+        public bool _InputFlgY { get; set; } = true;
         public bool _InputFlgAction { get; set; } = false;
 
         // 判定フラグ
         public bool _GroundJudge { get; set; } = true;
         public bool _WallJudge { get; set; } = true;
         public bool _GroundChecker { get; set; } = false;
+        public bool _IsWall { get; set; } = false;
         public bool _DeadColFlg { get; set; } = false;
         public bool _insideFlg { get; set; } = true;
 
@@ -92,7 +98,7 @@ namespace Player
             }
         }
 
-        public float JumpFeasibleCount
+        public float _JumpFeasibleCount
         {
             get
             {
@@ -104,27 +110,87 @@ namespace Player
             }
         }
 
-        public float SmallSizeMag 
+        public float _SizeMag
         {
-            get 
+            get
             {
-                return _smallsizeMag;
+                return _sizeMag;
             }
-            set 
+            set
             {
-                _smallsizeMag = value;
+                _sizeMag = value;
             }
         }
 
-        public float BigSizeMag
+        public float _BigSizeMag 
         {
             get 
             {
-                return _bigsizeMag;
+                return _bigSizeMag;
             }
             set 
             {
-                _bigsizeMag = value;
+                _bigSizeMag = value;
+            }
+        }
+
+        public float _SmallSizeMag 
+        {
+            get 
+            {
+                return _smallSizeMag;
+            }
+            set 
+            {
+                _smallSizeMag = value;
+            }
+        }
+
+        public float _BigStateSpeed
+        {
+            get
+            {
+                return _bigStateSpeed;
+            }
+            set
+            {
+                _bigStateSpeed = value;
+            }
+        }
+
+        public float _SmallStateSpeed 
+        {
+            get 
+            {
+                return _smallStateSpeed;
+            }
+            set 
+            {
+                _smallStateSpeed = value;
+            }
+        }
+
+        public float _BigStateJumpPower
+        {
+            get
+            {
+                return _bigStateJumpPower;
+            }
+            set
+            {
+                _bigStateJumpPower = value;
+            }
+        }
+
+        public float _SmallStateJumpPower
+        {
+            get
+            {
+                return _smallStateJumpPower;
+            }
+            set
+            {
+                _smallStateJumpPower = value;
             }
         }
     }
