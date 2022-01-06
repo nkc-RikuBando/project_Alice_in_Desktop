@@ -5,7 +5,7 @@ using Connector.Player;
 using GameSystem;
 
 namespace Gimmicks
-    // 頑張っててえらい！！！！！！
+// 頑張っててえらい！！！！！！
 {
     public class CheshireCat : MonoBehaviour, IRenderingFlgSettable
     {
@@ -13,7 +13,7 @@ namespace Gimmicks
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
-        private bool InOutFlg;                         // 画面外にいるか
+        private bool InOutFlg = true;                         // 画面外にいるか
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
@@ -23,6 +23,12 @@ namespace Gimmicks
         private bool stayFlg = false;                  // 滞在しているかフラグ
         [Header("はいるUIをアタッチ")]
         [SerializeField] private GameObject hairuUI;
+
+        public bool InOut
+        {
+            get { return InOutFlg; }
+            set { InOutFlg = value; }
+        }
 
         void Start()
         {
@@ -44,7 +50,7 @@ namespace Gimmicks
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player)
+            if (collision.gameObject == player && warpScr.InOut)
             {
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
@@ -96,11 +102,13 @@ namespace Gimmicks
             {
                 warpScr.enabled = false;
                 myAnimator.SetBool("Close", true);
+                warpPointAnim.SetBool("Close", true);
             }
             else
             {
                 warpScr.enabled = true;
                 myAnimator.SetBool("Close", false);
+                warpPointAnim.SetBool("Close", false);
             }
         }
 
