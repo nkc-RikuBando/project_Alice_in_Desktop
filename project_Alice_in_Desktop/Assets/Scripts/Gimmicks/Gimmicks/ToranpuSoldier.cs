@@ -5,16 +5,15 @@ using GameSystem;
 
 namespace Gimmicks
 {
-    public class ToranpuSoldier : MonoBehaviour, IHitSwitch
+    public class ToranpuSoldier : MonoBehaviour, IHitSwitch/*, ISetSwitch*/
     {
         private GameObject player; // プレイヤーを保存
         private Animator animator; // アニメーターを保存
         private BoxCollider2D boxCol;
 
-        [SerializeField] private GameObject[] inputSwitch;
-        private ISetToranpuSoldier iSetSoldier;
-        private ISetToranpuSoldier iSetSoldier1;
-        //private ISetToranpuSoldier iSetSoldier1;
+        [Header("CardSwitchをアタッチ")]
+        [SerializeField] private List<GameObject> inputSwitch = new List<GameObject>();
+        [SerializeField] private List<ISetToranpuSoldier> iSetSoldier = new List<ISetToranpuSoldier>();
 
         private bool switchFlg;
         private bool tranpuRed = true;
@@ -23,17 +22,12 @@ namespace Gimmicks
 
         void Awake()
         {
-            //for (int i = 0; i < inputSwitch.Length; i++)
-            //{
-            //    inputSwitch[i].GetComponent<IHitSwitch>();
-            //    iSetSoldier[i].AddSoldier(gameObject);
-            //}
-
-
-            iSetSoldier = inputSwitch[0].GetComponent<ISetToranpuSoldier>();
-            iSetSoldier1 = inputSwitch[1].GetComponent<ISetToranpuSoldier>();
-            iSetSoldier.AddSoldier(gameObject);
-            iSetSoldier1.AddSoldier(gameObject);
+            for (int i = 0; i < inputSwitch.Count; i++)
+            {
+                inputSwitch[i].GetComponent<IHitSwitch>();
+                iSetSoldier.Add(inputSwitch[i].GetComponent<ISetToranpuSoldier>());
+                iSetSoldier[i].AddSoldier(gameObject);
+            }
         }
 
         void Start()
@@ -100,9 +94,14 @@ namespace Gimmicks
             animator.SetBool("Black", false);
         }
 
+        //public void AddSwitch(GameObject set)
+        //{
+        //    inputSwitch.Add(set);
+        //}
+
         bool Direction()
         {
             return transform.position.x <= player.transform.position.x;
-        }
+        }    
     }
 }
