@@ -6,6 +6,7 @@ using Window;
 public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 {
     RabbitMovePointMock nowPoint;
+    RabbitHit rabbitHit;
     [SerializeField] RabbitMovePointMock pointMock;
     //[SerializeField] PlayerCoreMock player; //Mockなので組み込む際は変更必須
     [SerializeField] PlayerPositionGet player;//Mockなので組み込む際は変更必須
@@ -30,6 +31,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     bool startFlg = false; //移動開始するかどうか
     bool stopFlg = false;
     bool playFlg = false;
+    bool hitFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         animator = GetComponent<Animator>();
         childAnimator = childSpring.GetComponent<Animator>();
         rigd2D = GetComponent<Rigidbody2D>();
+        rabbitHit = GetComponent<RabbitHit>();
         //アニメーションカーブの設定,登録
         TrajectoryCal();
         nowPoint = pointMock;
@@ -50,6 +53,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     {
         playerPos = player.GetPlayerPosition(); //プレイヤーの距離を受け取る
 
+        hitFlg = rabbitHit.HitRabbitFlg();
         RabbitDirection();
         if (!(startFlg != true)) return;
         toPlayerDistance = Vector3.Distance(this.gameObject.transform.position, playerPos); //自分とプレイヤーの距離を測る
@@ -89,6 +93,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 
     private void Move()
     {
+        if (hitFlg) return;
         if (stopFlg) return;
         //座標の差xの分割数,velocityYとYの分割数の合計
         transform.position += new Vector3(nextPosLength.x / DIVISION_NUM, jumpTrajectory[jumpCount] + (nextPosLength.y / DIVISION_NUM), 0);
@@ -110,7 +115,6 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         {
             animator.enabled = false;
             childAnimator.enabled = false;
-            rigd2D.bodyType = RigidbodyType2D.Kinematic;
             rigd2D.velocity = Vector2.zero;
         }
     }
@@ -122,7 +126,6 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
-            rigd2D.bodyType = RigidbodyType2D.Dynamic;
             nextPosLength = new Vector3(0, 0, 0);
 
             StartCoroutine("TeleportRabbit");
