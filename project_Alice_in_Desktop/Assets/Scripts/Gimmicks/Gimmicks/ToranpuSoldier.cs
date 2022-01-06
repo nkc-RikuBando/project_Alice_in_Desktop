@@ -12,7 +12,8 @@ namespace Gimmicks
         private BoxCollider2D boxCol;
 
         [SerializeField] private GameObject[] inputSwitch;
-        private ISetToranpuSoldier[] iSetSoldier;
+        private ISetToranpuSoldier iSetSoldier;
+        private ISetToranpuSoldier iSetSoldier1;
         //private ISetToranpuSoldier iSetSoldier1;
 
         private bool switchFlg;
@@ -21,16 +22,17 @@ namespace Gimmicks
 
         void Awake()
         {
-            for (int i = 0; i < inputSwitch.Length; i++)
-            {
-                inputSwitch[i].GetComponent<IHitSwitch>();
-                iSetSoldier[i].AddSoldier(gameObject);
-            }
+            //for (int i = 0; i < inputSwitch.Length; i++)
+            //{
+            //    inputSwitch[i].GetComponent<IHitSwitch>();
+            //    iSetSoldier[i].AddSoldier(gameObject);
+            //}
 
-            //iSetSoldier = inputSwitch[0].GetComponent<ISetToranpuSoldier>();
-            //iSetSoldier1 = inputSwitch[1].GetComponent<ISetToranpuSoldier>();
-            //iSetSoldier.AddSoldier(gameObject);
-            //iSetSoldier1.AddSoldier(gameObject);
+
+            iSetSoldier = inputSwitch[0].GetComponent<ISetToranpuSoldier>();
+            iSetSoldier1 = inputSwitch[1].GetComponent<ISetToranpuSoldier>();
+            iSetSoldier.AddSoldier(gameObject);
+            iSetSoldier1.AddSoldier(gameObject);
 
         }
 
