@@ -13,6 +13,8 @@ namespace Gimmicks
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
+        private IRenderingFlgSettable iRenderingFlgSettable;
+        private bool InOutFlg;
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
@@ -28,6 +30,8 @@ namespace Gimmicks
             playerAnim = player.GetComponent<Animator>();
             _ActionKey = player.GetComponent<IPlayerAction>();
             myAnimator = GetComponent<Animator>();
+            iRenderingFlgSettable = GetComponent<IRenderingFlgSettable>();
+            InOutFlg = true;
             warpPointAnim = warpPoint.GetComponent<Animator>();
             hairuUI.SetActive(false);
         }
@@ -35,6 +39,10 @@ namespace Gimmicks
         void Update()
         {
             Warping();
+            //if(InOutFlg == false)
+            //{
+
+            //}
         }
 
         void OnTriggerEnter2D(Collider2D collision)

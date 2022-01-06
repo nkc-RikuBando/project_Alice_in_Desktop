@@ -29,7 +29,7 @@ namespace Gimmicks
                 if (hitGimmick != null)
                 {
                     addSwitch = addSwitch ? false : true;
-                    hitGimmick.Switch(addSwitch);
+                    //hitGimmick.Switch(addSwitch);
                 }
             }
         }
