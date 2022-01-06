@@ -968,6 +968,14 @@ CompositeCollider2D:
   - m_Collider: {fileID: 489887651}
     m_ColliderPaths:
     - - X: -19999959
+        Y: -80000100
+      - X: -40000041
+        Y: -80000100
+      - X: -40000100
+        Y: -80000041
+      - X: -40000100
+        Y: -59999959
+      - X: -40000041
         Y: -59999900
       - X: -100000041
         Y: -59999900
@@ -1016,7 +1024,7 @@ CompositeCollider2D:
       - X: -19999900
         Y: -100000041
       - X: -19999900
-        Y: -59999959
+        Y: -80000041
   m_CompositePaths:
     m_Paths:
     - - {x: 49.999973, y: -22.00001}
@@ -1024,7 +1032,9 @@ CompositeCollider2D:
       - {x: 38, y: -11.999961}
       - {x: 37.999973, y: -10}
       - {x: -1.99999, y: -9.999974}
-      - {x: -2.0000253, y: -5.99999}
+      - {x: -2.0000253, y: -8.00001}
+      - {x: -4.00001, y: -7.9999747}
+      - {x: -4.000034, y: -5.99999}
       - {x: -10.00001, y: -6.0000253}
       - {x: -10.000039, y: -7.9999905}
       - {x: -12.00001, y: -8.000026}
@@ -4073,16 +4083,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -2, y: -4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 6
-      m_TileSpriteIndex: 6
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
@@ -4097,7 +4097,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 125a6b1d9fbee7241bcfadfc9b3ca250, type: 2}
   - m_RefCount: 38
     m_Data: {fileID: 11400000, guid: 75ca0527e0d45a545bfeb6d5490d3e13, type: 2}
@@ -4116,14 +4116,14 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: -5499402476626649661, guid: 29e772b57bde7844391c820b6bfa71a9, type: 3}
   - m_RefCount: 38
     m_Data: {fileID: -5889726804161081154, guid: 29e772b57bde7844391c820b6bfa71a9, type: 3}
   - m_RefCount: 250
     m_Data: {fileID: 8180818375183880740, guid: 29e772b57bde7844391c820b6bfa71a9, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 297
+  - m_RefCount: 296
     m_Data:
       e00: 1
       e01: 0
@@ -4142,7 +4142,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 297
+  - m_RefCount: 296
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -8685,6 +8685,10 @@ PrefabInstance:
     - target: {fileID: 3199978684044008051, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199978684044008053, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3199978684044008055, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
       propertyPath: m_Pivot.x

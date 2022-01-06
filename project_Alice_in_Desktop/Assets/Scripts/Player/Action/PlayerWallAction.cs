@@ -14,7 +14,6 @@ namespace Player
         private WallChecker       _wallChecker;
         private IInputReceivable  _inputReceivable;
         private PlayerStatus      _playerStatus;
-        private PlayerStatusManager _statusManager;
         private PlayerAnimation   _playerAnimation;
         private CapsuleCollider2D _capCol;
         private BoxCollider2D     _boxCol;
@@ -38,7 +37,6 @@ namespace Player
             _wallChecker     = GetComponent<WallChecker>();
             _inputReceivable = GetComponent<IInputReceivable>();
             _playerStatus    = GetComponent<PlayerStatus>();
-            _statusManager   = GetComponent<PlayerStatusManager>();
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb              = GetComponent<Rigidbody2D>();
             _capCol          = GetComponent<CapsuleCollider2D>();
@@ -77,7 +75,7 @@ namespace Player
         private void StickInput()
         {
             bool _isStick = _rb.velocity.y != 0 && _playerStatus._WallJudge && !_playerStatus._GroundChecker;
-            bool _stickInput = _inputReceivable.MoveH() == transform.localScale.x;
+            bool _stickInput = _inputReceivable.MoveH() != 0; //transform.localScale.x;C³“_‚P
 
             // •Ç‚Í’£‚è•t‚«“ü—Í
             if (_isStick)
@@ -161,22 +159,24 @@ namespace Player
                 }
 
                 // •Ç’£‚è•t‚«ó‘Ô‚Å‹t•ûŒü‚É“ü—Í‚µ‚½ê‡
-                if (transform.localScale.x == 1)
+                if (transform.localScale.x > 0)
                 {
                     if (_inputReceivable.MoveH() != 1) _isWall = false;
                 }
-                else if (transform.localScale.x == -1)
+                else if (transform.localScale.x < 0)
                 {
                     if (_inputReceivable.MoveH() != -1) _isWall = false;
                 }
+
             }
             // ’£‚è•t‚¢‚Ä‚¢‚È‚¢ê‡
             else
             {
                 // ~‰ºó‘Ô
-                if (_rb.velocity.y < 0f)
+                if (_rb.velocity.y < -0.1f)
                 {
                     _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+                    _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
                     _boxCol.enabled = false;
                 }
 
