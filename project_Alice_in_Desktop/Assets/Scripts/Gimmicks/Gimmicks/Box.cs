@@ -49,25 +49,26 @@ namespace Gimmicks
             BoxBreak();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             // プレイヤーが入って来たら
             if (collision.gameObject == player)
             {
                 stayFlg = true; // 滞在中
                 _IHitPlayer.IsHitPlayer();
-            }   
+            }
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        private void OnCollisionExit2D(Collision2D collision)
         {
             // プレイヤーが出て行ったら
             if (collision.gameObject == player)
             {
                 stayFlg = false; // 滞在してない
                 _IHitPlayer.NonHitPlayer();
-            }   
+            }
         }
+
 
         /// <summary>
         /// 箱(自身)が壊れる
