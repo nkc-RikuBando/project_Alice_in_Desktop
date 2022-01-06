@@ -88,7 +88,7 @@ namespace Gimmicks
                     this.StartCoroutine(KeyAppTime());
                 }
             }
-            else playerStatusManager.PlayerIsInput(true);
+            else if(UpInput())playerStatusManager.PlayerIsInput(true);
         }
 
         /// <summary>
@@ -98,6 +98,16 @@ namespace Gimmicks
         bool StayInput()
         {
             return stayFlg == true && _IActionKey.ActionKey();
+        }
+
+        /// <summary>
+        /// プレイヤーが触れている、かつ、キーを離す
+        /// </summary>
+        /// <returns></returns>
+
+        bool UpInput() 
+        {
+            return stayFlg == true && _IActionKey.ActionKeyUp();
         }
 
         /// <summary>
