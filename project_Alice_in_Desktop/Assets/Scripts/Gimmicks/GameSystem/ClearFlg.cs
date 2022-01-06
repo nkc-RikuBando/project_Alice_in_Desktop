@@ -11,6 +11,7 @@ namespace GameSystem
     {// 鍵を知っている。
 
         // 鍵のリスト
+        [Header("鍵のアタッチ不要")]
         [SerializeField] private List<GameObject> keyList = new List<GameObject>();
 
         private GameObject player;
@@ -69,7 +70,7 @@ namespace GameSystem
         // 鍵が消えたらリストから消す
         public void GetKey(GameObject get)
         {
-            keyList.Remove(get); // リストから鍵を消す
+            keyList.Remove(get);             // リストから鍵を消す
             if (keyList.Count <= 0) Clear(); // クリアメソッドを呼ぶ
             //Destroy(get); // リストから消えたら鍵自身を消す
         }
@@ -79,6 +80,9 @@ namespace GameSystem
             clearFlg = true; // クリアフラグをtrueにする
         }
 
+        /// <summary>
+        /// クリア時の演出
+        /// </summary>
         void ClearAnime()
         {
             animator.SetBool("Locked", true);

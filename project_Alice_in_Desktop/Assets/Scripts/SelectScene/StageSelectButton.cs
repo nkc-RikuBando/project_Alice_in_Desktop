@@ -17,6 +17,7 @@ namespace StageSelect
             iSceneChange = GameObject.Find("SceneManager").GetComponent<ISceneChange>();
         }
 
+        // ステージ選択ボタンが押されたとき
         public void PressedStageSelectButton(string stageName)
         {
             if (doubleClickFlg)
@@ -28,6 +29,7 @@ namespace StageSelect
             StartCoroutine(DoubleClickTimeCount());
         }
 
+        // ダブルクリックの入力猶予時間の計測 & フラグ管理
         IEnumerator DoubleClickTimeCount()
         {
             doubleClickFlg = true;
