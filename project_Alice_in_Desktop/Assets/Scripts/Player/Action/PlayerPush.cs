@@ -17,6 +17,7 @@ namespace Player
         private CapsuleCollider2D _capCol;
         private Rigidbody2D       _rb;
 
+        private bool _isPushObj;
 
         void Start()
         {
@@ -38,10 +39,9 @@ namespace Player
         // ‰Ÿ‚µ‚Ä‚éó‘Ôƒƒ\ƒbƒh
         private void Push()
         {
-            bool _isPushObj;
-
             // ‰Ÿ‚µ‚Ä‚éó‘Ô”»’è
-            _isPushObj = _objChecker.PushObjWidthChecker(_capCol);
+            if (_playerStatus._PushJudge) _isPushObj = _objChecker.PushObjWidthChecker(_capCol);
+            else _isPushObj = false;
 
             if (_isPushObj)
             {

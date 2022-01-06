@@ -32,6 +32,7 @@ namespace Player
         // ”»’èƒtƒ‰ƒO
         public bool _GroundJudge { get; set; } = true;
         public bool _WallJudge { get; set; } = true;
+        public bool _PushJudge { get; set; } = true;
         public bool _GroundChecker { get; set; } = false;
         public bool _IsWall { get; set; } = false;
         public bool _DeadColFlg { get; set; } = false;

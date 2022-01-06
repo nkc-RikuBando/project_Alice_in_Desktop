@@ -9,24 +9,13 @@ namespace Gimmicks
     public class BigChangeMushroom : MonoBehaviour
     {
         private GameObject player;
-        private IPlayerAction iPlayeraction;
         private IPlayerStatusSentable iStatusSentable;
-        private bool stayFlg = false;
+        private int sizeChangeCount = 0;
 
         void Start()
         {
             player = GetGameObject.playerObject;
-            iPlayeraction = player.GetComponent<IPlayerAction>();
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-        }
-
-        void Update()
-        {
-            if(IsEventKey())
-            {
-                // Playerのサイズを変更
-                iStatusSentable.PlayerSizeChange(1.5f);
-            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -36,24 +25,15 @@ namespace Gimmicks
 
             if (player != null)
             {
-                stayFlg = true;
+                sizeChangeCount++;
+
+                if (sizeChangeCount % 2 == 0)
+                {
+                    iStatusSentable.PlayerSizeChange(1.5f);
+                    sizeChangeCount = 0;
+                }
+
             }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            // collisionがPlayerの場合のみ
-            var player = collision.GetComponent<PlayerSet>();
-
-            if (player != null)
-            {
-                stayFlg = false;
-            }
-        }
-
-        bool IsEventKey()
-        {
-            return iPlayeraction.ActionKey_Down() && stayFlg == true;
         }
     }
 }

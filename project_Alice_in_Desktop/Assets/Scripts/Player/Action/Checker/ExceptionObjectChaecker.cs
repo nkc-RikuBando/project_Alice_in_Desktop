@@ -19,6 +19,10 @@ namespace Player
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
         }
 
+        private void Update()
+        {
+        }
+
 
         // “–‚½‚Á‚½‚ç
         private void OnTriggerEnter2D(Collider2D collision)
