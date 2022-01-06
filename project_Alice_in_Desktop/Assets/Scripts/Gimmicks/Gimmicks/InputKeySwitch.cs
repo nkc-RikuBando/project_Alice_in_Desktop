@@ -16,7 +16,19 @@ namespace Gimmicks
         private bool addSwitch;
         private bool stayFlg;
 
+        [Header("アタッチ不要")]
         [SerializeField] private List<GameObject> toranpuSoldier = new List<GameObject>();
+        //[SerializeField] private List<ISetSwitch> iSetSwitch = new List<ISetSwitch>();
+
+        //void Awake()
+        //{
+        //    for (int i = 0; i < toranpuSoldier.Count; i++)
+        //    {
+        //        //toranpuSoldier[i].GetComponent<IHitSwitch>();
+        //        iSetSwitch.Add(toranpuSoldier[i].GetComponent<ISetSwitch>());
+        //        iSetSwitch[i].AddSwitch(gameObject);
+        //    }
+        //}
 
         void Start()
         {
