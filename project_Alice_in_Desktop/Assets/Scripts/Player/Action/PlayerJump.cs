@@ -40,6 +40,10 @@ namespace Player
             JumpStateManager();
             JumpActionInput();
             Landing();
+
+            Debug.Log(_playerStatus._InputFlgX);
+            Debug.Log(_playerStatus._InputFlgY);
+
         }
         private void FixedUpdate()
         {
@@ -119,7 +123,6 @@ namespace Player
             // íÖínÇµÇƒÇ¢ÇÈèÛë‘
             if (_playerStatus._GroundChecker)
             {
-                Debug.Log("íÖínèÛë‘");
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
 
@@ -137,7 +140,6 @@ namespace Player
             if (_jumpCountFlg)
             {
                 _playerStatus._InputFlgY = true;
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
             }
         }
 
@@ -148,7 +150,6 @@ namespace Player
             // â∫ç~èÛë‘
             if (_rb.velocity.y < -0.1f)
             {
-                Debug.Log("â∫ç~èÛë‘");
                 _playerStatus._InputFlgX = true;
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
             }

@@ -131,6 +131,7 @@ namespace Player
                 _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
                 transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+                Debug.Log("壁ジャンプ！！");
 
                 // フラグをfalseにする
                 _jumpCount  = 0f;
