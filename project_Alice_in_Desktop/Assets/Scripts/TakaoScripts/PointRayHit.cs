@@ -6,11 +6,10 @@ public class PointRayHit : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private BoxCollider2D box2d;
-    public int distance = 10;
     [SerializeField, Tooltip("接触オブジェクトのレイヤー")] private LayerMask layerMasks;
 
     // 地面判定用の変数
-    [SerializeField] private float raylength = 1f;  // レイの長さ
+    [SerializeField] private float raylength = 30f;  // レイの長さ
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +22,6 @@ public class PointRayHit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit();
         CheakIsCollisionObj(box2d);
     }
 
@@ -40,22 +38,7 @@ public class PointRayHit : MonoBehaviour
         Debug.DrawLine(checkPos + transform.up, checkPos - lineLength, Color.red);// デバッグでレイを表示
         hit = Physics2D.Linecast(checkPos + transform.up , checkPos - lineLength,layerMasks);
 
-        Debug.Log(hit);
+        //Debug.Log(hit);
         return hit;
-    }
-    private void RaycastHit()
-    {
-        //RaycastHit2D raycastHit = Physics2D.Raycast(gameObject.transform.position, transform.up);
-        ////Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
-        ////Ray ray = new Ray(gameObject.transform.position, transform.up);
-
-        ////Rayが当たったオブジェクトの情報を入れる箱
-        //RaycastHit hit;
-
-        ////Rayの飛ばせる距離
-        ////int distance = 0;
-
-        ////Rayの可視化  ↓Rayの原点　↓Rayの方向　↓Rayの色
-        //Debug.DrawRay(gameObject.transform.position, transform.up, Color.red);
     }
 }
