@@ -7,17 +7,17 @@ using GameSystem;
 namespace Gimmicks
     // 頑張っててえらい！！！！！！
 {
-    public class CheshireCat : MonoBehaviour
+    public class CheshireCat : MonoBehaviour, IRenderingFlgSettable
     {
         private GameObject player; // プレイヤーを保存
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
-        private IRenderingFlgSettable iRenderingFlgSettable;
-        private bool InOutFlg;
+        private bool InOutFlg;                         // 画面外にいるか
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
+        private CheshireCat warpScr;
         private Animator warpPointAnim;                // ワープ先のアニメーション保存
 
         private bool stayFlg = false;                  // 滞在しているかフラグ
@@ -30,8 +30,8 @@ namespace Gimmicks
             playerAnim = player.GetComponent<Animator>();
             _ActionKey = player.GetComponent<IPlayerAction>();
             myAnimator = GetComponent<Animator>();
-            iRenderingFlgSettable = GetComponent<IRenderingFlgSettable>();
             InOutFlg = true;
+            warpScr = warpPoint.GetComponent<CheshireCat>();
             warpPointAnim = warpPoint.GetComponent<Animator>();
             hairuUI.SetActive(false);
         }
@@ -39,10 +39,6 @@ namespace Gimmicks
         void Update()
         {
             Warping();
-            //if(InOutFlg == false)
-            //{
-
-            //}
         }
 
         void OnTriggerEnter2D(Collider2D collision)
@@ -91,6 +87,21 @@ namespace Gimmicks
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
             this.StartCoroutine(WarpTime());
+        }
+
+        public void SetRenderingFlg(bool val)
+        {
+            InOutFlg = val;
+            if (InOutFlg == false)
+            {
+                warpScr.enabled = false;
+                myAnimator.SetBool("Close", true);
+            }
+            else
+            {
+                warpScr.enabled = true;
+                myAnimator.SetBool("Close", false);
+            }
         }
 
         IEnumerator WarpTime()

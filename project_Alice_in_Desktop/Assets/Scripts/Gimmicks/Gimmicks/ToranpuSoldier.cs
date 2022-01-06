@@ -5,35 +5,29 @@ using GameSystem;
 
 namespace Gimmicks
 {
-    public class ToranpuSoldier : MonoBehaviour, IHitSwitch
+    public class ToranpuSoldier : MonoBehaviour, IHitSwitch/*, ISetSwitch*/
     {
         private GameObject player; // プレイヤーを保存
         private Animator animator; // アニメーターを保存
         private BoxCollider2D boxCol;
 
-        [SerializeField] private GameObject[] inputSwitch;
-        private ISetToranpuSoldier iSetSoldier;
-        private ISetToranpuSoldier iSetSoldier1;
-        //private ISetToranpuSoldier iSetSoldier1;
+        [Header("CardSwitchをアタッチ")]
+        [SerializeField] private List<GameObject> inputSwitch = new List<GameObject>();
+        [SerializeField] private List<ISetToranpuSoldier> iSetSoldier = new List<ISetToranpuSoldier>();
 
         private bool switchFlg;
         private bool tranpuRed = true;
+        [Header("トランプが黒")]
         [SerializeField] private bool blackOn;
 
         void Awake()
         {
-            //for (int i = 0; i < inputSwitch.Length; i++)
-            //{
-            //    inputSwitch[i].GetComponent<IHitSwitch>();
-            //    iSetSoldier[i].AddSoldier(gameObject);
-            //}
-
-
-            iSetSoldier = inputSwitch[0].GetComponent<ISetToranpuSoldier>();
-            iSetSoldier1 = inputSwitch[1].GetComponent<ISetToranpuSoldier>();
-            iSetSoldier.AddSoldier(gameObject);
-            iSetSoldier1.AddSoldier(gameObject);
-
+            for (int i = 0; i < inputSwitch.Count; i++)
+            {
+                inputSwitch[i].GetComponent<IHitSwitch>();
+                iSetSoldier.Add(inputSwitch[i].GetComponent<ISetToranpuSoldier>());
+                iSetSoldier[i].AddSoldier(gameObject);
+            }
         }
 
         void Start()
@@ -46,6 +40,7 @@ namespace Gimmicks
             {
                 animator.SetBool("Black", true);
             }
+            else animator.SetBool("Black", false);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -73,23 +68,40 @@ namespace Gimmicks
         {
             //switchFlg = switchOn;
             switchFlg = switchFlg ? false : true;
-            if (switchFlg == true)
+            if(blackOn == false)
             {
-                boxCol.enabled = false;
-                tranpuRed = false;
-                animator.SetBool("Black", true);
+                if (switchFlg == true) BlackMode();
+                else RedMode();
             }
             else
             {
-                boxCol.enabled = true;
-                tranpuRed = true;
-                animator.SetBool("Black", false);
+                if (switchFlg == true) RedMode();
+                else BlackMode();
             }
         }
+
+        void BlackMode()
+        {
+            boxCol.enabled = false;
+            tranpuRed = false;
+            animator.SetBool("Black", true);
+        }
+
+        void RedMode()
+        {
+            boxCol.enabled = true;
+            tranpuRed = true;
+            animator.SetBool("Black", false);
+        }
+
+        //public void AddSwitch(GameObject set)
+        //{
+        //    inputSwitch.Add(set);
+        //}
 
         bool Direction()
         {
             return transform.position.x <= player.transform.position.x;
-        }
+        }    
     }
 }
