@@ -2,5 +2,5 @@ using UnityEngine;
 
 interface ISetSwitch
 {
-    public void AddSwitch(GameObject set);
+    void AddSwitch(GameObject set);
 }
