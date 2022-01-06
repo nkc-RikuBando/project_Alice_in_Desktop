@@ -6,10 +6,13 @@ using UnityEngine;
 public class RabbitHit : MonoBehaviour
 {
     [SerializeField] GameObject keyItem;
+    private Animator keyAnimator;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         keyItem.SetActive(false);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,7 +27,19 @@ public class RabbitHit : MonoBehaviour
 
         if(toPlayerHit != null)
         {
-            Debug.Log("ìñÇΩÇ¡ÇΩéÅÇÀ");
+            animator.SetTrigger("Capture");
+            Debug.Log("ìñÇΩÇ¡ÇΩ");
+            StartCoroutine("AppearKey");
         }
+        
+    }
+
+    IEnumerator AppearKey()
+    {
+        yield return new WaitForSeconds(0.6f);
+        keyItem.SetActive(true);
+        keyItem.transform.parent = null;
+        keyAnimator = keyItem.GetComponent<Animator>();
+        keyAnimator.SetTrigger("Spawn");
     }
 }

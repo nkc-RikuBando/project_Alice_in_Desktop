@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1225564638553137390}
   - component: {fileID: 1225564638553137391}
   - component: {fileID: 1225564638553137384}
-  - component: {fileID: 1707769597178768167}
   m_Layer: 0
   m_Name: SwitchTextCanvas
   m_TagString: Untagged
@@ -101,18 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1707769597178768167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1225564638553137386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d904cde9eeb1046ad6f5c13eef37a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1225564639855752091
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bdf9349e2583cc49ad3b2de5111de76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchUI: {fileID: 1225564638553137386}
+  toranpuSoldier: []
 --- !u!1 &5360133607363143849
 GameObject:
   m_ObjectHideFlags: 0

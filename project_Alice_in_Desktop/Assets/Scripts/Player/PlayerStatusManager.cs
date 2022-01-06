@@ -40,7 +40,6 @@ namespace Player
                     transform.localScale = new Vector3(transform.localScale.x * 1f,
                                                        transform.localScale.y * 1f,
                                                        1f);
-
                 }
             }
         }
