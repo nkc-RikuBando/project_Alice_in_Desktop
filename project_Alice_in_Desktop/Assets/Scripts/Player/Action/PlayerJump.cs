@@ -37,13 +37,13 @@ namespace Player
         private void Update()
         {
             GroundChecker();
-            JumpActionInput();
             JumpStateManager();
+            JumpActionInput();
+            Landing();
         }
         private void FixedUpdate()
         {
             JumpAction();
-            Landing();
         }
 
 
@@ -137,6 +137,7 @@ namespace Player
             if (_jumpCountFlg)
             {
                 _playerStatus._InputFlgY = true;
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
             }
         }
 
@@ -149,7 +150,6 @@ namespace Player
             {
                 Debug.Log("â∫ç~èÛë‘");
                 _playerStatus._InputFlgX = true;
-                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
             }
         }
