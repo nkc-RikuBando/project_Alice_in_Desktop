@@ -20,10 +20,8 @@ namespace Player
         private Rigidbody2D       _rb;
         private GameObject        _wallCheckObj;
 
-        private bool  _isWall;
         private bool  _isWallJump;
         private float _jumpCount;
-
 
         // 壁ジャンプ用の垂直な角度
         private const float VERTICAL_ANGLE = 90;
@@ -61,7 +59,7 @@ namespace Player
         private void WallJumpInput()
         {
             // 壁に張り付いている場合(張り付いてるなら下のメソッドに入れるべきでは？)
-            if (_isWall)
+            if (_playerStatus._IsWall)
             {
                 // 壁ジャンプ状態に変更
                 if (_inputReceivable.JumpKey_W() || _inputReceivable.JumpKey_Space())
@@ -75,14 +73,14 @@ namespace Player
         private void StickInput()
         {
             bool _isStick = _rb.velocity.y != 0 && _playerStatus._WallJudge && !_playerStatus._GroundChecker;
-            bool _stickInput = _inputReceivable.MoveH() != 0; //transform.localScale.x;修正点１
+            bool _stickInput = _inputReceivable.MoveH() != 0; 
 
             // 壁は張り付き入力
             if (_isStick)
             {
                 if (_stickInput)
                 {
-                    _isWall = _wallChecker.CheckIsGround(_capCol);
+                    _playerStatus._IsWall = _wallChecker.CheckIsGround(_capCol);
                 }
             }
         }
@@ -90,8 +88,10 @@ namespace Player
         // 壁張り付き状態メソッド
         private void WallSticking()
         {
+            bool _JumpCountFlg = _jumpCount > _playerStatus._JumpFeasibleCount /*&& _jumpCount < _playerStatus.JumpFeasibleCount + 0.1f*/;// バグ
+
             // 壁張り付き時の挙動
-            if (_isWall)
+            if (_playerStatus._IsWall)
             {
                 // Playerを静止状態にする
                 _rb.velocity = Vector2.zero;
@@ -107,7 +107,7 @@ namespace Player
 
                 // 少しの間入力できない
                 _jumpCount += Time.deltaTime;
-                if (_jumpCount > _playerStatus.JumpFeasibleCount)
+                if (_JumpCountFlg)
                 {
                     _playerStatus._InputFlgY = true;
                 }
@@ -131,11 +131,10 @@ namespace Player
                 _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
                 transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-                Debug.Log("壁ジャンプ！！");
 
                 // フラグをfalseにする
                 _jumpCount  = 0f;
-                _isWall     = false;
+                _playerStatus._IsWall = false;
                 _isWallJump = false;
                 _playerStatus._InputFlgX = false;
                 
@@ -150,7 +149,7 @@ namespace Player
         private void WallState()
         {
             // 張り付いている場合
-            if (_isWall)
+            if (_playerStatus._IsWall)
             {
                 // 降下状態
                 if (_rb.velocity.y < -1f)
@@ -162,11 +161,11 @@ namespace Player
                 // 壁張り付き状態で逆方向に入力した場合
                 if (transform.localScale.x > 0)
                 {
-                    if (_inputReceivable.MoveH() != 1) _isWall = false;
+                    if (_inputReceivable.MoveH() != 1) _playerStatus._IsWall = false;
                 }
                 else if (transform.localScale.x < 0)
                 {
-                    if (_inputReceivable.MoveH() != -1) _isWall = false;
+                    if (_inputReceivable.MoveH() != -1) _playerStatus._IsWall = false;
                 }
 
             }
@@ -192,7 +191,7 @@ namespace Player
         // 壁ジャンプする角度からベクトルに変換するメソッド
         private Vector2 JumpAngle()
         {
-            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x)) * Mathf.Deg2Rad;
+            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x / _playerStatus._SizeMag)) * Mathf.Deg2Rad;
 
             return new Vector2(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle));
         }

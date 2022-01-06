@@ -43,14 +43,13 @@ namespace Player
         // Player‚ÌŒü‚«ƒƒ\ƒbƒh
         private void PlayerDirection()
         {
-            Vector3 playerScale = transform.localScale;
             bool _isHorizontalInput = _inputReceivable.MoveH() != 0;
-
+            float _size = _playerStatus._SizeMag;
 
             // ˆÚ“®ó‘Ô
             if (_isHorizontalInput)
             {
-                transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
+                transform.localScale = new Vector3(_inputReceivable.MoveH() * _size, 1f * _size, 1f);
 
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);

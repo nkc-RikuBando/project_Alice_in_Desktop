@@ -40,10 +40,6 @@ namespace Player
             JumpStateManager();
             JumpActionInput();
             Landing();
-
-            Debug.Log(_playerStatus._InputFlgX);
-            Debug.Log(_playerStatus._InputFlgY);
-
         }
         private void FixedUpdate()
         {
@@ -133,7 +129,7 @@ namespace Player
         // ジャンプができるようになるまでの計測メソッド
         private void JumpCount()
         {
-            bool _jumpCountFlg = _jumpCount > _playerStatus.JumpFeasibleCount && _jumpCount < _playerStatus.JumpFeasibleCount + 0.1f;
+            bool _jumpCountFlg = _jumpCount > _playerStatus._JumpFeasibleCount /*&& _jumpCount < _playerStatus.JumpFeasibleCount + 0.1f*/;
 
             // 少しの間入力できない
             _jumpCount += Time.deltaTime;
@@ -152,6 +148,7 @@ namespace Player
             {
                 _playerStatus._InputFlgX = true;
                 _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+                _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);// おそらくバグる
             }
         }
     }
