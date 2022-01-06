@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gimmicks
 {
-    public class GimmickTest : MonoBehaviour, IHitSwitch
+    public class GimmickTest : MonoBehaviour/*, IHitSwitch*/
     {
         private bool switchFlg = false;
 

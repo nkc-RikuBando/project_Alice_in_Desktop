@@ -7,7 +7,7 @@ using Animation;
 
 namespace GameSystem
 {
-    public class ClearFig2 : MonoBehaviour, IHitSwitch
+    public class ClearFig2 : MonoBehaviour/*, IHitSwitch*/
     {
         [SerializeField] private GameObject player;
         private IPlayerAction _IActionKey;                 // 入力インターフェースを保存
