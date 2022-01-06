@@ -125,21 +125,27 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             rigd2D.bodyType = RigidbodyType2D.Dynamic;
             nextPosLength = new Vector3(0, 0, 0);
 
-            if(nowPoint.GetUseFlg() == true)
-            {
-                //ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®
-                Debug.Log("ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®");
-                this.transform.position = nowTransform;
-                pointMock = nowPoint;
+            //if(nowPoint.GetUseFlg() == true)
+            //{
+            //    //ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®
+            //    Debug.Log("ˆê‚Â‘O‚ÌêŠ‚ÖuŠÔˆÚ“®");
+            //    this.transform.position = nowTransform;
+            //    nowTransform = nextTransform;
+            //    pointMock = nowPoint;
+            //    nowPoint = pointMock.GetRabbitMovePointPos();
+            //}
 
-            }
-            else if(nowPoint.GetUseFlg() == false)
+            if(pointMock.GetUseFlg() == true)
             {
-                //Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®
-                Debug.Log("Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®");
-                this.transform.position = nextTransform;
-
+                transform.position = pointMock.transform.position;
             }
+            
+            //if(nowPoint.GetUseFlg() == false)
+            //{
+            //    //Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®
+            //    Debug.Log("Ÿ‚ÌêŠ‚ÖuŠÔˆÚ“®");
+            //    this.transform.position = nextTransform;
+            //}
             
             if(nowPoint.GetUseFlg() == false || pointMock.GetUseFlg() == false)
             {
