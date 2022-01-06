@@ -9,17 +9,21 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     [SerializeField] GameObject rabbit;
     [SerializeField] RabbitMovePointMock[] rabbitMovePoint;
     [SerializeField] RabbitMovePointMock[] rabbitMovePointsAll;
+
+    private BoxCollider2D box2d;
+    private PointRayHit pointRayHit;
     Vector3 playerPos;
     Vector3 rabbitPos;
     Vector3 myPos;
     float toPlayerDistanceValue; //評価値
     float toRabbitDistanceValue;
-    bool insideFlg = false;
+    bool usePointFlg = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        pointRayHit = GetComponent<PointRayHit>();
+        box2d = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         UpdateDisValue(); //評価値を受け取る
         playerPos = player.GetPlayerPosition(); //プレイヤーの座標を受け取る
         rabbitPos = rabbit.transform.position;
+        SetCollisionObjFlg();
     }
 
     private void UpdatePos()
@@ -46,7 +51,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     {
         RabbitMovePointMock tempMock = null;
         var insideDisValueLinq = rabbitMovePoint
-            .Where(x => x.GetOutsideFlg() == true) //foreachの中でif (x.GetOutsideFlg() == true)をするのと一緒
+            .Where(x => x.GetUseFlg() == true) //foreachの中でif (x.GetOutsideFlg() == true)をするのと一緒
             .OrderByDescending(x => x.GetToPlayerDisValue()); //xの降順(先頭が一番高い数値)
         tempMock = insideDisValueLinq.First();
 
@@ -57,7 +62,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     {
         RabbitMovePointMock nearRabbitTemp = null;
         var insideDisValueFromAllLinq = rabbitMovePointsAll
-            .Where(x => x.GetOutsideFlg() == true)
+            .Where(x => x.GetUseFlg() == true)
             .OrderBy(x => x.GetToRabbitDistanceValue());
         nearRabbitTemp = insideDisValueFromAllLinq.First();
         return nearRabbitTemp;
@@ -83,15 +88,18 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         return rabbitPos;
     }
 
-    public bool GetOutsideFlg()
+    public bool GetUseFlg()
     {
-        Debug.Log("insideFlg  = " + insideFlg);
-        //insideFlg = true;
-        return insideFlg;
+        return usePointFlg;
+    }
+
+    public void SetCollisionObjFlg()
+    {
+        Debug.Log(pointRayHit.CheakIsCollisionObj(box2d));
     }
 
     public void SetRenderingFlg(bool val)
     {
-        insideFlg = val;
+        usePointFlg = val;
     }
 }
