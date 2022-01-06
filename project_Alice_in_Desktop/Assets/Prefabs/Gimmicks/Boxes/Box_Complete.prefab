@@ -71,7 +71,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.87
+  m_FillAmount: 0.41
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -469,7 +469,6 @@ GameObject:
   - component: {fileID: 1792649291281955595}
   - component: {fileID: 1792649291281955594}
   - component: {fileID: 1792649291281955602}
-  - component: {fileID: 1792649291281955601}
   - component: {fileID: 1792649291281955600}
   - component: {fileID: 1792649291281955605}
   - component: {fileID: 1792649291281955606}
@@ -543,22 +542,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!58 &1792649291281955601
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792649291281955604}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1}
-  serializedVersion: 2
-  m_Radius: 1.5
 --- !u!50 &1792649291281955600
 Rigidbody2D:
   serializedVersion: 4
@@ -606,7 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hideKey: {fileID: 522727081803748503}
   uiGauge: {fileID: 522727081249245288}
-  time: 0.3
+  time: 0.5
   layer:
     serializedVersion: 2
     m_Bits: 2048
@@ -1060,13 +1043,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
---- !u!1 &522727081803748503 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8485265449932193440, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
-  m_PrefabInstance: {fileID: 8250786359061113399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &522727081803748492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8485265449932193467, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
+  m_PrefabInstance: {fileID: 8250786359061113399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &522727081803748503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8485265449932193440, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
   m_PrefabInstance: {fileID: 8250786359061113399}
   m_PrefabAsset: {fileID: 0}

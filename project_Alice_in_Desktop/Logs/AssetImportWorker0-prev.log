@@ -2,6 +2,7 @@ Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.20f1 (41c4e627c95f) revision 4310246'; Using compiler version '192528614'; Build Type 'Release'
 OS: 'Windows 10 Pro; OS build 19042.1415; Version 2009; 64bit' Language: 'ja' Physical Memory: 8048 MB
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -10,6 +11,8 @@ OS: 'Windows 10 Pro; OS build 19042.1288; Version 2009; 64bit' Language: 'ja' Ph
 >>>>>>> feature_Rabbit
 >>>>>>> d01b0466f124dc60196372d61f8f51efca425674
 >>>>>>> bce40c79a8b72b797a8051acaa52edfcd3a95997
+=======
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
 COMMAND LINE ARGUMENTS:
@@ -20,6 +23,7 @@ C:\Program Files\Unity\Hub\Editor\2020.3.20f1\Editor\Unity.exe
 -name
 AssetImportWorker0
 -projectPath
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -39,10 +43,13 @@ Initialize engine version: 2020.3.20f1 (41c4e627c95f)
 [Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Alice/Alice_repository/project_Alice_in_Desktop/Assets
 =======
 >>>>>>> bce40c79a8b72b797a8051acaa52edfcd3a95997
+=======
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
 C:/Users/user/Documents/project_Alice_in_Desktop/project_Alice_in_Desktop
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
+<<<<<<< HEAD
 <<<<<<< HEAD
 60971
 Successfully changed project path to: C:/Users/user/Documents/project_Alice_in_Desktop/project_Alice_in_Desktop
@@ -64,10 +71,18 @@ Using Asset Import Pipeline V2.
 Refreshing native plugins compatible for Editor in 72.38 ms, found 3 plugins.
 >>>>>>> feature_Rabbit
 >>>>>>> bce40c79a8b72b797a8051acaa52edfcd3a95997
+=======
+62325
+Successfully changed project path to: C:/Users/user/Documents/project_Alice_in_Desktop/project_Alice_in_Desktop
+C:/Users/user/Documents/project_Alice_in_Desktop/project_Alice_in_Desktop
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 73.76 ms, found 3 plugins.
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.20f1 (41c4e627c95f)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/user/Documents/project_Alice_in_Desktop/project_Alice_in_Desktop/Assets
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> d01b0466f124dc60196372d61f8f51efca425674
@@ -87,6 +102,8 @@ Initialize engine version: 2020.3.20f1 (41c4e627c95f)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path C:/Users/user/Desktop/Alice/project_Alice_in_Desktop/Assets
 >>>>>>> feature_Stage
+=======
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
 GfxDevice: creating device client; threaded=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
@@ -98,6 +115,7 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56924
@@ -614,6 +632,91 @@ System memory in use after: 102.0 MB.
 
 Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 2781.
 Total: 3.691000 ms (FindLiveObjects: 0.244500 ms CreateObjectMapping: 0.119300 ms MarkObjects: 3.277300 ms  DeleteObjects: 0.049000 ms)
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56268
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002572 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 87.91 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.013 seconds
+Domain Reload Profiling:
+	ReloadAssembly (3013ms)
+		BeginReloadAssembly (118ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (773ms)
+			LoadAssemblies (113ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (271ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (55ms)
+			SetupLoadedEditorAssemblies (317ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (88ms)
+				BeforeProcessingInitializeOnLoad (30ms)
+				ProcessInitializeOnLoadAttributes (135ms)
+				ProcessInitializeOnLoadMethodAttributes (56ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005364 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 86.40 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.817 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1818ms)
+		BeginReloadAssembly (237ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (9ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (30ms)
+		EndReloadAssembly (1483ms)
+			LoadAssemblies (142ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (492ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (79ms)
+			SetupLoadedEditorAssemblies (590ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (87ms)
+				BeforeProcessingInitializeOnLoad (149ms)
+				ProcessInitializeOnLoadAttributes (318ms)
+				ProcessInitializeOnLoadMethodAttributes (20ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.68 seconds
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2336 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 107.7 MB.
+System memory in use after: 107.9 MB.
+
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2778.
+Total: 5.822100 ms (FindLiveObjects: 0.288900 ms CreateObjectMapping: 0.133800 ms MarkObjects: 5.274100 ms  DeleteObjects: 0.123000 ms)
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -626,6 +729,7 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
+<<<<<<< HEAD
 Received Prepare
 Registering precompiled user dll's ...
 Registered in 0.003336 seconds.
@@ -13886,3 +13990,28 @@ AssetImportWorkerClient::OnTransportError - code=2 error=End of file
 Registered in 0.005796 seconds.
 >>>>>>> feature_Rabbit
 >>>>>>> bce40c79a8b72b797a8051acaa52edfcd3a95997
+=======
+Received Import Request.
+  path: Assets/Prefabs/Gimmicks/Keys/Key.prefab
+  artifactKey: Guid(89ce436c6066dc2428167a7d849c3349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Gimmicks/Keys/Key.prefab using Guid(89ce436c6066dc2428167a7d849c3349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af9f38d264f56902db4ba783d9b3b5c0') in 0.207430 seconds 
+  Import took 0.219881 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.686237 seconds.
+  path: Assets/Prefabs/Gimmicks/Keys/KeyUICanvas.prefab
+  artifactKey: Guid(69da5f12363484740a5648452f227398) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Gimmicks/Keys/KeyUICanvas.prefab using Guid(69da5f12363484740a5648452f227398) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '147a7324d9d78533301173627bb31c9e') in 0.029613 seconds 
+  Import took 0.041337 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.717140 seconds.
+  path: Assets/Prefabs/Gimmicks/Keys/Key.prefab
+  artifactKey: Guid(89ce436c6066dc2428167a7d849c3349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Gimmicks/Keys/Key.prefab using Guid(89ce436c6066dc2428167a7d849c3349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ae434d1c45ea3e84f7f77abc37563fa') in 0.029885 seconds 
+  Import took 0.039720 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+>>>>>>> 9d7929627adb389b2318f2d523d3a51de689e938
