@@ -95,7 +95,14 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 
     public void SetCollisionObjFlg()
     {
-        Debug.Log(pointRayHit.CheakIsCollisionObj(box2d));
+        if(pointRayHit.CheakIsCollisionObj(box2d))
+        {
+            usePointFlg = false;
+        }
+        else
+        {
+            usePointFlg = true;
+        }
     }
 
     public void SetRenderingFlg(bool val)
