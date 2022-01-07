@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Window;
 
 namespace Gimmicks
 {
-    public class MoveXFloor : MonoBehaviour
+    public class MoveXFloor : MonoBehaviour,IWindowTouch,IWindowLeave
     {
         #region BlackHole
         //[SerializeField] private GameObject[] movePoint; // 移動経路
@@ -34,6 +35,9 @@ namespace Gimmicks
         private float PosX;                        // X 座標の保存変数
         private Vector3 upDir = Vector3.up;        // 上に動く
         private Vector3 downDir = Vector3.down;    // 下に動く
+
+        // ↓三輪が書きました
+        private bool moveFlg = true;
 
         void Start()
         {
@@ -69,6 +73,10 @@ namespace Gimmicks
 
         void FixedUpdate()
         {
+            // ↓三輪が書きました
+            // moveFlgがtureのときしか動かない
+            if (!moveFlg) return;
+
             //Move();
             if (UpDownFlg == false)
             {
@@ -183,6 +191,20 @@ namespace Gimmicks
             //    myVelocity = (rigid.position - oldPos) / Time.deltaTime;
             //    oldPos = rigid.position;
             //}
+        }
+
+        // ↓三輪が書きました
+        // インターフェースの関数を実装
+        public void WindowTouchAction()
+        {
+            // ウィンドウ触ったとき
+            moveFlg = false;
+        }
+
+        public void WindowLeaveAction()
+        {
+            // ウィンドウ離した時
+            moveFlg = true;
         }
     }
 }
