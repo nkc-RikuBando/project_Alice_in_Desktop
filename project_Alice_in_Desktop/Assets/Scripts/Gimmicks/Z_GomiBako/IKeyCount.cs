@@ -1,4 +1,4 @@
 interface IKeyCount
 {
-    public void keyCount(int num);
+    void keyCount(int num);
 }
