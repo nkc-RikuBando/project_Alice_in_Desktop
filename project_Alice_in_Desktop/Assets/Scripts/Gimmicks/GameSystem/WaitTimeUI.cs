@@ -28,8 +28,8 @@ namespace GameSystem
         void Update()
         {
             if (_ActionKey.ActionKey()) // キーを長押し
-                waitTime.fillAmount += UP_DOWN_NUM; // ゲージが増える
-                
+            waitTime.fillAmount += UP_DOWN_NUM;// ゲージが増える 
+
             else // キーを離す
                 waitTime.fillAmount -= UP_DOWN_NUM; // ゲージが減る
 

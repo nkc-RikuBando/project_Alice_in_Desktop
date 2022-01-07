@@ -13,7 +13,7 @@ namespace Gimmicks
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
-        private bool InOutFlg = true;                         // 画面外にいるか
+        private bool InOutFlg;                         // 画面外にいるか
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
@@ -50,7 +50,7 @@ namespace Gimmicks
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player && warpScr.InOut)
+            if (collision.gameObject == player && InOutFlg == true)
             {
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
@@ -97,8 +97,8 @@ namespace Gimmicks
 
         public void SetRenderingFlg(bool val)
         {
-            InOutFlg = val;
-            if (InOutFlg == false)
+            warpScr.InOut = val;
+            if (warpScr.InOut == false)
             {
                 warpScr.enabled = false;
                 myAnimator.SetBool("Close", true);
