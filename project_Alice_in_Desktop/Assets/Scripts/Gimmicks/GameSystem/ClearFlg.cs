@@ -4,6 +4,7 @@ using UnityEngine;
 using Connector.Player;
 using Animation;
 using Player;
+using StageSelect;
 
 namespace GameSystem
 {
@@ -23,6 +24,8 @@ namespace GameSystem
         private ClearEffect clearEffect;            // クリアエフェクトの保存
         private bool clearFlg;
         private bool stayFlg;
+        [SerializeField] private int stageNum;
+        private ISendClearStageNum iSendClearStageNum;
 
         void Start()
         {
@@ -37,6 +40,7 @@ namespace GameSystem
             inputUI = GetUIObject.HirakuUI;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
+            iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
         }
 
         void Update()
@@ -90,6 +94,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
+                    if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
                     playerStatusManager.PlayerIsInput(false);
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
