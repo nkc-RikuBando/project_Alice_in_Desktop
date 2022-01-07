@@ -9,6 +9,7 @@ namespace StageSelect
     class StageUnlock:MonoBehaviour
     {
         private StageManagerSingleton stageManagerSingleton;
+        [SerializeField] private GameObject worldFolderPanelParent;
         [SerializeField] private List<GameObject> worldFolderPanels;
         [SerializeField] private List<GameObject> stageFolderPanels;
 
@@ -85,6 +86,11 @@ namespace StageSelect
         public void StageFolderActiveSwitch(int worldNum,bool val)
         {
             stageFolderPanels[worldNum - 1].SetActive(val);
+
+            if(val)
+            {
+                worldFolderPanelParent.SetActive(false);
+            }
         }
 
         public GameObject GetStageFolder(int i)
