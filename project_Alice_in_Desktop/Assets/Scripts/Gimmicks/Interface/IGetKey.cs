@@ -2,6 +2,6 @@ using UnityEngine;
 
 interface IGetKey
 {
-    public void AddKey(GameObject set);
-    public void GetKey(GameObject get);
+    void AddKey(GameObject set);
+    void GetKey(GameObject get);
 }

@@ -54,6 +54,7 @@ namespace Gimmicks
             myAnimator = GetComponent<Animator>(); // 箱(自身)のアニメーションを取得
             keyAnimator = hideKey.GetComponent<Animator>(); // 鍵のアニメーションを取得
             uiGauge.SetActive(false);              // ゲージを非表示
+            isBreak = true;
         }
 
         void Update()
@@ -64,6 +65,7 @@ namespace Gimmicks
             BoxBreak();
 
             //TestRayCast();
+            Debug.Log(stayFlg);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
