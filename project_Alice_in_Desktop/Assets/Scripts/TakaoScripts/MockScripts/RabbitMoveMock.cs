@@ -121,11 +121,13 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 
     private void PlayMove()
     {
+        
         if (playFlg)
         {
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
+            if (hitFlg) return;
             nextPosLength = new Vector3(0, 0, 0);
 
             StartCoroutine("TeleportRabbit");
