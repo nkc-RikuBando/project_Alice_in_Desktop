@@ -50,45 +50,44 @@ namespace Gimmicks
             boxCol = GetComponent<BoxCollider2D>();
             playerStatusManager = player.GetComponent<PlayerStatusManager>();
             //hideKey = GetGameObject.KeyObj;
+
             hideKey.SetActive(false);              // 鍵を非表示
             myAnimator = GetComponent<Animator>(); // 箱(自身)のアニメーションを取得
             keyAnimator = hideKey.GetComponent<Animator>(); // 鍵のアニメーションを取得
             uiGauge.SetActive(false);              // ゲージを非表示
-            isBreak = true;
+            isBreak = false;
         }
 
         void Update()
         {
             //AnimePlay();
             //UpCast();
-            if(isBreak == false) HorizRayCast();
+            if (isBreak == false) HorizRayCast();
             BoxBreak();
 
             //TestRayCast();
-            Debug.Log(stayFlg);
+            Debug.Log(isBreak);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // プレイヤーが入って来たら
-            if (collision.gameObject == player)
-            {
-                stayFlg = true; // 滞在中
-                isBreak = true;
-                _IHitPlayer.IsHitPlayer();
-            }
-        }
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    // プレイヤーが入って来たら
+        //    if (collision.gameObject == player)
+        //    {
+        //        stayFlg = true; // 滞在中
+        //        _IHitPlayer.IsHitPlayer();
+        //    }
+        //}
 
-        private void OnCollisionExit2D(Collision2D collision)
-        {
-            // プレイヤーが出て行ったら
-            if (collision.gameObject == player)
-            {
-                stayFlg = false; // 滞在してない
-                isBreak = false;
-                _IHitPlayer.NonHitPlayer();
-            }
-        }
+        //private void OnCollisionExit2D(Collision2D collision)
+        //{
+        //    // プレイヤーが出て行ったら
+        //    if (collision.gameObject == player)
+        //    {
+        //        stayFlg = false; // 滞在してない
+        //        _IHitPlayer.NonHitPlayer();
+        //    }
+        //}
 
         void AnimePlay()
         {
@@ -210,6 +209,8 @@ namespace Gimmicks
             //もしRayにオブジェクトが衝突したら
             if (hit) PlayerEnter();
             else PlayerExit();
+
+            Debug.Log(hit);
         }
 
         void TestRayCast()

@@ -40,7 +40,7 @@ namespace GameSystem
             inputUI = GetUIObject.HirakuUI;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
-            iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
+            //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
         }
 
         void Update()
@@ -94,7 +94,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
-                    if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
+                    //if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
                     playerStatusManager.PlayerIsInput(false);
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
