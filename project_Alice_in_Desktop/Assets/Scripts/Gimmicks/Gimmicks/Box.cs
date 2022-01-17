@@ -25,6 +25,14 @@ namespace Gimmicks
 
         [SerializeField] private LayerMask layer;
 
+        private bool isBreak;
+
+        public enum AnimeType
+        {
+            BOX_BREAK, KEY_APP
+        }
+        AnimeType animeType;
+
         public bool PlHitFlg
         {
             get { return stayFlg; }
@@ -42,43 +50,69 @@ namespace Gimmicks
             boxCol = GetComponent<BoxCollider2D>();
             playerStatusManager = player.GetComponent<PlayerStatusManager>();
             //hideKey = GetGameObject.KeyObj;
+
             hideKey.SetActive(false);              // 鍵を非表示
             myAnimator = GetComponent<Animator>(); // 箱(自身)のアニメーションを取得
             keyAnimator = hideKey.GetComponent<Animator>(); // 鍵のアニメーションを取得
             uiGauge.SetActive(false);              // ゲージを非表示
+            isBreak = false;
         }
 
         void Update()
         {
+            //AnimePlay();
+            //UpCast();
+            if (isBreak == false) HorizRayCast();
             BoxBreak();
+
+            //TestRayCast();
+            Debug.Log(isBreak);
         }
 
-        void FixedUpdate()
-        {
-            UpCast();
-            RightRayCast();
-        }
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    // プレイヤーが入って来たら
+        //    if (collision.gameObject == player)
+        //    {
+        //        stayFlg = true; // 滞在中
+        //        _IHitPlayer.IsHitPlayer();
+        //    }
+        //}
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        //private void OnCollisionExit2D(Collision2D collision)
+        //{
+        //    // プレイヤーが出て行ったら
+        //    if (collision.gameObject == player)
+        //    {
+        //        stayFlg = false; // 滞在してない
+        //        _IHitPlayer.NonHitPlayer();
+        //    }
+        //}
+
+        void AnimePlay()
         {
-            // プレイヤーが入って来たら
-            if (collision.gameObject == player)
+            switch (animeType)
             {
-                stayFlg = true; // 滞在中
-                _IHitPlayer.IsHitPlayer();
+                case AnimeType.BOX_BREAK:
+                    myAnimator.SetTrigger("Destroy");
+                    break;
+                case AnimeType.KEY_APP:
+                    keyAnimator.SetTrigger("Spawn");
+                    break;
             }
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        void PlayerEnter()
         {
-            // プレイヤーが出て行ったら
-            if (collision.gameObject == player)
-            {
-                stayFlg = false; // 滞在してない
-                _IHitPlayer.NonHitPlayer();
-            }
+            stayFlg = true; // 滞在中
+            _IHitPlayer.IsHitPlayer();
         }
 
+        void PlayerExit()
+        {
+            stayFlg = false; // 滞在してない
+            _IHitPlayer.NonHitPlayer();
+        }
 
         /// <summary>
         /// 箱(自身)が壊れる
@@ -91,6 +125,7 @@ namespace Gimmicks
                 // ゲージが溜まったら
                 if (WaitTimeUI.gaugeMaxFlg == true)
                 {
+                    isBreak = true;
                     WaitTimeUI.gaugeMaxFlg = false;
                     myAnimator.SetTrigger("Destroy");  // アニメーション再生
                     hideKey.transform.parent = null;   // 鍵を子オブジェクトから外す
@@ -147,39 +182,65 @@ namespace Gimmicks
                 result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
                 //レイを表示してみる
                 Debug.DrawLine(chkPos + transform.up, chkPos - lineLength, Color.red);
-
                 // オフセット加算
                 chkPos.x += boxHarfWitdh;
             }
         }
 
-        void RightRayCast()
+        void HorizRayCast()
         {
-            Vector3 offset = new Vector3(1.1f, 1, 0);
+            Vector3 offset = new Vector3(-2f, 1, 0);
+
             //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
             Ray2D ray = new Ray2D(transform.position + offset, Vector3.right);
 
             //Rayが当たったオブジェクトの情報を入れる箱
-            RaycastHit2D hit;
+            //RaycastHit2D hit;
 
             //Rayの飛ばせる距離
-            int distance = 1;
+            int distance = 4;
 
             //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
             Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-            //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
-            hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
-            //もしRayにオブジェクトが衝突したら
 
-            if (hit.transform != null)
-            {
-                Debug.Log(hit.collider.gameObject.name);
-                //Rayが当たったオブジェクトのtagがPlayerだったら
-                if (hit.collider.gameObject == player)
-                {
-                    Debug.Log("当たったヌルか");
-                }
-            }
+            //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
+            bool hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
+
+            //もしRayにオブジェクトが衝突したら
+            if (hit) PlayerEnter();
+            else PlayerExit();
+
+            Debug.Log(hit);
+        }
+
+        void TestRayCast()
+        {
+#if BlackHole
+            Vector3 offset = new Vector3(1.1f, 1f, 0);
+            Vector3 offset1 = new Vector3(-1.1f, 1, 0);
+
+            Ray2D rightRay = new Ray2D(transform.position + offset, Vector3.right);
+            Ray2D leftRay = new Ray2D(transform.position + offset1, Vector3.left);
+
+            int distance = 1;
+            Debug.DrawRay(rightRay.origin, rightRay.direction * distance, Color.red);
+            Debug.DrawRay(leftRay.origin, leftRay.direction * distance, Color.red);
+
+            bool hit = Physics2D.Raycast(rightRay.origin, rightRay.direction, distance, layer);
+            bool hit1 = Physics2D.Raycast(leftRay.origin, leftRay.direction, distance, layer);
+
+            if (hit || hit1) PlayerEnter();
+            else PlayerExit();
+
+            //if (hit.transform != null)
+            //{
+            //    //Rayが当たったオブジェクトがPlayerだったら
+            //    if (hit.collider.gameObject == player)
+            //        PlayerEnter();
+            //    else
+            //        PlayerExit();
+            //}
+#endif
         }
 
         /// <summary>

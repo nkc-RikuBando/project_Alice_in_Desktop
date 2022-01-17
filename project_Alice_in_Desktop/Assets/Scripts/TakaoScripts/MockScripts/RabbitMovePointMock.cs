@@ -17,7 +17,9 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     Vector3 myPos;
     float toPlayerDistanceValue; //•]‰¿’l
     float toRabbitDistanceValue;
-    bool usePointFlg = false;
+    bool collisionPointFlg = false;
+    bool outsideFlg = false;
+    bool usePointFlg = true;
 
     // Start is called before the first frame update
     void Start()
@@ -90,23 +92,30 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 
     public bool GetUseFlg()
     {
-        return usePointFlg;
+        if(outsideFlg == true && collisionPointFlg == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void SetCollisionObjFlg()
     {
         if(pointRayHit.CheakIsCollisionObj(box2d))
         {
-            usePointFlg = false;
+            collisionPointFlg = false;
         }
         else
         {
-            usePointFlg = true;
+            collisionPointFlg = true;
         }
     }
 
     public void SetRenderingFlg(bool val)
     {
-        usePointFlg = val;
+        outsideFlg = val;
     }
 }

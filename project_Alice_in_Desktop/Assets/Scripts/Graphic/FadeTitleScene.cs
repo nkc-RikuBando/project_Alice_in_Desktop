@@ -5,17 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class FadeTitleScene : MonoBehaviour
 {
-    private FadeEffect fadeEffect;
-
-    // Start is called before the first frame update
-    void Start()
+    public void StartFade()
     {
-        
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.SetTrigger("Fade");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SceneChange()
     {
-        if (Input.anyKeyDown) SceneManager.LoadScene("Stage01");
+        SceneManager.LoadScene("SelectScene");
     }
 }
