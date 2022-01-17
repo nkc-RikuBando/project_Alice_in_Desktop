@@ -30,22 +30,28 @@ namespace Player
             // Window‚Ì’†
             if (val)
             {
+                Debug.Log(val);
                 gameObject.layer = _insideLayerNum;
 
                 _playerStatus._GroundJudge = true;
                 _playerStatus._WallJudge   = true;
                 _playerStatus._insideFlg   = true;
                 _playerStatus._PushJudge   = true;
+
+                //_boxCol.enabled = true;
             }
             // Window‚ÌŠO
             else
             {
+                Debug.Log(val);
                 gameObject.layer = _outsideLayerNum;
 
                 _playerStatus._GroundJudge = false;
                 _playerStatus._WallJudge   = false;
                 _playerStatus._insideFlg   = false;
                 _playerStatus._PushJudge   = false;
+
+                //_boxCol.enabled = false;
             }
         }
     }
