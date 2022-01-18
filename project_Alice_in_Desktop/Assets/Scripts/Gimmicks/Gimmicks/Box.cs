@@ -63,10 +63,15 @@ namespace Gimmicks
             //AnimePlay();
             //UpCast();
             if (isBreak == false) HorizRayCast();
-            BoxBreak();
+            //BoxBreak();
 
             //TestRayCast();
-            Debug.Log(isBreak);
+            //Debug.Log(isBreak);
+        }
+
+        private void LateUpdate()
+        {
+            BoxBreak();
         }
 
         //private void OnCollisionEnter2D(Collision2D collision)
@@ -209,8 +214,6 @@ namespace Gimmicks
             //もしRayにオブジェクトが衝突したら
             if (hit) PlayerEnter();
             else PlayerExit();
-
-            Debug.Log(hit);
         }
 
         void TestRayCast()
