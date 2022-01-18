@@ -13,12 +13,16 @@ namespace Player
 
         private float _defaultSpeed;
         private float _defaultJumpPower;
+        private float _defaultWallJumpPower;
+        private float _defaultWallJumpAngle;
 
         private void Awake()
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _defaultSpeed = _playerStatus._Speed;
             _defaultJumpPower = _playerStatus._JumpPower;
+            _defaultWallJumpPower = _playerStatus._WallJumpPower;
+            _defaultWallJumpAngle = _playerStatus._WallJumpAngle;
         }
 
 
@@ -45,14 +49,21 @@ namespace Player
                 case 1:   // í èÌ
                     _playerStatus._Speed     = _defaultSpeed;
                     _playerStatus._JumpPower = _defaultJumpPower;
+                    _playerStatus._WallJumpPower = _defaultWallJumpPower;
+                    _playerStatus._WallJumpAngle = _defaultWallJumpAngle;
+
                     break;
                 case 0.5f:// è¨Ç≥Ç¢éû
                     _playerStatus._Speed     = _playerStatus._SmallStateSpeed;
                     _playerStatus._JumpPower = _playerStatus._SmallStateJumpPower;
+                    _playerStatus._WallJumpPower = _playerStatus._SmallStateWallJumpPower;
+                    _playerStatus._WallJumpAngle = _playerStatus._BigStateJumpAngle;
                     break;
                 case 1.5f:  // ëÂÇ´Ç¢éû
                     _playerStatus._Speed     = _playerStatus._BigStateSpeed;
                     _playerStatus._JumpPower = _playerStatus._BigStateJumpPower;
+                    _playerStatus._WallJumpPower = _playerStatus._BigStateWallJumpPower;
+                    _playerStatus._WallJumpAngle = _playerStatus._SmallStateJumpAngle;
                     break;
                 default:
                     break;
