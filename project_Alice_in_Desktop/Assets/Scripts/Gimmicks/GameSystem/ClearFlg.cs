@@ -16,7 +16,7 @@ namespace GameSystem
         [SerializeField] private List<GameObject> keyList = new List<GameObject>();
 
         private GameObject player;
-        private GameObject inputUI;
+        [SerializeField] private GameObject inputUI;
         private IPlayerAction _IActionKey;        // 入力インターフェースを保存
         private PlayerStatusManager playerStatusManager;
         private Animator animator;                  // アニメーターの保存
@@ -26,6 +26,8 @@ namespace GameSystem
         private bool stayFlg;
         [SerializeField] private int stageNum;
         private ISendClearStageNum iSendClearStageNum;
+
+        private LayerChange layerChange;
 
         void Start()
         {
@@ -37,9 +39,10 @@ namespace GameSystem
             clearEffect = GetComponent<ClearEffect>(); // クリアエフェクトを取得
             clearFlg = false;
             stayFlg = false;
-            inputUI = GetUIObject.HirakuUI;
             inputUI.SetActive(false);
             if (keyList.Count <= 0) Clear();
+            layerChange = GetComponent<LayerChange>();
+
             //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
         }
 
@@ -50,7 +53,7 @@ namespace GameSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player)
+            if (collision.gameObject == player && layerChange.OutFlg == false)
             {
                 stayFlg = true;
                 inputUI.SetActive(true);
@@ -59,7 +62,7 @@ namespace GameSystem
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject == player)
+            if (collision.gameObject == player && layerChange.OutFlg == false)
             {
                 stayFlg = false;
                 inputUI.SetActive(false);
@@ -114,5 +117,7 @@ namespace GameSystem
         {
             return _IActionKey.ActionKey_Down() && stayFlg == true;
         }
+
+        
     }
 }

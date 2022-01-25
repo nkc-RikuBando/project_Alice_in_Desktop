@@ -30,7 +30,6 @@ namespace Player
             // Window‚Ì’†
             if (val)
             {
-                Debug.Log(val);
                 gameObject.layer = _insideLayerNum;
 
                 _playerStatus._GroundJudge = true;
@@ -43,7 +42,6 @@ namespace Player
             // Window‚ÌŠO
             else
             {
-                Debug.Log(val);
                 gameObject.layer = _outsideLayerNum;
 
                 _playerStatus._GroundJudge = false;

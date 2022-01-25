@@ -15,6 +15,7 @@ namespace Gimmicks
         private PlayerStatusManager playerStatusManager;
         private IHitPlayer _IHitPlayer;              // 当たり判定インターフェースを保存
         private BoxCollider2D boxCol;
+        private Rigidbody2D rigid;
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         private Animator myAnimator;                 // 箱(自身)のアニメーションを保存
@@ -54,6 +55,7 @@ namespace Gimmicks
             hideKey.SetActive(false);              // 鍵を非表示
             myAnimator = GetComponent<Animator>(); // 箱(自身)のアニメーションを取得
             keyAnimator = hideKey.GetComponent<Animator>(); // 鍵のアニメーションを取得
+            
             uiGauge.SetActive(false);              // ゲージを非表示
             isBreak = false;
         }
@@ -61,38 +63,14 @@ namespace Gimmicks
         void Update()
         {
             //AnimePlay();
-            //UpCast();
-            if (isBreak == false) HorizRayCast();
-            //BoxBreak();
-
-            //TestRayCast();
-            //Debug.Log(isBreak);
-        }
-
-        private void LateUpdate()
-        {
+            
+            if (isBreak == false)
+            {
+                UpRayCast();
+                HorizontalRay();
+            }
             BoxBreak();
         }
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    // プレイヤーが入って来たら
-        //    if (collision.gameObject == player)
-        //    {
-        //        stayFlg = true; // 滞在中
-        //        _IHitPlayer.IsHitPlayer();
-        //    }
-        //}
-
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    // プレイヤーが出て行ったら
-        //    if (collision.gameObject == player)
-        //    {
-        //        stayFlg = false; // 滞在してない
-        //        _IHitPlayer.NonHitPlayer();
-        //    }
-        //}
 
         void AnimePlay()
         {
@@ -124,9 +102,9 @@ namespace Gimmicks
         /// </summary>
         void BoxBreak()
         {
-            if (StayInput())
+            if (IsStay())
             {
-                playerStatusManager.PlayerIsInput(false);
+                //playerStatusManager.PlayerIsInput(false);
                 // ゲージが溜まったら
                 if (WaitTimeUI.gaugeMaxFlg == true)
                 {
@@ -145,9 +123,9 @@ namespace Gimmicks
         /// プレイヤーが触れている、かつ、キーを長押し
         /// </summary>
         /// <returns></returns>
-        bool StayInput()
+        bool IsStay()
         {
-            return stayFlg == true && _IActionKey.ActionKey();
+            return stayFlg == true/* && _IActionKey.ActionKey()*/;
         }
 
         /// <summary>
@@ -170,7 +148,7 @@ namespace Gimmicks
             keyAnimator.SetTrigger("Spawn");
         }
 
-        void UpCast()
+        void UpRayCast()
         {
             Vector3 chkPos = transform.position;
             float boxHarfWitdh = boxCol.size.x / 2;
@@ -183,8 +161,9 @@ namespace Gimmicks
             chkPos.y += 0.2f;
             for (int loopNo = 0; loopNo < 3; loopNo++)
             {
-                // 自身の位置から↓に向かって線を引いて、地面に接触したかをチェックする
-                result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
+                // 自身の位置から↓に向かって線を引いて、接触したかをチェックする
+                //result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
+                result |= Physics2D.Raycast(chkPos + transform.up, chkPos - lineLength, 0, layer);
                 //レイを表示してみる
                 Debug.DrawLine(chkPos + transform.up, chkPos - lineLength, Color.red);
                 // オフセット加算
@@ -192,8 +171,9 @@ namespace Gimmicks
             }
         }
 
-        void HorizRayCast()
+        void HorizontalRay()
         {
+            // Rayの位置の調整値
             Vector3 offset = new Vector3(-2f, 1, 0);
 
             //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
