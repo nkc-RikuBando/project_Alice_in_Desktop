@@ -8,24 +8,21 @@ using MyUtility;
 
 namespace PlayerState
 {
-    public class PlayerJumpUpState : MonoBehaviour, IPlayerState
+    public class PlayerLandingState : MonoBehaviour, IPlayerState
     {
         // PlayerÇ™é¿ëïÇ∑ÇÈÇÃÅIÅH
         // PlayerÇÃStayèÛë‘èàóù
 
-        public PlayerStateEnum StateType => PlayerStateEnum.JUMPUP;
+        public PlayerStateEnum StateType => PlayerStateEnum.LANDING;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
-        private IInputReceivable _inputReceivable;
-        private PlayerAnimation  _playerAnimation;
-
+        private PlayerAnimation _playerAnimation;
         private Rigidbody2D _rb;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _inputReceivable = GetComponent<IInputReceivable>();
             _playerAnimation = GetComponent<PlayerAnimation>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -44,18 +41,8 @@ namespace PlayerState
 
         private void StateManager()
         {
-            // à⁄ìÆèÛë‘
-            if (_inputReceivable.MoveH() != 0)
-            {
-                ChangeStateEvent(PlayerStateEnum.DASH);
-            }
-
-            // â∫ç~èÛë‘
-            if (_rb.velocity.y < -0.1f)
-            {
-                ChangeStateEvent(PlayerStateEnum.FALL);
-            }
-
+            // ï€óØ
+            ChangeStateEvent(PlayerStateEnum.STAY);
         }
 
     }
