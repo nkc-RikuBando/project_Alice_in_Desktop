@@ -63,7 +63,7 @@ namespace Player
             bool _isJumpInputKey_W;
             bool _isJumpInputKey_Space;
 
-            _isJumpInputKey_W = _inputReceivable.JumpKey_W() && GroundChecker();
+            _isJumpInputKey_W     = _inputReceivable.JumpKey_W() && GroundChecker();
             _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && GroundChecker();
 
             return _isJumpInputKey_W || _isJumpInputKey_Space;
@@ -131,6 +131,7 @@ namespace Player
         {
             bool _jumpCountFlg = _jumpCount > _playerStatus._JumpFeasibleCount /*&& _jumpCount < _playerStatus.JumpFeasibleCount + 0.1f*/;
 
+            // ‚¿‚á‚ñ‚Æ’…’nó‘Ô‚ð”»’è‚Å‚«‚ê‚Î‚¢‚ç‚È‚¢
             // ­‚µ‚ÌŠÔ“ü—Í‚Å‚«‚È‚¢
             _jumpCount += Time.deltaTime;
             if (_jumpCountFlg)

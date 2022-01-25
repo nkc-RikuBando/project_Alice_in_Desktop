@@ -40,7 +40,7 @@ namespace Player
             Vector3 _playerScale = transform.localScale;
 
             // 大きい→小さい or 小さい→大きい　=　通常
-            if (Mathf.Abs(_playerScale.x) < 1 && mag > 1)　　   mag = 1;
+            if      (Mathf.Abs(_playerScale.x) < 1 && mag > 1)　mag = 1;
             else if (Mathf.Abs(_playerScale.x) > 1 && mag < 1)　mag = 1;
 
             // サイズによってステータスを変更

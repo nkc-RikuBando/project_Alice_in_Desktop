@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
+using Player;
 using MyUtility;
 
 namespace PlayerState
@@ -17,14 +18,16 @@ namespace PlayerState
 
         private IInputReceivable _inputReceivable;
         private GroundChecker _groundChecker;
+        private PlayerAnimation _playerAnimation;
 
         private BoxCollider2D _boxCol;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _groundChecker = GetComponent<GroundChecker>();
-            _boxCol = GetComponent<BoxCollider2D>();
+            _groundChecker   = GetComponent<GroundChecker>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
+            _boxCol          = GetComponent<BoxCollider2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -41,16 +44,17 @@ namespace PlayerState
         {
         }
 
+        // ステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_boxCol))
+            if (_inputReceivable.MoveH() != 0)
             {
                 ChangeStateEvent(PlayerStateEnum.DASH);
             }
 
-            if (_inputReceivable.JumpKey_W() || _inputReceivable.JumpKey_Space())
+            if (_groundChecker.CheckIsGround(_boxCol)) 
             {
-                ChangeStateEvent(PlayerStateEnum.JUMP);
+                ChangeStateEvent(PlayerStateEnum.LANDING);
             }
         }
 
