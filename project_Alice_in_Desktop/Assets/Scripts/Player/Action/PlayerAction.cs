@@ -31,7 +31,7 @@ namespace Player
         // ActionƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ
         bool IPlayerAction.ActionKey()
         {
-            bool _inputFlg;
+            bool _inputFlg = true;
 
             if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKey(); 
             else                               _inputFlg = false;
