@@ -5,23 +5,22 @@ using Connector.Player;
 using GameSystem;
 
 namespace Gimmicks
-// 頑張っててえらい！！！！！！
 {
-    public class CheshireCat : MonoBehaviour/*, IRenderingFlgSettable*/
+    public class CheshireCat : MonoBehaviour
     {
         private GameObject player; // プレイヤーを保存
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
-        //private bool InOutFlg;                         // 画面外にいるか
         private LayerChange layerChange;
+        private CatFrontObj catFrontObj;
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
         private CheshireCat warpScr;
         private Animator warpPointAnim;                // ワープ先のアニメーション保存
         private bool warpFlg;
-        private const float plaerWarpWaitTime = 0.375f;
+        private const float playerWarpWaitTime = 0.375f;
 
         private bool stayFlg = false;                  // 滞在しているかフラグ
         [Header("はいるUIをアタッチ")]
@@ -33,38 +32,50 @@ namespace Gimmicks
             playerAnim = player.GetComponent<Animator>();
             _ActionKey = player.GetComponent<IPlayerAction>();
             myAnimator = GetComponent<Animator>();
-            //InOutFlg = true;
             layerChange = GetComponent<LayerChange>();
-            warpPointAnim = warpPoint.GetComponent<Animator>();
+            catFrontObj = GetComponent<CatFrontObj>();
             hairuUI.SetActive(false);
-            warpScr = warpPoint.GetComponent<CheshireCat>();
+            warpPointAnim = warpPoint.GetComponent<Animator>();
+            warpScr = warpPoint.GetComponent<CheshireCat>(); // ワープ先の猫の処理を取得
         }
 
         void Update()
         {
             Warping();
             WarpValidSwitch();
-            Debug.Log(warpFlg);
         }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player && layerChange.OutFlg == false)
+
+            if (collision.gameObject.tag == "Gimmick")
+            {
+                catFrontObj.IsFrontObj = true;
+                warpScr.catFrontObj.IsFrontObj = true;
+                catFrontObj.EnterObjNum += 1;
+                warpScr.catFrontObj.EnterObjNum += 1;
+            }
+            else if (collision.gameObject == player)
             {
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
             }
-            else
-            {
-                warpFlg = false;
-            }
+            
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             // プレイヤーが出て行ったら
-            if (collision.gameObject == player)
+
+            if (collision.gameObject.tag == "Gimmick")
+            {
+                catFrontObj.IsFrontObj = false;
+                warpScr.catFrontObj.IsFrontObj = false;
+                catFrontObj.EnterObjNum -= 1;
+                warpScr.catFrontObj.EnterObjNum -= 1;
+            }
+            else if (collision.gameObject == player)
             {
                 stayFlg = false; // 滞在フラグをfalse
                 hairuUI.SetActive(false);
@@ -101,8 +112,9 @@ namespace Gimmicks
 
         void WarpValidSwitch()
         {
-            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true;
-            if (isDisplayHide)
+            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true;
+            bool enterObjCount = catFrontObj.EnterObjNum != 0 || warpScr.catFrontObj.EnterObjNum != 0;
+            if (isDisplayHide ||  enterObjCount) // 閉まっている
             {
                 //hairuUI.SetActive(false);
                 warpFlg = false;
@@ -119,7 +131,7 @@ namespace Gimmicks
 
         IEnumerator PlayerWarpStart()
         {
-            yield return new WaitForSeconds(plaerWarpWaitTime);
+            yield return new WaitForSeconds(playerWarpWaitTime);
             player.transform.position = warpPoint.transform.position;
         }
     }

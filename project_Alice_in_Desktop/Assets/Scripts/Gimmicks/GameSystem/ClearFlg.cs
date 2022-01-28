@@ -5,6 +5,7 @@ using Connector.Player;
 using Animation;
 using Player;
 using StageSelect;
+using Gimmicks;
 
 namespace GameSystem
 {

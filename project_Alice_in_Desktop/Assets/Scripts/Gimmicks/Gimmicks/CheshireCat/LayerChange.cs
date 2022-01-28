@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSystem
+namespace Gimmicks
 {
     public class LayerChange : MonoBehaviour, IRenderingFlgSettable
     {
@@ -25,7 +25,6 @@ namespace GameSystem
 
         public void SetRenderingFlg(bool val)
         {
-            //Debug.Log(val);
             // true‚Í’†
             if (val)
             {

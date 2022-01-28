@@ -15,7 +15,6 @@ namespace Gimmicks
         private PlayerStatusManager playerStatusManager;
         private IHitPlayer _IHitPlayer;              // 当たり判定インターフェースを保存
         private BoxCollider2D boxCol;
-        private Rigidbody2D rigid;
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         private Animator myAnimator;                 // 箱(自身)のアニメーションを保存
