@@ -28,16 +28,22 @@ namespace GameSystem
         void Update()
         {
             if (_ActionKey.ActionKey()) // キーを長押し
-            waitTime.fillAmount += UP_DOWN_NUM;// ゲージが増える 
-
+            {
+                waitTime.fillAmount += UP_DOWN_NUM;// ゲージが増える
+            }
             else // キーを離す
+            {
                 waitTime.fillAmount -= UP_DOWN_NUM; // ゲージが減る
+            }   
 
             if (waitTime.fillAmount >= 1) // ゲージが溜まったら
             {
                 gaugeMaxFlg = true;
                 //Destroy(_parent);        // 一つ上の親オブジェクトの削除
             }
+
+            //if (_ActionKey.ActionKey())
+            //Debug.Log("押された");
         }
 
         public void IsHitPlayer()

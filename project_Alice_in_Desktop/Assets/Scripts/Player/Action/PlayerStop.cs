@@ -20,6 +20,8 @@ namespace Player
         private Animator _anim;
         private CapsuleCollider2D _capCol;
         private BoxCollider2D _boxCol;
+        private BoxCollider2D _childBoxCol;
+        private GameObject _childObj;
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
@@ -33,6 +35,7 @@ namespace Player
         {
             _fadeEffect   = _fadeObj.GetComponent<FadeEffect>();
             _windowEffect = _postObj.GetComponent<WindowEffect>();
+            _childBoxCol = transform.GetChild(2).gameObject.GetComponent<BoxCollider2D>();
 
             _playerStatus = GetComponent<PlayerStatus>();
             _rb           = GetComponent<Rigidbody2D>();
@@ -66,8 +69,9 @@ namespace Player
             _anim.enabled = false;
 
             // コライダーを消す
-            _capCol.enabled = false;
-            _boxCol.enabled = false;
+            _capCol.enabled      = false;
+            _boxCol.enabled      = false;
+            _childBoxCol.enabled = false;
 
             // ウィンドウ操作Flg
             _isWindowTouching = true;
@@ -97,8 +101,10 @@ namespace Player
             _anim.enabled = true;
 
             // コライダーをActive化
-            _capCol.enabled = true;
-            _boxCol.enabled = true;
+            _capCol.enabled      = true;
+            _boxCol.enabled      = true;
+            _childBoxCol.enabled = true;
+
 
             // PostProcessingを無効
             _windowEffect.EndWindowEffect();

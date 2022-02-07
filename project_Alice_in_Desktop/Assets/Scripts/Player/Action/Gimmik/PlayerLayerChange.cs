@@ -36,6 +36,8 @@ namespace Player
                 _playerStatus._WallJudge   = true;
                 _playerStatus._insideFlg   = true;
                 _playerStatus._PushJudge   = true;
+
+                //_boxCol.enabled = true;
             }
             // Window‚ÌŠO
             else
@@ -46,6 +48,8 @@ namespace Player
                 _playerStatus._WallJudge   = false;
                 _playerStatus._insideFlg   = false;
                 _playerStatus._PushJudge   = false;
+
+                //_boxCol.enabled = false;
             }
         }
     }

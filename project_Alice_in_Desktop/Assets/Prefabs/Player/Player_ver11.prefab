@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 2789845417291476057}
   - component: {fileID: 2789845417291476033}
   - component: {fileID: 482211667205435057}
+  - component: {fileID: 3380792502640066420}
   m_Layer: 0
   m_Name: Player_ver11
   m_TagString: Untagged
@@ -366,6 +367,10 @@ MonoBehaviour:
   _smallStateSpeed: 6
   _bigStateJumpPower: 550
   _smallStateJumpPower: 300
+  _bigStateWallJumpPower: 550
+  _smallStateWallJumpPower: 300
+  _bigStateJumpAngle: 45
+  _smallStateJumpAngle: 60
 --- !u!114 &2789845417291476032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,6 +557,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectPre: {fileID: 2364955499556447636, guid: 7a02720a8d501e54dad6c06a9f0baaa1, type: 3}
+--- !u!114 &3380792502640066420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2789845417291476047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3bfb2b157cc2c468e08da43cfdc7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2789845418232931900
 GameObject:
   m_ObjectHideFlags: 0

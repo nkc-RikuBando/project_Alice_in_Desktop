@@ -10,6 +10,8 @@ public enum PlayerStateEnum
     STAY,
     DASH,
     JUMP,
+    JUMPUP,
     FALL,
+    LANDING,
     COUNT // ç≈å„
 }

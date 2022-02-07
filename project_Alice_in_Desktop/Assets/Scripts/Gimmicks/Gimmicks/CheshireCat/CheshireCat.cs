@@ -5,30 +5,26 @@ using Connector.Player;
 using GameSystem;
 
 namespace Gimmicks
-// 頑張っててえらい！！！！！！
 {
-    public class CheshireCat : MonoBehaviour, IRenderingFlgSettable
+    public class CheshireCat : MonoBehaviour
     {
         private GameObject player; // プレイヤーを保存
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
-        private bool InOutFlg;                         // 画面外にいるか
+        private LayerChange layerChange;
+        private CatFrontObj catFrontObj;
 
         [Header("ワープ先のオブジェクト")]
         [SerializeField] private GameObject warpPoint; // ワープ先オブジェクトを取得
         private CheshireCat warpScr;
         private Animator warpPointAnim;                // ワープ先のアニメーション保存
+        private bool warpFlg;
+        private const float playerWarpWaitTime = 0.375f;
 
         private bool stayFlg = false;                  // 滞在しているかフラグ
         [Header("はいるUIをアタッチ")]
         [SerializeField] private GameObject hairuUI;
-
-        public bool InOut
-        {
-            get { return InOutFlg; }
-            set { InOutFlg = value; }
-        }
 
         void Start()
         {
@@ -36,31 +32,50 @@ namespace Gimmicks
             playerAnim = player.GetComponent<Animator>();
             _ActionKey = player.GetComponent<IPlayerAction>();
             myAnimator = GetComponent<Animator>();
-            InOutFlg = true;
-            warpScr = warpPoint.GetComponent<CheshireCat>();
-            warpPointAnim = warpPoint.GetComponent<Animator>();
+            layerChange = GetComponent<LayerChange>();
+            catFrontObj = GetComponent<CatFrontObj>();
             hairuUI.SetActive(false);
+            warpPointAnim = warpPoint.GetComponent<Animator>();
+            warpScr = warpPoint.GetComponent<CheshireCat>(); // ワープ先の猫の処理を取得
         }
 
         void Update()
         {
             Warping();
+            WarpValidSwitch();
         }
 
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player && InOutFlg == true)
+
+            if (collision.gameObject.tag == "Gimmick")
+            {
+                catFrontObj.IsFrontObj = true;
+                warpScr.catFrontObj.IsFrontObj = true;
+                catFrontObj.EnterObjNum += 1;
+                warpScr.catFrontObj.EnterObjNum += 1;
+            }
+            else if (collision.gameObject == player)
             {
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
             }
+            
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             // プレイヤーが出て行ったら
-            if (collision.gameObject == player)
+
+            if (collision.gameObject.tag == "Gimmick")
+            {
+                catFrontObj.IsFrontObj = false;
+                warpScr.catFrontObj.IsFrontObj = false;
+                catFrontObj.EnterObjNum -= 1;
+                warpScr.catFrontObj.EnterObjNum -= 1;
+            }
+            else if (collision.gameObject == player)
             {
                 stayFlg = false; // 滞在フラグをfalse
                 hairuUI.SetActive(false);
@@ -72,49 +87,51 @@ namespace Gimmicks
         /// </summary>
         void Warping()
         {
-            if (StayInput()) WarpPlace();
+            if (StayInput()) PlayerWarpToHandlePos();
         }
 
         /// <summary>
-        /// プレイヤーが触れている、かつ、Qキーを押す
+        /// プレイヤーが触れている、かつ、キーを押す
         /// </summary>
         /// <returns></returns>
         bool StayInput()
         {
-            return stayFlg == true && _ActionKey.ActionKey_Down();
+            return stayFlg == true && _ActionKey.ActionKey_Down() && warpFlg == true;
         }
 
         /// <summary>
         /// ワープ先にプレイヤーを移動させる
         /// </summary>
-        void WarpPlace()
+        void PlayerWarpToHandlePos()
         {
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
-            this.StartCoroutine(WarpTime());
+            this.StartCoroutine(PlayerWarpStart());
         }
 
-        public void SetRenderingFlg(bool val)
+        void WarpValidSwitch()
         {
-            warpScr.InOut = val;
-            if (warpScr.InOut == false)
+            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true;
+            bool enterObjCount = catFrontObj.EnterObjNum != 0 || warpScr.catFrontObj.EnterObjNum != 0;
+            if (isDisplayHide ||  enterObjCount) // 閉まっている
             {
-                warpScr.enabled = false;
+                //hairuUI.SetActive(false);
+                warpFlg = false;
                 myAnimator.SetBool("Close", true);
                 warpPointAnim.SetBool("Close", true);
             }
             else
             {
-                warpScr.enabled = true;
+                warpFlg = true;
                 myAnimator.SetBool("Close", false);
                 warpPointAnim.SetBool("Close", false);
             }
         }
 
-        IEnumerator WarpTime()
+        IEnumerator PlayerWarpStart()
         {
-            yield return new WaitForSeconds(0.375f);
+            yield return new WaitForSeconds(playerWarpWaitTime);
             player.transform.position = warpPoint.transform.position;
         }
     }
