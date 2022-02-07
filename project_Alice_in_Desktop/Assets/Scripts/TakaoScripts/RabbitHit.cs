@@ -38,7 +38,6 @@ public class RabbitHit : MonoBehaviour
             Debug.Log("“–‚½‚Á‚½");
             StartCoroutine("AppearKey");
         }
-        
     }
 
     public bool HitRabbitFlg()

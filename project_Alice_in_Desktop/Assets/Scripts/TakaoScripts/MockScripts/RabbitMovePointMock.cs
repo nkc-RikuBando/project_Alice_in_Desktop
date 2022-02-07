@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Connector.Player;
 
 public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 {
-    [SerializeField] PlayerPositionGet player; //Mockなので組み込む際は変更必須
+    [SerializeField] GameObject player; //Mockなので組み込む際は変更必須
     [SerializeField] GameObject rabbit;
     [SerializeField] RabbitMovePointMock[] rabbitMovePoint;
     [SerializeField] RabbitMovePointMock[] rabbitMovePointsAll;
@@ -15,6 +16,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     Vector3 playerPos;
     Vector3 rabbitPos;
     Vector3 myPos;
+    IPlayerPotionSentable playerPositionSentable;
     float toPlayerDistanceValue; //評価値
     float toRabbitDistanceValue;
     bool collisionPointFlg = false;
@@ -26,6 +28,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     {
         pointRayHit = GetComponent<PointRayHit>();
         box2d = GetComponent<BoxCollider2D>();
+        playerPositionSentable = player.gameObject.GetComponent<IPlayerPotionSentable>();
     }
 
     // Update is called once per frame
@@ -33,7 +36,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     {
         UpdatePos(); //今のポジションを受け取る
         UpdateDisValue(); //評価値を受け取る
-        playerPos = player.GetPlayerPosition(); //プレイヤーの座標を受け取る
+        playerPos = playerPositionSentable.PlayerPotionSentable();//プレイヤーの座標を受け取る
         rabbitPos = rabbit.transform.position;
         SetCollisionObjFlg();
     }
