@@ -31,7 +31,7 @@ namespace StageSelect
             int getStageNum = (((stageNum / 100) - 1) * 15) + stageNum % 100;
             GameObject pressedButton = stageUnlock.GetStageFolder(getStageNum);
 
-            // 押されたボタンの状態がジップだったら早期リターン
+            // 押されたボタンの状態が未開放(ジップ)だったら早期リターン
             if (pressedButton.transform.GetChild(2).gameObject.activeSelf == true) return;
 
             if (doubleClickFlg)
@@ -44,6 +44,7 @@ namespace StageSelect
 
         public void PressedWorldSelectButton(int worldNum)
         {
+            // ワールド選択
             GameObject pressedButton = stageUnlock.GetWorldFolder(worldNum);
             if (pressedButton.transform.GetChild(2).gameObject.activeSelf == true) return;
 
