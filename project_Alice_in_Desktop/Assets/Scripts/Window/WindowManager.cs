@@ -137,6 +137,7 @@ namespace Window
 
         void ColSet()
         {
+            // コライダーの位置を移動
             float colPosX = 0, colPosY = 0, edgeColSize = 0;
             float helfSizeX = frameSizeX / 2 + 0.5f;
             float helfSizeY = frameSizeY / 2 + 0.5f;
@@ -211,6 +212,8 @@ namespace Window
 
         public void SetMoveFlg(GameObject holdingObj, bool flg)
         {
+            // ウィンドウのハンドル部分(上部)を持ったとき移動させる
+
             //if (holdingObj == centerColObj)
             //{
             //    moveObj = centerColObj;
