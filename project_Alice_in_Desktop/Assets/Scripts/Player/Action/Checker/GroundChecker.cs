@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Player;
 
 namespace MyUtility
 {
@@ -14,12 +14,14 @@ namespace MyUtility
         [SerializeField, Tooltip("レイの長さ")]     private float raylength = 1f;  
         [SerializeField, Tooltip("地面のレイヤー")] private LayerMask groundLayer;
 
-        private Rigidbody2D rb2d;
+        private PlayerStatus _playerStatus;
+        private Rigidbody2D _rb2d;
 
 
         void Start()
         {
-            rb2d = GetComponent<Rigidbody2D>();
+            _playerStatus = GetComponent<PlayerStatus>();
+            _rb2d = GetComponent<Rigidbody2D>();
         }
 
 
@@ -27,7 +29,7 @@ namespace MyUtility
         public bool CheckIsGround(BoxCollider2D col)
         {
             bool hit;                                                             // 当たった時の判定変数
-            float colHalfWidth = col.size.x / 4f;                                 // X軸のRayの位置
+            float colHalfWidth = col.size.x / 2f;                                 // X軸のRayの位置
             Vector3 checkPos = transform.position + (Vector3)col.offset;          // colの座標
             Vector3 lineLength = transform.up * raylength;                        // レイの長さ(要調節)
 
@@ -35,8 +37,12 @@ namespace MyUtility
             const int MAX_LOOP = 3;                                               // ループの回数（レイの本数）
 
 
+            // 地面判定フラグ
+            if (!_playerStatus._GroundJudge) return false;
+
+
             // 上昇中は何もしない
-            if (rb2d.velocity.y > JUMPUP_CHECK_SPEED)
+            if (_rb2d.velocity.y > JUMPUP_CHECK_SPEED)
             {
                 return false;
             }

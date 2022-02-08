@@ -3,40 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
-using MyUtility;
 using Player;
+using MyUtility;
 
 namespace PlayerState
 {
-    public class PlayerDashState : MonoBehaviour, IPlayerState
+    public class PlayerDashWallJumpFallState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのDash状態処理
+        // PlayerのWallDashFall状態処理
 
-        public PlayerStateEnum StateType => PlayerStateEnum.DASH;
+        public PlayerStateEnum StateType => PlayerStateEnum.DASHWALLJUMPFALL;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private GroundChecker 　 _groundChecker;
-        private PushObjChecker   _pushObjChecker;
-        private PlayerStatus     _playerStatus;
-        private PlayerAnimation  _playerAnimation;
+        private PlayerStatus _playerStatus;
+        private PlayerAnimation _playerAnimation;
+        private GroundChecker _groundChecker;
+        private WallChecker _wallChecker;
 
+
+        private Rigidbody2D _rb;
         private BoxCollider2D _boxCol;
         private CapsuleCollider2D _capCol;
-        private Rigidbody2D   _rb;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
+            _playerStatus ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
-            _groundChecker   ??= GetComponent<GroundChecker>();
-            _pushObjChecker  ??= GetComponent<PushObjChecker>();
-            _playerStatus    ??= GetComponent<PlayerStatus>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _boxCol          ??= GetComponent<BoxCollider2D>();
-            _capCol          ??= GetComponent<CapsuleCollider2D>();
-            _rb              ??= GetComponent<Rigidbody2D>();
+            _groundChecker ??= GetComponent<GroundChecker>();
+            _wallChecker ??= GetComponent<WallChecker>();
+            _rb ??= GetComponent<Rigidbody2D>();
+            _boxCol ??= GetComponent<BoxCollider2D>();
+            _capCol ??= GetComponent<CapsuleCollider2D>();
+
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+            _playerStatus._InputFlgX = true;
+            _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -54,28 +59,22 @@ namespace PlayerState
         {
         }
 
-
-        // Playerのステート変更メソッド
+        // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() == 0 && _groundChecker.CheckIsGround(_boxCol))
+            if (_wallChecker.CheckIsWall(_capCol))
             {
-                ChangeStateEvent(PlayerStateEnum.STAY);
+                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
             }
 
-            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
+            if (_inputReceivable.MoveH() == 0)
             {
-                ChangeStateEvent(PlayerStateEnum.DASHJUMP);
+                ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
             }
 
-            if (_rb.velocity.y < -1f)
+            if (_groundChecker.CheckIsGround(_boxCol))
             {
-                ChangeStateEvent(PlayerStateEnum.DASHFALL);
-            }
-
-            if (_pushObjChecker.PushObjWidthChecker(_capCol)) 
-            {
-                ChangeStateEvent(PlayerStateEnum.PUSH);
+                ChangeStateEvent(PlayerStateEnum.LANDING);
             }
         }
 

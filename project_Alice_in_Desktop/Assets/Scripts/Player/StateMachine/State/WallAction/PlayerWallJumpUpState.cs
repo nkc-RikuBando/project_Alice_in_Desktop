@@ -8,12 +8,12 @@ using MyUtility;
 
 namespace PlayerState
 {
-    public class PlayerWallJumpState : MonoBehaviour, IPlayerState
+    public class PlayerWallJumpUpState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのWallJump状態処理
+        // PlayerのWallJumpUp状態処理
 
-        public PlayerStateEnum StateType => PlayerStateEnum.WALLJUMP;
+        public PlayerStateEnum StateType => PlayerStateEnum.WALLJUMPUP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
@@ -28,10 +28,6 @@ namespace PlayerState
         private CapsuleCollider2D _capCol;
 
 
-        // 壁ジャンプ用の垂直な角度
-        private const float VERTICAL_ANGLE = 90;
-
-
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
             _playerStatus ??= GetComponent<PlayerStatus>();
@@ -43,12 +39,7 @@ namespace PlayerState
             _boxCol ??= GetComponent<BoxCollider2D>();
             _capCol ??= GetComponent<CapsuleCollider2D>();
 
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
-            _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
-
-            _playerStatus._InputFlgX = false;
-
-            WallJumpAction();
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -68,36 +59,19 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0) 
+            if (_inputReceivable.MoveH() != 0)
             {
-                ChangeStateEvent(PlayerStateEnum.DASHWALLJUMP);
+                ChangeStateEvent(PlayerStateEnum.DASHWALLJUMPUP);
             }
 
-            if (_rb.velocity.y > 0.1f) 
+            if (_rb.velocity.y < -1f)
             {
-                ChangeStateEvent(PlayerStateEnum.WALLJUMPUP);
+                ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
             }
 
-            // ここからDashJumpUPに遷移するのか？？
+
+            // 着地判定いる説
         }
-
-        // 壁ジャンプメソッド
-        private void WallJumpAction() 
-        {
-            // 物理挙動
-            _rb.velocity = Vector2.zero;
-            _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
-
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-        }
-
-        // 壁ジャンプする角度からベクトルに変換するメソッド
-        private Vector2 JumpAngle()
-        {
-            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x / _playerStatus._SizeMag)) * Mathf.Deg2Rad;
-
-            return new Vector2(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle));
-        }
-
     }
+
 }

@@ -19,23 +19,26 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private GroundChecker _groundChecker;
         private PlayerAnimation _playerAnimation;
+        private PlayerStatus _playerStatus;
 
         private BoxCollider2D _boxCol;
         private Rigidbody2D _rb;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _inputReceivable = GetComponent<IInputReceivable>();
-            _groundChecker   = GetComponent<GroundChecker>();
-            _playerAnimation = GetComponent<PlayerAnimation>();
-            _boxCol          = GetComponent<BoxCollider2D>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _inputReceivable ??= GetComponent<IInputReceivable>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _playerAnimation ??= GetComponent<PlayerAnimation>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _rb              ??= GetComponent<Rigidbody2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
             Debug.Log(StateType);
             AnimationReset();
+            Dash();
             StateManager();
         }
 
@@ -58,34 +61,34 @@ namespace PlayerState
             }
 
             // ジャンプ状態に変更
-            if (_inputReceivable.JumpKey_W() && _groundChecker.CheckIsGround(_boxCol) || _inputReceivable.JumpKey_Space() && _groundChecker.CheckIsGround(_boxCol)) 
+            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol)) 
             {
                 ChangeStateEvent(PlayerStateEnum.JUMP);
             }
 
-            // 上昇状態
-            if (_rb.velocity.y < -0.1f)
-            {
-                ChangeStateEvent(PlayerStateEnum.JUMPUP);
-            }
-
-
             // 下降状態
-            if (_rb.velocity.y < -0.1f) 
+            if (_rb.velocity.y < -1f) 
             {
                 ChangeStateEvent(PlayerStateEnum.FALL);
             }
         }
 
+        // Animation初期化メソッド
         private void AnimationReset() 
         {
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"),false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
         }
+
+        // Player移動メソッド
+        private void Dash()
+        {
+            if (!_playerStatus._InputFlgX) return;
+            // 移動の物理処理
+            _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
+        }
+
     }
 
 }

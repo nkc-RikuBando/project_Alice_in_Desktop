@@ -10,7 +10,6 @@ namespace Player
     {
         // Playerが移動するギミックに追従する処理
 
-
         // 触れたら
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -19,7 +18,7 @@ namespace Player
             // 親オブジェクト切り替え処理
             if (moveFloor != null)
             {
-                transform.SetParent(collision.transform);
+                transform.parent.SetParent(collision.transform);
             }
         }
 
@@ -32,7 +31,7 @@ namespace Player
             // 親オブジェクト切り替え処理
             if (moveFloor != null)
             {
-                transform.SetParent(null);
+                transform.parent.SetParent(null);
             }
         }
     }
