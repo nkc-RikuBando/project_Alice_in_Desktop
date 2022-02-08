@@ -59,11 +59,6 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            //if (_wallChecker.CheckIsWall(_capCol))
-            //{
-            //    ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            //}
-
             if (_inputReceivable.MoveH() == 0)
             {
                 ChangeStateEvent(PlayerStateEnum.WALLJUMPUP);

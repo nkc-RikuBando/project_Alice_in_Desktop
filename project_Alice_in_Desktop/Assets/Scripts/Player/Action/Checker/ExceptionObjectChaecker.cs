@@ -34,7 +34,6 @@ namespace Player
 
                 if (!box.isTrigger)
                 {
-                    Debug.Log("Ž€‚Ê‚Å");
                     _playerStatus._DeadColFlg = true;
                 }
             }
@@ -44,7 +43,6 @@ namespace Player
 
                 if (!tile.isTrigger)
                 {
-                    Debug.Log("Ž€‚Ê‚Å");
                     _playerStatus._DeadColFlg = true;
                 }
             }
@@ -60,7 +58,6 @@ namespace Player
 
                 if (!box.isTrigger)
                 {
-                    Debug.Log("Ž€‚È‚È‚¢‚Å");
                     _playerStatus._DeadColFlg = false;
                 }
             }
@@ -70,7 +67,6 @@ namespace Player
 
                 if (!tile.isTrigger)
                 {
-                    Debug.Log("Ž€‚È‚È‚¢‚Å");
                     _playerStatus._DeadColFlg = false;
                 }
             }

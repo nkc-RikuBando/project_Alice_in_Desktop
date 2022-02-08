@@ -11,18 +11,15 @@ namespace Player
         [SerializeField] private int _insideLayerNum;
         [SerializeField] private int _outsideLayerNum;
 
+
         private PlayerStatus _playerStatus;
         private GameObject _childObj;
-        private BoxCollider2D _boxCol;
 
 
         private void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _childObj = transform.GetChild(0).gameObject;
-            _boxCol = _childObj.GetComponent<BoxCollider2D>();
-
-            _boxCol.enabled = true;
         }
 
         void IRenderingFlgSettable.SetRenderingFlg(bool val)
@@ -34,10 +31,8 @@ namespace Player
 
                 _playerStatus._GroundJudge = true;
                 _playerStatus._WallJudge   = true;
-                _playerStatus._insideFlg   = true;
+                _playerStatus._InsideFlg   = true;
                 _playerStatus._PushJudge   = true;
-
-                //_boxCol.enabled = true;
             }
             // Window‚ÌŠO
             else
@@ -46,10 +41,8 @@ namespace Player
 
                 _playerStatus._GroundJudge = false;
                 _playerStatus._WallJudge   = false;
-                _playerStatus._insideFlg   = false;
+                _playerStatus._InsideFlg   = false;
                 _playerStatus._PushJudge   = false;
-
-                //_boxCol.enabled = false;
             }
         }
     }

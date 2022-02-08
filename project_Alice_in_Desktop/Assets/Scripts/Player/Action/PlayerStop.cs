@@ -45,7 +45,7 @@ namespace Player
         }
         private void Update()
         {
-            if (_isWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
+            if (_playerStatus._IsWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
 
 
@@ -74,11 +74,11 @@ namespace Player
             _childBoxCol.enabled = false;
 
             // ウィンドウ操作Flg
-            _isWindowTouching = true;
+            _playerStatus._IsWindowTouching = true;
 
             // PostProcessingを有効
             _windowEffect.StartWindowEffect();
-
+            _playerStatus._DeadColFlg = false;
         }
 
 
@@ -110,7 +110,7 @@ namespace Player
             _windowEffect.EndWindowEffect();
 
             // ウィンドウ操作Flg
-            _isWindowTouching = false;
+            _playerStatus._IsWindowTouching = false;
 
             _playerStatus._IsWall = false; 
 

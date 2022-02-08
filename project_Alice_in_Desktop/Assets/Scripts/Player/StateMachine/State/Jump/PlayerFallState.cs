@@ -33,6 +33,8 @@ namespace PlayerState
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+
+            _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)

@@ -46,17 +46,15 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
             _playerStatus._GroundJudge = false;
             _childBoxCol.enabled Å@Å@Å@= false;
-
-            Debug.Log(_childBoxCol);
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
+            Debug.Log(StateType);
         }
 
         void IPlayerState.OnFixedUpdate(PlayerCore player)
         {
-            Debug.Log(StateType);
             WallStick();
             StateManager();
         }
