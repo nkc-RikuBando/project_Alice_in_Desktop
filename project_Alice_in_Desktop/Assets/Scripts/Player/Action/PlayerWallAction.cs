@@ -62,7 +62,7 @@ namespace Player
             if (_playerStatus._IsWall)
             {
                 // ï«ÉWÉÉÉìÉvèÛë‘Ç…ïœçX
-                if (_inputReceivable.JumpKey_W() || _inputReceivable.JumpKey_Space())
+                if (_inputReceivable.JumpKey())
                 {
                     _isWallJump = true;
                 }
@@ -80,7 +80,7 @@ namespace Player
             {
                 if (_stickInput)
                 {
-                    _playerStatus._IsWall = _wallChecker.CheckIsGround(_capCol);
+                    _playerStatus._IsWall = _wallChecker.CheckIsWall(_capCol);
                 }
             }
         }

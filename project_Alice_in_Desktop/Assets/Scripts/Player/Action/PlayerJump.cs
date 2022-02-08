@@ -28,8 +28,8 @@ namespace Player
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus = GetComponent<PlayerStatus>();
-            _groundChecker = GetComponent<GroundChecker>();
+            _playerStatus    = GetComponent<PlayerStatus>();
+            _groundChecker   = GetComponent<GroundChecker>();
             _playerAnimation = GetComponent<PlayerAnimation>();
             _rb = GetComponent<Rigidbody2D>();
             _boxCol = GetComponent<BoxCollider2D>();
@@ -61,12 +61,10 @@ namespace Player
         private bool IsJumpInput()
         {
             bool _isJumpInputKey_W;
-            bool _isJumpInputKey_Space;
 
-            _isJumpInputKey_W     = _inputReceivable.JumpKey_W() && GroundChecker();
-            _isJumpInputKey_Space = _inputReceivable.JumpKey_Space() && GroundChecker();
+            _isJumpInputKey_W     = _inputReceivable.JumpKey() && GroundChecker();
 
-            return _isJumpInputKey_W || _isJumpInputKey_Space;
+            return _isJumpInputKey_W;
         }
 
 

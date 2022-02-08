@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player;
 
 
 namespace MyUtility
@@ -16,11 +17,12 @@ namespace MyUtility
         [SerializeField, Tooltip("地面(壁)のレイヤー")] private LayerMask groundLayer;
 
         private Rigidbody2D rb2d;
-
+        private PlayerStatus _playerStatus;
 
         private void Start()
         {
             rb2d = GetComponent<Rigidbody2D>();
+            _playerStatus = GetComponent<PlayerStatus>();
         }
 
 
@@ -35,6 +37,7 @@ namespace MyUtility
 
             const int MAX_LOOP = 3;                                   // ループの回数（レイの本数）
 
+            if (!_playerStatus._PushJudge) return false;
 
             // checkPosの初期位置
             checkPos.y += colHalfHeight;
@@ -64,6 +67,7 @@ namespace MyUtility
             const float JUMPUP_CHECK_SPEED = 1f;                    // 上昇状態変数
             const int MAX_LOOP = 3;                                 // ループの回数（レイの本数）
 
+            if (!_playerStatus._PushJudge) return false;
 
             // 上昇中は何もしない
             if (rb2d.velocity.y > JUMPUP_CHECK_SPEED)

@@ -91,9 +91,9 @@ namespace Player
             // •¨—”»’è‰Â”\
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.velocity = _currentVec;
-            
+
             // “ü—Í‰Â”\
-            _playerStatus._InputFlgX = _rb.velocity.y <= 0.1f ? true : false;
+            _playerStatus._InputFlgX = true; /*_rb.velocity.y <= 0.1f ? true : false;*/
             _playerStatus._InputFlgY = true;
             _playerStatus._InputFlgAction = true;
 

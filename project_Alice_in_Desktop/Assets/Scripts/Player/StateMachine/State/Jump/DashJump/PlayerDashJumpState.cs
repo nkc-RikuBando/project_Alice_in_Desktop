@@ -3,40 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
-using MyUtility;
 using Player;
+using MyUtility;
 
 namespace PlayerState
 {
-    public class PlayerDashState : MonoBehaviour, IPlayerState
+    public class PlayerDashJumpState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのDash状態処理
+        // PlayerのDashJump状態処理
 
-        public PlayerStateEnum StateType => PlayerStateEnum.DASH;
+        public PlayerStateEnum StateType => PlayerStateEnum.DASHJUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private GroundChecker 　 _groundChecker;
-        private PushObjChecker   _pushObjChecker;
-        private PlayerStatus     _playerStatus;
-        private PlayerAnimation  _playerAnimation;
+        private PlayerStatus _playerStatus;
+        private PlayerAnimation _playerAnimation;
+        private WallChecker _wallChecker;
 
-        private BoxCollider2D _boxCol;
+        private Rigidbody2D _rb;
         private CapsuleCollider2D _capCol;
-        private Rigidbody2D   _rb;
+
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
+            _playerStatus ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
-            _groundChecker   ??= GetComponent<GroundChecker>();
-            _pushObjChecker  ??= GetComponent<PushObjChecker>();
-            _playerStatus    ??= GetComponent<PlayerStatus>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _boxCol          ??= GetComponent<BoxCollider2D>();
-            _capCol          ??= GetComponent<CapsuleCollider2D>();
-            _rb              ??= GetComponent<Rigidbody2D>();
+            _wallChecker ??= GetComponent<WallChecker>();
+            _rb ??= GetComponent<Rigidbody2D>();
+            _capCol ??= GetComponent<CapsuleCollider2D>();
+
+
+            _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
+
+            // 物理挙動
+            JumpAction();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -54,30 +57,35 @@ namespace PlayerState
         {
         }
 
-
-        // Playerのステート変更メソッド
+        // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() == 0 && _groundChecker.CheckIsGround(_boxCol))
+            if (_wallChecker.CheckIsWall(_capCol))
             {
-                ChangeStateEvent(PlayerStateEnum.STAY);
+                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
             }
 
-            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
+            if (_rb.velocity.y > 0.1f)
             {
-                ChangeStateEvent(PlayerStateEnum.DASHJUMP);
+                ChangeStateEvent(PlayerStateEnum.DASHJUMPUP);
+            }
+            else if (_rb.velocity.y > 0.1f && _inputReceivable.MoveH() == 0)
+            {
+                ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
 
-            if (_rb.velocity.y < -1f)
-            {
-                ChangeStateEvent(PlayerStateEnum.DASHFALL);
-            }
+            // 入力がない場合はJUMPに遷移しないのか？
 
-            if (_pushObjChecker.PushObjWidthChecker(_capCol)) 
-            {
-                ChangeStateEvent(PlayerStateEnum.PUSH);
-            }
         }
+
+        // ジャンプアクションメソッド
+        private void JumpAction()
+        {
+            // 物理挙動
+            _rb.velocity = Vector2.zero;
+            _rb.AddForce(Vector2.up * _playerStatus._JumpPower);
+        }
+
 
         // Player移動メソッド
         private void Dash()
@@ -88,6 +96,7 @@ namespace PlayerState
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
         }
+
 
     }
 

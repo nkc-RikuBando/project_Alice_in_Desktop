@@ -8,12 +8,12 @@ using MyUtility;
 
 namespace PlayerState
 {
-    public class PlayerWallJumpState : MonoBehaviour, IPlayerState
+    public class PlayerDashWallJumpState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのWallJump状態処理
+        // PlayerのWallDashJump状態処理
 
-        public PlayerStateEnum StateType => PlayerStateEnum.WALLJUMP;
+        public PlayerStateEnum StateType => PlayerStateEnum.DASHWALLJUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
@@ -26,10 +26,6 @@ namespace PlayerState
         private Rigidbody2D _rb;
         private BoxCollider2D _boxCol;
         private CapsuleCollider2D _capCol;
-
-
-        // 壁ジャンプ用の垂直な角度
-        private const float VERTICAL_ANGLE = 90;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -47,8 +43,6 @@ namespace PlayerState
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
             _playerStatus._InputFlgX = false;
-
-            WallJumpAction();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -68,36 +62,21 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0) 
+            // 不必要？
+            //if (_wallChecker.CheckIsWall(_capCol))
+            //{
+            //    ChangeStateEvent(PlayerStateEnum.WALLSTICK);
+            //}
+
+            if (_inputReceivable.MoveH() == 0) 
             {
-                ChangeStateEvent(PlayerStateEnum.DASHWALLJUMP);
+                ChangeStateEvent(PlayerStateEnum.WALLJUMP);
             }
 
-            if (_rb.velocity.y > 0.1f) 
+            if (_rb.velocity.y > 0.1f)
             {
-                ChangeStateEvent(PlayerStateEnum.WALLJUMPUP);
+                ChangeStateEvent(PlayerStateEnum.DASHWALLJUMPUP);
             }
-
-            // ここからDashJumpUPに遷移するのか？？
         }
-
-        // 壁ジャンプメソッド
-        private void WallJumpAction() 
-        {
-            // 物理挙動
-            _rb.velocity = Vector2.zero;
-            _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
-
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-        }
-
-        // 壁ジャンプする角度からベクトルに変換するメソッド
-        private Vector2 JumpAngle()
-        {
-            float tempAngle = (VERTICAL_ANGLE + (_playerStatus._WallJumpAngle * transform.localScale.x / _playerStatus._SizeMag)) * Mathf.Deg2Rad;
-
-            return new Vector2(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle));
-        }
-
     }
 }

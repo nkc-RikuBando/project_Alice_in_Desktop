@@ -7,8 +7,7 @@ namespace Connector
             // 入力受付用インターフェース
 
             float MoveH();
-            bool JumpKey_W();
-            bool JumpKey_Space();
+            bool JumpKey();
 
             bool ActionKey_Down();
             bool ActionKey();
