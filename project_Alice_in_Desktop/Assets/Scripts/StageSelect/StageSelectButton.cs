@@ -15,6 +15,8 @@ namespace StageSelect
         private float doubleClickTime = 0.5f;
         private bool doubleClickFlg = false;
 
+        private int openedWorldNum = 0;
+
         private void Start()
         {
             windowFade = cameraObj.GetComponent<WindowFade>();
@@ -51,11 +53,23 @@ namespace StageSelect
             if (doubleClickFlg)
             {
                 stageUnlock.StageFolderActiveSwitch(worldNum,true);
+                openedWorldNum = worldNum;
             }
 
             StartCoroutine(DoubleClickTimeCount());
         }
 
+        public void PressedPrevButton()
+        {
+            if (openedWorldNum == 0) return;
+            stageUnlock.StageFolderActiveSwitch(openedWorldNum, false);
+        }
+
+        public void PressedNextButton()
+        {
+            if (openedWorldNum == 0) return;
+            stageUnlock.StageFolderActiveSwitch(openedWorldNum, true);
+        }
 
         // ダブルクリックの入力猶予時間の計測 & フラグ管理
         IEnumerator DoubleClickTimeCount()

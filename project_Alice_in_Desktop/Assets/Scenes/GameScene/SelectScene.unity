@@ -2069,8 +2069,8 @@ MonoBehaviour:
     m_NormalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     m_HighlightedColor: {r: 0, g: 0.7758787, b: 0.9245283, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    m_DisabledColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2088,7 +2088,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 457723041}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1173604663}
+        m_TargetAssemblyTypeName: StageSelect.StageSelectButton, Assembly-CSharp
+        m_MethodName: PressedPrevButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &457723041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3307,6 +3319,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 0105
       objectReference: {fileID: 0}
+    - target: {fileID: 5890454096355939647, guid: b8882780979719542b526cd2c19b4811, type: 3}
+      propertyPath: m_Text
+      value: Stage 1-5
+      objectReference: {fileID: 0}
     - target: {fileID: 5890454097732460584, guid: b8882780979719542b526cd2c19b4811, type: 3}
       propertyPath: m_Name
       value: FolderPanel05
@@ -4400,6 +4416,8 @@ MonoBehaviour:
   - {fileID: 2144987994}
   folderPanel: []
   debugClearStageNum: 40
+  nextButton: {fileID: 1635781998}
+  prevButton: {fileID: 457723040}
 --- !u!1001 &1190628861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6042,8 +6060,8 @@ MonoBehaviour:
     m_NormalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     m_HighlightedColor: {r: 0, g: 0.7758787, b: 0.9245283, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_SelectedColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    m_DisabledColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6061,7 +6079,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1635781999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1173604663}
+        m_TargetAssemblyTypeName: StageSelect.StageSelectButton, Assembly-CSharp
+        m_MethodName: PressedNextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1635781999
 MonoBehaviour:
   m_ObjectHideFlags: 0
