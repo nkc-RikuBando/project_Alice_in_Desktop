@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Window;
+using Connector.Player;
 
 public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 {
     RabbitMovePointMock nowPoint;
     RabbitHit rabbitHit;
     [SerializeField] RabbitMovePointMock pointMock;
-    //[SerializeField] PlayerCoreMock player; //Mockなので組み込む際は変更必須
-    [SerializeField] PlayerPositionGet player;//Mockなので組み込む際は変更必須
+    [SerializeField] GameObject player;
     [SerializeField] AnimationCurve animationCurve;
     [SerializeField] GameObject childSpring;
 
     private Animator animator;
     private Animator childAnimator;
     private Rigidbody2D rigd2D;
+    IPlayerPotionSentable playerPositionSentable;
     Vector3 playerPos;
     Vector3 nowTransform;
     Vector3 nextTransform; //次の場所
@@ -40,19 +41,17 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         childAnimator = childSpring.GetComponent<Animator>();
         rigd2D = GetComponent<Rigidbody2D>();
         rabbitHit = GetComponent<RabbitHit>();
+        playerPositionSentable = player.gameObject.GetComponent<IPlayerPotionSentable>();
         //アニメーションカーブの設定,登録
         TrajectoryCal();
         nowPoint = pointMock;
         nowTransform = pointMock.transform.position;
-        //Debug.Log(nowTransform);
-        //Debug.Log(pointMock.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerPos = player.GetPlayerPosition(); //プレイヤーの距離を受け取る
-
+        playerPos = playerPositionSentable.PlayerPotionSentable();
         hitFlg = rabbitHit.HitRabbitFlg();
         RabbitDirection();
         if (!(startFlg != true)) return;
@@ -61,7 +60,6 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         {
             nowPoint = pointMock; //今の点の情報
             nowTransform = pointMock.transform.position;
-            //Debug.Log(nowPoint.name);
             pointMock = pointMock.GetRabbitMovePointPos(); //次の点を受け取る
             nextTransform = pointMock.GetMyPosition(); //次の点のPositionを受け取る
             nextPosLength = nextTransform - transform.position; //座標の差
@@ -121,7 +119,6 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
 
     private void PlayMove()
     {
-        
         if (playFlg)
         {
             stopFlg = false;
@@ -153,10 +150,8 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             //    Debug.Log("次の場所へ瞬間移動");
             //    this.transform.position = nextTransform;
             //}
-            
-            
 
-            playFlg = false;
+            playFlg = false; 
         }
     }
 

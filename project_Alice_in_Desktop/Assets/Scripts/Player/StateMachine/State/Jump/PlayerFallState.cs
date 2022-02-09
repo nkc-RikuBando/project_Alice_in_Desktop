@@ -11,23 +11,30 @@ namespace PlayerState
     public class PlayerFallState : MonoBehaviour, IPlayerState
     {
         // Player‚ªŽÀ‘•‚·‚é‚ÌIH
-        // Player‚ÌStayó‘Ôˆ—
+        // Player‚ÌFalló‘Ôˆ—
 
         public PlayerStateEnum StateType => PlayerStateEnum.FALL;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private GroundChecker _groundChecker;
-        private PlayerAnimation _playerAnimation;
+        private PlayerStatus     _playerStatus;
+        private GroundChecker    _groundChecker;
+        private PlayerAnimation  _playerAnimation;
 
         private BoxCollider2D _boxCol;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _inputReceivable = GetComponent<IInputReceivable>();
-            _groundChecker   = GetComponent<GroundChecker>();
-            _playerAnimation = GetComponent<PlayerAnimation>();
-            _boxCol          = GetComponent<BoxCollider2D>();
+            _inputReceivable ??= GetComponent<IInputReceivable>();
+            _playerStatus ??= GetComponent<PlayerStatus>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _playerAnimation ??= GetComponent<PlayerAnimation>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+
+            _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -49,7 +56,7 @@ namespace PlayerState
         {
             if (_inputReceivable.MoveH() != 0)
             {
-                ChangeStateEvent(PlayerStateEnum.DASH);
+                ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
 
             if (_groundChecker.CheckIsGround(_boxCol)) 

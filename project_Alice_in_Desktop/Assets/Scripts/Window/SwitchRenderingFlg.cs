@@ -6,6 +6,8 @@ namespace Window
 {
     public class SwitchRenderingFlg : MonoBehaviour
     {
+        // ゲーム内のオブジェクトが疑似ウィンドウの中にいるか外にいるかを切り替える
+
         private void OnTriggerEnter2D(Collider2D col)
         {
             IRenderingFlgSettable _renderingFlgSettable = col.gameObject.GetComponent<IRenderingFlgSettable>();

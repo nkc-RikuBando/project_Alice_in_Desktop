@@ -298,6 +298,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18bb81ccf5e379041825d19f323f8bd2, type: 3}
+--- !u!1 &383941335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5335686422570536223, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
+  m_PrefabInstance: {fileID: 298873368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &383941342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383941335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 1
+  followLeftWall: 0
 --- !u!1001 &412011569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -350,9 +371,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
+      propertyPath: stoppableObj.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
       propertyPath: stoppableObj.Array.data[0]
       value: 
       objectReference: {fileID: 1220771077}
+    - target: {fileID: 5080619296554510251, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
+      propertyPath: stoppableObj.Array.data[1]
+      value: 
+      objectReference: {fileID: 1430960670}
     - target: {fileID: 5080619296554510253, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
       propertyPath: m_Name
       value: WindowManager
@@ -3667,7 +3696,7 @@ Transform:
   m_Children:
   - {fileID: 1819015647}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &686435902
 PrefabInstance:
@@ -8007,6 +8036,10 @@ PrefabInstance:
     - target: {fileID: 3199978684044008051, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199978684044008053, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3199978684044008055, guid: 3a7ba0b6d89b6ab4291bc37dd764ac3d, type: 3}
       propertyPath: m_Pivot.x
@@ -20881,6 +20914,52 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1430960670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430960672}
+  - component: {fileID: 1430960671}
+  m_Layer: 0
+  m_Name: TutorialSensei
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1430960671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430960670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165d1b4127b37e948b06e4cf42956170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialObj: {fileID: 1900129121639243196, guid: 4b02854fcea37214eb7d6f2c855085bb, type: 3}
+  pos: {x: 20.16, y: -3.66, z: 0}
+  appearTime: 10
+--- !u!4 &1430960672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430960670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448038411
 GameObject:
   m_ObjectHideFlags: 0
@@ -23857,7 +23936,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 914763239354549416, guid: ea2b586d0109fc342aa44c1ec4467449, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 914763239354549416, guid: ea2b586d0109fc342aa44c1ec4467449, type: 3}
       propertyPath: m_LocalPosition.x

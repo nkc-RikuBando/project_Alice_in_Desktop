@@ -19,6 +19,9 @@ namespace StageSelect
 
         [SerializeField] private int debugClearStageNum;
 
+        [SerializeField] private Button nextButton;
+        [SerializeField] private Button prevButton;
+
         private void Awake()
         {
 
@@ -69,28 +72,37 @@ namespace StageSelect
                 StageFolderActiveSwitch(i, false);
             }
 
+            nextButton.interactable = false;
         }
 
         private void Update()
         {
             // デバッグ用
             // Rキーでシーンリロード
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                stageManagerSingleton.SendClearStage(debugClearStageNum);
-                SceneManager.LoadScene("SelectScene");
-            }
+            //if (Input.GetKeyDown(KeyCode.R))
+            //{
+            //    stageManagerSingleton.SendClearStage(debugClearStageNum);
+            //    SceneManager.LoadScene("SelectScene");
+            //}
         }
 
 
         public void StageFolderActiveSwitch(int worldNum,bool val)
         {
-            stageFolderPanels[worldNum - 1].SetActive(val);
-
             if(val)
             {
-                worldFolderPanelParent.SetActive(false);
+                nextButton.interactable = false;
+                prevButton.interactable = true;
             }
+            else
+            {
+                nextButton.interactable = true;
+                prevButton.interactable = false;
+            }
+
+            stageFolderPanels[worldNum - 1].SetActive(val);
+
+            worldFolderPanelParent.SetActive(!val);
         }
 
         public GameObject GetStageFolder(int i)

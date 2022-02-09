@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 namespace Window
 {
+    // ウィンドウに追従するオブジェクトの設定
+    // ウィンドウをさわったときに、その方向に追従しないオブジェクトは色を暗くする
+
     public class FollowSetting : MonoBehaviour
     {
         private WindowManager windowManager;
@@ -27,6 +30,7 @@ namespace Window
         {
             windowManager = GameObject.Find("WindowManager").GetComponent<WindowManager>();
 
+            // 普通のオブジェクトとタイルマップの場合で分ける
             if (GetComponent<SpriteRenderer>() != null)
             {
                 sr = GetComponent<SpriteRenderer>();
@@ -51,6 +55,8 @@ namespace Window
 
         private void Follow()
         {
+
+            // どのウィンドウをさわっているか
             moveObjNum = windowManager.GetObjNum();
             ColorChange();
 
@@ -104,11 +110,11 @@ namespace Window
         {
             if (srFlg)
             {
-                sr.color = new Color32(80, 80, 80, 255);
+                sr.color = new Color32(60, 60, 60, 255);
             }
             else if(tileFlg)
             {
-                tilemap.color = new Color32(80, 80, 80, 255);
+                tilemap.color = new Color32(60, 60, 60, 255);
             }
         }
 

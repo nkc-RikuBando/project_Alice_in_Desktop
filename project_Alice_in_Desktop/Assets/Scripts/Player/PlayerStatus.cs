@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Player
@@ -41,7 +39,8 @@ namespace Player
         public bool _GroundChecker { get; set; } = false;
         public bool _IsWall { get; set; } = false;
         public bool _DeadColFlg { get; set; } = false;
-        public bool _insideFlg { get; set; } = true;
+        public bool _InsideFlg { get; set; } = true;
+        public bool _IsWindowTouching { get; set; } = false;
 
         // ステータスプロパティ
         public float _Gravity

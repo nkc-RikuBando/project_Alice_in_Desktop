@@ -11,7 +11,7 @@ namespace PlayerState
     public class PlayerJumpState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのStay状態処理
+        // PlayerのJump状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.JUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
@@ -25,10 +25,12 @@ namespace PlayerState
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _playerStatus    = GetComponent<PlayerStatus>();
-            _inputReceivable = GetComponent<IInputReceivable>();
-            _playerAnimation = GetComponent<PlayerAnimation>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
+            _inputReceivable ??= GetComponent<IInputReceivable>();
+            _playerAnimation ??= GetComponent<PlayerAnimation>();
+            _rb              ??= GetComponent<Rigidbody2D>();
+
+            _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
             // 物理挙動
             JumpAction();
@@ -50,18 +52,18 @@ namespace PlayerState
 
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0)
-            {
-                ChangeStateEvent(PlayerStateEnum.DASH);
-            }
-
             // 上昇状態
             if (_rb.velocity.y > 0.1f)
             {
                 ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
-            // 下降状態
-            else if (_rb.velocity.y < -0.1f)
+            if (_rb.velocity.y > 0.1f &&_inputReceivable.MoveH() != 0)
+            {
+                ChangeStateEvent(PlayerStateEnum.DASHJUMPUP);
+            }
+
+            // ここいる？？(なんかこの遷移がなくて前にバグった)
+            if(_rb.velocity.y < -1) 
             {
                 ChangeStateEvent(PlayerStateEnum.FALL);
             }

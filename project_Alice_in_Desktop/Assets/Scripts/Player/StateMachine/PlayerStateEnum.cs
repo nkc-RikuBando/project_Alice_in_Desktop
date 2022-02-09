@@ -12,6 +12,17 @@ public enum PlayerStateEnum
     JUMP,
     JUMPUP,
     FALL,
+    DASHJUMP,
+    DASHJUMPUP,
+    DASHFALL,
     LANDING,
-    COUNT // ç≈å„
+    WALLSTICK,
+    WALLJUMP,
+    WALLJUMPUP,
+    WALLJUMPFALL,
+    DASHWALLJUMP,
+    DASHWALLJUMPUP,
+    DASHWALLJUMPFALL,
+    PUSH,
+    COUNT Å@Å@// ç≈å„
 }

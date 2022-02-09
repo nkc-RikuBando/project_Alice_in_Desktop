@@ -122,14 +122,14 @@ namespace Window
                 framePosX = (colObjList[3].transform.position.x + colObjList[7].transform.position.x) / 2;
                 framePosY = (colObjList[1].transform.position.y + colObjList[5].transform.position.y) / 2;
             }
-            else if (moveObjType == (int)ObjType.WINDOW) // ウィンドウの位置を移動させているとき
-            {
-                frameSizeX = frameSR.size.x;
-                frameSizeY = frameSR.size.y;
+            //else if (moveObjType == (int)ObjType.WINDOW) // ウィンドウの位置を移動させているとき
+            //{
+            //    frameSizeX = frameSR.size.x;
+            //    frameSizeY = frameSR.size.y;
 
-                framePosX = handleBarColObj.transform.position.x;
-                framePosY = (handleBarColObj.transform.position.y-0.5f) - (frameSR.size.y/2);
-            }
+            //    framePosX = handleBarColObj.transform.position.x;
+            //    framePosY = (handleBarColObj.transform.position.y-0.5f) - (frameSR.size.y/2);
+            //}
 
             frameSR.size = new Vector2(frameSizeX, frameSizeY);
             frame.transform.position = new Vector3(framePosX, framePosY, 0);
@@ -137,6 +137,7 @@ namespace Window
 
         void ColSet()
         {
+            // コライダーの位置を移動
             float colPosX = 0, colPosY = 0, edgeColSize = 0;
             float helfSizeX = frameSizeX / 2 + 0.5f;
             float helfSizeY = frameSizeY / 2 + 0.5f;
@@ -201,8 +202,8 @@ namespace Window
                 }
             }
 
-            handleBarColObj.transform.position = new Vector3(framePosX, framePosY + helfSizeY);
-            handleBarColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX, 1);
+            //handleBarColObj.transform.position = new Vector3(framePosX, framePosY + helfSizeY);
+            //handleBarColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX, 1);
 
             centerColObj.transform.position = new Vector2(framePosX, framePosY);
             centerColObj.GetComponent<BoxCollider2D>().size = new Vector2(frameSizeX, frameSizeY);
@@ -211,6 +212,8 @@ namespace Window
 
         public void SetMoveFlg(GameObject holdingObj, bool flg)
         {
+            // ウィンドウのハンドル部分(上部)を持ったとき移動させる
+
             //if (holdingObj == centerColObj)
             //{
             //    moveObj = centerColObj;
@@ -222,11 +225,11 @@ namespace Window
             //}
             if(holdingObj == handleBarColObj)
             {
-                moveObj = handleBarColObj;
-                moveObjType = (int)ObjType.WINDOW;
-                moveAxis = moveAxis = new Vector3(1, 1, 0);
+                //moveObj = handleBarColObj;
+                //moveObjType = (int)ObjType.WINDOW;
+                //moveAxis = moveAxis = new Vector3(1, 1, 0);
 
-                moveObjNum = (int)PositionList.HANDLE_BAR;
+                //moveObjNum = (int)PositionList.HANDLE_BAR;
             }
             else
             {

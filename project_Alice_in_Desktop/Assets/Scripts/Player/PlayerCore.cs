@@ -10,14 +10,18 @@ namespace PlayerState
     public class PlayerCore : MonoBehaviour
     {
         private IInputReceivable _inputReceivable;
+        private PlayerStatus _playerStatus;
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
+            _playerStatus = GetComponent<PlayerStatus>();
         }
 
         private void Update()
         {
+            if (!_playerStatus._InputFlgX) return;
+
             PlayerDirection();
         }
 
@@ -26,7 +30,7 @@ namespace PlayerState
         {
             if(_inputReceivable.MoveH() != 0) 
             {
-                transform.localScale = new Vector3(_inputReceivable.MoveH(), 1f, 1f);
+                transform.localScale = new Vector3(_inputReceivable.MoveH() *_playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
             }
         }
     }

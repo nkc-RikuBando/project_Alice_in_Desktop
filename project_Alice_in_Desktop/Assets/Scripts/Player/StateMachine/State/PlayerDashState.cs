@@ -11,35 +11,39 @@ namespace PlayerState
     public class PlayerDashState : MonoBehaviour, IPlayerState
     {
         // Playerが実装するの！？
-        // PlayerのStay状態処理
+        // PlayerのDash状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.DASH;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
         private GroundChecker 　 _groundChecker;
+        private PushObjChecker   _pushObjChecker;
         private PlayerStatus     _playerStatus;
         private PlayerAnimation  _playerAnimation;
 
         private BoxCollider2D _boxCol;
+        private CapsuleCollider2D _capCol;
         private Rigidbody2D   _rb;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _inputReceivable = GetComponent<IInputReceivable>();
-            _groundChecker   = GetComponent<GroundChecker>();
-            _playerStatus    = GetComponent<PlayerStatus>();
-            _playerAnimation = GetComponent<PlayerAnimation>();
-            _boxCol          = GetComponent<BoxCollider2D>();
-            _rb              = GetComponent<Rigidbody2D>();
+            _inputReceivable ??= GetComponent<IInputReceivable>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _pushObjChecker  ??= GetComponent<PushObjChecker>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
+            _playerAnimation ??= GetComponent<PlayerAnimation>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _capCol          ??= GetComponent<CapsuleCollider2D>();
+            _rb              ??= GetComponent<Rigidbody2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
             Debug.Log(StateType);
-            StateManager();
             Dash();
+            StateManager();
         }
 
         void IPlayerState.OnFixedUpdate(PlayerCore player)
@@ -50,6 +54,7 @@ namespace PlayerState
         {
         }
 
+
         // Playerのステート変更メソッド
         private void StateManager()
         {
@@ -58,25 +63,27 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.STAY);
             }
 
-            if (_inputReceivable.JumpKey_W() && _groundChecker.CheckIsGround(_boxCol) || _inputReceivable.JumpKey_Space() && _groundChecker.CheckIsGround(_boxCol))
+            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
             {
-                ChangeStateEvent(PlayerStateEnum.JUMP);
+                ChangeStateEvent(PlayerStateEnum.DASHJUMP);
             }
 
-            if (_rb.velocity.y > 0.1f) 
+            if (_rb.velocity.y < -1f)
             {
-                ChangeStateEvent(PlayerStateEnum.JUMPUP);
-
+                ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
-            else if(_rb.velocity.y < -0.1f) 
+
+            if (_pushObjChecker.PushObjWidthChecker(_capCol)) 
             {
-                ChangeStateEvent(PlayerStateEnum.FALL);
+                ChangeStateEvent(PlayerStateEnum.PUSH);
             }
         }
 
         // Player移動メソッド
         private void Dash()
         {
+            if (!_playerStatus._InputFlgX) return;
+
             // 移動の物理処理
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
