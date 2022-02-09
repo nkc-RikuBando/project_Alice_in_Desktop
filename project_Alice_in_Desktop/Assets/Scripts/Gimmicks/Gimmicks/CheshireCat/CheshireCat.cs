@@ -8,7 +8,7 @@ namespace Gimmicks
 {
     public class CheshireCat : MonoBehaviour
     {
-        private GameObject player; // プレイヤーを保存
+        private GameObject player;   // プレイヤーを保存
         private Animator playerAnim; // プレイヤーのアニメーション保存
         private IPlayerAction _ActionKey;
         private Animator myAnimator;
@@ -47,9 +47,9 @@ namespace Gimmicks
 
         void OnTriggerEnter2D(Collider2D collision)
         {
+            bool enterObj = collision.gameObject.tag == "Gimmick" || collision.gameObject.layer == 6;
             // プレイヤーが入って来たら
-
-            if (collision.gameObject.tag == "Gimmick")
+            if (enterObj)
             {
                 catFrontObj.IsFrontObj = true;
                 warpScr.catFrontObj.IsFrontObj = true;
@@ -61,14 +61,13 @@ namespace Gimmicks
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
             }
-            
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            bool exitObj = collision.gameObject.tag == "Gimmick" || collision.gameObject.layer == 6;
             // プレイヤーが出て行ったら
-
-            if (collision.gameObject.tag == "Gimmick")
+            if (exitObj)
             {
                 catFrontObj.IsFrontObj = false;
                 warpScr.catFrontObj.IsFrontObj = false;
@@ -107,6 +106,7 @@ namespace Gimmicks
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
+            AudioManager.Instance.SeAction("ねこ");
             this.StartCoroutine(PlayerWarpStart());
         }
 

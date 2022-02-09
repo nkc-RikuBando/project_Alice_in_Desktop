@@ -11,7 +11,7 @@ namespace Gimmicks
 
         public bool IsFrontObj
         {
-            get { return isFrontObj; }
+            get { return isFrontObj; } 
             set { isFrontObj = value; }
         }
 
