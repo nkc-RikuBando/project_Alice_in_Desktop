@@ -14,7 +14,6 @@ namespace Gimmicks
         private IPlayerAction _IActionKey;           // 入力インターフェースを保存
         private PlayerStatusManager playerStatusManager;
         private IHitPlayer _IHitPlayer;              // 当たり判定インターフェースを保存
-        private BoxCollider2D boxCol;
         [SerializeField] private GameObject hideKey; // 鍵を取得
         private bool stayFlg = false;
         private Animator myAnimator;                 // 箱(自身)のアニメーションを保存
@@ -47,7 +46,6 @@ namespace Gimmicks
 
             // 当たり判定インターフェースを取得
             _IHitPlayer = uiGauge.GetComponentInChildren<IHitPlayer>();
-            boxCol = GetComponent<BoxCollider2D>();
             playerStatusManager = player.GetComponent<PlayerStatusManager>();
             //hideKey = GetGameObject.KeyObj;
 
@@ -65,7 +63,8 @@ namespace Gimmicks
             
             if (isBreak == false)
             {
-                UpRayCast();
+                UpRay();
+                //UpRayCast();
                 HorizontalRay();
             }
             BoxBreak();
@@ -88,6 +87,7 @@ namespace Gimmicks
         {
             stayFlg = true; // 滞在中
             _IHitPlayer.IsHitPlayer();
+            Debug.Log("A");
         }
 
         void PlayerExit()
@@ -131,7 +131,6 @@ namespace Gimmicks
         /// プレイヤーが触れている、かつ、キーを離す
         /// </summary>
         /// <returns></returns>
-
         bool UpInput()
         {
             return stayFlg == true && _IActionKey.ActionKeyUp();
@@ -147,27 +146,52 @@ namespace Gimmicks
             keyAnimator.SetTrigger("Spawn");
         }
 
-        void UpRayCast()
-        {
-            Vector3 chkPos = transform.position;
-            float boxHarfWitdh = boxCol.size.x / 2;
-            bool result = false;
-            Vector3 lineLength = -transform.up * 3f;
+        //void UpRayCast()
+        //{
+        //    Vector3 chkPos = transform.position;
+        //    float boxHarfWitdh = boxCol.size.x / 2;
+        //    bool result = false;
+        //    Vector3 lineLength = -transform.up * 3f;
 
-            // ３点チェック（とりあえず）
-            chkPos.x = transform.position.x - boxHarfWitdh;
-            //chkPos.x += 0.8f;
-            chkPos.y += 0.2f;
-            for (int loopNo = 0; loopNo < 3; loopNo++)
-            {
-                // 自身の位置から↓に向かって線を引いて、接触したかをチェックする
-                //result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
-                result |= Physics2D.Raycast(chkPos + transform.up, chkPos - lineLength, 0, layer);
-                //レイを表示してみる
-                Debug.DrawLine(chkPos + transform.up, chkPos - lineLength, Color.red);
-                // オフセット加算
-                chkPos.x += boxHarfWitdh;
-            }
+        //    // ３点チェック（とりあえず）
+        //    chkPos.x = transform.position.x - boxHarfWitdh;
+        //    //chkPos.x += 0.8f;
+        //    chkPos.y += 0.2f;
+        //    for (int loopNo = 0; loopNo < 3; loopNo++)
+        //    {
+        //        // 自身の位置から↓に向かって線を引いて、接触したかをチェックする
+        //        //result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
+        //        result |= Physics2D.Raycast(chkPos + transform.up, chkPos - lineLength, 0, layer);
+        //        //レイを表示してみる
+        //        Debug.DrawLine(chkPos + transform.up, chkPos - lineLength, Color.red);
+        //        // オフセット加算
+        //        chkPos.x += boxHarfWitdh;
+        //    }
+        //}
+
+        void UpRay()
+        {
+            // Rayの位置の調整値
+            Vector3 offset = new Vector3(0, 1.5f, 0);
+
+            //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
+            Ray2D ray = new Ray2D(transform.position + offset, Vector3.up);
+
+            //Rayが当たったオブジェクトの情報を入れる箱
+            //RaycastHit2D hit;
+
+            //Rayの飛ばせる距離
+            int distance = 1;
+
+            //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
+            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+
+            //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
+            bool hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
+
+            //もしRayにオブジェクトが衝突したら
+            if (hit) PlayerEnter();
+            else PlayerExit();
         }
 
         void HorizontalRay()

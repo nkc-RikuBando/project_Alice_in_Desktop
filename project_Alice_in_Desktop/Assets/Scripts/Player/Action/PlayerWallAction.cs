@@ -62,7 +62,7 @@ namespace Player
             if (_playerStatus._IsWall)
             {
                 // 壁ジャンプ状態に変更
-                if (_inputReceivable.JumpKey_W() || _inputReceivable.JumpKey_Space())
+                if (_inputReceivable.JumpKey())
                 {
                     _isWallJump = true;
                 }
@@ -80,7 +80,7 @@ namespace Player
             {
                 if (_stickInput)
                 {
-                    _playerStatus._IsWall = _wallChecker.CheckIsGround(_capCol);
+                    _playerStatus._IsWall = _wallChecker.CheckIsWall(_capCol);
                 }
             }
         }
@@ -181,7 +181,7 @@ namespace Player
                 }
 
                 // 地面判定できるようにする
-                if(_playerStatus._insideFlg) _playerStatus._GroundJudge = true;
+                if(_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
 
                 // 壁に張り付いていない場合
                 _rb.gravityScale = _playerStatus._Gravity;

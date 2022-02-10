@@ -13,7 +13,7 @@ namespace GameSystem
         private Image waitTime; // UIの保存
         public static bool gaugeMaxFlg;
         private GameObject _parent; // 親オブジェクトの保存
-        private const float UP_DOWN_NUM = 0.01f; // ゲージの増減量
+        private const float UP_DOWN_NUM = 0.02f; // ゲージの増減量
 
         void Start()
         {
@@ -41,14 +41,12 @@ namespace GameSystem
                 gaugeMaxFlg = true;
                 //Destroy(_parent);        // 一つ上の親オブジェクトの削除
             }
-
-            //if (_ActionKey.ActionKey())
-            //Debug.Log("押された");
         }
 
         public void IsHitPlayer()
         {
             _parent.SetActive(true);
+            Debug.Log("B");
         }
 
         public void NonHitPlayer()

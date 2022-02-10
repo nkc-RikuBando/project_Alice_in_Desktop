@@ -7,6 +7,9 @@ namespace Connector
 {
     namespace Player 
     {
+        // Playerの位置送信インタフェース
+        // Sendableな！！
+
         interface IPlayerPotionSentable 
         {
             Vector3 PlayerPotionSentable();

@@ -54,7 +54,7 @@ namespace GameSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player && layerChange.OutFlg == false)
+            if (collision.gameObject == player /*&& layerChange.OutFlg == false*/)
             {
                 stayFlg = true;
                 inputUI.SetActive(true);
@@ -63,7 +63,7 @@ namespace GameSystem
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject == player && layerChange.OutFlg == false)
+            if (collision.gameObject == player /*&& layerChange.OutFlg == false*/)
             {
                 stayFlg = false;
                 inputUI.SetActive(false);
@@ -99,7 +99,7 @@ namespace GameSystem
                 if (clearFlg == true)
                 {
                     //if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
-                    playerStatusManager.PlayerIsInput(false);
+                    playerStatusManager.PlayerIsInput(false); // ‘¼‚Ì“ü—Í‚ðŽó‚¯•t‚¯‚È‚­‚·‚é
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
                 }

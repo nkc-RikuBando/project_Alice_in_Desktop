@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.Inputer;
-using MyUtility;
 
 namespace PlayerState
 {

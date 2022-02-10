@@ -25,10 +25,6 @@ namespace Player
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
-        private bool _isWindowTouching;
-
-        // 下降状態判定変数
-        private const float _DOWNSTATENUM = 0.1f;
 
 
         void Start()
@@ -45,7 +41,7 @@ namespace Player
         }
         private void Update()
         {
-            if (_isWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
+            if (_playerStatus._IsWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
 
 
@@ -56,9 +52,6 @@ namespace Player
             _playerStatus._InputFlgX = false;
             _playerStatus._InputFlgY = false;
             _playerStatus._InputFlgAction = false;
-
-            // 地面判定停止
-            //_playerStatus._GroundJudge = false;
 
             // 動きを停止
             _currentVec = _rb.velocity;
@@ -74,11 +67,11 @@ namespace Player
             _childBoxCol.enabled = false;
 
             // ウィンドウ操作Flg
-            _isWindowTouching = true;
+            _playerStatus._IsWindowTouching = true;
 
             // PostProcessingを有効
             _windowEffect.StartWindowEffect();
-
+            _playerStatus._DeadColFlg = false;
         }
 
 
@@ -91,9 +84,9 @@ namespace Player
             // 物理判定可能
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.velocity = _currentVec;
-            
+
             // 入力可能
-            _playerStatus._InputFlgX = _rb.velocity.y <= 0.1f ? true : false;
+            _playerStatus._InputFlgX = true;
             _playerStatus._InputFlgY = true;
             _playerStatus._InputFlgAction = true;
 
@@ -110,7 +103,7 @@ namespace Player
             _windowEffect.EndWindowEffect();
 
             // ウィンドウ操作Flg
-            _isWindowTouching = false;
+            _playerStatus._IsWindowTouching = false;
 
             _playerStatus._IsWall = false; 
 

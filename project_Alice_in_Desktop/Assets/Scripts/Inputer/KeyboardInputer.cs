@@ -16,18 +16,11 @@ namespace Inputer
             return Input.GetAxisRaw("Horizontal");
         }
 
-        // ジャンプ入力(W)
-        bool IInputReceivable.JumpKey_W()
+        // ジャンプ入力
+        bool IInputReceivable.JumpKey()
         {
-            return Input.GetKeyDown(KeyCode.W);
+            return Input.GetButton("Jump");
         }
-
-        // ジャンプ入力(Space)
-        bool IInputReceivable.JumpKey_Space()
-        {
-            return Input.GetKeyDown(KeyCode.Space);
-        }
-
 
         // アクション入力(押したとき)
         public bool ActionKey_Down()
