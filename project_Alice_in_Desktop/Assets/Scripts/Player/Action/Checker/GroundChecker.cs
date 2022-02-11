@@ -29,7 +29,7 @@ namespace MyUtility
         public bool CheckIsGround(BoxCollider2D col)
         {
             bool hit;                                                             // 当たった時の判定変数
-            float colHalfWidth = col.size.x / 2f;                                 // X軸のRayの位置
+            float colHalfWidth = col.size.x / RayInterval();                      // X軸のRayの位置
             Vector3 checkPos = transform.position + (Vector3)col.offset;          // colの座標
             Vector3 lineLength = transform.up * raylength;                        // レイの長さ(要調節)
 
@@ -64,6 +64,18 @@ namespace MyUtility
             return false;
         }
 
+        // Ray同士の間隔変更メソッド
+        private float RayInterval() 
+        {
+            float scaleY = transform.localScale.y;
+            float rayInterval_defaltSize = 2f;
+            float rayInterval_BigSize    = 1.8f;
+            float rayInterval_SmallSize  = 4f;
+
+            if (scaleY > 1) return rayInterval_BigSize;
+            if (scaleY < 1) return rayInterval_SmallSize;
+            return rayInterval_defaltSize;
+        }
     }
 
 
