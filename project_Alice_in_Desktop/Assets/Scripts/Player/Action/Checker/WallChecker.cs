@@ -25,8 +25,8 @@ namespace MyUtility
         public bool CheckIsWall(CapsuleCollider2D col)
         {
             bool hit;                                               // 当たった時の判定変数
-            float rayInitialPos  = col.size.y;                      // RayのY座標初期位置
-            float colHalfHeight2 = col.size.y / 3.2f;               // RayのY座標間隔
+            float rayInitialPos  = col.size.y + RayPostionAdj();    // RayのY座標初期位置
+            float colHalfHeight  = col.size.y / RayInterval();      // RayのY座標間隔
             Vector3 lineLength = transform.right * raylength;       // レイを飛ばす方向と長さ
             Vector3 checkPos = transform.position;                  // プレイヤーの座標
 
@@ -45,11 +45,36 @@ namespace MyUtility
             {
                 Debug.DrawLine(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, Color.red);// デバッグでレイを表示
                 hit &= Physics2D.Linecast(checkPos + transform.right * 0.1f, checkPos - lineLength * -transform.localScale.x, groundLayer);
-                checkPos.y -= colHalfHeight2;// 座標を--していく
+                checkPos.y -= colHalfHeight;// 座標を--していく
             }
 
             return hit;
         }
 
+        // Ray同士の間隔変更メソッド(Playerのサイズによって変更)
+        private float RayInterval()
+        {
+            float scaleY = transform.localScale.y;
+            float rayInterval_defaltSize = 3.2f;
+            float rayInterval_BigSize = 1.8f;
+            float rayInterval_SmallSize = 6.4f;
+
+            if (scaleY > 1) return rayInterval_BigSize;
+            if (scaleY < 1) return rayInterval_SmallSize;
+            return rayInterval_defaltSize;
+        }
+
+        // Rayの位置調整メソッド(Playerのサイズによって変更)
+        private float RayPostionAdj() 
+        {
+            float scaleY = transform.localScale.y;
+            float rayPostionAdj_defaltSize =  0f;
+            float rayPostionAdj_BigSize    =  2f;
+            float rayPostionAdj_SmallSize  = -2f;
+
+            if (scaleY > 1) return rayPostionAdj_BigSize;
+            if (scaleY < 1) return rayPostionAdj_SmallSize;
+            return rayPostionAdj_defaltSize;
+        }
     }
 }
