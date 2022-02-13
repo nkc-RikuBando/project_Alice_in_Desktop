@@ -41,6 +41,9 @@ namespace PlayerState
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
+
+            // ウィンドウの外にいる場合は地面判定をしない
+            if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
@@ -61,10 +64,6 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_wallChecker.CheckIsWall(_capCol)) 
-            {
-                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            }
 
             // 下降状態
             if (_inputReceivable.MoveH() == 0)
@@ -77,6 +76,14 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.LANDING);
             }
+            
+            if (_groundChecker.CheckIsGround(_boxCol)) return;
+
+            if (_wallChecker.CheckIsWall(_capCol)) 
+            {
+                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
+            }
+
         }
 
         // Player移動メソッド

@@ -20,6 +20,7 @@ namespace PlayerState
 
         private void Update()
         {
+            if (_playerStatus._IsWindowTouching) return;
             if (!_playerStatus._InputFlgX) return;
 
             PlayerDirection();

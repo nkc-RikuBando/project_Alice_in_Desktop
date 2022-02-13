@@ -35,7 +35,7 @@ namespace Player
         }
 
         // Playerサイズ変更メソッド
-        void IPlayerStatusSentable.PlayerSizeChange(float mag)
+        public void PlayerSizeChange(float mag)
         {
             Vector3 _playerScale = transform.localScale;
 
@@ -74,5 +74,4 @@ namespace Player
             //transform.localScale = new Vector3(mag, mag, 1f);
         }
     }
-
 }

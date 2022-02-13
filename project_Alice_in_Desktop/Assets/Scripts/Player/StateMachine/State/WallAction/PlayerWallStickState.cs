@@ -13,6 +13,8 @@ namespace PlayerState
         // Playerが実装するの！？
         // PlayerのWallStick状態処理
 
+        [SerializeField] private AudioClip _stickSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.WALLSTICK;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
@@ -25,9 +27,10 @@ namespace PlayerState
 
         private Rigidbody2D _rb;
         private BoxCollider2D _boxCol;
-        private BoxCollider2D _childBoxCol;
+        private BoxCollider2D _childWallCheckCol;
+        private BoxCollider2D _childGroundCheckCol;
         private CapsuleCollider2D _capCol;
-
+        private AudioSource _audioSource;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
@@ -39,24 +42,29 @@ namespace PlayerState
             _rb              ??= GetComponent<Rigidbody2D>();
             _boxCol          ??= GetComponent<BoxCollider2D>();
             _capCol          ??= GetComponent<CapsuleCollider2D>();
+            _audioSource     ??= GetComponent<AudioSource>();
+
 
             // 移動床の子オブジェクトになる判定コライダー
-            _childBoxCol = transform.GetChild(1).GetComponent<BoxCollider2D>();
+            _childWallCheckCol   = transform.GetChild(1).GetComponent<BoxCollider2D>();
+            _childGroundCheckCol = transform.GetChild(2).GetComponent<BoxCollider2D>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
+            _audioSource.PlayOneShot(_stickSE);
+
             _playerStatus._GroundJudge = false;
-            _childBoxCol.enabled 　　　= false;
+            _childGroundCheckCol.enabled = false;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
             //Debug.Log(StateType);
+            StateManager();
         }
 
         void IPlayerState.OnFixedUpdate(PlayerCore player)
         {
             WallStick();
-            StateManager();
         }
 
         void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
@@ -66,37 +74,85 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.JumpKey()) 
-            {
-                _rb.gravityScale = _playerStatus._Gravity;
-                _childBoxCol.enabled = false;
+            if (_playerStatus._IsWindowTouching) return;
 
-                ChangeStateEvent(PlayerStateEnum.WALLJUMP);
+            if (transform.localScale.x > 0)
+            {
+                if (!_inputReceivable.WallStickKey_D())
+                {
+                    _rb.gravityScale = _playerStatus._Gravity;
+                    _childWallCheckCol.enabled 　= false;
+                    _childGroundCheckCol.enabled = true;
+
+                    ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
+                }
+            }
+            else if (transform.localScale.x < 0)
+            {
+                if (!_inputReceivable.WallStickKey_A())
+                {
+                    _rb.gravityScale = _playerStatus._Gravity;
+                    _childWallCheckCol.enabled = false;
+                    _childGroundCheckCol.enabled = true;
+
+                    ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
+                }
             }
 
-            if (_inputReceivable.MoveH() == 0)
+            
+            if (transform.localScale.x > 0)
             {
-                _rb.gravityScale = _playerStatus._Gravity;
-                _childBoxCol.enabled = false;
+                if (_inputReceivable.WallJumpKey_A() || _inputReceivable.JumpKey())
+                {
+                    _rb.gravityScale = _playerStatus._Gravity;
+                    _childWallCheckCol.enabled = false;
+                    _childGroundCheckCol.enabled = true;
 
-                ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
+                    ChangeStateEvent(PlayerStateEnum.WALLJUMP);
+                }
+            }
+            else if (transform.localScale.x < 0)
+            {
+                if (_inputReceivable.WallJumpKey_D() || _inputReceivable.JumpKey())
+                {
+                    _rb.gravityScale = _playerStatus._Gravity;
+                    _childWallCheckCol.enabled = false;
+                    _childGroundCheckCol.enabled = true;
+
+                    ChangeStateEvent(PlayerStateEnum.WALLJUMP);
+                }
             }
         }
 
         // 壁張り付き挙動メソッド
-        private void WallStick() 
+        private void WallStick()
         {
+            if (!_wallChecker.CheckIsWall(_capCol)) return;
+
             // この入力処理だと反対向いても貼り付けそう
             // でも左右入力で壁判定のRayの方向が変わるからそんなことない？？
-            if (_inputReceivable.MoveH() != 0 && _wallChecker.CheckIsWall(_capCol)) 
+            if (transform.localScale.x > 0)
             {
-                // Playerを静止状態にする
-                _rb.velocity = Vector2.zero;
-                _rb.gravityScale = 0;
+                if (_inputReceivable.WallStickKey_D())
+                {
+                    // Playerを静止状態にする
+                    _rb.velocity = Vector2.zero;
+                    _rb.gravityScale = 0;
 
-                _childBoxCol.enabled = true;
+                    _childWallCheckCol.enabled = true;
+                }
+            }
+            else if (transform.localScale.x < 0)
+            {
+                if (_inputReceivable.WallStickKey_A())
+                {
+                    // Playerを静止状態にする
+                    _rb.velocity = Vector2.zero;
+                    _rb.gravityScale = 0;
+
+                    _childWallCheckCol.enabled = true;
+                }
             }
         }
     }
-
 }

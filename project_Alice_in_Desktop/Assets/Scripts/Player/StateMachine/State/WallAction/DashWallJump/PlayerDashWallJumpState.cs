@@ -13,6 +13,8 @@ namespace PlayerState
         // Playerが実装するの！？
         // PlayerのWallDashJump状態処理
 
+        [SerializeField] private AudioClip _jumpSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.DASHWALLJUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
@@ -26,6 +28,7 @@ namespace PlayerState
         private Rigidbody2D _rb;
         private BoxCollider2D _boxCol;
         private CapsuleCollider2D _capCol;
+        private AudioSource _audioSource;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -38,9 +41,9 @@ namespace PlayerState
             _rb ??= GetComponent<Rigidbody2D>();
             _boxCol ??= GetComponent<BoxCollider2D>();
             _capCol ??= GetComponent<CapsuleCollider2D>();
+            _audioSource ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
-            _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
             _playerStatus._InputFlgX = false;
         }
@@ -62,12 +65,6 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            // 不必要？
-            //if (_wallChecker.CheckIsWall(_capCol))
-            //{
-            //    ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            //}
-
             if (_inputReceivable.MoveH() == 0) 
             {
                 ChangeStateEvent(PlayerStateEnum.WALLJUMP);

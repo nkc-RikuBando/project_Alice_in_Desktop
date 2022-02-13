@@ -59,11 +59,6 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_wallChecker.CheckIsWall(_capCol))
-            {
-                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            }
-
             // 移動状態
             if (_inputReceivable.MoveH() == 0)
             {
@@ -80,6 +75,15 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.LANDING);
             }
 
+            if (_groundChecker.CheckIsGround(_boxCol)) return;
+
+            //if (_wallChecker.CheckIsWall(_capCol))
+            //{
+            //    ChangeStateEvent(PlayerStateEnum.WALLSTICK);
+            //}
+
+            StartCoroutine("StickState");
+
         }
 
         // Player移動メソッド
@@ -92,6 +96,15 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
         }
 
+        IEnumerator StickState() 
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if (_wallChecker.CheckIsWall(_capCol))
+            {
+                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
+            }
+        }
 
     }
 
