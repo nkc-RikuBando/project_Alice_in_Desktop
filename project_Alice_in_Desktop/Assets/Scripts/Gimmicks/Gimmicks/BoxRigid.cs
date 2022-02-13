@@ -5,7 +5,7 @@ using Window;
 
 namespace Gimmicks
 {
-    public class BoxRigid : MonoBehaviour, IWindowTouch, IWindowLeave
+    public class BoxRigid : MonoBehaviour, IWindowTouch/*, IWindowLeave*/
     {
         private Rigidbody2D rigid;
         private BoxCollider2D boxCol;
