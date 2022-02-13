@@ -25,7 +25,7 @@ namespace GameSystem
 
         void Update()
         {
-            test = boxScr.PlHitFlg /*&& _ITestKey.EventNagaoshiKey()*/ ? true : false;
+            //test = boxScr.PlHitFlg /*&& _ITestKey.EventNagaoshiKey()*/ ? true : false;
             if (test == true && !test2)
             {
                 obj = Instantiate(waitTimeUI, canvas.transform);
