@@ -30,7 +30,7 @@ namespace Gimmicks
                 if (sizeChangeCount % 2 == 0)
                 {
                     // Playerのサイズを変更
-                    iStatusSentable.PlayerSizeChange(0.5f);
+                    // Animationを再生する
                     sizeChangeCount = 0;
                 }
             }

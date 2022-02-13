@@ -22,9 +22,9 @@ namespace PlayerState
         private PlayerStatus     _playerStatus;
         private PlayerAnimation  _playerAnimation;
 
-        private BoxCollider2D _boxCol;
+        private BoxCollider2D     _boxCol;
         private CapsuleCollider2D _capCol;
-        private Rigidbody2D   _rb;
+        private Rigidbody2D       _rb;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -73,7 +73,7 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
 
-            if (_pushObjChecker.PushObjWidthChecker(_capCol)) 
+            if (_pushObjChecker.PushObjWidthChecker(_capCol))
             {
                 ChangeStateEvent(PlayerStateEnum.PUSH);
             }
