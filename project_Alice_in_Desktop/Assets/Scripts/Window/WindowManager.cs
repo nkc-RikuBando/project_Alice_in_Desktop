@@ -214,15 +214,6 @@ namespace Window
         {
             // ウィンドウのハンドル部分(上部)を持ったとき移動させる
 
-            //if (holdingObj == centerColObj)
-            //{
-            //    moveObj = centerColObj;
-            //    moveObjType = (int)ObjType.WINDOW;
-            //    moveAxis = moveAxis = new Vector3(0, 0, 0);
-
-            //    moveObjNum = (int)PositionList.CENTER;
-
-            //}
             if(holdingObj == handleBarColObj)
             {
                 //moveObj = handleBarColObj;

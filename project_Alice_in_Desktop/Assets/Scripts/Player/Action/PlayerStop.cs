@@ -25,10 +25,6 @@ namespace Player
 
         // Œ»İ‚Ìvelocity‚ğ•Û‘¶‚·‚é•Ï”
         private Vector2 _currentVec;
-        private bool _isWindowTouching;
-
-        // ‰º~ó‘Ô”»’è•Ï”
-        private const float _DOWNSTATENUM = 0.1f;
 
 
         void Start()
@@ -56,9 +52,6 @@ namespace Player
             _playerStatus._InputFlgX = false;
             _playerStatus._InputFlgY = false;
             _playerStatus._InputFlgAction = false;
-
-            // ’n–Ê”»’è’â~
-            //_playerStatus._GroundJudge = false;
 
             // “®‚«‚ğ’â~
             _currentVec = _rb.velocity;
@@ -93,7 +86,7 @@ namespace Player
             _rb.velocity = _currentVec;
 
             // “ü—Í‰Â”\
-            _playerStatus._InputFlgX = true; /*_rb.velocity.y <= 0.1f ? true : false;*/
+            _playerStatus._InputFlgX = true;
             _playerStatus._InputFlgY = true;
             _playerStatus._InputFlgAction = true;
 
