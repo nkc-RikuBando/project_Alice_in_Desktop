@@ -120,10 +120,10 @@ namespace Gimmicks
         /// プレイヤーが触れている、かつ、キーを長押し
         /// </summary>
         /// <returns></returns>
-        bool IsStay()
-        {
-            return stayFlg == true/* && _IActionKey.ActionKey()*/;
-        }
+        //bool IsStay()
+        //{
+        //    return stayFlg == true/* && _IActionKey.ActionKey()*/;
+        //}
 
         /// <summary>
         /// プレイヤーが触れている、かつ、キーを離す
