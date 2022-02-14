@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameSystem;
 using Connector.Player;
+using Player;
 
 namespace Gimmicks
 {
@@ -10,6 +11,7 @@ namespace Gimmicks
     {
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
+
         private int sizeChangeCount;
 
         void Start()
@@ -31,6 +33,7 @@ namespace Gimmicks
                 {
                     // Playerのサイズを変更
                     // Animationを再生する
+                    iStatusSentable.PlayerSizeChange(0.5f);
                     sizeChangeCount = 0;
                 }
             }
