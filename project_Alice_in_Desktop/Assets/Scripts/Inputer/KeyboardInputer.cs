@@ -39,5 +39,25 @@ namespace Inputer
         {
             return Input.GetKeyUp(KeyCode.E);
         }
+
+        bool IInputReceivable.WallJumpKey_A()
+        {
+            return Input.GetKeyDown(KeyCode.A);
+        }
+
+        bool IInputReceivable.WallJumpKey_D()
+        {
+            return Input.GetKeyDown(KeyCode.D);
+        }
+
+        bool IInputReceivable.WallStickKey_A()
+        {
+            return Input.GetKey(KeyCode.A);
+        }
+
+        bool IInputReceivable.WallStickKey_D()
+        {
+            return Input.GetKey(KeyCode.D);
+        }
     }
 }

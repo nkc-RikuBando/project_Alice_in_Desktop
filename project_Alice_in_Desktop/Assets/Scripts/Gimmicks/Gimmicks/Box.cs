@@ -32,11 +32,11 @@ namespace Gimmicks
         }
         AnimeType animeType;
 
-        public bool PlHitFlg
-        {
-            get { return stayFlg; }
-            set { stayFlg = value; }
-        }
+        //public bool PlHitFlg
+        //{
+        //    get { return stayFlg; }
+        //    set { stayFlg = value; }
+        //}
 
         void Start()
         {
@@ -63,7 +63,6 @@ namespace Gimmicks
             
             if (isBreak == false)
             {
-                UpRay();
                 //UpRayCast();
                 HorizontalRay();
             }
@@ -87,7 +86,6 @@ namespace Gimmicks
         {
             stayFlg = true; // 滞在中
             _IHitPlayer.IsHitPlayer();
-            Debug.Log("A");
         }
 
         void PlayerExit()
@@ -101,7 +99,7 @@ namespace Gimmicks
         /// </summary>
         void BoxBreak()
         {
-            if (IsStay())
+            //if (IsStay())
             {
                 //playerStatusManager.PlayerIsInput(false);
                 // ゲージが溜まったら
@@ -115,7 +113,7 @@ namespace Gimmicks
                     this.StartCoroutine(KeyAppTime());
                 }
             }
-            else if (UpInput()) playerStatusManager.PlayerIsInput(true);
+            /*else */if (UpInput()) playerStatusManager.PlayerIsInput(true);
         }
 
         /// <summary>
@@ -146,107 +144,35 @@ namespace Gimmicks
             keyAnimator.SetTrigger("Spawn");
         }
 
-        //void UpRayCast()
-        //{
-        //    Vector3 chkPos = transform.position;
-        //    float boxHarfWitdh = boxCol.size.x / 2;
-        //    bool result = false;
-        //    Vector3 lineLength = -transform.up * 3f;
-
-        //    // ３点チェック（とりあえず）
-        //    chkPos.x = transform.position.x - boxHarfWitdh;
-        //    //chkPos.x += 0.8f;
-        //    chkPos.y += 0.2f;
-        //    for (int loopNo = 0; loopNo < 3; loopNo++)
-        //    {
-        //        // 自身の位置から↓に向かって線を引いて、接触したかをチェックする
-        //        //result |= Physics2D.Linecast(chkPos + transform.up, chkPos - lineLength, 0);
-        //        result |= Physics2D.Raycast(chkPos + transform.up, chkPos - lineLength, 0, layer);
-        //        //レイを表示してみる
-        //        Debug.DrawLine(chkPos + transform.up, chkPos - lineLength, Color.red);
-        //        // オフセット加算
-        //        chkPos.x += boxHarfWitdh;
-        //    }
-        //}
-
-        void UpRay()
-        {
-            // Rayの位置の調整値
-            Vector3 offset = new Vector3(0, 1.5f, 0);
-
-            //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
-            Ray2D ray = new Ray2D(transform.position + offset, Vector3.up);
-
-            //Rayが当たったオブジェクトの情報を入れる箱
-            //RaycastHit2D hit;
-
-            //Rayの飛ばせる距離
-            int distance = 1;
-
-            //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
-            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-
-            //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
-            bool hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
-
-            //もしRayにオブジェクトが衝突したら
-            if (hit) PlayerEnter();
-            else PlayerExit();
-        }
-
         void HorizontalRay()
         {
             // Rayの位置の調整値
             Vector3 offset = new Vector3(-2f, 1, 0);
+            Vector3 offset2 = new Vector3(0, 1.5f, 0); // 上
 
             //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
             Ray2D ray = new Ray2D(transform.position + offset, Vector3.right);
+            Ray2D ray2 = new Ray2D(transform.position + offset2, Vector3.up); // 上
 
             //Rayが当たったオブジェクトの情報を入れる箱
             //RaycastHit2D hit;
 
             //Rayの飛ばせる距離
             int distance = 4;
+            int distance2 = 2; // 上
 
             //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
             Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+            Debug.DrawRay(ray2.origin, ray2.direction * distance2, Color.red); // 上
 
             //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
             bool hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
+            bool hit2 = Physics2D.Raycast(ray2.origin, ray.direction, distance2, layer);
 
             //もしRayにオブジェクトが衝突したら
-            if (hit) PlayerEnter();
+            bool isPlayerHit = hit || hit2;
+            if (isPlayerHit) PlayerEnter();
             else PlayerExit();
-        }
-
-        void TestRayCast()
-        {
-#if BlackHole
-            Vector3 offset = new Vector3(1.1f, 1f, 0);
-            Vector3 offset1 = new Vector3(-1.1f, 1, 0);
-
-            Ray2D rightRay = new Ray2D(transform.position + offset, Vector3.right);
-            Ray2D leftRay = new Ray2D(transform.position + offset1, Vector3.left);
-
-            int distance = 1;
-            Debug.DrawRay(rightRay.origin, rightRay.direction * distance, Color.red);
-            Debug.DrawRay(leftRay.origin, leftRay.direction * distance, Color.red);
-
-            bool hit = Physics2D.Raycast(rightRay.origin, rightRay.direction, distance, layer);
-            bool hit1 = Physics2D.Raycast(leftRay.origin, leftRay.direction, distance, layer);
-
-            if (hit || hit1) PlayerEnter();
-            else PlayerExit();
-
-            //if (hit.transform != null)
-            //{
-            //    //Rayが当たったオブジェクトがPlayerだったら
-            //    if (hit.collider.gameObject == player)
-            //        PlayerEnter();
-            //    else
-            //        PlayerExit();
-            //}
-#endif
         }
 
         /// <summary>

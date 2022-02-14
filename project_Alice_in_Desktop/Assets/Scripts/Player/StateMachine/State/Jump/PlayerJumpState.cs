@@ -13,6 +13,8 @@ namespace PlayerState
         // PlayerÇ™é¿ëïÇ∑ÇÈÇÃÅIÅH
         // PlayerÇÃJumpèÛë‘èàóù
 
+        [SerializeField] private AudioClip _jumpSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.JUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
@@ -21,6 +23,7 @@ namespace PlayerState
         private PlayerAnimation  _playerAnimation;
 
         private Rigidbody2D _rb;
+        private AudioSource _audioSource;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -29,6 +32,7 @@ namespace PlayerState
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
             _rb              ??= GetComponent<Rigidbody2D>();
+            _audioSource     ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
@@ -75,6 +79,7 @@ namespace PlayerState
             // ï®óùãììÆ
             _rb.velocity = Vector2.zero;
             _rb.AddForce(Vector2.up * _playerStatus._JumpPower);
+            _audioSource.PlayOneShot(_jumpSE);
         }
 
     }

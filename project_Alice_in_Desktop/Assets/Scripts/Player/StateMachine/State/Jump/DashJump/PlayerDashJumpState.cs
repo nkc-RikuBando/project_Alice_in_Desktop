@@ -13,17 +13,21 @@ namespace PlayerState
         // Playerが実装するの！？
         // PlayerのDashJump状態処理
 
+        [SerializeField] private AudioClip _jumpSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.DASHJUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
         private PlayerAnimation _playerAnimation;
+        private GroundChecker _groundChecker;
         private WallChecker _wallChecker;
 
         private Rigidbody2D _rb;
         private CapsuleCollider2D _capCol;
-
+        private BoxCollider2D _boxCol;
+        private AudioSource _audioSource;
 
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -31,10 +35,12 @@ namespace PlayerState
             _playerStatus ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
+            _groundChecker ??= GetComponent<GroundChecker>();
             _wallChecker ??= GetComponent<WallChecker>();
             _rb ??= GetComponent<Rigidbody2D>();
+            _boxCol ??= GetComponent<BoxCollider2D>();
             _capCol ??= GetComponent<CapsuleCollider2D>();
-
+            _audioSource ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
@@ -60,11 +66,6 @@ namespace PlayerState
         // Playerステート変更メソッド
         private void StateManager()
         {
-            if (_wallChecker.CheckIsWall(_capCol))
-            {
-                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            }
-
             if (_rb.velocity.y > 0.1f)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHJUMPUP);
@@ -73,9 +74,6 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
-
-            // 入力がない場合はJUMPに遷移しないのか？
-
         }
 
         // ジャンプアクションメソッド
@@ -84,6 +82,7 @@ namespace PlayerState
             // 物理挙動
             _rb.velocity = Vector2.zero;
             _rb.AddForce(Vector2.up * _playerStatus._JumpPower);
+            _audioSource.PlayOneShot(_jumpSE);
         }
 
 

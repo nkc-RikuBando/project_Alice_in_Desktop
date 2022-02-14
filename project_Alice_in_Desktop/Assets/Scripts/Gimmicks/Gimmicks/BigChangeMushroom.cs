@@ -29,7 +29,7 @@ namespace Gimmicks
 
                 if (sizeChangeCount % 2 == 0)
                 {
-                    iStatusSentable.PlayerSizeChange(1.5f);
+                    // Animation‚ğÄ¶‚·‚é
                     sizeChangeCount = 0;
                 }
 

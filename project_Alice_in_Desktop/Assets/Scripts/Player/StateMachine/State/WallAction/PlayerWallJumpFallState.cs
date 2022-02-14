@@ -42,8 +42,11 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
 
-            _playerStatus._InputFlgX = true;
-            _playerStatus._GroundJudge = true;
+            // ウィンドウを操作している場合は入力を受けつけない
+            if (!_playerStatus._IsWindowTouching) _playerStatus._InputFlgX = true;
+
+            // ウィンドウの外にいる場合は地面判定をしない
+            if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)

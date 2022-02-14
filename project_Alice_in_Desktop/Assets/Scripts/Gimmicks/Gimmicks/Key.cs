@@ -37,7 +37,7 @@ namespace Gimmicks
         {
             if (collision.gameObject == player)
             {
-                AudioManager.Instance.SeAction("‚©‚¬");
+                //AudioManager.Instance.SeAction("‚©‚¬");
                 animator.SetTrigger("Get");
                 iGetKey.GetKey(gameObject);
                 //keyCountUI.Remove(keyUIObj);

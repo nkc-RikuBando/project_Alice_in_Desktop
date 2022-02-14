@@ -106,7 +106,7 @@ namespace Gimmicks
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
-            AudioManager.Instance.SeAction("‚Ë‚±");
+            //AudioManager.Instance.SeAction("‚Ë‚±");
             this.StartCoroutine(PlayerWarpStart());
         }
 
