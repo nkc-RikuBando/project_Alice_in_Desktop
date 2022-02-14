@@ -46,7 +46,6 @@ namespace GameSystem
         public void IsHitPlayer()
         {
             _parent.SetActive(true);
-            Debug.Log("B");
         }
 
         public void NonHitPlayer()
