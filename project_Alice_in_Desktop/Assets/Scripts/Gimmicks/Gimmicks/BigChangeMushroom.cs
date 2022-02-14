@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameSystem;
 using Connector.Player;
+using Player;
 
 namespace Gimmicks
 {
@@ -30,6 +31,7 @@ namespace Gimmicks
                 if (sizeChangeCount % 2 == 0)
                 {
                     // AnimationÇçƒê∂Ç∑ÇÈ
+                    iStatusSentable.PlayerSizeChange(1.5f);
                     sizeChangeCount = 0;
                 }
 

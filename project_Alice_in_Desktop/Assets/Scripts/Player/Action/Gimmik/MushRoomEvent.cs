@@ -8,26 +8,21 @@ namespace Player
     {
         // キノコに触れるとPlayerの大きさが変わる処理
 
+        PlayerStatus        _playerStatus;
         PlayerStatusManager _statusManager;
         
         void Start()
         {
+            _playerStatus = GetComponent<PlayerStatus>(); 
             _statusManager = GetComponent<PlayerStatusManager>();
         }
 
 
         // ↓Animationのイベントで呼ぶ関数
 
-        // 小さくなるメソッド
-        public void PlayerSizeChange_Small() 
+        public void PlayerSizeChange() 
         {
-            _statusManager.PlayerSizeChange(0.5f);
-        }
-
-        // 大きくなるメソッド
-        public void PlayerSizeChange_Big() 
-        {
-            _statusManager.PlayerSizeChange(1.5f);
+            _playerStatus._SizeMag = _statusManager.GetSize();
         }
 
         // 入力可能メソッド
