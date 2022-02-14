@@ -13,6 +13,8 @@ namespace PlayerState
         // Player‚ªŽÀ‘•‚·‚é‚ÌIH
         // Player‚ÌLandingó‘Ôˆ—
 
+        [SerializeField] private AudioClip _landingSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.LANDING;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
@@ -20,6 +22,7 @@ namespace PlayerState
         private PlayerStatus _playerStatus;
         private IInputReceivable _inputReceivable;
         private Rigidbody2D _rb;
+        private AudioSource _audioSource;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
@@ -27,9 +30,12 @@ namespace PlayerState
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _rb              ??= GetComponent<Rigidbody2D>();
+            _audioSource     ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
+
+            _audioSource.PlayOneShot(_landingSE);
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)

@@ -13,6 +13,8 @@ namespace PlayerState
         // Playerが実装するの！？
         // PlayerのWallJump状態処理
 
+        [SerializeField] private AudioClip _jumpSE;
+
         public PlayerStateEnum StateType => PlayerStateEnum.WALLJUMP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
@@ -26,6 +28,7 @@ namespace PlayerState
         private Rigidbody2D _rb;
         private BoxCollider2D _boxCol;
         private CapsuleCollider2D _capCol;
+        private AudioSource _audioSource;
 
 
         // 壁ジャンプ用の垂直な角度
@@ -39,9 +42,10 @@ namespace PlayerState
             _playerAnimation ??= GetComponent<PlayerAnimation>();
             _groundChecker ??= GetComponent<GroundChecker>();
             _wallChecker ??= GetComponent<WallChecker>();
-            _rb ??= GetComponent<Rigidbody2D>();
+            _rb         ??= GetComponent<Rigidbody2D>();
             _boxCol ??= GetComponent<BoxCollider2D>();
             _capCol ??= GetComponent<CapsuleCollider2D>();
+            _audioSource ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
@@ -89,6 +93,7 @@ namespace PlayerState
             _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            _audioSource.PlayOneShot(_jumpSE);
         }
 
         // 壁ジャンプする角度からベクトルに変換するメソッド
