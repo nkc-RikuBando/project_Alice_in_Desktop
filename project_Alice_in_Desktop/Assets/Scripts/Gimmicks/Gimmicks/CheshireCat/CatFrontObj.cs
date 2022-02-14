@@ -25,10 +25,5 @@ namespace Gimmicks
         {
             enterObjNum = default;
         }
-
-        void Update()
-        {
-            Debug.Log(enterObjNum);
-        }
     }
 }

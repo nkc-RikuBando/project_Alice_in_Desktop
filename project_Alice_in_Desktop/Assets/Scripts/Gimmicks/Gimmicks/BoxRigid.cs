@@ -5,27 +5,23 @@ using Window;
 
 namespace Gimmicks
 {
-    public class BoxRigid : MonoBehaviour, IWindowTouch/*, IWindowLeave*/
+    public class BoxRigid : MonoBehaviour, IWindowTouch, IWindowLeave
     {
         private Rigidbody2D rigid;
-        private BoxCollider2D boxCol;
 
         void Start()
         {
             rigid = GetComponent<Rigidbody2D>();
-            boxCol = GetComponent<BoxCollider2D>();
         }
 
         public void WindowTouchAction()
         {
-            rigid.gravityScale = 0;
-            boxCol.enabled = false;
+            rigid.bodyType = RigidbodyType2D.Kinematic;
         }
 
         public void WindowLeaveAction()
         {
-            rigid.gravityScale = 20;
-            boxCol.enabled = true;
+            rigid.bodyType = RigidbodyType2D.Dynamic;
         }
     }
 }
