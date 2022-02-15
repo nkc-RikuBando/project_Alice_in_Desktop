@@ -18,10 +18,12 @@ namespace PlayerState
 
         private IInputReceivable _inputReceivable;
         private GroundChecker _groundChecker;
+        private PushObjChecker _pushObjChecker;
         private PlayerAnimation _playerAnimation;
         private PlayerStatus _playerStatus;
 
         private BoxCollider2D _boxCol;
+        private CapsuleCollider2D _capCol;
         private Rigidbody2D _rb;
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
@@ -29,8 +31,10 @@ namespace PlayerState
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _groundChecker   ??= GetComponent<GroundChecker>();
+            _pushObjChecker  ??= GetComponent<PushObjChecker>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
             _boxCol          ??= GetComponent<BoxCollider2D>();
+            _capCol          ??= GetComponent<CapsuleCollider2D>();
             _rb              ??= GetComponent<Rigidbody2D>();
         }
 
@@ -71,6 +75,9 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.FALL);
             }
+
+            // ñÿî†ÇÃè„Ç…Ç¢ÇÈéûÇÕVelocityÇ0Ç…Ç∑ÇÈ
+            if (_pushObjChecker.PushObjOnChecker(_capCol)) _rb.velocity = Vector2.zero;
         }
 
         // Animationèâä˙âªÉÅÉ\ÉbÉh

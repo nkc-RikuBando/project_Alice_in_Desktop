@@ -56,7 +56,7 @@ namespace MyUtility
         }
 
 
-        // 着地判定メソッド(レイの処理)この処理いらんかも
+        // 着地判定メソッド(レイの処理)
         public bool PushObjOnChecker(CapsuleCollider2D col)
         {
             bool hit;                                               // 当たった時の判定変数
