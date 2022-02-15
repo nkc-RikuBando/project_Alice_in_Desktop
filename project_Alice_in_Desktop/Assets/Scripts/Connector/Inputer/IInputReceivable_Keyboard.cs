@@ -12,8 +12,8 @@ namespace Connector
             bool WallJumpKey_A();
             bool WallJumpKey_D();
 
-            bool WallStickKey_A();
-            bool WallStickKey_D();
+            bool MoveKey_A();
+            bool MoveKey_D();
 
             bool ActionKey_Down();
             bool ActionKey();

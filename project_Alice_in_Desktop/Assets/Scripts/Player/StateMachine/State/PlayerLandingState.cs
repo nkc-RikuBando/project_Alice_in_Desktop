@@ -40,7 +40,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             Dash();
             StateManager();
         }
@@ -62,10 +62,16 @@ namespace PlayerState
         // PlayerˆÚ“®ƒƒ\ƒbƒh
         private void Dash()
         {
+            int dir = 0;
+
             if (!_playerStatus._InputFlgX) return;
 
+            if (_inputReceivable.MoveKey_D())      dir =  1;
+            else if (_inputReceivable.MoveKey_A()) dir = -1;
+            else                                   dir =  0;
+
             // ˆÚ“®‚Ì•¨—ˆ—
-            _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
+            _rb.velocity = new Vector2(dir * _playerStatus._Speed, _rb.velocity.y);
         }
 
     }

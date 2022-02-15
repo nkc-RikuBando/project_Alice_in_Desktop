@@ -9,8 +9,12 @@ namespace Gimmicks
 {
     public class SmallChangeMushroom : MonoBehaviour
     {
+        [SerializeField] private AudioClip se;
+
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
+        private AudioSource audioSource;
+
         private MushRoomEvent roomEvent;
 
         private int sizeChangeCount;
@@ -19,6 +23,7 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
+            audioSource = GetComponent<AudioSource>();
 
             // 後で消す
             roomEvent = player.GetComponent<MushRoomEvent>();
@@ -39,6 +44,8 @@ namespace Gimmicks
                     // Playerのサイズを変更
                     // Animationを再生する
                     iStatusSentable.PlayerSizeChange(0.5f);
+                    audioSource.PlayOneShot(se);
+
                     roomEvent.PlayerSizeChange();
 
                     sizeChangeCount = 0;

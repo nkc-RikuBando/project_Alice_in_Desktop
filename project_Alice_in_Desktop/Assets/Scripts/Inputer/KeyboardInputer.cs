@@ -50,12 +50,12 @@ namespace Inputer
             return Input.GetKeyDown(KeyCode.D);
         }
 
-        bool IInputReceivable.WallStickKey_A()
+        bool IInputReceivable.MoveKey_A()
         {
             return Input.GetKey(KeyCode.A);
         }
 
-        bool IInputReceivable.WallStickKey_D()
+        bool IInputReceivable.MoveKey_D()
         {
             return Input.GetKey(KeyCode.D);
         }
