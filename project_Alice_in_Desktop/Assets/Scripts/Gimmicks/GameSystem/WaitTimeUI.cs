@@ -41,7 +41,6 @@ namespace GameSystem
                 gaugeMaxFlg = true;
                 //Destroy(_parent);        // 一つ上の親オブジェクトの削除
             }
-            Debug.Log(waitTime.fillAmount);
         }
 
         public void IsHitPlayer()
