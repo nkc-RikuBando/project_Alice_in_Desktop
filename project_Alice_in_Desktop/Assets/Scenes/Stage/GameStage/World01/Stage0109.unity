@@ -207,10 +207,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1 &231832862 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4089595494210288205, guid: a46db09a89dfebb478791c0a7d9f6b27, type: 3}
@@ -324,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7064535239584351067, guid: 69da5f12363484740a5648452f227398, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 7064535239584351067, guid: 69da5f12363484740a5648452f227398, type: 3}
       propertyPath: m_AnchorMax.x
@@ -534,10 +538,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1001 &369348984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -774,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: 1298244492}
     - target: {fileID: 8485265449932193467, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8485265449932193467, guid: 89ce436c6066dc2428167a7d849c3349, type: 3}
       propertyPath: m_LocalPosition.x
@@ -866,10 +874,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &489887651
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2122,7 +2134,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &741685872 stripped
 GameObject:
@@ -2177,10 +2189,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 1
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &786756830
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2384,6 +2400,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &806650969
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2662838845011130145, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_Name
+      value: GimmickAudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4750597
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.3036088
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.7403634
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
 --- !u!1 &960372498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,10 +2505,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 1
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &960372501
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2790,10 +2867,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 1
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1045998810
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3434,7 +3515,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4744953793882892476, guid: 09584dc030f08d7448ccd303de5b136d, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4744953793882892476, guid: 09584dc030f08d7448ccd303de5b136d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3625,10 +3706,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!212 &1170793186
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3692,7 +3777,7 @@ Transform:
   m_LocalScale: {x: 2.65, y: 4.851777, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1192120179
 GameObject:
@@ -3742,10 +3827,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 1
   followRightWall: 1
   followDownWall: 1
   followLeftWall: 1
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1192120182
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -12543,10 +12632,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 1
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1421455230
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -13053,7 +13146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1449718434 stripped
 GameObject:
@@ -13123,10 +13216,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1570608638
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -15933,10 +16030,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 1
   followRightWall: 1
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1590170009
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -16179,7 +16280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 474238, guid: fd9d58dbfb8f846f58b62a48334a0058, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 474238, guid: fd9d58dbfb8f846f58b62a48334a0058, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16401,10 +16502,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1 &1827686706 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7425926897661951706, guid: a46db09a89dfebb478791c0a7d9f6b27, type: 3}
@@ -16458,10 +16563,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 1
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 1
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1847667965
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -16708,10 +16817,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 1
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 1
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1001 &1870097500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16786,10 +16899,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1001 &1954684294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17047,10 +17164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 1
   followLeftWall: 1
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!19719996 &1973608128
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -17263,7 +17384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5335686422570536221, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5335686422570536221, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
       propertyPath: m_LocalPosition.x
