@@ -5,6 +5,8 @@ namespace Connector
         interface IPlayerStatusSentable 
         {
             void PlayerIsInput(bool flg);
+
+            void PlayerSizeChange(float mag);
         }
     }
 }

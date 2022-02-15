@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3474569663873433648}
   - component: {fileID: 3474569663873433649}
   - component: {fileID: 6118735763578890521}
-  - component: {fileID: 3196109765662713238}
   - component: {fileID: 6907576337225164436}
+  - component: {fileID: 3196109765662713238}
+  - component: {fileID: -4273273455830996966}
   m_Layer: 0
   m_Name: Card_Complete
   m_TagString: Untagged
@@ -71,22 +72,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 3}
   m_Size: {x: 10, y: 6}
   m_Direction: 1
---- !u!114 &3196109765662713238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3474569663873433662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d1f810e3196ce345bc2e8f674d6966c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capsuleCol: {fileID: 6907576337225164436}
-  inputSwitch:
-  - {fileID: 0}
-  blackOn: 0
 --- !u!70 &6907576337225164436
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -103,6 +88,38 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 3}
   m_Size: {x: 2.5, y: 6}
   m_Direction: 0
+--- !u!114 &3196109765662713238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3474569663873433662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1f810e3196ce345bc2e8f674d6966c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCol: {fileID: 6907576337225164436}
+  inputSwitch:
+  - {fileID: 0}
+  blackOn: 0
+--- !u!114 &-4273273455830996966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3474569663873433662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
 --- !u!1001 &3474569663218702099
 PrefabInstance:
   m_ObjectHideFlags: 0

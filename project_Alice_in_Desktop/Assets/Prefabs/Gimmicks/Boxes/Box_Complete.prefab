@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 1792649291281955605}
   - component: {fileID: 1792649291281955606}
   - component: {fileID: 364076882915062723}
+  - component: {fileID: 5471139847414812685}
   m_Layer: 9
   m_Name: Box_Complete
   m_TagString: Gimmick
@@ -606,6 +607,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8516250d7199be54cb994d4a3c617b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5471139847414812685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792649291281955604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
 --- !u!1 &1792649291340869869
 GameObject:
   m_ObjectHideFlags: 0

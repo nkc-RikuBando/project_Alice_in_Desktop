@@ -20,6 +20,8 @@ public class FlipOneWayWall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        PlayerSet playerSet = collision.GetComponent<PlayerSet>();
+        if (playerSet == null) return;
         Player.PlayerCollisionDetection detection = collision.GetComponent<Player.PlayerCollisionDetection>();
         if (detection != null) return; 
         animator.SetTrigger("Flip");

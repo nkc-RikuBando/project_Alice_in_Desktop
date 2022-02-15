@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9024859879275156419}
   - component: {fileID: 4347876921296510948}
   - component: {fileID: 9024859879275156416}
+  - component: {fileID: 1373591356258837328}
   m_Layer: 6
   m_Name: Lift_Chest
   m_TagString: Untagged
@@ -148,3 +149,19 @@ MonoBehaviour:
   endPos: {fileID: 6927150334179451509, guid: b64e5a1ca236b2d4aad8ec1da8d7271d, type: 3}
   moveSpeed: 2
   UpDownFlg: 0
+--- !u!114 &1373591356258837328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9024859879275156421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
