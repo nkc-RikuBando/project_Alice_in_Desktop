@@ -77,13 +77,10 @@ namespace PlayerState
 
             if (_groundChecker.CheckIsGround(_boxCol)) return;
 
-            //if (_wallChecker.CheckIsWall(_capCol))
-            //{
-            //    ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            //}
-
-            StartCoroutine("StickState");
-
+            if (_wallChecker.CheckIsWall(_capCol))
+            {
+                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
+            }
         }
 
         // Playerà⁄ìÆÉÅÉ\ÉbÉh

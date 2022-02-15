@@ -55,9 +55,9 @@ namespace MyUtility
         private float RayInterval()
         {
             float scaleY = transform.localScale.y;
-            float rayInterval_defaltSize = 3.2f;
-            float rayInterval_BigSize = 1.8f;
-            float rayInterval_SmallSize = 6.4f;
+            float rayInterval_defaltSize = 2.4f;
+            float rayInterval_BigSize    = 1.8f;
+            float rayInterval_SmallSize  = 6.4f;
 
             if (scaleY > 1) return rayInterval_BigSize;
             if (scaleY < 1) return rayInterval_SmallSize;
@@ -68,9 +68,9 @@ namespace MyUtility
         private float RayPostionAdj() 
         {
             float scaleY = transform.localScale.y;
-            float rayPostionAdj_defaltSize =  0f;
-            float rayPostionAdj_BigSize    =  2f;
-            float rayPostionAdj_SmallSize  = -2f;
+            float rayPostionAdj_defaltSize = -0.2f;
+            float rayPostionAdj_BigSize    =  1.3f;
+            float rayPostionAdj_SmallSize  =   -2f;
 
             if (scaleY > 1) return rayPostionAdj_BigSize;
             if (scaleY < 1) return rayPostionAdj_SmallSize;
