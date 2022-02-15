@@ -43,6 +43,7 @@ namespace Gimmicks
         {
             Warping();
             WarpValidSwitch();
+            Debug.Log(warpFlg);
         }
 
         void OnTriggerEnter2D(Collider2D collision)
@@ -56,7 +57,7 @@ namespace Gimmicks
                 catFrontObj.EnterObjNum += 1;
                 warpScr.catFrontObj.EnterObjNum += 1;
             }
-            else if (collision.gameObject == player)
+            else if (collision.gameObject == player && warpFlg == true)
             {
                 stayFlg = true; // 滞在フラグをtrue
                 hairuUI.SetActive(true);
@@ -74,7 +75,7 @@ namespace Gimmicks
                 catFrontObj.EnterObjNum -= 1;
                 warpScr.catFrontObj.EnterObjNum -= 1;
             }
-            else if (collision.gameObject == player)
+            else if (collision.gameObject == player/* && warpFlg == false*/)
             {
                 stayFlg = false; // 滞在フラグをfalse
                 hairuUI.SetActive(false);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8114097481524280716}
   - component: {fileID: 3599341008615436715}
   - component: {fileID: 8114097481524280719}
+  - component: {fileID: 167890004824227614}
   m_Layer: 6
   m_Name: Lift_Clock
   m_TagString: Untagged
@@ -97,6 +98,22 @@ MonoBehaviour:
   endPos: {fileID: 6927150334179451509, guid: b64e5a1ca236b2d4aad8ec1da8d7271d, type: 3}
   moveSpeed: 2
   UpDownFlg: 0
+--- !u!114 &167890004824227614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114097481524280714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
 --- !u!1001 &7822582718731396568
 PrefabInstance:
   m_ObjectHideFlags: 0
