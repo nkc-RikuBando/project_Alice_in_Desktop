@@ -7,14 +7,17 @@ namespace StageSelect
     public class StageManagerSingleton : MonoBehaviour,ISendClearStageNum
     {
         public static StageManagerSingleton instance;
-        private static bool[] clearStage = new bool[45];
+        //private static bool[] clearStage = new bool[35];
+        private static int clearStageCount = 0;
 
         public void SendClearStage(int stageNum)
         {
-            for (int i = 0; i < stageNum; ++i)
-            {
-                clearStage[i] = true;
-            }
+            //for (int i = 0; i < stageNum; ++i)
+            //{
+            //    clearStage[i] = true;
+            //}
+
+            clearStageCount = stageNum;
         }
 
         private void Awake()
@@ -32,9 +35,9 @@ namespace StageSelect
         }
 
 
-        public bool[] GetClearStage()
+        public int GetClearStage()
         {
-            return clearStage;
+            return clearStageCount;
         }
     }
 }
