@@ -9,11 +9,8 @@ namespace Gimmicks
 {
     public class BigChangeMushroom : MonoBehaviour
     {
-        [SerializeField] private AudioClip se;
-
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
-        private AudioSource audioSource;
         private MushRoomEvent roomEvent;
         private int sizeChangeCount = 0;
 
@@ -21,7 +18,6 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-            audioSource = GetComponent<AudioSource>();
             // å„Ç≈è¡Ç∑
             roomEvent = player.GetComponent<MushRoomEvent>();
         }
@@ -39,7 +35,6 @@ namespace Gimmicks
                 {
                     // AnimationÇçƒê∂Ç∑ÇÈ
                     iStatusSentable.PlayerSizeChange(1.5f);
-                    audioSource.PlayOneShot(se);
                     roomEvent.PlayerSizeChange();
                     sizeChangeCount = 0;
                 }

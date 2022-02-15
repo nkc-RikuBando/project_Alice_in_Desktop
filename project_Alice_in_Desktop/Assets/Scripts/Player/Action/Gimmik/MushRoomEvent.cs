@@ -8,13 +8,18 @@ namespace Player
     {
         // キノコに触れるとPlayerの大きさが変わる処理
 
-        PlayerStatus        _playerStatus;
-        PlayerStatusManager _statusManager;
+        [SerializeField] private AudioClip _se_Big;
+        [SerializeField] private AudioClip _se_Small;
+
+        private PlayerStatus        _playerStatus;
+        private PlayerStatusManager _statusManager;
+        private AudioSource _audioSource;
         
         void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>(); 
             _statusManager = GetComponent<PlayerStatusManager>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
 
@@ -22,7 +27,13 @@ namespace Player
 
         public void PlayerSizeChange() 
         {
+            float size = transform.localScale.y;
+
             _playerStatus._SizeMag = _statusManager.GetSize();
+
+            if (size == 1) return;
+            if (size < 1) _audioSource.PlayOneShot(_se_Small);
+            if (size > 1) _audioSource.PlayOneShot(_se_Big);
         }
 
         // 入力可能メソッド
