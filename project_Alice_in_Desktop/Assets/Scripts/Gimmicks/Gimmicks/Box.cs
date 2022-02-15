@@ -59,12 +59,9 @@ namespace Gimmicks
 
         void Update()
         {
-            //AnimePlay();
-            
             if (isBreak == false)
             {
-                //UpRayCast();
-                HorizontalRay();
+                RayCastHit();
             }
             BoxBreak();
         }
@@ -110,6 +107,8 @@ namespace Gimmicks
                     myAnimator.SetTrigger("Destroy");  // アニメーション再生
                     hideKey.transform.parent = null;   // 鍵を子オブジェクトから外す
                     uiGauge.SetActive(false);          // ゲージを一旦隠す
+                    AudioManager.Instance.SeAction("箱破壊_2");
+                    //AudioManager.Instance.SeAction("箱破壊_1");
                     this.StartCoroutine(KeyAppTime());
                 }
             }
@@ -144,7 +143,7 @@ namespace Gimmicks
             keyAnimator.SetTrigger("Spawn");
         }
 
-        void HorizontalRay()
+        void RayCastHit()
         {
             // Rayの位置の調整値
             Vector3 offset = new Vector3(-2f, 1, 0);

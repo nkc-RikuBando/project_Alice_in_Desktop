@@ -11,6 +11,7 @@ namespace Gimmicks
     {
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
+        private MushRoomEvent roomEvent;
 
         private int sizeChangeCount;
 
@@ -18,6 +19,10 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
+
+            // 後で消す
+            roomEvent = player.GetComponent<MushRoomEvent>();
+
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +39,8 @@ namespace Gimmicks
                     // Playerのサイズを変更
                     // Animationを再生する
                     iStatusSentable.PlayerSizeChange(0.5f);
+                    roomEvent.PlayerSizeChange();
+
                     sizeChangeCount = 0;
                 }
             }

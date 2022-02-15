@@ -10,6 +10,7 @@ namespace Player
         // ステータスを変更する処理
 
         private PlayerStatus _playerStatus;
+        private Rigidbody2D _rb;
 
         private float _defaultSpeed;
         private float _defaultJumpPower;
@@ -21,6 +22,7 @@ namespace Player
         private void Awake()
         {
             _playerStatus = GetComponent<PlayerStatus>();
+            _rb = GetComponent <Rigidbody2D>();
             _defaultSpeed = _playerStatus._Speed;
             _defaultJumpPower = _playerStatus._JumpPower;
             _defaultWallJumpPower = _playerStatus._WallJumpPower;
@@ -34,6 +36,8 @@ namespace Player
             _playerStatus._InputFlgX = flg;
             _playerStatus._InputFlgY = flg;
             _playerStatus._InputFlgAction = flg;
+
+            if (!flg) _rb.velocity = Vector2.zero;
         }
 
         void IPlayerStatusSentable.PlayerSizeChange(float mag)

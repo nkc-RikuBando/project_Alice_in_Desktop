@@ -8,8 +8,18 @@ namespace Window
     // ウィンドウに追従するオブジェクトの設定
     // ウィンドウをさわったときに、その方向に追従しないオブジェクトは色を暗くする
 
+    enum RENDERER_TYPE
+    {
+        SINGLE_SPRITE,
+        TILEMAP,
+        BONE_ANIMATION
+    }
+
     public class FollowSetting : MonoBehaviour
     {
+        [Header("ボーンアニメーションのあるオブジェクトは子オブジェクトのスプライトをすべてアタッチ")]
+        [SerializeField] List<SpriteRenderer> animationSprites;
+
         private WindowManager windowManager;
 
         [SerializeField] private bool followUpWall = false;
@@ -22,9 +32,11 @@ namespace Window
 
         private SpriteRenderer sr;
         private Tilemap tilemap;
-        private bool srFlg = false;
-        private bool tileFlg = false;
+
+        [SerializeField] Color32 shadowColor = new Color32(60, 60, 60, 255);
         private Color32 defaultColor;
+
+        private int rendererTipe = 3;
 
         private void Start()
         {
@@ -35,15 +47,17 @@ namespace Window
             {
                 sr = GetComponent<SpriteRenderer>();
                 defaultColor = sr.color;
-                srFlg = true;
+                rendererTipe = (int)RENDERER_TYPE.SINGLE_SPRITE;
             }
 
             if (GetComponent<Tilemap>() != null)
             {
                 tilemap = GetComponent<Tilemap>();
                 defaultColor = tilemap.color;
-                tileFlg = true;
+                rendererTipe = (int)RENDERER_TYPE.TILEMAP;
             }
+
+            if (animationSprites.Count != 0) rendererTipe = (int)RENDERER_TYPE.BONE_ANIMATION;
 
         }
 
@@ -108,26 +122,41 @@ namespace Window
 
         private void ColorChange()
         {
-            if (srFlg)
+            if (rendererTipe==(int)RENDERER_TYPE.SINGLE_SPRITE)
             {
-                sr.color = new Color32(60, 60, 60, 255);
+                sr.color = shadowColor;
             }
-            else if(tileFlg)
+            else if(rendererTipe==(int)RENDERER_TYPE.TILEMAP)
             {
-                tilemap.color = new Color32(60, 60, 60, 255);
+                tilemap.color = shadowColor;
+            }
+            else if(rendererTipe==(int)RENDERER_TYPE.BONE_ANIMATION)
+            {
+                for (int i = 0; i < animationSprites.Count; ++i)
+                {
+                    animationSprites[i].color = shadowColor;
+                }
             }
         }
 
         private void ColorReSet()
         {
-            if (srFlg)
+            if (rendererTipe == (int)RENDERER_TYPE.SINGLE_SPRITE)
             {
                 sr.color = defaultColor;
             }
-            else if(tileFlg)
+            else if (rendererTipe == (int)RENDERER_TYPE.TILEMAP)
             {
                 tilemap.color = defaultColor;
             }
+            else if (rendererTipe == (int)RENDERER_TYPE.BONE_ANIMATION)
+            {
+                for (int i = 0; i < animationSprites.Count; ++i)
+                {
+                    animationSprites[i].color = Color.white;
+                }
+            }
+
         }
     }
 }
