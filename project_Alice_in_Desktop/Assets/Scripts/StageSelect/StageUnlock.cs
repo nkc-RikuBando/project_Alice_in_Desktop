@@ -22,16 +22,18 @@ namespace StageSelect
         [SerializeField] private Button nextButton;
         [SerializeField] private Button prevButton;
 
+        private int openedWorldCount = 0;
+        [SerializeField] private int openedStageCount = -1;
+
         private void Awake()
         {
 
-            for (int i=1;i<=45;++i)
+            for (int i=1;i<=35;++i)
             {
                 folderPanel.Add(GameObject.Find("FolderPanel" + i.ToString("D2")));
                 //stageFolder.Add(folderPanel[i-1].transform.GetChild(1).gameObject);
                 //zipFolder.Add(folderPanel[i-1].transform.GetChild(2).gameObject);
             }
-
         }
 
         private void Start()
@@ -39,33 +41,8 @@ namespace StageSelect
             stageManagerSingleton = GameObject.Find("StageManager").GetComponent<StageManagerSingleton>();
             stageManagerSingleton.SendClearStage(debugClearStageNum);
 
-            for (int i=0;i<stageManagerSingleton.GetClearStage().Length;++i)
-            {
-
-                if(stageManagerSingleton.GetClearStage()[i])
-                {
-                    folderPanel[i].transform.GetChild(1).gameObject.SetActive(true);
-                    folderPanel[i].transform.GetChild(2).gameObject.SetActive(false);
-
-                    if (i == 0 || i == 14 || i == 29)
-                    {
-                        worldFolderPanels[(int)i / 14].transform.GetChild(1).gameObject.SetActive(true);
-                        worldFolderPanels[(int)i / 14].transform.GetChild(2).gameObject.SetActive(false);
-                    }
-
-                }
-                else
-                {
-                    folderPanel[i].transform.GetChild(1).gameObject.SetActive(true);
-                    folderPanel[i].transform.GetChild(2).gameObject.SetActive(false);
-
-                    // あとでなおす
-                    worldFolderPanels[0].transform.GetChild(1).gameObject.SetActive(true);
-                    worldFolderPanels[0].transform.GetChild(2).gameObject.SetActive(false);
-
-                    break;
-                }
-            }
+            // あとでなおす なおした
+            WorldFolderOpenAnim();
 
             for (int i = 1; i <= stageFolderPanels.Count; ++i)
             {
@@ -89,20 +66,25 @@ namespace StageSelect
 
         public void StageFolderActiveSwitch(int worldNum,bool val)
         {
-            if(val)
-            {
-                nextButton.interactable = false;
-                prevButton.interactable = true;
-            }
-            else
-            {
-                nextButton.interactable = true;
-                prevButton.interactable = false;
-            }
 
             stageFolderPanels[worldNum - 1].SetActive(val);
 
             worldFolderPanelParent.SetActive(!val);
+
+            if(val)
+            {
+                // ワールドセレクト→ステージセレクト
+                nextButton.interactable = false;
+                prevButton.interactable = true;
+                StageFolderOpenAnim();
+            }
+            else
+            {
+                // ステージセレクト→ワールドセレクト
+                nextButton.interactable = true;
+                prevButton.interactable = false;
+                WorldFolderOpenAnim();
+            }
         }
 
         public GameObject GetStageFolder(int i)
@@ -115,6 +97,63 @@ namespace StageSelect
         {
             // ワールドiを渡す(配列ではi-1番目)
             return worldFolderPanels[i - 1];
+        }
+
+        private void WorldFolderOpenAnim()
+        {
+            // ワールド
+            worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
+
+            if (stageManagerSingleton.GetClearStage() >= 0)
+            {
+                if (openedWorldCount < 1)
+                {
+                    openedWorldCount = 1;
+                    worldFolderPanels[0].GetComponent<Animator>().SetTrigger("UnLock");
+                }
+                worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
+            }
+
+
+            if (stageManagerSingleton.GetClearStage() >= 14)
+            {
+                if(openedWorldCount<2)
+                {
+                    openedWorldCount = 2;
+                    worldFolderPanels[1].GetComponent<Animator>().SetTrigger("UnLock");
+                }
+                worldFolderPanels[1].GetComponent<Animator>().SetBool("Opened", true);
+            }
+
+            if(stageManagerSingleton.GetClearStage() >= 24)
+            {
+                if (openedWorldCount < 3)
+                {
+                    openedWorldCount = 3;
+                    worldFolderPanels[2].GetComponent<Animator>().SetTrigger("UnLock");
+                }
+                worldFolderPanels[2].GetComponent<Animator>().SetBool("Opened", true);
+            }
+        }
+
+        private void StageFolderOpenAnim()
+        {
+            for (int i = 0; i < stageManagerSingleton.GetClearStage(); ++i)
+            {
+                folderPanel[i].GetComponent<Animator>().SetBool("Opened", true);
+            }
+
+            // 新しく解放されたステージ     
+            if (openedStageCount != stageManagerSingleton.GetClearStage())
+            {
+                // 未開放なら開放済みに登録
+                openedStageCount = stageManagerSingleton.GetClearStage();
+                folderPanel[openedStageCount].GetComponent<Animator>().SetTrigger("UnLock");
+            }
+            else
+            {
+                folderPanel[openedStageCount].GetComponent<Animator>().SetBool("Opened",true);
+            }
         }
 
     }

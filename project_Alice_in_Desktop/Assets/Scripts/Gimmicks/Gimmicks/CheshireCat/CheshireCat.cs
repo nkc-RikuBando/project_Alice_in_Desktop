@@ -43,7 +43,6 @@ namespace Gimmicks
         {
             Warping();
             WarpValidSwitch();
-            Debug.Log(warpFlg);
         }
 
         void OnTriggerEnter2D(Collider2D collision)
@@ -107,7 +106,7 @@ namespace Gimmicks
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
-            //AudioManager.Instance.SeAction("‚Ë‚±");
+            AudioManager.Instance.SeAction("ƒ`ƒFƒVƒƒ”L_1");
             this.StartCoroutine(PlayerWarpStart());
         }
 
