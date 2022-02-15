@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3199325710360491192}
   - component: {fileID: 3199325710360491193}
   - component: {fileID: 3199325710360491194}
+  - component: {fileID: 2862511925661778148}
   m_Layer: 0
   m_Name: HundaraSwitchDaze
   m_TagString: Untagged
@@ -125,3 +126,19 @@ MonoBehaviour:
   player: {fileID: 0}
   gimmick: {fileID: 0}
   clearPattern2Flg: 1
+--- !u!114 &2862511925661778148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3199325710360491195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
