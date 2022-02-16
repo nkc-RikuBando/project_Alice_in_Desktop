@@ -13,17 +13,17 @@ namespace Gimmicks
 
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
+        private PlayerAnimation playerAnimation;
         private AudioSource audioSource;
-        private MushRoomEvent roomEvent;
+
         private int sizeChangeCount = 0;
 
         void Start()
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
+            playerAnimation = player.GetComponent<PlayerAnimation>();
             audioSource = GetComponent<AudioSource>();
-            // å„Ç≈è¡Ç∑
-            roomEvent = player.GetComponent<MushRoomEvent>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -39,11 +39,13 @@ namespace Gimmicks
                 {
                     // AnimationÇçƒê∂Ç∑ÇÈ
                     iStatusSentable.PlayerSizeChange(1.5f);
+
+                    if (player.transform.localScale.y >= 1.5f) return;
+                    iStatusSentable.PlayerBiggerAnimation();
                     audioSource.PlayOneShot(se);
-                    roomEvent.PlayerSizeChange();
+
                     sizeChangeCount = 0;
                 }
-
             }
         }
     }

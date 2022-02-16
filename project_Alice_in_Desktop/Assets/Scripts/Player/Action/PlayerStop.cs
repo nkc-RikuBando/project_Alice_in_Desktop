@@ -62,9 +62,9 @@ namespace Player
             _anim.enabled = false;
 
             // コライダーを消す
-            _capCol.enabled      = false;
-            _boxCol.enabled      = false;
-            _childBoxCol.enabled = false;
+            _capCol.isTrigger    = true;
+            _boxCol.isTrigger    = true;
+            _childBoxCol.isTrigger = true;
 
             // ウィンドウ操作Flg
             _playerStatus._IsWindowTouching = true;
@@ -94,9 +94,9 @@ namespace Player
             _anim.enabled = true;
 
             // コライダーをActive化
-            _capCol.enabled      = true;
-            _boxCol.enabled      = true;
-            _childBoxCol.enabled = true;
+            _capCol.isTrigger = false;
+            _boxCol.isTrigger = false;
+            _childBoxCol.isTrigger = true;
 
 
             // PostProcessingを無効

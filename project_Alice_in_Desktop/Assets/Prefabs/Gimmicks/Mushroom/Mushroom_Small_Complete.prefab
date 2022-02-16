@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5901593323985570620}
   - component: {fileID: 2365261435832825993}
   - component: {fileID: 810800304587333641}
-  - component: {fileID: 5511160425927313961}
+  - component: {fileID: 1059933814178855113}
   m_Layer: 0
   m_Name: Mushroom_Small_Complete
   m_TagString: Untagged
@@ -106,11 +106,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites:
+  - {fileID: 3184380857691255209}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
---- !u!82 &5511160425927313961
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
+--- !u!82 &1059933814178855113
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

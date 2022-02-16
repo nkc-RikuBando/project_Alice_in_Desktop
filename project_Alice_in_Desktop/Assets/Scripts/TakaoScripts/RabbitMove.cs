@@ -37,6 +37,9 @@ public class RabbitMove : MonoBehaviour
         rigd2D = GetComponent<Rigidbody2D>();
         playerPositionSentable = player.gameObject.GetComponent<IPlayerPotionSentable>();
 
+        nowPoint = pointMock;
+        nowTransform = pointMock.transform.position;
+
         //アニメーションカーブの設定,登録
         TrajectoryCal();
     }
@@ -46,7 +49,9 @@ public class RabbitMove : MonoBehaviour
     {
         playerPos = playerPositionSentable.PlayerPotionSentable();
         RabbitDirection();
+        Debug.Log("rabbitCore.isTeleportation = " + rabbitCore.isTeleportation);
         if (!(rabbitCore.isMove != true)) return;
+        if (rabbitCore.isTeleportation) return;
         toPlayerDistance = Vector3.Distance(this.gameObject.transform.position, playerPos); //自分とプレイヤーの距離を測る
         if (toPlayerDistance < alertRange) //警戒範囲にいたら
         {
@@ -62,12 +67,15 @@ public class RabbitMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!(rabbitCore.isMove)) return;
         Act_RabbitMove();
     }
 
     private void Act_RabbitMove()
     {
         if (rabbitCore.isStop) return;
+        if (rabbitCore.isHit) return;
+        rigd2D.gravityScale = 0;
         //座標の差xの分割数,velocityYとYの分割数の合計
         transform.position += new Vector3(nextPosLength.x / DIVISION_NUM, jumpTrajectory[jumpCount] + (nextPosLength.y / DIVISION_NUM), 0);
 
@@ -78,6 +86,7 @@ public class RabbitMove : MonoBehaviour
         else
         {
             jumpCount = 0;
+            rigd2D.gravityScale = 2;
             rabbitCore.isMove = false;
         }
     }
@@ -99,6 +108,11 @@ public class RabbitMove : MonoBehaviour
             Debug.Log("一番近い点に瞬間移動");
             pointMock = pointMock.GetRabbitMovePointPosFromAll();
             this.transform.position = pointMock.transform.position;
+            rabbitCore.isTeleportation = false;
+        }
+        else
+        {
+            rabbitCore.isTeleportation = false;
         }
     }
 

@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 25325650536001960}
   - component: {fileID: 25325650536001961}
   - component: {fileID: 726856144690170548}
-  - component: {fileID: -5835026926712886730}
+  - component: {fileID: -114605286218241483}
   m_Layer: 0
   m_Name: Mushroom_Big_Complete
   m_TagString: Untagged
@@ -188,11 +188,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites:
+  - {fileID: 7104536444243057866}
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
---- !u!82 &-5835026926712886730
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
+--- !u!82 &-114605286218241483
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

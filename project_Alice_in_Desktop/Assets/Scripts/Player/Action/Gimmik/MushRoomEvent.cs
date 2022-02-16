@@ -8,8 +8,8 @@ namespace Player
     {
         // ƒLƒmƒR‚ÉG‚ê‚é‚ÆPlayer‚Ì‘å‚«‚³‚ª•Ï‚í‚éˆ—
 
-        PlayerStatus        _playerStatus;
-        PlayerStatusManager _statusManager;
+        private PlayerStatus        _playerStatus;
+        private PlayerStatusManager _statusManager;
         
         void Start()
         {
