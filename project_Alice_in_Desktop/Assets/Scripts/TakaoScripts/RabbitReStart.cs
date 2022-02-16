@@ -38,11 +38,13 @@ public class RabbitReStart : MonoBehaviour, IWindowLeave
 
     public void PlayMove()
     {
+        rigd2D.isKinematic = false;
         animator.enabled = true;
         childAnimator.enabled = true;
-        //if (rabbitCore.isHit) return;
+        rabbitCore.isPlay = false;
+        if (!rabbitCore.isInside) return;
         rabbitCore.isTeleportation = true;
         rabbitMove.Act_RabbitTeleportation();
-        rabbitCore.isPlay = false;
+
     }
 }
