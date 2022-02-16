@@ -12,7 +12,7 @@ namespace PlayerState
         [SerializeField]
         private PlayerCore player;
 
-        private PlayerStateEnum crrentPlayerState = PlayerStateEnum.START;
+        public PlayerStateEnum crrentPlayerState = PlayerStateEnum.START;
         private Dictionary<PlayerStateEnum, IPlayerState> playerStateDic = new Dictionary<PlayerStateEnum, IPlayerState>((int)PlayerStateEnum.COUNT);
 
 

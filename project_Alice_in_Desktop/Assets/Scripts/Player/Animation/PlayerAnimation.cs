@@ -28,8 +28,6 @@ namespace Player
         {
             _animator.SetTrigger(_anim);
         }
-
-
     }
 
 

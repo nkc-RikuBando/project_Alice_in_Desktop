@@ -76,9 +76,10 @@ namespace PlayerState
         {
             if (_playerStatus._IsWindowTouching) return;
 
+            // 壁ジャンプ
             if (transform.localScale.x > 0)
             {
-                if (!_inputReceivable.WallStickKey_D())
+                if (!_inputReceivable.MoveKey_D())
                 {
                     _rb.gravityScale = _playerStatus._Gravity;
                     _childWallCheckCol.enabled 　= false;
@@ -89,7 +90,7 @@ namespace PlayerState
             }
             else if (transform.localScale.x < 0)
             {
-                if (!_inputReceivable.WallStickKey_A())
+                if (!_inputReceivable.MoveKey_A())
                 {
                     _rb.gravityScale = _playerStatus._Gravity;
                     _childWallCheckCol.enabled = false;
@@ -99,7 +100,7 @@ namespace PlayerState
                 }
             }
 
-            
+            // 壁張り付き中止
             if (transform.localScale.x > 0)
             {
                 if (_inputReceivable.WallJumpKey_A() || _inputReceivable.JumpKey())
@@ -126,14 +127,12 @@ namespace PlayerState
 
         // 壁張り付き挙動メソッド
         private void WallStick()
-        {
+        {         
             if (!_wallChecker.CheckIsWall(_capCol)) return;
 
-            // この入力処理だと反対向いても貼り付けそう
-            // でも左右入力で壁判定のRayの方向が変わるからそんなことない？？
             if (transform.localScale.x > 0)
             {
-                if (_inputReceivable.WallStickKey_D())
+                if (_inputReceivable.MoveKey_D())
                 {
                     // Playerを静止状態にする
                     _rb.velocity = Vector2.zero;
@@ -144,7 +143,7 @@ namespace PlayerState
             }
             else if (transform.localScale.x < 0)
             {
-                if (_inputReceivable.WallStickKey_A())
+                if (_inputReceivable.MoveKey_A())
                 {
                     // Playerを静止状態にする
                     _rb.velocity = Vector2.zero;

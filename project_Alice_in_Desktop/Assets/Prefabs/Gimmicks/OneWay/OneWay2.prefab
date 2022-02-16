@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 8700197930163580210}
   - component: {fileID: 8700197930163580221}
   - component: {fileID: 8700197930163580220}
+  - component: {fileID: 6611608912164667603}
   m_Layer: 6
   m_Name: OneWay2
   m_TagString: Untagged
@@ -469,3 +470,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649136d944a9c1f4c8ab81e7723764e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6611608912164667603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8700197930163580214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSprites:
+  - {fileID: 8700197929206919147}
+  - {fileID: 8700197929151791332}
+  - {fileID: 8700197929222875454}
+  - {fileID: 8700197928059323912}
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660

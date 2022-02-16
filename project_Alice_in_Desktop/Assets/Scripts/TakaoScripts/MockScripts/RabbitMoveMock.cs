@@ -4,7 +4,7 @@ using UnityEngine;
 using Window;
 using Connector.Player;
 
-public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
+public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch, IRenderingFlgSettable
 {
     RabbitMovePointMock nowPoint;
     RabbitHit rabbitHit;
@@ -12,6 +12,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     [SerializeField] GameObject player;
     [SerializeField] AnimationCurve animationCurve;
     [SerializeField] GameObject childSpring;
+    [SerializeField] GameObject groundCheak;
 
     private Animator animator;
     private Animator childAnimator;
@@ -33,6 +34,13 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     bool stopFlg = false;
     bool playFlg = false;
     bool hitFlg = false;
+    bool outsideFlg = false;
+
+    enum selectLayer
+    {
+        defaultLayer = 0,
+        outsidePlayer = 12
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +50,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         rigd2D = GetComponent<Rigidbody2D>();
         rabbitHit = GetComponent<RabbitHit>();
         playerPositionSentable = player.gameObject.GetComponent<IPlayerPotionSentable>();
+        groundCheak = transform.GetChild(2).gameObject;
         //アニメーションカーブの設定,登録
         TrajectoryCal();
         nowPoint = pointMock;
@@ -52,7 +61,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     void Update()
     {
         playerPos = playerPositionSentable.PlayerPotionSentable();
-        hitFlg = rabbitHit.HitRabbitFlg();
+        //hitFlg = rabbitHit.HitRabbitFlg();
         RabbitDirection();
         if (!(startFlg != true)) return;
         toPlayerDistance = Vector3.Distance(this.gameObject.transform.position, playerPos); //自分とプレイヤーの距離を測る
@@ -61,10 +70,13 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             nowPoint = pointMock; //今の点の情報
             nowTransform = pointMock.transform.position;
             pointMock = pointMock.GetRabbitMovePointPos(); //次の点を受け取る
-            nextTransform = pointMock.GetMyPosition(); //次の点のPositionを受け取る
-            nextPosLength = nextTransform - transform.position; //座標の差
-            animator.SetTrigger("Jump");
-            startFlg = true;
+            if(pointMock != null)
+            {
+                nextTransform = pointMock.GetMyPosition(); //次の点のPositionを受け取る
+                nextPosLength = nextTransform - transform.position; //座標の差
+                animator.SetTrigger("Jump");
+                startFlg = true;
+            }
         }
     }
 
@@ -93,6 +105,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
     {
         if (hitFlg) return;
         if (stopFlg) return;
+        rigd2D.gravityScale = 0;
         //座標の差xの分割数,velocityYとYの分割数の合計
         transform.position += new Vector3(nextPosLength.x / DIVISION_NUM, jumpTrajectory[jumpCount] + (nextPosLength.y / DIVISION_NUM), 0);
 
@@ -104,6 +117,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
         {
             jumpCount = 0;
             startFlg = false;
+            rigd2D.gravityScale = 2;
         }
     }
 
@@ -114,6 +128,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             animator.enabled = false;
             childAnimator.enabled = false;
             rigd2D.velocity = Vector2.zero;
+            rigd2D.isKinematic = true;
         }
     }
 
@@ -124,6 +139,7 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             stopFlg = false;
             animator.enabled = true;
             childAnimator.enabled = true;
+            rigd2D.isKinematic = false;
             if (hitFlg) return;
             nextPosLength = new Vector3(0, 0, 0);
 
@@ -196,7 +212,21 @@ public class RabbitMoveMock : MonoBehaviour,IWindowLeave,IWindowTouch
             //一番近い点に瞬間移動
             Debug.Log("一番近い点に瞬間移動");
             pointMock = pointMock.GetRabbitMovePointPosFromAll();
+            Debug.Log(pointMock);
+
+            if(pointMock == null)
+            {
+                gameObject.layer = (int)selectLayer.outsidePlayer;
+                groundCheak.layer = (int)selectLayer.outsidePlayer;
+            }
+            else
             this.transform.position = pointMock.transform.position;
         }
+    }
+
+    public void SetRenderingFlg(bool val)
+    {
+        if (stopFlg) return;
+        outsideFlg = val;
     }
 }
