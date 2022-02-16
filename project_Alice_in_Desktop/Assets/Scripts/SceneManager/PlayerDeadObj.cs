@@ -22,9 +22,8 @@ namespace MyUtility
         {
             // Player‚ğæ“¾
             var playerCheck = collision.gameObject.GetComponent<PlayerStatus>();
-            var rabbitCheck = collision.gameObject.GetComponent<RabbitHit>();
 
-            bool isHit = playerCheck != null || rabbitCheck != null;
+            bool isHit = playerCheck != null;
 
             // “–‚½‚Á‚½‚Ì‚ªPlayer‚Ìê‡
             if (isHit)

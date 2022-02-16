@@ -43,6 +43,8 @@ namespace Player
                 _playerStatus._WallJudge   = false;
                 _playerStatus._InsideFlg   = false;
                 _playerStatus._PushJudge   = false;
+
+                _playerStatus._DeadColFlg = false;
             }
         }
     }
