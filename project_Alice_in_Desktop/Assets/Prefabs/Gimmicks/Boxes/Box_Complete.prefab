@@ -595,6 +595,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 2048
+  seNum: 3
 --- !u!114 &364076882915062723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,10 +620,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationSprites: []
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1 &1792649291340869869
 GameObject:
   m_ObjectHideFlags: 0

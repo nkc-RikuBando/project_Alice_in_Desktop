@@ -26,6 +26,9 @@ namespace Gimmicks
         [Header("はいるUIをアタッチ")]
         [SerializeField] private GameObject hairuUI;
 
+        //[Range(1, 5)]
+        //[SerializeField] private int seNum = 1;
+
         void Start()
         {
             player = GetGameObject.playerObject; // プレイヤーを取得
