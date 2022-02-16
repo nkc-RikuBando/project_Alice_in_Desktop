@@ -115,7 +115,7 @@ namespace Gimmicks
 
         void WarpValidSwitch()
         {
-            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true;
+            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true/* || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true*/;
             bool enterObjCount = catFrontObj.EnterObjNum != 0 || warpScr.catFrontObj.EnterObjNum != 0;
             if (isDisplayHide ||  enterObjCount) // •Â‚Ü‚Á‚Ä‚¢‚é
             {

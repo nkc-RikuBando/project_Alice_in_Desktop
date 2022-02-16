@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 5287060395677086384}
   - component: {fileID: 7124813240897462082}
   - component: {fileID: 2162893777773923524}
-  - component: {fileID: 3902457143226948350}
+  - component: {fileID: 3410377984600641167}
   m_Layer: 0
   m_Name: Card_Switch_Complete
   m_TagString: Untagged
@@ -326,7 +326,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5}
+  m_Offset: {x: 0, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -337,7 +337,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 3.5}
+  m_Size: {x: 0.7, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &7124813240897462082
 MonoBehaviour:
@@ -365,12 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  animationSprites: []
-=======
   animationSprites:
   - {fileID: 5360133607019665222}
->>>>>>> 72410f954dbf56a1ee13a321f33348b2a50e63f7
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
@@ -378,8 +374,7 @@ MonoBehaviour:
   shadowColor:
     serializedVersion: 2
     rgba: 4282137660
-<<<<<<< HEAD
---- !u!114 &3902457143226948350
+--- !u!114 &3410377984600641167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,8 +387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outFlg: 0
-=======
->>>>>>> 72410f954dbf56a1ee13a321f33348b2a50e63f7
 --- !u!1 &5360133607363143849
 GameObject:
   m_ObjectHideFlags: 0
