@@ -57,12 +57,16 @@ namespace Window
         [SerializeField, Range(1, 20)] private float limitSizeX = 14;
         [SerializeField, Range(1, 20)] private float limitSizeY = 7;
 
+        private AudioSource audioSource;
+
         private void Start()
         {
             windowColObj = GetGameObject.WindowColObject;
 
             frame = GetGameObject.FrameObject;
             frameSR = frame.GetComponent<SpriteRenderer>();
+
+            audioSource = GetComponent<AudioSource>();
 
             for (int i = 0; i < (int)PositionList.FRAME_COUNT; ++i)
             {
@@ -354,6 +358,8 @@ namespace Window
                 {
                     stoppableObj[i].GetComponent<IWindowTouch>().WindowTouchAction();
                 }
+
+                audioSource.Play();
             }
 
         }
