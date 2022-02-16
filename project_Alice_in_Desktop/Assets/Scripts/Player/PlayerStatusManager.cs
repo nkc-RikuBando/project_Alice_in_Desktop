@@ -10,6 +10,7 @@ namespace Player
         // ステータスを変更する処理
 
         private PlayerStatus _playerStatus;
+        private PlayerAnimation _playerAnimation;
         private Rigidbody2D _rb;
 
         private float _defaultSpeed;
@@ -22,6 +23,7 @@ namespace Player
         private void Awake()
         {
             _playerStatus = GetComponent<PlayerStatus>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
             _rb = GetComponent <Rigidbody2D>();
             _defaultSpeed = _playerStatus._Speed;
             _defaultJumpPower = _playerStatus._JumpPower;
@@ -78,9 +80,15 @@ namespace Player
             currentSize = mag;
         }
 
+        // サイズ取得用メソッド
         public float GetSize() 
         {
             return currentSize;
+        }
+
+        void IPlayerStatusSentable.PlayerBiggerAnimation()
+        {
+            _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Bigger"));
         }
     }
 }

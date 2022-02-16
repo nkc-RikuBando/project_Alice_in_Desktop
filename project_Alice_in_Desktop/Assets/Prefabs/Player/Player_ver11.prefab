@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.7482911}
+  m_Offset: {x: -0.009429455, y: 1.7482911}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 2.8083274}
+  m_Size: {x: 0.08027172, y: 2.8083274}
   m_EdgeRadius: 0
 --- !u!114 &2789845416553401884
 MonoBehaviour:
@@ -315,7 +315,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.16}
+  m_Offset: {x: 0, y: 0.23}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -326,7 +326,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7966454, y: 0.22560644}
+  m_Size: {x: 0.59, y: 0.35}
   m_EdgeRadius: 0.05
 --- !u!50 &2789845417291476042
 Rigidbody2D:
@@ -361,7 +361,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.21
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -483,9 +483,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravity: 2
   _speed: 6
-  _jumpPower: 520
-  _wallJumpPower: 700
-  _wallJumpAngle: 30
+  _jumpPower: 530
+  _wallJumpPower: 680
+  _wallJumpAngle: 25
   _jumpFeasibleCount: 0.1
   _sizeMag: 1
   _bigSizeMag: 1.5
@@ -525,7 +525,7 @@ MonoBehaviour:
   raylength: 0.3
   groundLayer:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 33344
 --- !u!114 &2789845417291476060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6063123516126340344}
+  crrentPlayerState: 0
 --- !u!114 &6063123516126340341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497b73e634cbed84c84c40ae19682e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpSE: {fileID: 0}
+  _jumpSE: {fileID: 8300000, guid: 528f58e2b5b4837448a39e518770e255, type: 3}
 --- !u!114 &6063123516126340235
 MonoBehaviour:
   m_ObjectHideFlags: 0

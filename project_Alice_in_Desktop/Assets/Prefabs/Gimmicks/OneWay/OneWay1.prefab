@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 991541267918702959}
   - component: {fileID: 991541267918702944}
   - component: {fileID: 991541267918702945}
+  - component: {fileID: 5988309431612931862}
   m_Layer: 6
   m_Name: OneWay1
   m_TagString: Untagged
@@ -141,6 +142,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649136d944a9c1f4c8ab81e7723764e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5988309431612931862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991541267918702955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSprites:
+  - {fileID: 991541268035521462}
+  - {fileID: 991541267982509241}
+  - {fileID: 991541268053577059}
+  - {fileID: 991541269035655765}
+  followUpWall: 0
+  followRightWall: 0
+  followDownWall: 0
+  followLeftWall: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!1 &991541267982509127
 GameObject:
   m_ObjectHideFlags: 0

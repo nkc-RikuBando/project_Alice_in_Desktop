@@ -50,7 +50,12 @@ namespace Window
         [SerializeField] private float moveSpeed = 5f; // 角・辺・面の移動速度
 
         // 停止するオブジェクトのリスト
+        [Header("ウィンドウを触ったときに停止するやつら")]
         [SerializeField] private List<GameObject> stoppableObj;
+
+        [Header("ウィンドウの最小サイズ")]
+        [SerializeField, Range(1, 20)] private float limitSizeX = 14;
+        [SerializeField, Range(1, 20)] private float limitSizeY = 7;
 
         private void Start()
         {
@@ -97,9 +102,70 @@ namespace Window
             inputMovement = mousePos - beforeMousePos;
             // inputMovement = new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0);
             // movement = Vector3.Scale(inputMovement, moveAxis).normalized * moveSpeed * Time.deltaTime;
-            movement = Vector3.Scale(inputMovement, moveAxis);
-            moveObj.transform.position += movement;
-            beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (WindowMovableJudge() == true)
+            {
+                movement = Vector3.Scale(inputMovement, moveAxis);
+                moveObj.transform.position += movement;
+
+                beforeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+            else
+            {
+                movement = Vector3.zero;
+            }
+
+        }
+
+        private bool WindowMovableJudge()
+        {
+            if (Mathf.Abs(colObjList[(int)PositionList.LEFT].transform.position.x - colObjList[(int)PositionList.RIGHT].transform.position.x) < limitSizeX)
+            {
+                // 横幅が限界で
+                if (moveObjNum == (int)PositionList.LEFT || moveObjNum == (int)PositionList.LEFT_UP || moveObjNum == (int)PositionList.LEFT_DOWN)
+                {
+                    // 左側の辺を動かしていて
+                    if (inputMovement.x > 0)
+                    {
+                        // 右に移動させていたら
+                        return false;
+                    }
+                }
+                else if (moveObjNum == (int)PositionList.RIGHT || moveObjNum == (int)PositionList.RIGHT_UP || moveObjNum == (int)PositionList.RIGHT_DOWN)
+                {
+                    // 右側の辺を動かしていて
+                    if (inputMovement.x < 0)
+                    {
+                        // 左に移動させていたら
+                        return false;
+                    }
+                }
+            }
+
+            if (Mathf.Abs(colObjList[(int)PositionList.UP].transform.position.y - colObjList[(int)PositionList.DOWN].transform.position.y) < limitSizeY)
+            {
+                // 縦幅が限界で
+                if (moveObjNum == (int)PositionList.UP || moveObjNum == (int)PositionList.LEFT_UP || moveObjNum == (int)PositionList.RIGHT_UP)
+                {
+                    // 上側の辺を動かしていて
+                    if (inputMovement.y < 0)
+                    {
+                        // 下に移動させていたら
+                        return false;
+                    }
+                }
+                else if (moveObjNum == (int)PositionList.DOWN || moveObjNum == (int)PositionList.LEFT_DOWN || moveObjNum == (int)PositionList.RIGHT_DOWN)
+                {
+                    // 下側の辺を動かしていて
+                    if (inputMovement.x > 0)
+                    {
+                        // 上に移動させていたら
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private void FrameFollow()
@@ -131,8 +197,10 @@ namespace Window
             //    framePosY = (handleBarColObj.transform.position.y-0.5f) - (frameSR.size.y/2);
             //}
 
-            frameSR.size = new Vector2(frameSizeX, frameSizeY);
-            frame.transform.position = new Vector3(framePosX, framePosY, 0);
+
+                frameSR.size = new Vector2(frameSizeX, frameSizeY);
+                frame.transform.position = new Vector3(framePosX, framePosY, 0);
+
         }
 
         void ColSet()

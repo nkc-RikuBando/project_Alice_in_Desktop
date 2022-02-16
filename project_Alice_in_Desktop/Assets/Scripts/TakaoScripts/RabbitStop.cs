@@ -35,6 +35,7 @@ public class RabbitStop : MonoBehaviour, IWindowTouch
             animator.enabled = false;
             childAnimator.enabled = false;
             rigd2D.velocity = Vector2.zero;
+            rigd2D.isKinematic = true;
         }
     }
 }
