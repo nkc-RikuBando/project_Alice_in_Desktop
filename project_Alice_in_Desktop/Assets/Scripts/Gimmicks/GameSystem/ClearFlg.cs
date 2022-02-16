@@ -30,6 +30,10 @@ namespace GameSystem
 
         private LayerChange layerChange;
 
+        //[Range(1, 3)]
+        //[SerializeField] private int seNum = 1;
+        private bool seFlg;
+
         void Start()
         {
             player = GetGameObject.playerObject;
@@ -44,6 +48,8 @@ namespace GameSystem
             if (keyList.Count <= 0) Clear();
             layerChange = GetComponent<LayerChange>();
 
+            seFlg = true;
+
             //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
         }
 
@@ -54,7 +60,7 @@ namespace GameSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player /*&& layerChange.OutFlg == false*/)
+            if (collision.gameObject == player && layerChange.OutFlg == false)
             {
                 stayFlg = true;
                 inputUI.SetActive(true);
@@ -104,10 +110,21 @@ namespace GameSystem
                     clearEffect.StartClearEffect();
                 }
                 else
+                {
                     animator.SetTrigger("Action");
+                    AudioManager.Instance.SeAction("ドアガチャ_1");
+                }
             }
+
             if (clearFlg == true)
+            {
                 animator.SetBool("Locked", false);
+                if(seFlg)
+                {
+                    AudioManager.Instance.SeAction("ドアオープン_1");
+                    seFlg = false;
+                }
+            }
         }
 
         /// <summary>
@@ -118,7 +135,5 @@ namespace GameSystem
         {
             return _IActionKey.ActionKey_Down() && stayFlg == true;
         }
-
-        
     }
 }

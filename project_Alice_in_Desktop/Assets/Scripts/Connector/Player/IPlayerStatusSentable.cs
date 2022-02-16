@@ -7,6 +7,8 @@ namespace Connector
             void PlayerIsInput(bool flg);
 
             void PlayerSizeChange(float mag);
+
+            void PlayerBiggerAnimation();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Player
         // 当たったら
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!_playerStatus._InsideFlg) return;
+
             // isTriggerではないオブジェクトだけ判定する
             if (collision.GetComponent<BoxCollider2D>())
             {
@@ -51,6 +53,8 @@ namespace Player
         // 離れたら
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if (!_playerStatus._InsideFlg) return;
+
             // isTriggerではないオブジェクトだけ判定する
             if (collision.GetComponent<BoxCollider2D>())
             {

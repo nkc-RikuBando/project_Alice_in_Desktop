@@ -22,6 +22,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     bool collisionPointFlg = false;
     bool outsideFlg = false;
     bool usePointFlg = true;
+    bool tempUseFlg;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,11 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
         UpdatePos(); //今のポジションを受け取る
         UpdateDisValue(); //評価値を受け取る
         playerPos = playerPositionSentable.PlayerPotionSentable();//プレイヤーの座標を受け取る
-        rabbitPos = rabbit.transform.position;
+        if(!(rabbit == null))
+        {
+            rabbitPos = rabbit.transform.position;
+        }
+        
         SetCollisionObjFlg();
     }
 
@@ -55,21 +60,52 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
     public RabbitMovePointMock GetRabbitMovePointPos() //次の点を渡す
     {
         RabbitMovePointMock tempMock = null;
-        var insideDisValueLinq = rabbitMovePoint
+        for(int i = 0;i < rabbitMovePoint.Length;i++)
+        {
+            tempUseFlg = rabbitMovePoint[i].GetUseFlg();
+            if (tempUseFlg)
+            {
+                break;
+            }
+        }
+
+        if(tempUseFlg)
+        {
+            var insideDisValueLinq = rabbitMovePoint
             .Where(x => x.GetUseFlg() == true) //foreachの中でif (x.GetOutsideFlg() == true)をするのと一緒
             .OrderByDescending(x => x.GetToPlayerDisValue()); //xの降順(先頭が一番高い数値)
-        tempMock = insideDisValueLinq.First();
-
+            tempMock = insideDisValueLinq.First();
+        }
+        else
+        {
+            tempMock = default;
+        }
         return tempMock; //点を渡す
     }
 
     public RabbitMovePointMock GetRabbitMovePointPosFromAll()
     {
         RabbitMovePointMock nearRabbitTemp = null;
-        var insideDisValueFromAllLinq = rabbitMovePointsAll
+        for (int i = 0; i < rabbitMovePointsAll.Length; i++)
+        {
+            tempUseFlg = rabbitMovePointsAll[i].GetUseFlg();
+            if(tempUseFlg)
+            {
+                break;
+            }
+        }
+
+        if(tempUseFlg)
+        {
+            var insideDisValueFromAllLinq = rabbitMovePointsAll
             .Where(x => x.GetUseFlg() == true)
             .OrderBy(x => x.GetToRabbitDistanceValue());
-        nearRabbitTemp = insideDisValueFromAllLinq.First();
+            nearRabbitTemp = insideDisValueFromAllLinq.First();
+        }
+        else
+        {
+            nearRabbitTemp = default;
+        }
         return nearRabbitTemp;
     }
 
@@ -95,7 +131,7 @@ public class RabbitMovePointMock : MonoBehaviour,IRenderingFlgSettable
 
     public bool GetUseFlg()
     {
-        if(outsideFlg == true && collisionPointFlg == true)
+        if(outsideFlg && collisionPointFlg)
         {
             return true;
         }

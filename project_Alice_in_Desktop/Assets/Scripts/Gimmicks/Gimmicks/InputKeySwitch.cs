@@ -19,6 +19,10 @@ namespace Gimmicks
         [Header("アタッチ不要")]
         [SerializeField] private List<GameObject> toranpuSoldier = new List<GameObject>();
         //[SerializeField] private List<ISetSwitch> iSetSwitch = new List<ISetSwitch>();
+        private LayerChange layerChange;
+
+        //[Range(1, 5)]
+        //[SerializeField] private int seNum = 1;
 
         void Start()
         {
@@ -29,6 +33,7 @@ namespace Gimmicks
             switchUI.SetActive(false);
             addSwitch = false;
             stayFlg = false;
+            layerChange = GetComponent<LayerChange>();
         }
 
         private void Update()
@@ -36,7 +41,7 @@ namespace Gimmicks
             if(StayInput())
             {
                 animator.SetTrigger("Turn");
-                AudioManager.Instance.SeAction("カードスイッチ_1");
+                //AudioManager.Instance.SeAction("カードスイッチ_" + seNum);
                 addSwitch = addSwitch ? false : true;
                 for (int i = 0; i < toranpuSoldier.Count; i++)
                 {
@@ -54,7 +59,7 @@ namespace Gimmicks
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player)
+            if (collision.gameObject == player && layerChange.OutFlg == false)
             {
                 stayFlg = true;
                 switchUI.SetActive(true);
