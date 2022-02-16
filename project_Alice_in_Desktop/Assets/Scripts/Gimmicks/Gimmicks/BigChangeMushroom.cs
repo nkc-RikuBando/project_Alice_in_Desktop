@@ -9,17 +9,21 @@ namespace Gimmicks
 {
     public class BigChangeMushroom : MonoBehaviour
     {
+        [SerializeField] private AudioClip se;
+
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
-        private MushRoomEvent roomEvent;
+        private PlayerAnimation playerAnimation;
+        private AudioSource audioSource;
+
         private int sizeChangeCount = 0;
 
         void Start()
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-            // å„Ç≈è¡Ç∑
-            roomEvent = player.GetComponent<MushRoomEvent>();
+            playerAnimation = player.GetComponent<PlayerAnimation>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -35,10 +39,13 @@ namespace Gimmicks
                 {
                     // AnimationÇçƒê∂Ç∑ÇÈ
                     iStatusSentable.PlayerSizeChange(1.5f);
-                    roomEvent.PlayerSizeChange();
+
+                    if (player.transform.localScale.y >= 1.5f) return;
+                    iStatusSentable.PlayerBiggerAnimation();
+                    audioSource.PlayOneShot(se);
+
                     sizeChangeCount = 0;
                 }
-
             }
         }
     }

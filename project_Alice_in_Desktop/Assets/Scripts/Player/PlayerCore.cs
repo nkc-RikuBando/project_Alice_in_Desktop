@@ -12,6 +12,8 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
 
+        private int _dir = 1;
+
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
@@ -27,12 +29,12 @@ namespace PlayerState
         }
 
         // Playerの向き変更メソッド
-        private void PlayerDirection() 
+        private void PlayerDirection()
         {
-            if(_inputReceivable.MoveH() != 0) 
-            {
-                transform.localScale = new Vector3(_inputReceivable.MoveH() *_playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
-            }
+            if (_inputReceivable.MoveKey_D() || _inputReceivable.MoveH() ==  1) _dir =  1;
+            if (_inputReceivable.MoveKey_A() || _inputReceivable.MoveH() == -1) _dir = -1;
+
+            transform.localScale = new Vector3(_dir * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
         }
     }
 }

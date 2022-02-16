@@ -9,10 +9,12 @@ namespace Gimmicks
 {
     public class SmallChangeMushroom : MonoBehaviour
     {
+        [SerializeField] private AudioClip se;
+
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
-
-        private MushRoomEvent roomEvent;
+        private PlayerAnimation playerAnimation;
+        private AudioSource audioSource;
 
         private int sizeChangeCount;
 
@@ -20,10 +22,8 @@ namespace Gimmicks
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-
-            // 後で消す
-            roomEvent = player.GetComponent<MushRoomEvent>();
-
+            playerAnimation = player.GetComponent<PlayerAnimation>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -38,9 +38,11 @@ namespace Gimmicks
                 if (sizeChangeCount % 2 == 0)
                 {
                     // Playerのサイズを変更
-                    // Animationを再生する
                     iStatusSentable.PlayerSizeChange(0.5f);
-                    roomEvent.PlayerSizeChange();
+
+                    if (player.transform.localScale.y <= 0.5f) return;
+                    iStatusSentable.PlayerBiggerAnimation();
+                    audioSource.PlayOneShot(se);
 
                     sizeChangeCount = 0;
                 }
