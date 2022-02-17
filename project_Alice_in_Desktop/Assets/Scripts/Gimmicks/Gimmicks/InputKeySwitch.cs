@@ -41,7 +41,7 @@ namespace Gimmicks
             if(StayInput())
             {
                 animator.SetTrigger("Turn");
-                //AudioManager.Instance.SeAction("カードスイッチ_" + seNum);
+                AudioManager.Instance.SeAction("Switch");
                 addSwitch = addSwitch ? false : true;
                 for (int i = 0; i < toranpuSoldier.Count; i++)
                 {
@@ -59,7 +59,8 @@ namespace Gimmicks
         void OnTriggerEnter2D(Collider2D collision)
         {
             // プレイヤーが入って来たら
-            if (collision.gameObject == player && layerChange.OutFlg == false)
+            bool playerEnter = collision.gameObject == player && layerChange.OutFlg == false;
+            if (playerEnter)
             {
                 stayFlg = true;
                 switchUI.SetActive(true);
@@ -69,7 +70,8 @@ namespace Gimmicks
         private void OnTriggerExit2D(Collider2D collision)
         {
             // プレイヤーが出て行ったら
-            if (collision.gameObject == player)
+            bool playerExit = collision.gameObject == player;
+            if (playerExit)
             {
                 stayFlg = false;
                 switchUI.SetActive(false);
