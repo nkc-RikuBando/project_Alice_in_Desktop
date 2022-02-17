@@ -46,11 +46,14 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
 
             _playerStatus._InputFlgX = false;
+
+            // 外に出た時は地面判定しない
+            if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 
@@ -74,6 +77,15 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.DASHWALLJUMPUP);
             }
+
+            // 着地判定いる説
+            if (_groundChecker.CheckIsGround(_boxCol))
+            {
+                // 着地したら入力をTrue
+                _playerStatus._InputFlgX = true;
+                ChangeStateEvent(PlayerStateEnum.LANDING);
+            }
+
         }
     }
 }

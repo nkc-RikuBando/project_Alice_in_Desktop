@@ -41,7 +41,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             Dash();
             StateManager();
         }
@@ -63,11 +63,6 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.STAY);
             }
 
-            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
-            {
-                ChangeStateEvent(PlayerStateEnum.DASHJUMP);
-            }
-
             if (_rb.velocity.y < -1f)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHFALL);
@@ -77,6 +72,14 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.PUSH);
             }
+
+
+            if (!_playerStatus._InputFlgY) return;
+            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
+            {
+                ChangeStateEvent(PlayerStateEnum.DASHJUMP);
+            }
+
         }
 
         // PlayerˆÚ“®ƒƒ\ƒbƒh

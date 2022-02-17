@@ -29,18 +29,18 @@ namespace PlayerState
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
             _inputReceivable ??= GetComponent<IInputReceivable>();
-            _playerStatus    ??= GetComponent<PlayerStatus>();
-            _groundChecker   ??= GetComponent<GroundChecker>();
-            _pushObjChecker  ??= GetComponent<PushObjChecker>();
+            _playerStatus ??= GetComponent<PlayerStatus>();
+            _groundChecker ??= GetComponent<GroundChecker>();
+            _pushObjChecker ??= GetComponent<PushObjChecker>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _boxCol          ??= GetComponent<BoxCollider2D>();
-            _capCol          ??= GetComponent<CapsuleCollider2D>();
-            _rb              ??= GetComponent<Rigidbody2D>();
+            _boxCol ??= GetComponent<BoxCollider2D>();
+            _capCol ??= GetComponent<CapsuleCollider2D>();
+            _rb ??= GetComponent<Rigidbody2D>();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             AnimationReset();
             Dash();
             StateManager();
@@ -59,19 +59,25 @@ namespace PlayerState
         private void StateManager()
         {
             // 移動状態に変更
-            if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_boxCol))
+            if (_playerStatus._InputFlgX)
             {
-                ChangeStateEvent(PlayerStateEnum.DASH);
+                if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_boxCol))
+                {
+                    ChangeStateEvent(PlayerStateEnum.DASH);
+                }
             }
 
             // ジャンプ状態に変更
-            if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol)) 
+            if (_playerStatus._InputFlgY)
             {
-                ChangeStateEvent(PlayerStateEnum.JUMP);
+                if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
+                {
+                    ChangeStateEvent(PlayerStateEnum.JUMP);
+                }
             }
 
             // 下降状態
-            if (_rb.velocity.y < -1f) 
+            if (_rb.velocity.y < -1f)
             {
                 ChangeStateEvent(PlayerStateEnum.FALL);
             }
@@ -81,10 +87,10 @@ namespace PlayerState
         }
 
         // Animation初期化メソッド
-        private void AnimationReset() 
+        private void AnimationReset()
         {
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"),false);
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
         }
 

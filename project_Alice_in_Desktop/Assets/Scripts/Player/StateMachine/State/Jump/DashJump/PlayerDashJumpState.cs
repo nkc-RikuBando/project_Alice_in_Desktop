@@ -50,7 +50,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             Dash();
             StateManager();
         }
@@ -74,6 +74,16 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
+
+            // 地面判定
+            if (_groundChecker.CheckIsGround(_boxCol))
+            {
+                // 足折れバグ回避用アニメーター変数
+                _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Exit"));
+                _playerStatus._InputFlgX = true;
+                ChangeStateEvent(PlayerStateEnum.LANDING);
+            }
+
         }
 
         // ジャンプアクションメソッド

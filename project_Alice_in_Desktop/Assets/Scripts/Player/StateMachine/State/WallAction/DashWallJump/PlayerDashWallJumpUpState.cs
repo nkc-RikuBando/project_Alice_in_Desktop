@@ -40,12 +40,15 @@ namespace PlayerState
             _capCol ??= GetComponent<CapsuleCollider2D>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
+
+            if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
-            StateManager();
+            Debug.Log(StateType);
+            StateManager(); 
+            transform.localScale = new Vector3(_playerStatus.DirectionNum * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
         }
 
         void IPlayerState.OnFixedUpdate(PlayerCore player)
@@ -68,6 +71,13 @@ namespace PlayerState
             {
                 ChangeStateEvent(PlayerStateEnum.DASHWALLJUMPFALL);
             }
+
+            if (_groundChecker.CheckIsGround(_boxCol))
+            {
+                _playerStatus._InputFlgX = true;
+                ChangeStateEvent(PlayerStateEnum.LANDING);
+            }
+
         }
     }
 
