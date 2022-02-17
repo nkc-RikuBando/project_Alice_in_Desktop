@@ -19,6 +19,7 @@ namespace Gimmicks
         private Animator myAnimator;                 // 箱(自身)のアニメーションを保存
         private Animator keyAnimator;                // 鍵のアニメーションを保存
 
+        [Header("WaitTimeUIをアタッチ")]
         [SerializeField] private GameObject uiGauge; // ゲージを保存
         [SerializeField] private float time;
 
@@ -79,12 +80,18 @@ namespace Gimmicks
             }
         }
 
+        /// <summary>
+        /// プレイヤーが入って来た
+        /// </summary>
         void PlayerEnter()
         {
             stayFlg = true; // 滞在中
             _IHitPlayer.IsHitPlayer();
         }
 
+        /// <summary>
+        /// プレイヤーが出て行った
+        /// </summary>
         void PlayerExit()
         {
             stayFlg = false; // 滞在してない
@@ -107,8 +114,8 @@ namespace Gimmicks
                     myAnimator.SetTrigger("Destroy");  // アニメーション再生
                     hideKey.transform.parent = null;   // 鍵を子オブジェクトから外す
                     uiGauge.SetActive(false);          // ゲージを一旦隠す
-                    AudioManager.Instance.SeAction("箱破壊_2");
-                    //AudioManager.Instance.SeAction("箱破壊_1");
+                    //AudioManager.Instance.SeAction("BoxBreak");
+                    
                     this.StartCoroutine(KeyAppTime());
                 }
             }
@@ -146,30 +153,38 @@ namespace Gimmicks
         void RayCastHit()
         {
             // Rayの位置の調整値
-            Vector3 offset = new Vector3(-2f, 1, 0);
-            Vector3 offset2 = new Vector3(0, 1.5f, 0); // 上
+            Vector3 horiRayOffset = new Vector3(-2f, 1, 0);
+            Vector3 upRayOffsetL = new Vector3(-1, 1.5f, 0);
+            Vector3 upRayOffsetC = new Vector3(0, 1.5f, 0);
+            Vector3 upRayOffsetR = new Vector3(1, 1.5f, 0);
 
-            //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
-            Ray2D ray = new Ray2D(transform.position + offset, Vector3.right);
-            Ray2D ray2 = new Ray2D(transform.position + offset2, Vector3.up); // 上
+            //  Rayの作成　　　　　　　Rayを飛ばす原点　　　Rayを飛ばす方向
+            Ray2D horiRay = new Ray2D(transform.position + horiRayOffset, Vector3.right);
+            Ray2D upRayL = new Ray2D(transform.position + upRayOffsetL, Vector3.up);
+            Ray2D upRayC = new Ray2D(transform.position + upRayOffsetC, Vector3.up);
+            Ray2D upRayR = new Ray2D(transform.position + upRayOffsetR, Vector3.up);
 
-            //Rayが当たったオブジェクトの情報を入れる箱
+            // Rayが当たったオブジェクトの情報を入れる箱
             //RaycastHit2D hit;
 
-            //Rayの飛ばせる距離
-            int distance = 4;
-            int distance2 = 2; // 上
+            // Rayの飛ばせる距離
+            int horiRayDis = 4;
+            int upRayDis = 2;
 
-            //Rayの可視化   ↓Rayの原点　　　　↓Rayの方向　　　↓Rayの色
-            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-            Debug.DrawRay(ray2.origin, ray2.direction * distance2, Color.red); // 上
+            // Rayの可視化    Rayの原点　　　　      Rayの方向　　　       Rayの色
+            Debug.DrawRay(horiRay.origin, horiRay.direction * horiRayDis, Color.red);
+            Debug.DrawRay(upRayL.origin,   upRayC.direction * upRayDis,     Color.red);
+            Debug.DrawRay(upRayC.origin,   upRayL.direction * upRayDis,     Color.red);
+            Debug.DrawRay(upRayR.origin,   upRayR.direction * upRayDis,     Color.red);
 
-            //               ↓Ray  ↓Rayが当たったオブジェクト ↓距離
-            bool hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layer);
-            bool hit2 = Physics2D.Raycast(ray2.origin, ray.direction, distance2, layer);
+            //                                   ↓Ray  ↓Rayが当たったオブジェクト ↓距離
+            bool horiRayHit = Physics2D.Raycast(horiRay.origin, horiRay.direction, horiRayDis, layer);
+            bool upRayHitL   = Physics2D.Raycast(upRayL.origin,   upRayL.direction,   upRayDis,   layer);
+            bool upRayHitC   = Physics2D.Raycast(upRayC.origin,   upRayC.direction,   upRayDis,   layer);
+            bool upRayHitR   = Physics2D.Raycast(upRayR.origin,   upRayR.direction,   upRayDis,   layer);
 
-            //もしRayにオブジェクトが衝突したら
-            bool isPlayerHit = hit || hit2;
+            //もしRayにオブジェクトが触れたら
+            bool isPlayerHit = horiRayHit || upRayHitL || upRayHitC || upRayHitR;
             if (isPlayerHit) PlayerEnter();
             else PlayerExit();
         }
@@ -180,6 +195,8 @@ namespace Gimmicks
         /// <returns></returns>
         IEnumerator KeyAppTime()
         {
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<AudioSource>().Play();
             yield return new WaitForSeconds(time);
             hideKey.SetActive(true); //壊れたら鍵が出現
             keyAnimator.SetTrigger("Spawn");

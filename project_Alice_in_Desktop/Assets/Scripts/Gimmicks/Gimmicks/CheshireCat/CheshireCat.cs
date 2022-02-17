@@ -26,6 +26,9 @@ namespace Gimmicks
         [Header("はいるUIをアタッチ")]
         [SerializeField] private GameObject hairuUI;
 
+        //[Range(1, 5)]
+        //[SerializeField] private int seNum = 1;
+
         void Start()
         {
             player = GetGameObject.playerObject; // プレイヤーを取得
@@ -106,13 +109,13 @@ namespace Gimmicks
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
-            AudioManager.Instance.SeAction("チェシャ猫_1");
+            AudioManager.Instance.SeAction("CheshireCat");
             this.StartCoroutine(PlayerWarpStart());
         }
 
         void WarpValidSwitch()
         {
-            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true;
+            bool isDisplayHide = layerChange.OutFlg == true || warpScr.layerChange.OutFlg == true/* || catFrontObj.IsFrontObj == true || warpScr.catFrontObj.IsFrontObj == true*/;
             bool enterObjCount = catFrontObj.EnterObjNum != 0 || warpScr.catFrontObj.EnterObjNum != 0;
             if (isDisplayHide ||  enterObjCount) // 閉まっている
             {

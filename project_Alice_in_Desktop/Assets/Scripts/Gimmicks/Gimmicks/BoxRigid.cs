@@ -17,6 +17,7 @@ namespace Gimmicks
         public void WindowTouchAction()
         {
             rigid.bodyType = RigidbodyType2D.Kinematic;
+            rigid.velocity = new Vector2(0, 0);
         }
 
         public void WindowLeaveAction()

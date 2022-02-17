@@ -30,6 +30,10 @@ namespace GameSystem
 
         private LayerChange layerChange;
 
+        //[Range(1, 3)]
+        //[SerializeField] private int seNum = 1;
+        private bool seFlg;
+
         void Start()
         {
             player = GetGameObject.playerObject;
@@ -41,10 +45,19 @@ namespace GameSystem
             clearFlg = false;
             stayFlg = false;
             inputUI.SetActive(false);
-            if (keyList.Count <= 0) Clear();
+            
             layerChange = GetComponent<LayerChange>();
 
-            //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
+            if (keyList.Count <= 0)
+            {
+                Clear();
+                seFlg = false;
+            }
+            else seFlg = true;
+
+            GameObject stageManagerObject = GameObject.Find("StageManager");
+            if (stageManagerObject != null) iSendClearStageNum = stageManagerObject.GetComponent<ISendClearStageNum>();
+            else Debug.Log("StageManagerSingleton 無し"); // エラー回避用
         }
 
         void Update()
@@ -54,7 +67,7 @@ namespace GameSystem
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == player /*&& layerChange.OutFlg == false*/)
+            if (collision.gameObject == player && layerChange.OutFlg == false)
             {
                 stayFlg = true;
                 inputUI.SetActive(true);
@@ -98,16 +111,27 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
-                    //if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
+                    if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
                     playerStatusManager.PlayerIsInput(false); // 他の入力を受け付けなくする
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();
                 }
                 else
+                {
                     animator.SetTrigger("Action");
+                    AudioManager.Instance.SeAction("DoorKnock");
+                }
             }
+
             if (clearFlg == true)
+            {
                 animator.SetBool("Locked", false);
+                if(seFlg)
+                {
+                    AudioManager.Instance.SeAction("DoorOpen");
+                    seFlg = false;
+                }
+            }
         }
 
         /// <summary>
@@ -118,7 +142,5 @@ namespace GameSystem
         {
             return _IActionKey.ActionKey_Down() && stayFlg == true;
         }
-
-        
     }
 }
