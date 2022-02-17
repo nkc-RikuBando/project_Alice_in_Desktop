@@ -118,6 +118,7 @@ namespace PlayerState
                     _rb.gravityScale = _playerStatus._Gravity;
                     _childWallCheckCol.enabled = false;
                     _childGroundCheckCol.enabled = true;
+                    _playerStatus.DirectionNum = -1;
 
                     ChangeStateEvent(PlayerStateEnum.WALLJUMP);
                 }
@@ -129,6 +130,7 @@ namespace PlayerState
                     _rb.gravityScale = _playerStatus._Gravity;
                     _childWallCheckCol.enabled = false;
                     _childGroundCheckCol.enabled = true;
+                    _playerStatus.DirectionNum = 1;
 
                     ChangeStateEvent(PlayerStateEnum.WALLJUMP);
                 }
@@ -149,7 +151,7 @@ namespace PlayerState
                     _rb.gravityScale = 0;
 
                     _childWallCheckCol.enabled = true;
-                    _playerStatus.DirectionNum = -1;
+                    //_playerStatus.DirectionNum = -1;
                 }
             }
             else if (transform.localScale.x < 0)
@@ -161,7 +163,7 @@ namespace PlayerState
                     _rb.gravityScale = 0;
 
                     _childWallCheckCol.enabled = true;
-                    _playerStatus.DirectionNum = 1;
+                    //_playerStatus.DirectionNum = 1;
                 }
             }
         }
