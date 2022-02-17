@@ -17,8 +17,12 @@ namespace StageSelect
 
         private int openedWorldNum = -1;
 
+        private AudioSource audioSource;
+
         private void Start()
         {
+            audioSource = GetComponent<AudioSource>();
+
             windowFade = cameraObj.GetComponent<WindowFade>();
             stageUnlock = gameObject.GetComponent<StageUnlock>();
         }
@@ -39,6 +43,7 @@ namespace StageSelect
             if (doubleClickFlg)
             {
                 windowFade.WindowFadeOut("Stage"+stageNumStr);
+                audioSource.Play();
             }
 
             StartCoroutine(DoubleClickTimeCount());
@@ -54,6 +59,7 @@ namespace StageSelect
             {
                 stageUnlock.StageFolderActiveSwitch(worldNum,true);
                 openedWorldNum = worldNum;
+                audioSource.Play();
             }
 
             StartCoroutine(DoubleClickTimeCount());
@@ -63,12 +69,14 @@ namespace StageSelect
         {
             if (openedWorldNum == -1) return;
             stageUnlock.StageFolderActiveSwitch(openedWorldNum, false);
+            audioSource.Play();
         }
 
         public void PressedNextButton()
         {
             if (openedWorldNum == -1) return;
             stageUnlock.StageFolderActiveSwitch(openedWorldNum, true);
+            audioSource.Play();
         }
 
         // ダブルクリックの入力猶予時間の計測 & フラグ管理

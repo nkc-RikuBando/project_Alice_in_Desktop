@@ -30,6 +30,9 @@ namespace GameSystem
 
         private LayerChange layerChange;
 
+        private GameObject bgmObj;
+        private AudioSource audioSource;
+
         //[Range(1, 3)]
         //[SerializeField] private int seNum = 1;
         private bool seFlg;
@@ -47,6 +50,9 @@ namespace GameSystem
             inputUI.SetActive(false);
             
             layerChange = GetComponent<LayerChange>();
+
+            bgmObj = GetGameObject.BgmObj;
+            audioSource = bgmObj.GetComponent<AudioSource>();
 
             if (keyList.Count <= 0)
             {
@@ -111,6 +117,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
+                    audioSource.volume = default;
                     if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
                     playerStatusManager.PlayerIsInput(false); // ‘¼‚Ì“ü—Í‚ðŽó‚¯•t‚¯‚È‚­‚·‚é
                     animator.SetTrigger("Action");

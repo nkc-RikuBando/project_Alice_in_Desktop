@@ -30,6 +30,7 @@ namespace StageSelect
 
         [SerializeField] private bool debugFlg = false;
         private int f12Count = 0;
+
         private void Awake()
         {
 
