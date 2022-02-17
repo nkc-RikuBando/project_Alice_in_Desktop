@@ -113,7 +113,8 @@ namespace Gimmicks
                     myAnimator.SetTrigger("Destroy");  // アニメーション再生
                     hideKey.transform.parent = null;   // 鍵を子オブジェクトから外す
                     uiGauge.SetActive(false);          // ゲージを一旦隠す
-                    //AudioManager.Instance.SeAction("箱破壊_1");
+                    //AudioManager.Instance.SeAction("BoxBreak");
+                    //GetComponent<AudioSource>().Play();
                     this.StartCoroutine(KeyAppTime());
                 }
             }

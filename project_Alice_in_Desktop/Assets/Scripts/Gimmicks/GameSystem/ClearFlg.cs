@@ -112,7 +112,7 @@ namespace GameSystem
                 else
                 {
                     animator.SetTrigger("Action");
-                    AudioManager.Instance.SeAction("ドアガチャ_1");
+                    AudioManager.Instance.SeAction("DoorKnock");
                 }
             }
 
@@ -121,7 +121,7 @@ namespace GameSystem
                 animator.SetBool("Locked", false);
                 if(seFlg)
                 {
-                    AudioManager.Instance.SeAction("ドアオープン_1");
+                    AudioManager.Instance.SeAction("DoorOpen");
                     seFlg = false;
                 }
             }

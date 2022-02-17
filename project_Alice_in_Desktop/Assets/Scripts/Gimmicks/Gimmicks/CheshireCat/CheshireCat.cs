@@ -109,7 +109,7 @@ namespace Gimmicks
             playerAnim.SetTrigger("Teleport");
             myAnimator.SetTrigger("Teleport");
             warpPointAnim.SetTrigger("Teleport");
-            AudioManager.Instance.SeAction("ƒ`ƒFƒVƒƒ”L_1");
+            AudioManager.Instance.SeAction("CheshireCat");
             this.StartCoroutine(PlayerWarpStart());
         }
 
