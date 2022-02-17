@@ -387,31 +387,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ac8ddad462e3834093dd97c4d4c932e, type: 3}
---- !u!1 &424544977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3474569663873433662, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-  m_PrefabInstance: {fileID: 2041861698}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &424544978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424544977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationSprites: []
-  followUpWall: 0
-  followRightWall: 0
-  followDownWall: 0
-  followLeftWall: 0
-  shadowColor:
-    serializedVersion: 2
-    rgba: 4282137660
 --- !u!1001 &436442662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3751,6 +3726,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4273273455830996966, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
+      propertyPath: followDownWall
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 282706411102979021, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
       propertyPath: m_MaskInteraction
       value: 1
@@ -5081,31 +5060,6 @@ PrefabInstance:
       objectReference: {fileID: 2062631312}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09584dc030f08d7448ccd303de5b136d, type: 3}
---- !u!1 &866387703 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3474569663873433662, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-  m_PrefabInstance: {fileID: 518011404}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &866387704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866387703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationSprites: []
-  followUpWall: 0
-  followRightWall: 0
-  followDownWall: 0
-  followLeftWall: 0
-  shadowColor:
-    serializedVersion: 2
-    rgba: 4282137660
 --- !u!1 &960372498
 GameObject:
   m_ObjectHideFlags: 0
@@ -19392,31 +19346,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd9d58dbfb8f846f58b62a48334a0058, type: 3}
---- !u!1 &1690933972 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3474569663873433662, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-  m_PrefabInstance: {fileID: 739891647}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1690933979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690933972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationSprites: []
-  followUpWall: 0
-  followRightWall: 0
-  followDownWall: 1
-  followLeftWall: 0
-  shadowColor:
-    serializedVersion: 2
-    rgba: 4282137660
 --- !u!1 &1692272873
 GameObject:
   m_ObjectHideFlags: 0
@@ -20408,31 +20337,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1697995401 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3474569663873433662, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-  m_PrefabInstance: {fileID: 1230387204}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1697995408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697995401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c893cb517612d347bf35a3711dc655f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationSprites: []
-  followUpWall: 0
-  followRightWall: 0
-  followDownWall: 0
-  followLeftWall: 0
-  shadowColor:
-    serializedVersion: 2
-    rgba: 4282137660
 --- !u!1001 &1751240845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21555,6 +21459,10 @@ PrefabInstance:
     - target: {fileID: 5335686422570536221, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335686422570536222, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
+      propertyPath: stageNum
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 5335686422570536222, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
       propertyPath: keyList.Array.size

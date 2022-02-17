@@ -22,7 +22,7 @@ namespace StageSelect
         [SerializeField] private Button nextButton;
         [SerializeField] private Button prevButton;
 
-        private int openedWorldCount = 0;
+        private static int  openedWorldCount = -1;
         [SerializeField] private int openedStageCount = -1;
 
         [SerializeField] private Texture2D cursorTex;
@@ -31,7 +31,7 @@ namespace StageSelect
         private void Awake()
         {
 
-            for (int i=1;i<=35;++i)
+            for (int i=1;i<=32;++i)
             {
                 folderPanel.Add(GameObject.Find("FolderPanel" + i.ToString("D2")));
                 //stageFolder.Add(folderPanel[i-1].transform.GetChild(1).gameObject);
@@ -49,7 +49,7 @@ namespace StageSelect
             // あとでなおす なおした
             WorldFolderOpenAnim();
 
-            for (int i = 1; i <= stageFolderPanels.Count; ++i)
+            for (int i = 0; i < stageFolderPanels.Count; ++i)
             {
                 StageFolderActiveSwitch(i, false);
             }
@@ -72,7 +72,7 @@ namespace StageSelect
         public void StageFolderActiveSwitch(int worldNum,bool val)
         {
 
-            stageFolderPanels[worldNum - 1].SetActive(val);
+            stageFolderPanels[worldNum].SetActive(val);
 
             worldFolderPanelParent.SetActive(!val);
 
@@ -100,8 +100,8 @@ namespace StageSelect
 
         public GameObject GetWorldFolder(int i)
         {
-            // ワールドiを渡す(配列ではi-1番目)
-            return worldFolderPanels[i - 1];
+            // ワールドi
+            return worldFolderPanels[i];
         }
 
         private void WorldFolderOpenAnim()
@@ -116,28 +116,50 @@ namespace StageSelect
                     openedWorldCount = 1;
                     worldFolderPanels[0].GetComponent<Animator>().SetTrigger("UnLock");
                 }
-                worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
+                else
+                {
+                    worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
+                }
             }
 
 
-            if (stageManagerSingleton.GetClearStage() >= 14)
+            if (stageManagerSingleton.GetClearStage() >= 8)
             {
-                if(openedWorldCount<2)
+                if (openedWorldCount < 2)
                 {
                     openedWorldCount = 2;
                     worldFolderPanels[1].GetComponent<Animator>().SetTrigger("UnLock");
                 }
-                worldFolderPanels[1].GetComponent<Animator>().SetBool("Opened", true);
+                else
+                {
+                    worldFolderPanels[1].GetComponent<Animator>().SetBool("Opened", true);
+                }
             }
 
-            if(stageManagerSingleton.GetClearStage() >= 24)
+            if(stageManagerSingleton.GetClearStage() >= 16)
             {
                 if (openedWorldCount < 3)
                 {
                     openedWorldCount = 3;
                     worldFolderPanels[2].GetComponent<Animator>().SetTrigger("UnLock");
                 }
-                worldFolderPanels[2].GetComponent<Animator>().SetBool("Opened", true);
+                else
+                {
+                    worldFolderPanels[2].GetComponent<Animator>().SetBool("Opened", true);
+                }
+            }
+
+            if(stageManagerSingleton.GetClearStage() >= 24)
+            {
+                if (openedWorldCount < 4)
+                {
+                    openedWorldCount = 4;
+                    worldFolderPanels[3].GetComponent<Animator>().SetTrigger("UnLock");
+                }
+                else
+                {
+                    worldFolderPanels[3].GetComponent<Animator>().SetBool("Opened", true);
+                }
             }
         }
 
