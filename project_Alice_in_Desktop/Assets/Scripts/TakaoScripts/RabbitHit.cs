@@ -6,10 +6,12 @@ using UnityEngine;
 public class RabbitHit : MonoBehaviour
 {
     [SerializeField] GameObject keyItem;
+    [SerializeField] AudioClip captureSE;
     RabbitCore rabbitCore;
     private Animator keyAnimator;
     private Animator animator;
     private Rigidbody2D rb2d;
+    private AudioSource audioSource;
     //private bool stopFlg = false;
 
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class RabbitHit : MonoBehaviour
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         rabbitCore = GetComponent<RabbitCore>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class RabbitHit : MonoBehaviour
     IEnumerator AppearKey()
     {
         yield return new WaitForSeconds(0.6f);
+        audioSource.PlayOneShot(captureSE);
         keyItem.SetActive(true);
         keyItem.transform.parent = null;
         keyAnimator = keyItem.GetComponent<Animator>();

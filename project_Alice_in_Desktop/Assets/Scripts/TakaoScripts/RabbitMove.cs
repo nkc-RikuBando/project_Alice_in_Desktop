@@ -7,10 +7,14 @@ public class RabbitMove : MonoBehaviour
 {
     RabbitCore rabbitCore;
     RabbitMovePointMock nowPoint;
+    private AudioSource audioSource;
+
     [SerializeField] RabbitMovePointMock pointMock;
     [SerializeField] GameObject player;
     [SerializeField] AnimationCurve animationCurve;
     [SerializeField] GameObject childSpring;
+    [SerializeField] AudioClip moveSE;
+    [SerializeField] AudioClip teleportationSE;
 
     private Animator animator;
     private Animator childAnimator;
@@ -36,6 +40,7 @@ public class RabbitMove : MonoBehaviour
         childAnimator = childSpring.GetComponent<Animator>();
         rigd2D = GetComponent<Rigidbody2D>();
         playerPositionSentable = player.gameObject.GetComponent<IPlayerPotionSentable>();
+        audioSource = GetComponent<AudioSource>();
 
         nowPoint = pointMock;
         nowTransform = pointMock.transform.position;
@@ -62,6 +67,7 @@ public class RabbitMove : MonoBehaviour
             nextPosLength = nextTransform - transform.position; //ç¿ïWÇÃç∑
             animator.SetTrigger("Jump");
             rabbitCore.isMove = true;
+            audioSource.PlayOneShot(moveSE);
         }
     }
 
@@ -102,10 +108,10 @@ public class RabbitMove : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
         animator.SetTrigger("Teleport");
+        audioSource.PlayOneShot(teleportationSE);
         if (nowPoint.GetUseFlg() == false || pointMock.GetUseFlg() == false)
         {
             //àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ
-            Debug.Log("àÍî‘ãﬂÇ¢ì_Ç…èuä‘à⁄ìÆ");
             pointMock = pointMock.GetRabbitMovePointPosFromAll();
             this.transform.position = pointMock.transform.position;
             rabbitCore.isTeleportation = false;
