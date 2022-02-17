@@ -19,7 +19,7 @@ namespace Inputer
         // ジャンプ入力
         bool IInputReceivable.JumpKey()
         {
-            return Input.GetButton("Jump");
+            return Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space);
         }
 
         // アクション入力(押したとき)
@@ -40,6 +40,8 @@ namespace Inputer
             return Input.GetKeyUp(KeyCode.E);
         }
 
+
+        // 壁ジャンプ入力
         bool IInputReceivable.WallJumpKey_A()
         {
             return Input.GetKeyDown(KeyCode.A);
@@ -50,6 +52,7 @@ namespace Inputer
             return Input.GetKeyDown(KeyCode.D);
         }
 
+        // 後でこいつにする
         bool IInputReceivable.MoveKey_A()
         {
             return Input.GetKey(KeyCode.A);

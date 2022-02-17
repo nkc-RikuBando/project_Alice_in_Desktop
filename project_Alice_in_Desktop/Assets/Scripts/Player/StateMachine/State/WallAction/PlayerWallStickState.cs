@@ -58,7 +58,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 
@@ -76,7 +76,16 @@ namespace PlayerState
         {
             if (_playerStatus._IsWindowTouching) return;
 
-            // 壁ジャンプ
+            if (!_wallChecker.CheckIsWall(_capCol)) 
+            {
+                _rb.gravityScale = _playerStatus._Gravity;
+                _childWallCheckCol.enabled = false;
+                _childGroundCheckCol.enabled = true;
+
+                ChangeStateEvent(PlayerStateEnum.WALLJUMPFALL);
+            }
+
+            // 壁張り付き中止
             if (transform.localScale.x > 0)
             {
                 if (!_inputReceivable.MoveKey_D())
@@ -100,7 +109,8 @@ namespace PlayerState
                 }
             }
 
-            // 壁張り付き中止
+
+            // 壁ジャンプ
             if (transform.localScale.x > 0)
             {
                 if (_inputReceivable.WallJumpKey_A() || _inputReceivable.JumpKey())
@@ -139,6 +149,7 @@ namespace PlayerState
                     _rb.gravityScale = 0;
 
                     _childWallCheckCol.enabled = true;
+                    _playerStatus.DirectionNum = -1;
                 }
             }
             else if (transform.localScale.x < 0)
@@ -150,6 +161,7 @@ namespace PlayerState
                     _rb.gravityScale = 0;
 
                     _childWallCheckCol.enabled = true;
+                    _playerStatus.DirectionNum = 1;
                 }
             }
         }

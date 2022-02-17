@@ -35,12 +35,13 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), false);
 
+            _playerStatus._InputFlgAction = true;
             _audioSource.PlayOneShot(_landingSE);
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             Dash();
             StateManager();
         }

@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameSystem;
 using Connector.Player;
-using Player;
+using Window;
 
 namespace Gimmicks
 {
-    public class SmallChangeMushroom : MonoBehaviour
+    public class SmallChangeMushroom : MonoBehaviour, IWindowTouch, IWindowLeave
     {
         [SerializeField] private AudioClip se;
 
         private GameObject player;
         private IPlayerStatusSentable iStatusSentable;
-        private PlayerAnimation playerAnimation;
         private AudioSource audioSource;
-
         private int sizeChangeCount;
+        private bool isWindowTouch;
 
         void Start()
         {
             player = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-            playerAnimation = player.GetComponent<PlayerAnimation>();
             audioSource = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (isWindowTouch) return;
+
             // collisionÇ™PlayerÇÃèÍçáÇÃÇ›
             var player = collision.GetComponent<PlayerSet>();
 
@@ -47,6 +47,15 @@ namespace Gimmicks
                     sizeChangeCount = 0;
                 }
             }
+        }
+        void IWindowTouch.WindowTouchAction()
+        {
+            isWindowTouch = true;
+        }
+
+        void IWindowLeave.WindowLeaveAction()
+        {
+            isWindowTouch = false;
         }
 
     }

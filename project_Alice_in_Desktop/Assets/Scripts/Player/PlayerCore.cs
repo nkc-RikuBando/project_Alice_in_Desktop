@@ -4,6 +4,7 @@ using UnityEngine;
 using Connector.Player;
 using Connector.Inputer;
 using Player;
+using MyUtility;
 
 namespace PlayerState
 {
@@ -12,14 +13,22 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private PlayerStatus _playerStatus;
         private PlayerStateManager stateManager;
+        private GroundChecker groundChecker;
+
+        private BoxCollider2D collid;
 
         private int _dir = 1;
+        private bool[] state = new bool[5];
+
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
             _playerStatus = GetComponent<PlayerStatus>();
             stateManager = GetComponent<PlayerStateManager>();
+
+            groundChecker = GetComponent<GroundChecker>();
+            collid = GetComponent<BoxCollider2D>();
         }
 
         private void Update()
@@ -33,17 +42,10 @@ namespace PlayerState
         // Playerの向き変更メソッド
         private void PlayerDirection()
         {
-            bool flg1 = stateManager.crrentPlayerState == PlayerStateEnum.WALLJUMP;
-            bool flg2 = stateManager.crrentPlayerState == PlayerStateEnum.WALLJUMPUP;
-            bool flg3 = stateManager.crrentPlayerState == PlayerStateEnum.WALLJUMPFALL;
-            bool flg4 = stateManager.crrentPlayerState == PlayerStateEnum.LANDING;
-            bool flg5 = stateManager.crrentPlayerState == PlayerStateEnum.STAY;
-            if (flg1 || flg2 || flg3 || flg4 || flg5) return;
+            if (_inputReceivable.MoveKey_D() || _inputReceivable.MoveH() ==  1) _playerStatus.DirectionNum =  1;
+            if (_inputReceivable.MoveKey_A() || _inputReceivable.MoveH() == -1) _playerStatus.DirectionNum = -1;
 
-            if (_inputReceivable.MoveKey_D() || _inputReceivable.MoveH() ==  1) _dir =  1;
-            if (_inputReceivable.MoveKey_A() || _inputReceivable.MoveH() == -1) _dir = -1;
-
-            transform.localScale = new Vector3(_dir * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
+            transform.localScale = new Vector3(_playerStatus.DirectionNum * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
         }
     }
 }

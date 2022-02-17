@@ -25,7 +25,8 @@ namespace Player
         [SerializeField, Tooltip("小さい時の壁ジャンプ値")] private float _smallStateWallJumpPower = 300f;
         [SerializeField, Tooltip("大きい時の壁ジャンプ時の角度")] private float _bigStateJumpAngle   = 45f;
         [SerializeField, Tooltip("小さい時の壁ジャンプ時の角度")] private float _smallStateJumpAngle = 60f;
-        
+
+        public int DirectionNum { get; set; } = 1;
 
         // 入力フラグ
         public bool _InputFlgX { get; set; } = true;
