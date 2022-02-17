@@ -29,4 +29,9 @@ public class FadeOut : MonoBehaviour
     {
         windowFade.WindowFadeOut(SceneManager.GetActiveScene().name);
     }
+
+    public void FadeTitle()
+    {
+        windowFade.WindowFadeOut("TitleScene");
+    }
 }

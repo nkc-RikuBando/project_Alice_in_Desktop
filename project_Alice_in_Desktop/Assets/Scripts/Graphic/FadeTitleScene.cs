@@ -15,4 +15,9 @@ public class FadeTitleScene : MonoBehaviour
     {
         SceneManager.LoadScene("SelectScene");
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
