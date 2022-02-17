@@ -43,7 +43,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             Dash();
             StateManager();
         }
@@ -91,16 +91,6 @@ namespace PlayerState
             // à⁄ìÆÇÃï®óùèàóù
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), true);
-        }
-
-        IEnumerator StickState() 
-        {
-            yield return new WaitForSeconds(0.3f);
-
-            if (_wallChecker.CheckIsWall(_capCol))
-            {
-                ChangeStateEvent(PlayerStateEnum.WALLSTICK);
-            }
         }
 
     }

@@ -67,7 +67,6 @@ namespace Player
         {
             // ‹ó’†ó‘Ô‚Å‚ÍƒAƒNƒVƒ‡ƒ““ü—Í‚ª‚Å‚«‚È‚¢
             if (_rb.velocity.y != 0) _playerStatus._InputFlgAction = false;
-            else                     _playerStatus._InputFlgAction = true;
         }
     }
 }

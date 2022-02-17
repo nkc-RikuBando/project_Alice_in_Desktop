@@ -21,18 +21,22 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private PlayerStatus 　　_playerStatus;
         private PlayerAnimation  _playerAnimation;
+        private GroundChecker _groundChecker;
 
         private Rigidbody2D _rb;
+        private BoxCollider2D _boxCol;
         private AudioSource _audioSource;
-
+        
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _rb              ??= GetComponent<Rigidbody2D>();
-            _audioSource     ??= GetComponent<AudioSource>();
+            _groundChecker ??= GetComponent<GroundChecker>();
+            _rb ??= GetComponent<Rigidbody2D>();
+            _boxCol ??= GetComponent<BoxCollider2D>();
+            _audioSource ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
@@ -42,7 +46,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 
@@ -66,10 +70,13 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.DASHJUMPUP);
             }
 
-            // ここいる？？(なんかこの遷移がなくて前にバグった)
-            if(_rb.velocity.y < -1) 
+            // 地面判定
+            if (_groundChecker.CheckIsGround(_boxCol))
             {
-                ChangeStateEvent(PlayerStateEnum.FALL);
+                // 足折れバグ回避用アニメーター変数
+                _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Exit"));
+                _playerStatus._InputFlgX = true;
+                ChangeStateEvent(PlayerStateEnum.LANDING);
             }
         }
 

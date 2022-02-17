@@ -30,14 +30,14 @@ namespace PlayerState
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
         {
-            _playerStatus ??= GetComponent<PlayerStatus>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _groundChecker ??= GetComponent<GroundChecker>();
-            _wallChecker ??= GetComponent<WallChecker>();
-            _rb ??= GetComponent<Rigidbody2D>();
-            _boxCol ??= GetComponent<BoxCollider2D>();
-            _capCol ??= GetComponent<CapsuleCollider2D>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _wallChecker     ??= GetComponent<WallChecker>();
+            _rb              ??= GetComponent<Rigidbody2D>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _capCol          ??= GetComponent<CapsuleCollider2D>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
@@ -47,11 +47,14 @@ namespace PlayerState
 
             // ウィンドウの外にいる場合は地面判定をしない
             if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
+
+            //// Playernの向きを反対にする
+            //_playerStatus.DirectionNum *= -1;
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 

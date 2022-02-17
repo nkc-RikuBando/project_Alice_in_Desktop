@@ -36,11 +36,12 @@ namespace PlayerState
 
             // ウィンドウの外にいる場合は地面判定をしない
             if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
+            else                          _playerStatus._GroundJudge = false; 
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 
@@ -55,14 +56,14 @@ namespace PlayerState
         // ステート変更メソッド
         private void StateManager()
         {
-            if (_inputReceivable.MoveH() != 0)
-            {
-                ChangeStateEvent(PlayerStateEnum.DASHFALL);
-            }
-
             if (_groundChecker.CheckIsGround(_boxCol)) 
             {
                 ChangeStateEvent(PlayerStateEnum.LANDING);
+            }
+
+            if (_inputReceivable.MoveH() != 0)
+            {
+                ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
         }
 

@@ -51,13 +51,14 @@ namespace PlayerState
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
             _playerStatus._InputFlgX = false;
+            if (_playerStatus._InsideFlg) _playerStatus._GroundJudge = true;
 
             WallJumpAction();
         }
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            //Debug.Log(StateType);
+            Debug.Log(StateType);
             StateManager();
         }
 
@@ -82,7 +83,11 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.WALLJUMPUP);
             }
 
-            // ここからDashJumpUPに遷移するのか？？
+            if (_groundChecker.CheckIsGround(_boxCol)) 
+            {
+                _playerStatus._InputFlgX = true;
+                ChangeStateEvent(PlayerStateEnum.LANDING);
+            }
         }
 
         // 壁ジャンプメソッド
@@ -92,7 +97,7 @@ namespace PlayerState
             _rb.velocity = Vector2.zero;
             _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
             _audioSource.PlayOneShot(_jumpSE);
         }
 
