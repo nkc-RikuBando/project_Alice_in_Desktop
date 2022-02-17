@@ -45,10 +45,15 @@ namespace GameSystem
             clearFlg = false;
             stayFlg = false;
             inputUI.SetActive(false);
-            if (keyList.Count <= 0) Clear();
+            
             layerChange = GetComponent<LayerChange>();
 
-            seFlg = true;
+            if (keyList.Count <= 0)
+            {
+                Clear();
+                seFlg = false;
+            }
+            else seFlg = true;
 
             //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
         }
