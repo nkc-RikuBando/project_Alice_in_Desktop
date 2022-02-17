@@ -64,7 +64,7 @@ namespace Player
             // コライダーを消す
             _capCol.isTrigger    = true;
             _boxCol.isTrigger    = true;
-            _childBoxCol.isTrigger = true;
+            _childBoxCol.enabled = false;
 
             // ウィンドウ操作Flg
             _playerStatus._IsWindowTouching = true;
@@ -96,7 +96,7 @@ namespace Player
             // コライダーをActive化
             _capCol.isTrigger = false;
             _boxCol.isTrigger = false;
-            _childBoxCol.isTrigger = true;
+            _childBoxCol.enabled = true;
 
 
             // PostProcessingを無効

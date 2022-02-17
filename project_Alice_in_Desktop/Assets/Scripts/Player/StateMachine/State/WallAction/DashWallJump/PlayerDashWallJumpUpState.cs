@@ -46,7 +46,7 @@ namespace PlayerState
 
         void IPlayerState.OnUpdate(PlayerCore player)
         {
-            Debug.Log(StateType);
+            //Debug.Log(StateType);
             StateManager(); 
             transform.localScale = new Vector3(_playerStatus.DirectionNum * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
         }
