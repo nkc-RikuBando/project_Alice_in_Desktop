@@ -25,6 +25,9 @@ namespace StageSelect
         private int openedWorldCount = 0;
         [SerializeField] private int openedStageCount = -1;
 
+        [SerializeField] private Texture2D cursorTex;
+        [SerializeField] private Vector2 hotSpot = new Vector2(50, 50);
+
         private void Awake()
         {
 
@@ -38,6 +41,8 @@ namespace StageSelect
 
         private void Start()
         {
+            Cursor.SetCursor(cursorTex, hotSpot, CursorMode.Auto);
+
             stageManagerSingleton = GameObject.Find("StageManager").GetComponent<StageManagerSingleton>();
             if(debugClearStageNum > 0) stageManagerSingleton.SendClearStage(debugClearStageNum);
 

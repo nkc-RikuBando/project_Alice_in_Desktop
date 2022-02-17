@@ -5,7 +5,7 @@ using DG.Tweening;
 using Window;
 
 
-public class CursolAppear : MonoBehaviour,IWindowTouch
+public class CursolAppear : MonoBehaviour,IWindowTouch,IWindowLeave
 {
     [SerializeField] private GameObject tutorialObj;
     private GameObject obj;
@@ -39,5 +39,9 @@ public class CursolAppear : MonoBehaviour,IWindowTouch
         {
             DeleteCursol();
         }
+    }
+
+    public void WindowLeaveAction()
+    {
     }
 }
