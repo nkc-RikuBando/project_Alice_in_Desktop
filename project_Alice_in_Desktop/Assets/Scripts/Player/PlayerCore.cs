@@ -17,10 +17,6 @@ namespace PlayerState
 
         private BoxCollider2D collid;
 
-        private int _dir = 1;
-        private bool[] state = new bool[5];
-
-
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
