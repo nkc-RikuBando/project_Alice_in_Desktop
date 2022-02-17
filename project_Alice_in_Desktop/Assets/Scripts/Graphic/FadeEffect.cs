@@ -7,9 +7,12 @@ using GameSystem;
 
 public class FadeEffect : MonoBehaviour
 {
+
+    [SerializeField] private AudioClip se; 
     private GameObject player;  // プレイヤーオブジェクト
 
     private Animator fadeAnimator;
+    private AudioSource audioSource;
     private RectTransform clearMaskRect;
     private RectTransform crushingMaskRect;
 
@@ -25,6 +28,7 @@ public class FadeEffect : MonoBehaviour
     {
         player = GetGameObject.playerObject;
         fadeAnimator = gameObject.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         clearMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
         crushingMaskRect = GameObject.Find("UnMask_Crushing").GetComponent<RectTransform>();
         windowFade = GameObject.Find("Camera").GetComponent<WindowFade>();
@@ -49,6 +53,7 @@ public class FadeEffect : MonoBehaviour
     public void StartCrushingEffect()
     {
         crushingMaskRect.position = new Vector2(player.transform.position.x, player.transform.position.y + SHIFT_Y);
+        audioSource.PlayOneShot(se);
         PlayAnimation("Crushing");
         nextSceneName = SceneManager.GetActiveScene().name;
         waitTime = 2;
@@ -57,6 +62,7 @@ public class FadeEffect : MonoBehaviour
 
     public void StartOutsideEffect()
     {
+        audioSource.PlayOneShot(se);
         fadeAnimator.SetTrigger("Outside");
         nextSceneName = SceneManager.GetActiveScene().name;
         waitTime = 1;

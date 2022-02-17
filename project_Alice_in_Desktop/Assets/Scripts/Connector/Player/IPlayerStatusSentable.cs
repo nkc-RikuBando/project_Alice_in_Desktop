@@ -9,6 +9,8 @@ namespace Connector
             void PlayerSizeChange(float mag);
 
             void PlayerBiggerAnimation();
+
+            bool GetIsWindowTouch();
         }
     }
 }

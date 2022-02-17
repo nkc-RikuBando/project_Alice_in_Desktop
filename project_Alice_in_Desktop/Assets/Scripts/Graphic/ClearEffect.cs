@@ -9,10 +9,12 @@ namespace Animation
 {
     public class ClearEffect : MonoBehaviour
     {
+        [SerializeField] private AudioClip se;
         private GameObject player;
         // [SerializeField] private GameObject door;
 
         private Animator fadeAnimator;
+        private AudioSource audioSource;
         private RectTransform unMaskRect;
 
         const float SHIFT_Y = 0;
@@ -25,6 +27,7 @@ namespace Animation
         void Start()
         {
             player = GetGameObject.playerObject;
+            audioSource = GetComponent<AudioSource>();
             fadeAnimator = GameObject.Find("FadeMask").GetComponent<Animator>();
             unMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
             windowFade = GameObject.Find("Camera").GetComponent<WindowFade>();
@@ -46,6 +49,7 @@ namespace Animation
         {
             //Ç±Ç±Ç…èàóùÇèëÇ≠
             unMaskRect.position = new Vector2(player.transform.position.x, player.transform.position.y + SHIFT_Y);
+            audioSource.PlayOneShot(se);
             fadeAnimator.SetTrigger("StageClear");
             player.GetComponent<Animator>().SetTrigger("StageClear");
 

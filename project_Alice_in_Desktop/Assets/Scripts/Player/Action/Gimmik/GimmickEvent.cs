@@ -4,17 +4,21 @@ using UnityEngine;
 
 namespace Player
 {
-    public class MushRoomEvent : MonoBehaviour
+    public class GimmickEvent : MonoBehaviour
     {
         // キノコに触れるとPlayerの大きさが変わる処理
 
+        [SerializeField] private AudioClip _pushSE;
+
         private PlayerStatus        _playerStatus;
         private PlayerStatusManager _statusManager;
+        private AudioSource _audioSource;
         
         void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>(); 
             _statusManager = GetComponent<PlayerStatusManager>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
 
@@ -36,6 +40,12 @@ namespace Player
         public void PlayerInput_False()
         {
             _statusManager.PlayerIsInput(false);
+        }
+
+        // 押した時SE再生メソッド
+        public void PushPlaySE() 
+        {
+            _audioSource.PlayOneShot(_pushSE);
         }
     }
 

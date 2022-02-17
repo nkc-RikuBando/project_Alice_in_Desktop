@@ -90,5 +90,10 @@ namespace Player
         {
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Bigger"));
         }
+
+        bool IPlayerStatusSentable.GetIsWindowTouch()
+        {
+            return _playerStatus._IsWindowTouching;
+        }
     }
 }

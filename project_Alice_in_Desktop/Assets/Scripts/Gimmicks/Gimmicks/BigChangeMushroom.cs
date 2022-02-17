@@ -8,7 +8,7 @@ using Window;
 
 namespace Gimmicks
 {
-    public class BigChangeMushroom : MonoBehaviour, IWindowTouch, IWindowLeave
+    public class BigChangeMushroom : MonoBehaviour
     {
         [SerializeField] private AudioClip se;
 
@@ -30,7 +30,7 @@ namespace Gimmicks
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isWindowTouch) return;
+            if (iStatusSentable.GetIsWindowTouch()) return;
 
             // collisionÇ™PlayerÇÃèÍçáÇÃÇ›
             var player = collision.GetComponent<PlayerSet>();
@@ -51,18 +51,6 @@ namespace Gimmicks
                     sizeChangeCount = 0;
                 }
             }
-        }
-
-        void IWindowTouch.WindowTouchAction()
-        {
-            isWindowTouch = true;
-            Debug.Log(isWindowTouch);
-        }
-
-        void IWindowLeave.WindowLeaveAction()
-        {
-            isWindowTouch = false;
-            Debug.Log(isWindowTouch);
         }
     }
 }
