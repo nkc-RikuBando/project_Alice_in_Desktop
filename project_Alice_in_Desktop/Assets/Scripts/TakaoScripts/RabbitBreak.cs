@@ -24,7 +24,11 @@ public class RabbitBreak : MonoBehaviour
         if (rabbitCore.isHit) return;    //プレイヤーと接触したならリターン
         Debug.Log("break");
         animator.SetTrigger("Capture");
+        Invoke("ResetStage",0.5f);
+    }
 
+    void ResetStage()
+    {
         fadeEffect.StartOutsideEffect();
     }
 }

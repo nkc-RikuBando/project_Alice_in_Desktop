@@ -15,7 +15,7 @@ namespace StageSelect
         private float doubleClickTime = 0.5f;
         private bool doubleClickFlg = false;
 
-        private int openedWorldNum = 0;
+        private int openedWorldNum = -1;
 
         private void Start()
         {
@@ -30,7 +30,7 @@ namespace StageSelect
 
             Debug.Log(int.Parse(stageNumStr));
             int stageNum = int.Parse(stageNumStr);
-            int getStageNum = (((stageNum / 100) - 1) * 15) + stageNum % 100;
+            int getStageNum = ((stageNum / 100) * 8) + stageNum % 100;
             GameObject pressedButton = stageUnlock.GetStageFolder(getStageNum);
 
             // 押されたボタンの状態が未開放(ジップ)だったら早期リターン
@@ -61,13 +61,13 @@ namespace StageSelect
 
         public void PressedPrevButton()
         {
-            if (openedWorldNum == 0) return;
+            if (openedWorldNum == -1) return;
             stageUnlock.StageFolderActiveSwitch(openedWorldNum, false);
         }
 
         public void PressedNextButton()
         {
-            if (openedWorldNum == 0) return;
+            if (openedWorldNum == -1) return;
             stageUnlock.StageFolderActiveSwitch(openedWorldNum, true);
         }
 
