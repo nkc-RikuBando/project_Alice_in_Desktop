@@ -406,11 +406,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1709747702501967320, guid: dcec91122e7e02b4db2742ad7d40e29a, type: 3}
       propertyPath: m_Text
-      value: "\u30B8\u30E1\u30B8\u30E1\u30AD\u30CE\u30B3\u306E\u5730\u4E0B\u5009\u5EAB\n"
+      value: "\u3058\u3081\u3058\u3081\u304D\u306E\u3053\u306E\u5730\u4E0B\u5009\u5EAB\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1709747702835656843, guid: dcec91122e7e02b4db2742ad7d40e29a, type: 3}
       propertyPath: m_Text
-      value: 3-1
+      value: 3-4
       objectReference: {fileID: 0}
     - target: {fileID: 1709747703967361348, guid: dcec91122e7e02b4db2742ad7d40e29a, type: 3}
       propertyPath: m_Pivot.x
@@ -1092,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3184380857398236326, guid: f892469b1aaf8b04695c69fc429e8271, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.84
+      value: -5.69
       objectReference: {fileID: 0}
     - target: {fileID: 3184380857398236326, guid: f892469b1aaf8b04695c69fc429e8271, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1176,6 +1176,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &658041897 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 44120039588320913, guid: 61027b614a29ed54cad5c485d7dd9b5b, type: 3}
+  m_PrefabInstance: {fileID: 1705025518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &672703142 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5335686422570536223, guid: e1d2d3f17d6585a44a170eb7c76a842e, type: 3}
@@ -2065,7 +2070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationSprites: []
   followUpWall: 0
-  followRightWall: 1
+  followRightWall: 0
   followDownWall: 0
   followLeftWall: 0
   shadowColor:
@@ -15506,7 +15511,7 @@ MonoBehaviour:
   followUpWall: 0
   followRightWall: 0
   followDownWall: 0
-  followLeftWall: 1
+  followLeftWall: 0
   shadowColor:
     serializedVersion: 2
     rgba: 4282137660
@@ -17169,6 +17174,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8259670610239306762, guid: 61027b614a29ed54cad5c485d7dd9b5b, type: 3}
+      propertyPath: animationSprites.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8259670610239306762, guid: 61027b614a29ed54cad5c485d7dd9b5b, type: 3}
+      propertyPath: animationSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 658041897}
     - target: {fileID: 44120039234509633, guid: 61027b614a29ed54cad5c485d7dd9b5b, type: 3}
       propertyPath: m_Name
       value: Box_Normal
@@ -17297,7 +17310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7104536444660860956, guid: f6d2f39709ad44d47a967c53c7560a91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.9
+      value: 6.13
       objectReference: {fileID: 0}
     - target: {fileID: 7104536444660860956, guid: f6d2f39709ad44d47a967c53c7560a91, type: 3}
       propertyPath: m_LocalPosition.y
