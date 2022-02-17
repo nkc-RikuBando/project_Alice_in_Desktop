@@ -78,14 +78,14 @@ namespace PlayerState
                 ChangeStateEvent(PlayerStateEnum.DASHWALLJUMPUP);
             }
 
-            // 着地判定いる説
+            // 地面判定
             if (_groundChecker.CheckIsGround(_boxCol))
             {
-                // 着地したら入力をTrue
+                // 足折れバグ回避用アニメーター変数
+                _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Exit"));
                 _playerStatus._InputFlgX = true;
                 ChangeStateEvent(PlayerStateEnum.LANDING);
             }
-
         }
     }
 }
