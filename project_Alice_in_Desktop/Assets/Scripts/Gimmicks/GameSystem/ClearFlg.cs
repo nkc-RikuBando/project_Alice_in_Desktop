@@ -55,7 +55,9 @@ namespace GameSystem
             }
             else seFlg = true;
 
-            //iSendClearStageNum = GameObject.Find("StageManagerSingleton").GetComponent<ISendClearStageNum>();
+            GameObject stageManagerObject = GameObject.Find("StageManager");
+            if (stageManagerObject != null) iSendClearStageNum = stageManagerObject.GetComponent<ISendClearStageNum>();
+            else Debug.Log("StageManagerSingleton 無し"); // エラー回避用
         }
 
         void Update()
@@ -109,7 +111,7 @@ namespace GameSystem
             {
                 if (clearFlg == true)
                 {
-                    //if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
+                    if(iSendClearStageNum != null) iSendClearStageNum.SendClearStage(stageNum);
                     playerStatusManager.PlayerIsInput(false); // 他の入力を受け付けなくする
                     animator.SetTrigger("Action");
                     clearEffect.StartClearEffect();

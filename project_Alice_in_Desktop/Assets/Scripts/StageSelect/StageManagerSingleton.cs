@@ -17,7 +17,7 @@ namespace StageSelect
             //    clearStage[i] = true;
             //}
 
-            clearStageCount = stageNum;
+            clearStageCount = Mathf.Max(clearStageCount, stageNum);
         }
 
         private void Awake()

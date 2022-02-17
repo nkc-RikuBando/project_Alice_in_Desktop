@@ -39,7 +39,7 @@ namespace StageSelect
         private void Start()
         {
             stageManagerSingleton = GameObject.Find("StageManager").GetComponent<StageManagerSingleton>();
-            stageManagerSingleton.SendClearStage(debugClearStageNum);
+            if(debugClearStageNum > 0) stageManagerSingleton.SendClearStage(debugClearStageNum);
 
             // ‚ ‚Æ‚Å‚È‚¨‚· ‚È‚¨‚µ‚½
             WorldFolderOpenAnim();
