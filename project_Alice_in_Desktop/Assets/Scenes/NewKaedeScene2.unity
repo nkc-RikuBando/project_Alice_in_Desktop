@@ -333,14 +333,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4273273455830996966, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-      propertyPath: followDownWall
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3196109765662713238, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
-      propertyPath: inputSwitch.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3196109765662713238, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
       propertyPath: inputSwitch.Array.data[0]
       value: 
@@ -8170,9 +8162,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3196109765662713238, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
+      propertyPath: inputSwitch.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196109765662713238, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
       propertyPath: inputSwitch.Array.data[0]
       value: 
       objectReference: {fileID: 1572735366}
+    - target: {fileID: 3196109765662713238, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
+      propertyPath: inputSwitch.Array.data[1]
+      value: 
+      objectReference: {fileID: 1171984267}
     - target: {fileID: 3474569663873433648, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -12699,6 +12699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181653d016bb69346a75a3abb6464161, type: 3}
+--- !u!1 &1171984267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3474569663873433662, guid: 3f9d4f37c239ee64c868d8db9d705d00, type: 3}
+  m_PrefabInstance: {fileID: 793022077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1192120179
 GameObject:
   m_ObjectHideFlags: 0
@@ -21614,10 +21619,6 @@ PrefabInstance:
     - target: {fileID: 2662838845011130146, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2662838845932120452, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}
-      propertyPath: m_Volume
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 541c269da1d33af4b8dd85f8c56c34db, type: 3}

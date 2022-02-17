@@ -161,7 +161,7 @@ namespace Window
                 else if (moveObjNum == (int)PositionList.DOWN || moveObjNum == (int)PositionList.LEFT_DOWN || moveObjNum == (int)PositionList.RIGHT_DOWN)
                 {
                     // ‰º‘¤‚Ì•Ó‚ğ“®‚©‚µ‚Ä‚¢‚Ä
-                    if (inputMovement.x > 0)
+                    if (inputMovement.y > 0)
                     {
                         // ã‚ÉˆÚ“®‚³‚¹‚Ä‚¢‚½‚ç
                         return false;
