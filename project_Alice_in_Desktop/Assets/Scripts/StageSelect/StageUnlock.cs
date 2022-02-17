@@ -70,11 +70,12 @@ namespace StageSelect
             //    SceneManager.LoadScene("SelectScene");
             //}
 
+            // デバッグ用 F12を5回押すと全ステージ解放
             if(Input.GetKeyDown(KeyCode.F12))
             {
                 f12Count++;
 
-                if(f12Count>=1 && debugFlg)
+                if(f12Count>=5 && debugFlg)
                 {
                     stageManagerSingleton.SendClearStage(31);
                 }
