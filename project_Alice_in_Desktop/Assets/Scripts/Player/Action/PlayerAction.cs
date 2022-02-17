@@ -65,8 +65,11 @@ namespace Player
         // 空中状態メソッド
         private void IsAction() 
         {
+            if (_playerStatus._IsWindowTouching) return;
+
             // 空中状態ではアクション入力ができない
             if (_rb.velocity.y != 0) _playerStatus._InputFlgAction = false;
+            else _playerStatus._InputFlgAction = true;
         }
     }
 }
