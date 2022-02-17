@@ -28,6 +28,8 @@ namespace StageSelect
         [SerializeField] private Texture2D cursorTex;
         [SerializeField] private Vector2 hotSpot = new Vector2(50, 50);
 
+        [SerializeField] private bool debugFlg = false;
+        private int f12Count = 0;
         private void Awake()
         {
 
@@ -66,6 +68,16 @@ namespace StageSelect
             //    stageManagerSingleton.SendClearStage(debugClearStageNum);
             //    SceneManager.LoadScene("SelectScene");
             //}
+
+            if(Input.GetKeyDown(KeyCode.F12))
+            {
+                f12Count++;
+
+                if(f12Count>=1 && debugFlg)
+                {
+                    stageManagerSingleton.SendClearStage(31);
+                }
+            }
         }
 
 
@@ -171,7 +183,7 @@ namespace StageSelect
             }
 
             // 新しく解放されたステージ     
-            if (openedStageCount != stageManagerSingleton.GetClearStage())
+            if (openedStageCount != stageManagerSingleton.GetClearStage() && stageManagerSingleton.GetClearStage()!=32)
             {
                 // 未開放なら開放済みに登録
                 openedStageCount = stageManagerSingleton.GetClearStage();
