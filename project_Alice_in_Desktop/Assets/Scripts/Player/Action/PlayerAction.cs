@@ -31,34 +31,22 @@ namespace Player
         // Actionキーを押している間
         bool IPlayerAction.ActionKey()
         {
-            bool _inputFlg = true;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKey(); 
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKey();
         }
 
         // Actionキーを離した時
         bool IPlayerAction.ActionKeyUp()
         {
-            bool _inputFlg;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKeyUp();
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKeyUp();
         }
 
         // Actionキーを押した時
         bool IPlayerAction.ActionKey_Down()
         {
-            bool _inputFlg;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKey_Down();
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKey_Down();
         }
 
 

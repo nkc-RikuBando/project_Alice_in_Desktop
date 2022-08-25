@@ -8,24 +8,26 @@ namespace Player
 
         [Header("Playerのステータス管理")]
 
-        [SerializeField, Tooltip("Playerの重力")]         　private float _gravity             = 1f;
-        [SerializeField, Tooltip("移動速度")]            　 private float _speed               = 5f;
-        [SerializeField, Tooltip("大ジャンプ値")]         　private float _jumpPower           = 400f;
-        [SerializeField, Tooltip("壁ジャンプ値")]         　private float _wallJumpPower       = 400f;
-        [SerializeField, Tooltip("壁ジャンプ時の角度")]   　private float _wallJumpAngle       = 45f;
-        [SerializeField, Tooltip("ジャンプまでの時間")]   　private float _jumpFeasibleCount   = 0.2f;
-        [SerializeField, Tooltip("サイズ倍率")]           　private float _sizeMag             = 1f;
-        [SerializeField, Tooltip("大きい時の倍率")]       　private float _bigSizeMag 　　　　 = 1.5f;
-        [SerializeField, Tooltip("小さい時の倍率")]       　private float _smallSizeMag        = 0.5f;
-        [SerializeField, Tooltip("大きい時のスピード")]   　private float _bigStateSpeed       = 5f;
-        [SerializeField, Tooltip("大きい時のスピード")]   　private float _smallStateSpeed     = 5f;
-        [SerializeField, Tooltip("大きい時のジャンプ値")] 　private float _bigStateJumpPower   = 550f;
-        [SerializeField, Tooltip("小さい時のジャンプ値")] 　private float _smallStateJumpPower = 300f;
-        [SerializeField, Tooltip("大きい時の壁ジャンプ値")] private float _bigStateWallJumpPower   = 550f;
-        [SerializeField, Tooltip("小さい時の壁ジャンプ値")] private float _smallStateWallJumpPower = 300f;
-        [SerializeField, Tooltip("大きい時の壁ジャンプ時の角度")] private float _bigStateJumpAngle   = 45f;
-        [SerializeField, Tooltip("小さい時の壁ジャンプ時の角度")] private float _smallStateJumpAngle = 60f;
+        [SerializeField, Tooltip("Playerの重力")]         　      private float _gravity                 = 1f;
+        [SerializeField, Tooltip("移動速度")]            　       private float _speed                   = 5f;
+        [SerializeField, Tooltip("大ジャンプ値")]         　      private float _jumpPower               = 400f;
+        [SerializeField, Tooltip("壁ジャンプ値")]         　      private float _wallJumpPower           = 400f;
+        [SerializeField, Tooltip("壁ジャンプ時の角度")]   　      private float _wallJumpAngle           = 45f;
+        [SerializeField, Tooltip("ジャンプまでの時間")]   　      private float _jumpFeasibleCount       = 0.2f;
+        [SerializeField, Tooltip("サイズ倍率")]           　      private float _sizeMag                 = 1f;
+        [SerializeField, Tooltip("大きい時の倍率")]       　      private float _bigSizeMag 　　　　     = 1.5f;
+        [SerializeField, Tooltip("小さい時の倍率")]       　      private float _smallSizeMag            = 0.5f;
+        [SerializeField, Tooltip("大きい時のスピード")]           private float _bigStateSpeed           = 5f;
+        [SerializeField, Tooltip("大きい時のスピード")]   　      private float _smallStateSpeed         = 5f;
+        [SerializeField, Tooltip("大きい時のジャンプ値")] 　      private float _bigStateJumpPower       = 550f;
+        [SerializeField, Tooltip("小さい時のジャンプ値")] 　      private float _smallStateJumpPower     = 300f;
+        [SerializeField, Tooltip("大きい時の壁ジャンプ値")] 　　  private float _bigStateWallJumpPower   = 550f;
+        [SerializeField, Tooltip("小さい時の壁ジャンプ値")] 　　　private float _smallStateWallJumpPower = 300f;
+        [SerializeField, Tooltip("大きい時の壁ジャンプ時の角度")] private float _bigStateJumpAngle       = 45f;
+        [SerializeField, Tooltip("小さい時の壁ジャンプ時の角度")] private float _smallStateJumpAngle     = 60f;
 
+
+        // 方向値
         public int DirectionNum { get; set; } = 1;
 
         // 入力フラグ
@@ -33,17 +35,23 @@ namespace Player
         public bool _InputFlgY { get; set; } = true;
         public bool _InputFlgAction { get; set; } = false;
 
-        // 判定フラグ
+        // 判定フラグ(当たり判定)
         public bool _GroundJudge { get; set; } = true;
         public bool _WallJudge { get; set; } = true;
         public bool _PushJudge { get; set; } = true;
-        public bool _GroundChecker { get; set; } = false;
-        public bool _IsWall { get; set; } = false;
+
+        // 死亡コライダーフラグ
         public bool _DeadColFlg { get; set; } = false;
+
+        // ウィンドウ中外判定フラグ
         public bool _InsideFlg { get; set; } = true;
+
+        // ウィンドウ操作判定フラグ
         public bool _IsWindowTouching { get; set; } = false;
 
-        // ステータスプロパティ
+
+
+        // -------- ステータスプロパティ --------
         public float _Gravity
         {
             get

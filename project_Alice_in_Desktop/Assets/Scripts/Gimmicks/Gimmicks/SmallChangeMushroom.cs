@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameSystem;
 using Connector.Player;
-using Window;
 
 namespace Gimmicks
 {
     public class SmallChangeMushroom : MonoBehaviour
     {
+        // 小さくなるキノコの処理
+
         [SerializeField] private AudioClip se;
 
-        private GameObject player;
+        private GameObject            player;
         private IPlayerStatusSentable iStatusSentable;
-        private AudioSource audioSource;
-        private int sizeChangeCount;
+        private AudioSource           audioSource;
+        private int                   sizeChangeCount;
 
         void Start()
         {
-            player = GetGameObject.playerObject;
+            player          = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-            audioSource = GetComponent<AudioSource>();
+            audioSource     = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +33,7 @@ namespace Gimmicks
 
             if (player != null)
             {
+                // Playerのコライダーが二つついてる
                 sizeChangeCount++;
 
                 if (sizeChangeCount % 2 == 0)

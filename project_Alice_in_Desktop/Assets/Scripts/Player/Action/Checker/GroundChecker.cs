@@ -15,13 +15,13 @@ namespace MyUtility
         [SerializeField, Tooltip("地面のレイヤー")] private LayerMask groundLayer;
 
         private PlayerStatus _playerStatus;
-        private Rigidbody2D _rb2d;
+        private Rigidbody2D  _rb2d;
 
 
         void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>();
-            _rb2d = GetComponent<Rigidbody2D>();
+            _rb2d         = GetComponent<Rigidbody2D>();
         }
 
 
@@ -63,6 +63,7 @@ namespace MyUtility
 
             return false;
         }
+
 
         // Ray同士の間隔変更メソッド
         private float RayInterval() 

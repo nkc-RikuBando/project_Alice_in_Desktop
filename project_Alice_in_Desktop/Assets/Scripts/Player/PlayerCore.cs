@@ -10,27 +10,23 @@ namespace PlayerState
 {
     public class PlayerCore : MonoBehaviour
     {
-        private IInputReceivable _inputReceivable;
-        private PlayerStatus _playerStatus;
-        private PlayerStateManager stateManager;
-        private GroundChecker groundChecker;
+        // Player管理処理
 
-        private BoxCollider2D collid;
+        private IInputReceivable _inputReceivable;
+        private PlayerStatus 　　_playerStatus;
+
 
         private void Start()
         {
             _inputReceivable = GetComponent<IInputReceivable>();
-            _playerStatus = GetComponent<PlayerStatus>();
-            stateManager = GetComponent<PlayerStateManager>();
-
-            groundChecker = GetComponent<GroundChecker>();
-            collid = GetComponent<BoxCollider2D>();
+            _playerStatus    = GetComponent<PlayerStatus>();
         }
 
         private void Update()
-        {
+        { 
+            // ウィンドウを触っている ＆ 入力受付禁止時
             if (_playerStatus._IsWindowTouching) return;
-            if (!_playerStatus._InputFlgX) return;
+            if (!_playerStatus._InputFlgX)       return;
 
             PlayerDirection();
         }

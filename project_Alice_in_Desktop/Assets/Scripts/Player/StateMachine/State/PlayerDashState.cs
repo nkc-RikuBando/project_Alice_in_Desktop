@@ -10,7 +10,6 @@ namespace PlayerState
 {
     public class PlayerDashState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのDash状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.DASH;
@@ -27,7 +26,7 @@ namespace PlayerState
         private Rigidbody2D       _rb;
 
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _groundChecker   ??= GetComponent<GroundChecker>();
@@ -39,18 +38,17 @@ namespace PlayerState
             _rb              ??= GetComponent<Rigidbody2D>();
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             Dash();
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
         {
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
@@ -58,16 +56,20 @@ namespace PlayerState
         // Playerのステート変更メソッド
         private void StateManager()
         {
+            // 待機状態に遷移
             if (_inputReceivable.MoveH() == 0 && _groundChecker.CheckIsGround(_boxCol))
             {
                 ChangeStateEvent(PlayerStateEnum.STAY);
             }
 
+            // 移動下降状態に遷移
             if (_rb.velocity.y < -1f)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
 
+
+            // 押す状態に遷移
             if (_pushObjChecker.PushObjWidthChecker(_capCol))
             {
                 ChangeStateEvent(PlayerStateEnum.PUSH);
@@ -75,6 +77,7 @@ namespace PlayerState
 
 
             if (!_playerStatus._InputFlgY) return;
+            // 移動ジャンプ状態に遷移
             if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
             {
                 ChangeStateEvent(PlayerStateEnum.DASHJUMP);

@@ -10,55 +10,53 @@ namespace PlayerState
 {
     public class PlayerStayState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのStay状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.STAY;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private GroundChecker _groundChecker;
-        private PushObjChecker _pushObjChecker;
-        private PlayerAnimation _playerAnimation;
-        private PlayerStatus _playerStatus;
+        private GroundChecker    _groundChecker;
+        private PushObjChecker   _pushObjChecker;
+        private PlayerAnimation  _playerAnimation;
+        private PlayerStatus     _playerStatus;
 
-        private BoxCollider2D _boxCol;
+        private BoxCollider2D     _boxCol;
         private CapsuleCollider2D _capCol;
-        private Rigidbody2D _rb;
+        private Rigidbody2D       _rb;
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _inputReceivable ??= GetComponent<IInputReceivable>();
-            _playerStatus ??= GetComponent<PlayerStatus>();
-            _groundChecker ??= GetComponent<GroundChecker>();
-            _pushObjChecker ??= GetComponent<PushObjChecker>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _pushObjChecker  ??= GetComponent<PushObjChecker>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _boxCol ??= GetComponent<BoxCollider2D>();
-            _capCol ??= GetComponent<CapsuleCollider2D>();
-            _rb ??= GetComponent<Rigidbody2D>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _capCol          ??= GetComponent<CapsuleCollider2D>();
+            _rb              ??= GetComponent<Rigidbody2D>();
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             AnimationReset();
             Dash();
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
         {
 
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
         // Playerのステート変更メソッド
         private void StateManager()
         {
-            // 移動状態に変更
+            // 移動状態に遷移
             if (_playerStatus._InputFlgX)
             {
                 if (_inputReceivable.MoveH() != 0 && _groundChecker.CheckIsGround(_boxCol))
@@ -67,7 +65,7 @@ namespace PlayerState
                 }
             }
 
-            // ジャンプ状態に変更
+            // ジャンプ状態に遷移
             if (_playerStatus._InputFlgY)
             {
                 if (_inputReceivable.JumpKey() && _groundChecker.CheckIsGround(_boxCol))
@@ -76,7 +74,7 @@ namespace PlayerState
                 }
             }
 
-            // 下降状態
+            // 下降状態に遷移
             if (_rb.velocity.y < -1f)
             {
                 ChangeStateEvent(PlayerStateEnum.FALL);
@@ -89,15 +87,16 @@ namespace PlayerState
         // Animation初期化メソッド
         private void AnimationReset()
         {
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"), false);
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Dash"),  false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
-            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"), false);
+            _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Push"),  false);
         }
 
         // Player移動メソッド
         private void Dash()
         {
             if (!_playerStatus._InputFlgX) return;
+
             // 移動の物理処理
             _rb.velocity = new Vector2(_inputReceivable.MoveH() * _playerStatus._Speed, _rb.velocity.y);
         }

@@ -11,17 +11,15 @@ namespace Player
         [SerializeField] private int _insideLayerNum;
         [SerializeField] private int _outsideLayerNum;
 
-
         private PlayerStatus _playerStatus;
-        private GameObject _childObj;
 
 
         private void Start()
         {
             _playerStatus = GetComponent<PlayerStatus>();
-            _childObj = transform.GetChild(0).gameObject;
         }
 
+        // ウィンドウの外中判定処理
         void IRenderingFlgSettable.SetRenderingFlg(bool val)
         {
             // Windowの中

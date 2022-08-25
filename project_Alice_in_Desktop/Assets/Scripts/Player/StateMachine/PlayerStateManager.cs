@@ -9,16 +9,13 @@ namespace PlayerState
     {
         // ステート変更する処理
 
-        [SerializeField]
-        private PlayerCore player;
-
         public PlayerStateEnum crrentPlayerState = PlayerStateEnum.START;
         private Dictionary<PlayerStateEnum, IPlayerState> playerStateDic = new Dictionary<PlayerStateEnum, IPlayerState>((int)PlayerStateEnum.COUNT);
 
 
         void Start()
         {
-            // IPlayerを配列で複数取得しているのはなぜ？
+            // IPlayerを配列で複数取得
             IPlayerState[] stateComponents = GetComponents<IPlayerState>();
 
             if (stateComponents.Length != (int)PlayerStateEnum.COUNT)
@@ -26,12 +23,10 @@ namespace PlayerState
                 Debug.LogError("Stateの数が違います");
             }
 
-            // ここでDictionaryの中身を設定してる
+            // Dictionaryの中身を設定
             for (int i = 0; i < stateComponents.Length; i++)
             {
                 IPlayerState state = stateComponents[i];
-                // クラスが配列になってる！？ええ！？
-                // いやクラスの変数ではないのか？
 
                 state.ChangeStateEvent += ChangeState;
 
@@ -48,29 +43,28 @@ namespace PlayerState
 
                 // 最後にここでPlayerのステートを代入
                 playerStateDic[state.StateType] = state;
-                //Debug.Log(state.StateType);
+
+
 
                 // playerStateDicってのが現在のPlayerのステートを保持してる
                 // Dictionaryの[Key]にvalueを代入している
-                // Key(名前みたいなもん？)をPlayerのステートEnumにしている
+                // KeyをPlayerのステートEnumにしている
                 // Valueは現在のPlayerのステートを入れてる
-
                 // playerStateDic[添え字] = 値をしている 
             }
         }
 
         void Update()
         {
-            playerStateDic[crrentPlayerState].OnUpdate(player);
+            playerStateDic[crrentPlayerState].OnUpdate();
         }
 
         private void FixedUpdate()
         {
-            playerStateDic[crrentPlayerState].OnFixedUpdate(player);
+            playerStateDic[crrentPlayerState].OnFixedUpdate();
         }
 
 
-        // 引数の中はEnum型にしてもいいっぽい！
         // ステート変更メソッド(event変数に代入するメソッド)
         public void ChangeState(PlayerStateEnum playerState)
         {
@@ -80,12 +74,12 @@ namespace PlayerState
                 return;
             }
 
-            playerStateDic[crrentPlayerState].OnEnd(playerState, player);
+            playerStateDic[crrentPlayerState].OnEnd(playerState);
 
             // 中身を変更
             crrentPlayerState = playerState;
 
-            playerStateDic[crrentPlayerState].OnStart(playerState, player);
+            playerStateDic[crrentPlayerState].OnStart(playerState);
         }
     }
 }

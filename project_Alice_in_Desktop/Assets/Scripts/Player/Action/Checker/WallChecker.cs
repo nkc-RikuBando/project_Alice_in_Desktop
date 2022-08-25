@@ -7,7 +7,7 @@ namespace MyUtility
 {
     public class WallChecker : MonoBehaviour
     {
-#pragma warning disable 649
+    #pragma warning disable 649
 
         // •Ç”»’èˆ—
 
@@ -15,6 +15,7 @@ namespace MyUtility
         [SerializeField, Tooltip("’n–Ê(•Ç)‚ÌƒŒƒCƒ„[")] private LayerMask groundLayer;
 
         private PlayerStatus _playerStatus;
+
 
         void Start()
         {

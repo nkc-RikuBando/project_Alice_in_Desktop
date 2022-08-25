@@ -10,7 +10,6 @@ namespace PlayerState
 {
     public class PlayerJumpState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのJump状態処理
 
         [SerializeField] private AudioClip _jumpSE;
@@ -21,22 +20,22 @@ namespace PlayerState
         private IInputReceivable _inputReceivable;
         private PlayerStatus 　　_playerStatus;
         private PlayerAnimation  _playerAnimation;
-        private GroundChecker _groundChecker;
+        private GroundChecker    _groundChecker;
 
-        private Rigidbody2D _rb;
+        private Rigidbody2D   _rb;
         private BoxCollider2D _boxCol;
-        private AudioSource _audioSource;
+        private AudioSource   _audioSource;
         
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _groundChecker ??= GetComponent<GroundChecker>();
-            _rb ??= GetComponent<Rigidbody2D>();
-            _boxCol ??= GetComponent<BoxCollider2D>();
-            _audioSource ??= GetComponent<AudioSource>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _rb              ??= GetComponent<Rigidbody2D>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _audioSource     ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
 
@@ -44,33 +43,33 @@ namespace PlayerState
             JumpAction();
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
         {
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
         private void StateManager()
         {
-            // 上昇状態
+            // 上昇状態に遷移
             if (_rb.velocity.y > 0.1f)
             {
                 ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
+            // 移動上昇状態に遷移
             if (_rb.velocity.y > 0.1f &&_inputReceivable.MoveH() != 0)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHJUMPUP);
             }
 
-            // 地面判定
+            // 地面判定 ＆ 着地状態に遷移
             if (_groundChecker.CheckIsGround(_boxCol))
             {
                 // 足折れバグ回避用アニメーター変数

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Connector.Inputer;
 using Gimmicks;
 
 namespace Player
@@ -9,6 +8,7 @@ namespace Player
     public class PlayerCollisionDetection : MonoBehaviour
     {
         // Player‚ªˆÚ“®‚·‚éƒMƒ~ƒbƒN‚É’Ç]‚·‚éˆ—
+
 
         // G‚ê‚½‚ç
         private void OnTriggerEnter2D(Collider2D collision)

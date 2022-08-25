@@ -4,28 +4,26 @@ using UnityEngine;
 using GameSystem;
 using Connector.Player;
 using Player;
-using Window;
 
 namespace Gimmicks
 {
     public class BigChangeMushroom : MonoBehaviour
     {
+    　　// 大きくなるキノコの処理
+
         [SerializeField] private AudioClip se;
 
-        private GameObject player;
+        private GameObject 　　　　　 player;
         private IPlayerStatusSentable iStatusSentable;
-        private PlayerAnimation playerAnimation;
-        private AudioSource audioSource;
+        private AudioSource           audioSource;
 
         private int sizeChangeCount = 0;
-        private bool isWindowTouch;
 
         void Start()
         {
-            player = GetGameObject.playerObject;
+            player 　　　　 = GetGameObject.playerObject;
             iStatusSentable = player.GetComponent<IPlayerStatusSentable>();
-            playerAnimation = player.GetComponent<PlayerAnimation>();
-            audioSource = GetComponent<AudioSource>();
+            audioSource　   = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -37,6 +35,7 @@ namespace Gimmicks
 
             if (player != null)
             {
+                // Playerのコライダーが二つついてる
                 sizeChangeCount++;
 
                 if (sizeChangeCount % 2 == 0)
