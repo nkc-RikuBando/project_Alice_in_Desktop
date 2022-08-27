@@ -154,7 +154,7 @@ namespace Gimmicks
         {
             // Rayの位置の調整値
             Vector3 horiRayOffset = new Vector3(-2, 1, 0);
-            Vector3 upRayOffset = new Vector3(-1, 2.1f, 0);
+            Vector3 upRayOffset = new Vector3(-1, 2.5f, 0);
 
             //  Rayの作成　　　　　　　Rayを飛ばす原点　　　Rayを飛ばす方向
             Ray2D horiRay = new Ray2D(transform.position + horiRayOffset, Vector3.right);
