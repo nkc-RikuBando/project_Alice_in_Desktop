@@ -23,7 +23,7 @@ public class FadeEffect : MonoBehaviour
 
     private string nextSceneName;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GetGameObject.playerObject;
@@ -32,14 +32,6 @@ public class FadeEffect : MonoBehaviour
         clearMaskRect = GameObject.Find("UnMask_Clear").GetComponent<RectTransform>();
         crushingMaskRect = GameObject.Find("UnMask_Crushing").GetComponent<RectTransform>();
         windowFade = GameObject.Find("Camera").GetComponent<WindowFade>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.LeftShift)) StartClearEffect();
-        //if (Input.GetKeyDown(KeyCode.LeftAlt)) StartCrushingEffect();
-        //if (Input.GetKeyDown(KeyCode.LeftControl)) StartOutsideEffect();
     }
 
     public void StartClearEffect()

@@ -9,12 +9,12 @@ namespace Player
         // 例外オブジェクト判定処理 (BoxColとTileMapColが例外Obj)
 
         private PlayerStatus _playerStatus;
-        private GameObject   _parentObj;
+        private GameObject _parentObj;
 
 
         void Start()
         {
-            _parentObj    = transform.parent.gameObject;
+            _parentObj = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
         }
 

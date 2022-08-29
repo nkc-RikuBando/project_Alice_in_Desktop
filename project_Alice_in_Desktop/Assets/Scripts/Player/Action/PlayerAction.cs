@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
 using Connector.Player;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -56,7 +57,7 @@ namespace Player
             if (_playerStatus._IsWindowTouching) return;
 
             // ‹ó’†ó‘Ô‚Å‚ÍƒAƒNƒVƒ‡ƒ““ü—Í‚ª‚Å‚«‚È‚¢
-            if (_rb.velocity.y != 0) _playerStatus._InputFlgAction = false;
+            if (_rb.velocity.y > 0.1f || _rb.velocity.y < -0.1f) _playerStatus._InputFlgAction = false;
             else _playerStatus._InputFlgAction = true;
         }
     }
