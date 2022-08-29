@@ -6,28 +6,30 @@ namespace Player
 {
     public class GimmickEvent : MonoBehaviour
     {
-        // キノコに触れるとPlayerの大きさが変わる処理
+        // ギミックによる影響管理処理
 
         [SerializeField] private AudioClip _pushSE;
 
         private PlayerStatus        _playerStatus;
         private PlayerStatusManager _statusManager;
-        private AudioSource _audioSource;
+        private AudioSource         _audioSource;
         
+
         void Start()
         {
-            _playerStatus = GetComponent<PlayerStatus>(); 
+            _playerStatus  = GetComponent<PlayerStatus>(); 
             _statusManager = GetComponent<PlayerStatusManager>();
-            _audioSource = GetComponent<AudioSource>();
+            _audioSource   = GetComponent<AudioSource>();
         }
 
 
-        // ↓Animationのイベントで呼ぶ関数
+        // -------- ↓Animationのイベントで呼ぶ関数 --------
 
+        // サイズ変更メソッド
         public void PlayerSizeChange() 
         {
             _playerStatus._SizeMag = _statusManager.GetSize();
-            transform.localScale = transform.localScale = new Vector3(_playerStatus.DirectionNum * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
+            transform.localScale   = transform.localScale = new Vector3(_playerStatus.DirectionNum * _playerStatus._SizeMag, 1f * _playerStatus._SizeMag, 1f);
         }
 
         // 入力可能メソッド

@@ -10,24 +10,23 @@ namespace PlayerState
 {
     public class PlayerDashJumpUpState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのDashJumpUp状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.DASHJUMPUP;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private PlayerStatus _playerStatus;
-        private PlayerAnimation _playerAnimation;
-        private GroundChecker _groundChecker;
-        private WallChecker _wallChecker;
+        private PlayerStatus     _playerStatus;
+        private PlayerAnimation  _playerAnimation;
+        private GroundChecker    _groundChecker;
+        private WallChecker      _wallChecker;
 
-        private Rigidbody2D _rb;
-        private BoxCollider2D _boxCol;
+        private Rigidbody2D       _rb;
+        private BoxCollider2D     _boxCol;
         private CapsuleCollider2D _capCol;
 
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
@@ -41,35 +40,36 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("JumpUp"), true);
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             Dash();
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
+        {
+        }
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
-        {
-        }
 
         // Playerステート変更メソッド
         private void StateManager()
         {
-            // 移動状態
+            // 上昇状態に遷移
             if (_inputReceivable.MoveH() == 0)
             {
                 ChangeStateEvent(PlayerStateEnum.JUMPUP);
             }
 
+            // 移動下降状態に遷移
             if (_rb.velocity.y < -1f)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHFALL);
             }
 
+            // 着地状態に遷移
             if (_groundChecker.CheckIsGround(_boxCol))
             {
                 ChangeStateEvent(PlayerStateEnum.LANDING);
@@ -77,6 +77,7 @@ namespace PlayerState
 
             if (_groundChecker.CheckIsGround(_boxCol)) return;
 
+            // 壁張り付き状態に遷移
             if (_wallChecker.CheckIsWall(_capCol))
             {
                 ChangeStateEvent(PlayerStateEnum.WALLSTICK);

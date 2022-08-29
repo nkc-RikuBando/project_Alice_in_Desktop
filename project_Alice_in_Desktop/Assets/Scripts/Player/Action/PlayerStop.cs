@@ -13,15 +13,14 @@ namespace Player
         [SerializeField] private GameObject _fadeObj;
         [SerializeField] private GameObject _postObj;
 
-        private FadeEffect _fadeEffect;
-        private WindowEffect _windowEffect;
-        private PlayerStatus _playerStatus;
-        private Rigidbody2D _rb;
-        private Animator _anim;
+        private FadeEffect        _fadeEffect;
+        private WindowEffect      _windowEffect;
+        private PlayerStatus      _playerStatus;
+        private Rigidbody2D       _rb;
+        private Animator          _anim;
         private CapsuleCollider2D _capCol;
-        private BoxCollider2D _boxCol;
-        private BoxCollider2D _childBoxCol;
-        private GameObject _childObj;
+        private BoxCollider2D     _boxCol;
+        private BoxCollider2D     _childBoxCol;
 
         // 現在のvelocityを保存する変数
         private Vector2 _currentVec;
@@ -31,7 +30,7 @@ namespace Player
         {
             _fadeEffect   = _fadeObj.GetComponent<FadeEffect>();
             _windowEffect = _postObj.GetComponent<WindowEffect>();
-            _childBoxCol = transform.GetChild(2).gameObject.GetComponent<BoxCollider2D>();
+            _childBoxCol  = transform.GetChild(2).gameObject.GetComponent<BoxCollider2D>();
 
             _playerStatus = GetComponent<PlayerStatus>();
             _rb           = GetComponent<Rigidbody2D>();
@@ -41,6 +40,7 @@ namespace Player
         }
         private void Update()
         {
+            // ウィンドウを触っている時
             if (_playerStatus._IsWindowTouching) _windowEffect.DeadCaution(_playerStatus._DeadColFlg);
         }
 
@@ -105,7 +105,6 @@ namespace Player
             // ウィンドウ操作Flg
             _playerStatus._IsWindowTouching = false;
 
-            _playerStatus._IsWall = false; 
 
             // Player死亡判定
             if (_playerStatus._DeadColFlg)

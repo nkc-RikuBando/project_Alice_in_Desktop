@@ -11,13 +11,13 @@ namespace PlayerState
         PlayerStateEnum StateType { get; }
 
 
-        void OnStart(PlayerStateEnum beforeState, PlayerCore player);
+        void OnStart(PlayerStateEnum beforeState);
 
-        void OnUpdate(PlayerCore player);
+        void OnUpdate();
 
-        void OnFixedUpdate(PlayerCore player);
+        void OnFixedUpdate();
 
-        void OnEnd(PlayerStateEnum nextState, PlayerCore player);
+        void OnEnd(PlayerStateEnum nextState);
 
     }
 }

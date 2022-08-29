@@ -10,7 +10,6 @@ namespace PlayerState
 {
     public class PlayerFallState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのFall状態処理
 
         public PlayerStateEnum StateType => PlayerStateEnum.FALL;
@@ -23,10 +22,11 @@ namespace PlayerState
 
         private BoxCollider2D _boxCol;
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _inputReceivable ??= GetComponent<IInputReceivable>();
-            _playerStatus ??= GetComponent<PlayerStatus>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
             _groundChecker   ??= GetComponent<GroundChecker>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
             _boxCol          ??= GetComponent<BoxCollider2D>();
@@ -39,28 +39,28 @@ namespace PlayerState
             else                          _playerStatus._GroundJudge = false; 
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
         {
         }
-
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
         // ステート変更メソッド
         private void StateManager()
         {
+            // 着地状態に遷移
             if (_groundChecker.CheckIsGround(_boxCol)) 
             {
                 ChangeStateEvent(PlayerStateEnum.LANDING);
             }
 
+            // 移動下降状態に遷移
             if (_inputReceivable.MoveH() != 0)
             {
                 ChangeStateEvent(PlayerStateEnum.DASHFALL);

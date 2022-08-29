@@ -10,7 +10,6 @@ namespace PlayerState
 {
     public class PlayerWallJumpState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのWallJump状態処理
 
         [SerializeField] private AudioClip _jumpSE;
@@ -19,33 +18,29 @@ namespace PlayerState
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
         private IInputReceivable _inputReceivable;
-        private PlayerStatus _playerStatus;
-        private PlayerAnimation _playerAnimation;
-        private GroundChecker _groundChecker;
-        private WallChecker _wallChecker;
+        private PlayerStatus     _playerStatus;
+        private PlayerAnimation  _playerAnimation;
+        private GroundChecker    _groundChecker;
 
 
-        private Rigidbody2D _rb;
+        private Rigidbody2D   _rb;
         private BoxCollider2D _boxCol;
-        private CapsuleCollider2D _capCol;
-        private AudioSource _audioSource;
+        private AudioSource   _audioSource;
 
 
         // 壁ジャンプ用の垂直な角度
         private const float VERTICAL_ANGLE = 90;
 
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
-            _playerStatus ??= GetComponent<PlayerStatus>();
+            _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();
-            _groundChecker ??= GetComponent<GroundChecker>();
-            _wallChecker ??= GetComponent<WallChecker>();
-            _rb         ??= GetComponent<Rigidbody2D>();
-            _boxCol ??= GetComponent<BoxCollider2D>();
-            _capCol ??= GetComponent<CapsuleCollider2D>();
-            _audioSource ??= GetComponent<AudioSource>();
+            _groundChecker   ??= GetComponent<GroundChecker>();
+            _rb              ??= GetComponent<Rigidbody2D>();
+            _boxCol          ??= GetComponent<BoxCollider2D>();
+            _audioSource     ??= GetComponent<AudioSource>();
 
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Jump"));
@@ -56,34 +51,35 @@ namespace PlayerState
             WallJumpAction();
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
+        {
+        }
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
-        {
-        }
 
         // Playerステート変更メソッド
         private void StateManager()
         {
+            // 壁張り付き移動ジャンプ状態に遷移
             if (_inputReceivable.MoveH() != 0) 
             {
                 ChangeStateEvent(PlayerStateEnum.DASHWALLJUMP);
             }
 
+            // 壁張り付き上昇状態に遷移
             if (_rb.velocity.y > 0.1f) 
             {
                 ChangeStateEvent(PlayerStateEnum.WALLJUMPUP);
             }
 
-            // 地面判定
+            // 地面判定 ＆ 着地状態に遷移
             if (_groundChecker.CheckIsGround(_boxCol))
             {
                 // 足折れバグ回避用アニメーター変数
@@ -100,7 +96,6 @@ namespace PlayerState
             _rb.velocity = Vector2.zero;
             _rb.AddForce(JumpAngle().normalized * _playerStatus._WallJumpPower);
 
-            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
             _audioSource.PlayOneShot(_jumpSE);
         }
 

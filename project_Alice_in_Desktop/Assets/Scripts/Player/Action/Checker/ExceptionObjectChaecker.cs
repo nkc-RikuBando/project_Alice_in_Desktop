@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Gimmicks;
 
 namespace Player
 {
     public class ExceptionObjectChaecker : MonoBehaviour
     {
-        // 例外オブジェクト処理
+        // 例外オブジェクト判定処理 (BoxColとTileMapColが例外Obj)
 
         private PlayerStatus _playerStatus;
         private GameObject _parentObj;
@@ -15,18 +14,15 @@ namespace Player
 
         void Start()
         {
-            _parentObj    = transform.parent.gameObject;
+            _parentObj = transform.parent.gameObject;
             _playerStatus = _parentObj.GetComponent<PlayerStatus>();
-        }
-
-        private void Update()
-        {
         }
 
 
         // 当たったら
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            // 外の場合リターン
             if (!_playerStatus._InsideFlg) return;
 
             // isTriggerではないオブジェクトだけ判定する
@@ -53,6 +49,7 @@ namespace Player
         // 離れたら
         private void OnTriggerExit2D(Collider2D collision)
         {
+            // 外の場合リターン
             if (!_playerStatus._InsideFlg) return;
 
             // isTriggerではないオブジェクトだけ判定する

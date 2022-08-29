@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
 using Connector.Player;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -31,34 +32,22 @@ namespace Player
         // Actionキーを押している間
         bool IPlayerAction.ActionKey()
         {
-            bool _inputFlg = true;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKey(); 
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKey();
         }
 
         // Actionキーを離した時
         bool IPlayerAction.ActionKeyUp()
         {
-            bool _inputFlg;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKeyUp();
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKeyUp();
         }
 
         // Actionキーを押した時
         bool IPlayerAction.ActionKey_Down()
         {
-            bool _inputFlg;
-
-            if (_playerStatus._InputFlgAction) _inputFlg = _inputReceivable.ActionKey_Down();
-            else                               _inputFlg = false;
-
-            return _inputFlg;
+            if (!_playerStatus._InputFlgAction) return false;
+            return _inputReceivable.ActionKey_Down();
         }
 
 
@@ -68,7 +57,7 @@ namespace Player
             if (_playerStatus._IsWindowTouching) return;
 
             // 空中状態ではアクション入力ができない
-            if (_rb.velocity.y != 0) _playerStatus._InputFlgAction = false;
+            if (_rb.velocity.y > 0.1f || _rb.velocity.y < -0.1f) _playerStatus._InputFlgAction = false;
             else _playerStatus._InputFlgAction = true;
         }
     }

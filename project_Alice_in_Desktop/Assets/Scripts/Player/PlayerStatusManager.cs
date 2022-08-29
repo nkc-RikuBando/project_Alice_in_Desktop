@@ -9,24 +9,27 @@ namespace Player
     {
         // ステータスを変更する処理
 
-        private PlayerStatus _playerStatus;
+        private PlayerStatus    _playerStatus;
         private PlayerAnimation _playerAnimation;
-        private Rigidbody2D _rb;
+        private Rigidbody2D 　  _rb;
 
         private float _defaultSpeed;
         private float _defaultJumpPower;
         private float _defaultWallJumpPower;
         private float _defaultWallJumpAngle;
 
+
+        // 現在のサイズ
         private float currentSize;
 
         private void Awake()
         {
-            _playerStatus = GetComponent<PlayerStatus>();
+            _playerStatus    = GetComponent<PlayerStatus>();
             _playerAnimation = GetComponent<PlayerAnimation>();
-            _rb = GetComponent <Rigidbody2D>();
-            _defaultSpeed = _playerStatus._Speed;
-            _defaultJumpPower = _playerStatus._JumpPower;
+            _rb              = GetComponent <Rigidbody2D>();
+
+            _defaultSpeed         = _playerStatus._Speed;
+            _defaultJumpPower     = _playerStatus._JumpPower;
             _defaultWallJumpPower = _playerStatus._WallJumpPower;
             _defaultWallJumpAngle = _playerStatus._WallJumpAngle;
         }
@@ -39,6 +42,7 @@ namespace Player
             _playerStatus._InputFlgY = flg;
             _playerStatus._InputFlgAction = flg;
 
+            // 移動停止
             if (!flg) _rb.velocity = Vector2.zero;
         }
 
@@ -47,29 +51,29 @@ namespace Player
             Vector3 _playerScale = transform.localScale;
 
             // 大きい→小さい or 小さい→大きい　=　通常
-            if (Mathf.Abs(_playerScale.x) < 1 && mag > 1) mag = 1;
+            if 　　 (Mathf.Abs(_playerScale.x) < 1 && mag > 1) mag = 1;
             else if (Mathf.Abs(_playerScale.x) > 1 && mag < 1) mag = 1;
 
             // サイズによってステータスを変更
             switch (mag)
             {
                 case 1:   // 通常
-                    _playerStatus._Speed = _defaultSpeed;
-                    _playerStatus._JumpPower = _defaultJumpPower;
+                    _playerStatus._Speed         = _defaultSpeed;
+                    _playerStatus._JumpPower     = _defaultJumpPower;
                     _playerStatus._WallJumpPower = _defaultWallJumpPower;
                     _playerStatus._WallJumpAngle = _defaultWallJumpAngle;
 
                     break;
                 case 0.5f:// 小さい時
-                    _playerStatus._Speed = _playerStatus._SmallStateSpeed;
-                    _playerStatus._JumpPower = _playerStatus._SmallStateJumpPower;
+                    _playerStatus._Speed         = _playerStatus._SmallStateSpeed;
+                    _playerStatus._JumpPower     = _playerStatus._SmallStateJumpPower;
                     _playerStatus._WallJumpPower = _playerStatus._SmallStateWallJumpPower;
                     _playerStatus._WallJumpAngle = _playerStatus._BigStateJumpAngle;
                     break;
 
                 case 1.5f:  // 大きい時
-                    _playerStatus._Speed = _playerStatus._BigStateSpeed;
-                    _playerStatus._JumpPower = _playerStatus._BigStateJumpPower;
+                    _playerStatus._Speed         = _playerStatus._BigStateSpeed;
+                    _playerStatus._JumpPower     = _playerStatus._BigStateJumpPower;
                     _playerStatus._WallJumpPower = _playerStatus._BigStateWallJumpPower;
                     _playerStatus._WallJumpAngle = _playerStatus._SmallStateJumpAngle;
                     break;
@@ -86,11 +90,13 @@ namespace Player
             return currentSize;
         }
 
+        // サイズが変わるAnimationを渡すインタフェース
         void IPlayerStatusSentable.PlayerBiggerAnimation()
         {
             _playerAnimation.AnimationTriggerChange(Animator.StringToHash("Bigger"));
         }
 
+        // ウィンドウを操作しているかフラグを渡すインタフェース
         bool IPlayerStatusSentable.GetIsWindowTouch()
         {
             return _playerStatus._IsWindowTouching;

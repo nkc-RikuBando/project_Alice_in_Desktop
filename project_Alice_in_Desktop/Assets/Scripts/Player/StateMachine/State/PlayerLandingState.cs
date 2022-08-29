@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Connector.Inputer;
 using Player;
-using MyUtility;
 
 namespace PlayerState
 {
     public class PlayerLandingState : MonoBehaviour, IPlayerState
     {
-        // Playerが実装するの！？
         // PlayerのLanding状態処理
 
         [SerializeField] private AudioClip _landingSE;
@@ -18,13 +16,14 @@ namespace PlayerState
         public PlayerStateEnum StateType => PlayerStateEnum.LANDING;
         public event Action<PlayerStateEnum> ChangeStateEvent;
 
-        private PlayerAnimation _playerAnimation;
-        private PlayerStatus _playerStatus;
+        private PlayerAnimation  _playerAnimation;
+        private PlayerStatus     _playerStatus;
         private IInputReceivable _inputReceivable;
-        private Rigidbody2D _rb;
-        private AudioSource _audioSource;
+        private Rigidbody2D      _rb;
+        private AudioSource      _audioSource;
 
-        void IPlayerState.OnStart(PlayerStateEnum beforeState, PlayerCore player)
+
+        void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
             _playerAnimation ??= GetComponent<PlayerAnimation>();
             _playerStatus    ??= GetComponent<PlayerStatus>();
@@ -39,24 +38,24 @@ namespace PlayerState
             _audioSource.PlayOneShot(_landingSE);
         }
 
-        void IPlayerState.OnUpdate(PlayerCore player)
+        void IPlayerState.OnUpdate()
         {
-            //Debug.Log(StateType);
             Dash();
             StateManager();
         }
 
-        void IPlayerState.OnFixedUpdate(PlayerCore player)
+        void IPlayerState.OnFixedUpdate()
+        {
+        }
+        void IPlayerState.OnEnd(PlayerStateEnum nextState)
         {
         }
 
-        void IPlayerState.OnEnd(PlayerStateEnum nextState, PlayerCore player)
-        {
-        }
 
         // Playerのステート変更メソッド
         private void StateManager()
         {
+            // 待機状態に遷移
             ChangeStateEvent(PlayerStateEnum.STAY);
         }
 
