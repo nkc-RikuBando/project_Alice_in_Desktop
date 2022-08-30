@@ -47,8 +47,9 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), true);
             _audioSource.PlayOneShot(_stickSE);
 
-            _playerStatus._GroundJudge Å@= false;
-            _childGroundCheckCol.enabled = false;
+            _playerStatus._GroundJudge Å@ = false;
+            _childGroundCheckCol.enabled  = false;
+            _playerStatus._InputFlgAction = false;
         }
 
         void IPlayerState.OnUpdate()
@@ -72,7 +73,7 @@ namespace PlayerState
             if (_playerStatus._IsWindowTouching) return;
 
             // ï«í£ÇËïtÇ´â∫ç~èÛë‘Ç…ëJà⁄
-            if (!_wallChecker.CheckIsWall(_capCol)) 
+            if (!_wallChecker.CheckIsWall(_capCol))
             {
                 _rb.gravityScale = _playerStatus._Gravity;
                 _childWallCheckCol.enabled = false;
