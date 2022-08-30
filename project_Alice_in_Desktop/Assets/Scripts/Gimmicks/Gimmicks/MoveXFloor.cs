@@ -16,10 +16,13 @@ namespace Gimmicks
         private Vector3 rightDir = Vector3.right;　// 右に動く
         private Vector3 leftDir = Vector3.left;    // 左に動く
         [Range(0, 10)]
-        [SerializeField] private float moveSpeed = 3f; // 動く速度
+        [SerializeField] private float moveSpeed = 3.0f; // 動く速度
+        [Range(0, 10)]
+        [SerializeField] private float moveStopTime = 2.0f;
 
         [Header("上下移動に変更")]
         [SerializeField] private bool UpDownFlg;
+
         private float PosX;                        // X 座標の保存変数
         private Vector3 upDir = Vector3.up;        // 上に動く
         private Vector3 downDir = Vector3.down;    // 下に動く
@@ -33,18 +36,18 @@ namespace Gimmicks
             {
                 // 自身の Y座標を取得
                 PosY = transform.position.y;
-                // 左の物体のY座標を自身のY座標と一緒にする 
+                // 左の物体のY座標を自身のY座標と一緒にする
                 startPos.transform.position = new Vector3(startPos.transform.position.x, PosY, 0);
-                // 右の物体のY座標を自身のY座標と一緒にする 
+                // 右の物体のY座標を自身のY座標と一緒にする
                 endPos.transform.position = new Vector3(endPos.transform.position.x, PosY, 0);
             }
             else
             {
                 // 自身の X座標を取得
                 PosX = transform.position.x;
-                // 下の物体のX座標を自身のX座標と一緒にする 
+                // 下の物体のX座標を自身のX座標と一緒にする
                 startPos.transform.position = new Vector3(PosX, startPos.transform.position.y , 0);
-                // 上の物体のX座標を自身のX座標と一緒にする 
+                // 上の物体のX座標を自身のX座標と一緒にする
                 endPos.transform.position = new Vector3(PosX,endPos.transform.position.y, 0);
             }
         }
@@ -57,10 +60,9 @@ namespace Gimmicks
 
             //Move();
             if (UpDownFlg == false)
-            {
+            {   
                 if (IsRightMove())
                     transform.position += rightDir * Time.deltaTime * moveSpeed;
-
                 if (IsLeftMove())
                     transform.position += leftDir * Time.deltaTime * moveSpeed;
             }
@@ -76,8 +78,20 @@ namespace Gimmicks
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == startPos) rightFlg = true;
-            if (collision.gameObject == endPos) rightFlg = false;
+            if (collision.gameObject == startPos)
+            {
+                rightFlg = true;
+                rightDir = Vector3.zero;
+                upDir = Vector3.zero;
+                StartCoroutine(RightMoveUpMoveStop());
+            }
+            if (collision.gameObject == endPos)
+            {
+                rightFlg = false;
+                leftDir = Vector3.zero;
+                downDir = Vector3.zero;
+                StartCoroutine(LeftMoveDownMoveStop());
+            }
         }
 
         /// <summary>
@@ -120,6 +134,19 @@ namespace Gimmicks
         {
             // ウィンドウ離した時
             moveFlg = true;
+        }
+
+        IEnumerator RightMoveUpMoveStop()
+        {
+            yield return new WaitForSeconds(2.0f);
+            rightDir = Vector3.right;
+            upDir = Vector3.up;
+        }
+        IEnumerator LeftMoveDownMoveStop()
+        {
+            yield return new WaitForSeconds(2.0f);
+            leftDir = Vector3.left;
+            downDir = Vector3.down;
         }
     }
 }
