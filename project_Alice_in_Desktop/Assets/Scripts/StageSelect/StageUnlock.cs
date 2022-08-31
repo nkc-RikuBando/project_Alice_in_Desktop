@@ -31,6 +31,8 @@ namespace StageSelect
         [SerializeField] private bool debugFlg = false;
         private int f12Count = 0;
 
+        [SerializeField] private List<GameObject> trialStageFolderList;
+
         private void Awake()
         {
 
@@ -123,16 +125,23 @@ namespace StageSelect
             // ワールド
             worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
 
+            // 体験版用
+            worldFolderPanels[4].GetComponent<Animator>().SetBool("Opened", true);
+
             if (stageManagerSingleton.GetClearStage() >= 0)
             {
                 if (openedWorldCount < 1)
                 {
                     openedWorldCount = 1;
                     worldFolderPanels[0].GetComponent<Animator>().SetTrigger("UnLock");
+                    // 体験版用
+                    worldFolderPanels[4].GetComponent<Animator>().SetTrigger("UnLock");
+
                 }
                 else
                 {
                     worldFolderPanels[0].GetComponent<Animator>().SetBool("Opened", true);
+                    worldFolderPanels[4].GetComponent<Animator>().SetBool("Opened", true);
                 }
             }
 
@@ -182,6 +191,11 @@ namespace StageSelect
             for (int i = 0; i < stageManagerSingleton.GetClearStage(); ++i)
             {
                 folderPanel[i].GetComponent<Animator>().SetBool("Opened", true);
+            }
+
+            for (int i = 0; i < trialStageFolderList.Count; i++)
+            {
+                trialStageFolderList[i].GetComponent<Animator>().SetBool("Opened", true);
             }
 
             // 新しく解放されたステージ     
