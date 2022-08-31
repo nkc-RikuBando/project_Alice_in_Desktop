@@ -28,7 +28,6 @@ namespace PlayerState
 
         void IPlayerState.OnStart(PlayerStateEnum beforeState)
         {
-            // Œã‚Å‚â‚é
             _playerStatus    ??= GetComponent<PlayerStatus>();
             _inputReceivable ??= GetComponent<IInputReceivable>();
             _playerAnimation ??= GetComponent<PlayerAnimation>();

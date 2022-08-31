@@ -34,6 +34,7 @@ namespace PlayerState
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Stick"), false);
             _playerAnimation.AnimationBoolenChange(Animator.StringToHash("Fall"), true);
 
+
             // ウィンドウを操作している場合は入力を受けつけない
             if (!_playerStatus._IsWindowTouching) _playerStatus._InputFlgX = true;
 

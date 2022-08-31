@@ -96,7 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPos: {fileID: 4591542088151316943, guid: e635654ceca8719409a8b0d6febb5cae, type: 3}
   endPos: {fileID: 6927150334179451509, guid: b64e5a1ca236b2d4aad8ec1da8d7271d, type: 3}
-  moveSpeed: 2
+  moveSpeed: 4
+  moveStopTime: 1.5
   UpDownFlg: 0
 --- !u!114 &167890004824227614
 MonoBehaviour:
@@ -132,15 +133,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 661247021689398520, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0
+      value: -0.0000019073486
       objectReference: {fileID: 0}
     - target: {fileID: 661247021689398520, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -0.0012349188
+      value: -0.001235038
       objectReference: {fileID: 0}
     - target: {fileID: 989407801836110082, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_MaskInteraction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280844610251275830, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
+      propertyPath: m_Bounds.m_Center.y
+      value: 0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 2037955324468129794, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_RootOrder
@@ -192,11 +197,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3835363394811163242, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.00000071525574
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 5427995525710587054, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: 0.00000071525574
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 5902783182515987476, guid: 061e0e0a1065bf546917e4d485eb73de, type: 3}
       propertyPath: m_MaskInteraction

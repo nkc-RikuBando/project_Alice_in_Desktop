@@ -58,7 +58,7 @@ namespace Player
 
             // ‹ó’†ó‘Ô‚Å‚ÍƒAƒNƒVƒ‡ƒ““ü—Í‚ª‚Å‚«‚È‚¢
             if (_rb.velocity.y > 0.1f || _rb.velocity.y < -0.1f) _playerStatus._InputFlgAction = false;
-            else _playerStatus._InputFlgAction = true;
+            else if(_playerStatus._GroundJudge) _playerStatus._InputFlgAction = true;
         }
     }
 }
